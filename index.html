@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" data-lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -180,6 +180,15 @@
     }
 
     .theme-toggle:hover { background: var(--surface2); }
+
+    .lang-btn {
+      height: 36px; padding: 0 12px; border-radius: 8px;
+      border: 1px solid var(--border2); background: var(--surface);
+      cursor: pointer; display: flex; align-items: center; gap: 5px;
+      font-size: 0.78rem; font-weight: 600; color: var(--text-2);
+      font-family: var(--font); transition: all var(--transition);
+    }
+    .lang-btn:hover { background: var(--surface2); color: var(--text); }
 
     .icon-sun, .icon-moon { line-height: 1; }
     [data-theme="dark"] .icon-sun  { display: none; }
@@ -901,14 +910,15 @@
   <nav>
     <div class="nav-logo">Lucas<span>.</span>dev</div>
     <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#about" data-i18n="nav.about">About</a></li>
+      <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+      <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+      <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+      <li><a href="#education" data-i18n="nav.education">Education</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
     </ul>
     <div class="nav-right">
+      <button id="lang-btn" class="lang-btn" onclick="toggleLang()" aria-label="Toggle language">🇧🇷 PT</button>
       <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
         <span class="icon-sun">☀️</span>
         <span class="icon-moon">🌙</span>
@@ -923,12 +933,12 @@
       <div class="hero-inner">
         <div class="hero-badge">
           <span class="dot"></span>
-          Available for senior &amp; principal QA roles
+          <span data-i18n="hero.badge">Available for senior &amp; principal QA roles</span>
         </div>
 
         <h1>Lucas Ferreira</h1>
 
-        <p class="hero-role">
+        <p class="hero-role" data-i18n="hero.role">
           Senior QA Engineer · <strong>10+ years</strong> building automation at scale ·
           Fintech &amp; KYC specialist
         </p>
@@ -936,34 +946,38 @@
         <div class="hero-stats">
           <div class="stat">
             <div class="stat-num">10<span>+</span></div>
-            <div class="stat-label">Years in QA</div>
+            <div class="stat-label" data-i18n="hero.stat1">Years in QA</div>
           </div>
           <div class="stat">
             <div class="stat-num">86<span>%</span></div>
-            <div class="stat-label">Test time reduction</div>
+            <div class="stat-label" data-i18n="hero.stat2">Test time reduction</div>
           </div>
           <div class="stat">
             <div class="stat-num">27</div>
-            <div class="stat-label">Sprints with custom metrics</div>
+            <div class="stat-label" data-i18n="hero.stat3">Sprints with custom metrics</div>
           </div>
           <div class="stat">
             <div class="stat-num">373</div>
-            <div class="stat-label">Test cases tracked</div>
+            <div class="stat-label" data-i18n="hero.stat4">Test cases tracked</div>
           </div>
         </div>
 
         <div class="hero-cta">
           <a class="btn-primary" href="https://linkedin.com/in/lflucasferreira" target="_blank">
-            Connect on LinkedIn →
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            <span data-i18n="cta.linkedin">LinkedIn</span>
           </a>
           <a class="btn-secondary" href="https://github.com/LFLucasFerreira" target="_blank">
-            View GitHub
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            <span data-i18n="cta.github">GitHub</span>
           </a>
           <a class="btn-secondary" href="mailto:lucasferreira@outlook.com.br">
-            Send Email
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <span data-i18n="cta.email">Email</span>
           </a>
           <a class="btn-secondary" href="performance.html">
-            Performance & Growth →
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+            <span data-i18n="cta.perf">Performance &amp; Growth</span>
           </a>
         </div>
       </div>
@@ -976,25 +990,25 @@
 
     <!-- ── About ── -->
     <section class="section" id="about">
-      <div class="section-label">01 · About</div>
-      <h2 class="section-title">Who I am</h2>
+      <div class="section-label" data-i18n="about.label">01 · About</div>
+      <h2 class="section-title" data-i18n="about.title">Who I am</h2>
 
       <div class="about-grid">
         <div class="about-text">
-          <p>
+          <p data-i18n="about.p1">
             I'm a Senior QA Engineer with <strong>10+ years</strong> building test automation strategies
             from the ground up — across fintech, education, and enterprise software.
             Currently I own the full QA strategy for <strong>KYC, customer onboarding, and identity
             verification</strong> flows, designing frameworks that span E2E, component, API, mobile,
             and performance layers.
           </p>
-          <p>
+          <p data-i18n="about.p2">
             I care deeply about quality culture: I founded <strong>QA School</strong> in 2019 to train
             early-career QA professionals, and I created three custom QA metrics — <strong>PPI, SRM,
             and RBD</strong> — that I've applied across 27 sprints to measure real-world quality trends
             beyond simple pass/fail rates.
           </p>
-          <p>
+          <p data-i18n="about.p3">
             I work remotely in English, collaborating across <strong>Brazil, Canada, and Ukraine</strong>,
             and I hold a C1 Advanced English certification. Currently pursuing two Post-Graduate
             Diplomas at CESAR School: DevOps and Agile Testing.
@@ -1005,36 +1019,36 @@
           <div class="about-card">
             <div class="card-icon">🎓</div>
             <div>
-              <h4>QA School Founder</h4>
-              <p>Training initiative for early-career QA professionals since 2019</p>
+              <h4 data-i18n="about.c1.h">QA School Founder</h4>
+              <p data-i18n="about.c1.p">Training initiative for early-career QA professionals since 2019</p>
             </div>
           </div>
           <div class="about-card">
             <div class="card-icon">📊</div>
             <div>
-              <h4>Custom QA Metrics Author</h4>
-              <p>Created PPI, SRM &amp; RBD — tracked across 27 sprints, 361 tickets</p>
+              <h4 data-i18n="about.c2.h">Custom QA Metrics Author</h4>
+              <p data-i18n="about.c2.p">Created PPI, SRM &amp; RBD — tracked across 27 sprints, 361 tickets</p>
             </div>
           </div>
           <div class="about-card">
             <div class="card-icon">🌍</div>
             <div>
-              <h4>International Experience</h4>
-              <p>Co-op at Dalhousie University, Canada · C1 English · Remote-first</p>
+              <h4 data-i18n="about.c3.h">International Experience</h4>
+              <p data-i18n="about.c3.p">Co-op at Dalhousie University, Canada · C1 English · Remote-first</p>
             </div>
           </div>
           <div class="about-card">
             <div class="card-icon">🏆</div>
             <div>
-              <h4>Award-Winning Delivery</h4>
-              <p>Solid Performance Award at Questrade · 1st place MV Hackathon 2018</p>
+              <h4 data-i18n="about.c4.h">Award-Winning Delivery</h4>
+              <p data-i18n="about.c4.p">Solid Performance Award at Questrade · 1st place MV Hackathon 2018</p>
             </div>
           </div>
           <a href="performance.html" class="about-card" style="text-decoration:none; border-color: rgba(108,140,255,0.3); background: linear-gradient(135deg, rgba(108,140,255,0.06) 0%, rgba(167,139,250,0.04) 100%);">
             <div class="card-icon">📈</div>
             <div>
-              <h4 style="color: var(--accent);">Performance & Growth →</h4>
-              <p>4 years of peer feedback, strengths, and what I'm actively working on</p>
+              <h4 style="color: var(--accent);" data-i18n="about.c5.h">Performance &amp; Growth →</h4>
+              <p data-i18n="about.c5.p">4 years of peer feedback, strengths, and what I'm actively working on</p>
             </div>
           </a>
         </div>
@@ -1043,12 +1057,12 @@
 
     <!-- ── Skills ── -->
     <section class="section" id="skills">
-      <div class="section-label">02 · Skills</div>
-      <h2 class="section-title">Tech stack</h2>
+      <div class="section-label" data-i18n="skills.label">02 · Skills</div>
+      <h2 class="section-title" data-i18n="skills.title">Tech stack</h2>
 
       <div class="skills-container">
         <div class="skill-row">
-          <div class="skill-row-label">Web &amp; Mobile Automation</div>
+          <div class="skill-row-label" data-i18n="skills.r1">Web &amp; Mobile Automation</div>
           <div class="skill-chips">
             <span class="chip primary">Cypress</span>
             <span class="chip primary">Playwright</span>
@@ -1062,7 +1076,7 @@
         </div>
 
         <div class="skill-row">
-          <div class="skill-row-label">API &amp; Performance</div>
+          <div class="skill-row-label" data-i18n="skills.r2">API &amp; Performance</div>
           <div class="skill-chips">
             <span class="chip primary">k6</span>
             <span class="chip primary">Postman</span>
@@ -1073,7 +1087,7 @@
         </div>
 
         <div class="skill-row">
-          <div class="skill-row-label">Languages</div>
+          <div class="skill-row-label" data-i18n="skills.r3">Languages</div>
           <div class="skill-chips">
             <span class="chip primary">TypeScript</span>
             <span class="chip primary">JavaScript</span>
@@ -1085,7 +1099,7 @@
         </div>
 
         <div class="skill-row">
-          <div class="skill-row-label">CI/CD &amp; Cloud</div>
+          <div class="skill-row-label" data-i18n="skills.r4">CI/CD &amp; Cloud</div>
           <div class="skill-chips">
             <span class="chip primary">GitLab CI</span>
             <span class="chip">GitHub Actions</span>
@@ -1098,7 +1112,7 @@
         </div>
 
         <div class="skill-row">
-          <div class="skill-row-label">Observability &amp; Data</div>
+          <div class="skill-row-label" data-i18n="skills.r5">Observability &amp; Data</div>
           <div class="skill-chips">
             <span class="chip">Datadog</span>
             <span class="chip">Grafana</span>
@@ -1111,7 +1125,7 @@
         </div>
 
         <div class="skill-row">
-          <div class="skill-row-label">Methodology &amp; Tooling</div>
+          <div class="skill-row-label" data-i18n="skills.r6">Methodology &amp; Tooling</div>
           <div class="skill-chips">
             <span class="chip">BDD / Cucumber</span>
             <span class="chip">Shift-Left</span>
@@ -1127,8 +1141,8 @@
 
     <!-- ── Experience ── -->
     <section class="section" id="experience">
-      <div class="section-label">03 · Experience</div>
-      <h2 class="section-title">Where I've worked</h2>
+      <div class="section-label" data-i18n="exp.label">03 · Experience</div>
+      <h2 class="section-title" data-i18n="exp.title">Where I've worked</h2>
 
       <div class="timeline">
 
@@ -1136,8 +1150,8 @@
           <div class="job-dot"></div>
           <div class="job-content">
             <div class="job-meta">
-              <div class="job-title">Senior QA Engineer</div>
-              <span class="job-period">May 2022 — present</span>
+              <div class="job-title" data-i18n="exp.j1.title">Senior QA Engineer</div>
+              <span class="job-period" data-i18n="exp.j1.period">May 2022 — present</span>
             </div>
             <div class="job-company-row">
               <span class="job-company">Questrade Financial Group</span>
@@ -1159,8 +1173,8 @@
           <div class="job-dot"></div>
           <div class="job-content">
             <div class="job-meta">
-              <div class="job-title">Mid-Level → Senior Test Engineer</div>
-              <span class="job-period">Oct 2020 — May 2022</span>
+              <div class="job-title" data-i18n="exp.j2.title">Mid-Level → Senior Test Engineer</div>
+              <span class="job-period" data-i18n="exp.j2.period">Oct 2020 — May 2022</span>
             </div>
             <div class="job-company-row">
               <span class="job-company">CI&T</span>
@@ -1179,8 +1193,8 @@
           <div class="job-dot"></div>
           <div class="job-content">
             <div class="job-meta">
-              <div class="job-title">Junior Test Engineer</div>
-              <span class="job-period">May 2019 — Oct 2020</span>
+              <div class="job-title" data-i18n="exp.j3.title">Junior Test Engineer</div>
+              <span class="job-period" data-i18n="exp.j3.period">May 2019 — Oct 2020</span>
             </div>
             <div class="job-company-row">
               <span class="job-company">Stefanini Brasil</span>
@@ -1197,8 +1211,8 @@
           <div class="job-dot"></div>
           <div class="job-content">
             <div class="job-meta">
-              <div class="job-title">Support Analyst → Junior QA Engineer</div>
-              <span class="job-period">Sep 2015 — May 2019</span>
+              <div class="job-title" data-i18n="exp.j4.title">Support Analyst → Junior QA Engineer</div>
+              <span class="job-period" data-i18n="exp.j4.period">Sep 2015 — May 2019</span>
             </div>
             <div class="job-company-row">
               <span class="job-company">Qualinfo Tecnologia para Educação</span>
@@ -1215,8 +1229,8 @@
           <div class="job-dot"></div>
           <div class="job-content">
             <div class="job-meta">
-              <div class="job-title">Test Analyst — Co-op</div>
-              <span class="job-period">May 2014 — Sep 2014</span>
+              <div class="job-title" data-i18n="exp.j5.title">Test Analyst — Co-op</div>
+              <span class="job-period" data-i18n="exp.j5.period">May 2014 — Sep 2014</span>
             </div>
             <div class="job-company-row">
               <span class="job-company">SolutionInc · Halifax, NS, Canada</span>
@@ -1233,8 +1247,8 @@
 
     <!-- ── Projects ── -->
     <section class="section" id="projects">
-      <div class="section-label">04 · Projects</div>
-      <h2 class="section-title">Notable work</h2>
+      <div class="section-label" data-i18n="proj.label">04 · Projects</div>
+      <h2 class="section-title" data-i18n="proj.title">Notable work</h2>
 
       <div class="projects-grid">
 
@@ -1329,8 +1343,8 @@
 
     <!-- ── Achievements ── -->
     <section class="section" id="achievements">
-      <div class="section-label">05 · Achievements</div>
-      <h2 class="section-title">Recognition</h2>
+      <div class="section-label" data-i18n="ach.label">05 · Achievements</div>
+      <h2 class="section-title" data-i18n="ach.title">Recognition</h2>
 
       <div class="achievements-list">
 
@@ -1371,8 +1385,8 @@
 
     <!-- ── Education ── -->
     <section class="section" id="education">
-      <div class="section-label">06 · Education</div>
-      <h2 class="section-title">Academic background</h2>
+      <div class="section-label" data-i18n="edu.label">06 · Education</div>
+      <h2 class="section-title" data-i18n="edu.title">Academic background</h2>
 
       <div class="edu-grid">
 
@@ -1433,17 +1447,17 @@
 
     <!-- ── Contact ── -->
     <section class="section" id="contact">
-      <div class="section-label">07 · Contact</div>
-      <h2 class="section-title">Let's connect</h2>
+      <div class="section-label" data-i18n="contact.label">07 · Contact</div>
+      <h2 class="section-title" data-i18n="contact.title">Let's connect</h2>
 
       <div class="contact-wrapper">
         <div class="contact-intro">
-          <p>
+          <p data-i18n="contact.p1">
             I'm open to conversations about <strong>Senior and Principal QA Engineer</strong> opportunities,
             consulting, or just talking shop about test automation strategy, fintech quality, or QA culture.
           </p>
           <br />
-          <p>
+          <p data-i18n="contact.p2">
             Best way to reach me is via LinkedIn or email. I'm based in
             <strong>Recife, Brazil</strong> and work fully remote.
           </p>
@@ -1481,22 +1495,117 @@
   </div><!-- /wrapper -->
 
   <footer>
-    Lucas Ferreira · Senior QA Engineer · Built with HTML &amp; CSS · Hosted on GitHub Pages
+    <span data-i18n="footer.text">Lucas Ferreira · Senior QA Engineer · Built with HTML &amp; CSS · Hosted on GitHub Pages</span>
   </footer>
 
   <script>
+    const translations = {
+      en: {
+        'nav.about': 'About', 'nav.skills': 'Skills', 'nav.experience': 'Experience',
+        'nav.projects': 'Projects', 'nav.education': 'Education', 'nav.contact': 'Contact',
+        'hero.badge': 'Available for senior &amp; principal QA roles',
+        'hero.role': 'Senior QA Engineer · <strong>10+ years</strong> building automation at scale · Fintech &amp; KYC specialist',
+        'hero.stat1': 'Years in QA', 'hero.stat2': 'Test time reduction',
+        'hero.stat3': 'Sprints with custom metrics', 'hero.stat4': 'Test cases tracked',
+        'cta.linkedin': 'LinkedIn', 'cta.github': 'GitHub', 'cta.email': 'Email', 'cta.perf': 'Performance &amp; Growth',
+        'about.label': '01 · About', 'about.title': 'Who I am',
+        'about.p1': "I'm a Senior QA Engineer with <strong>10+ years</strong> building test automation strategies from the ground up — across fintech, education, and enterprise software. Currently I own the full QA strategy for <strong>KYC, customer onboarding, and identity verification</strong> flows, designing frameworks that span E2E, component, API, mobile, and performance layers.",
+        'about.p2': 'I care deeply about quality culture: I founded <strong>QA School</strong> in 2019 to train early-career QA professionals, and I created three custom QA metrics — <strong>PPI, SRM, and RBD</strong> — that I\'ve applied across 27 sprints to measure real-world quality trends beyond simple pass/fail rates.',
+        'about.p3': 'I work remotely in English, collaborating across <strong>Brazil, Canada, and Ukraine</strong>, and I hold a C1 Advanced English certification. Currently pursuing two Post-Graduate Diplomas at CESAR School: DevOps and Agile Testing.',
+        'about.c1.h': 'QA School Founder', 'about.c1.p': 'Training initiative for early-career QA professionals since 2019',
+        'about.c2.h': 'Custom QA Metrics Author', 'about.c2.p': 'Created PPI, SRM &amp; RBD — tracked across 27 sprints, 361 tickets',
+        'about.c3.h': 'International Experience', 'about.c3.p': 'Co-op at Dalhousie University, Canada · C1 English · Remote-first',
+        'about.c4.h': 'Award-Winning Delivery', 'about.c4.p': 'Solid Performance Award at Questrade · 1st place MV Hackathon 2018',
+        'about.c5.h': 'Performance &amp; Growth →', 'about.c5.p': "4 years of peer feedback, strengths, and what I'm actively working on",
+        'skills.label': '02 · Skills', 'skills.title': 'Tech stack',
+        'skills.r1': 'Web &amp; Mobile Automation', 'skills.r2': 'API &amp; Performance',
+        'skills.r3': 'Languages', 'skills.r4': 'CI/CD &amp; Cloud',
+        'skills.r5': 'Observability &amp; Data', 'skills.r6': 'Methodology &amp; Tooling',
+        'exp.label': '03 · Experience', 'exp.title': "Where I've worked",
+        'exp.j1.title': 'Senior QA Engineer', 'exp.j1.period': 'May 2022 — present',
+        'exp.j2.title': 'Mid-Level → Senior Test Engineer', 'exp.j2.period': 'Oct 2020 — May 2022',
+        'exp.j3.title': 'Junior Test Engineer', 'exp.j3.period': 'May 2019 — Oct 2020',
+        'exp.j4.title': 'Support Analyst → Junior QA Engineer', 'exp.j4.period': 'Sep 2015 — May 2019',
+        'exp.j5.title': 'Test Analyst — Co-op', 'exp.j5.period': 'May 2014 — Sep 2014',
+        'proj.label': '04 · Projects', 'proj.title': 'Notable work',
+        'ach.label': '05 · Achievements', 'ach.title': 'Recognition',
+        'edu.label': '06 · Education', 'edu.title': 'Academic background',
+        'contact.label': '07 · Contact', 'contact.title': "Let's connect",
+        'contact.p1': 'I\'m open to conversations about <strong>Senior and Principal QA Engineer</strong> opportunities, consulting, or just talking shop about test automation strategy, fintech quality, or QA culture.',
+        'contact.p2': 'Best way to reach me is via LinkedIn or email. I\'m based in <strong>Recife, Brazil</strong> and work fully remote.',
+        'footer.text': 'Lucas Ferreira · Senior QA Engineer · Built with HTML &amp; CSS · Hosted on GitHub Pages'
+      },
+      pt: {
+        'nav.about': 'Sobre', 'nav.skills': 'Habilidades', 'nav.experience': 'Experiência',
+        'nav.projects': 'Projetos', 'nav.education': 'Formação', 'nav.contact': 'Contato',
+        'hero.badge': 'Disponível para vagas de QA Sênior e Principal',
+        'hero.role': 'Senior QA Engineer · <strong>10+ anos</strong> construindo automação em escala · Especialista em Fintech &amp; KYC',
+        'hero.stat1': 'Anos em QA', 'hero.stat2': 'Redução no tempo de testes',
+        'hero.stat3': 'Sprints com métricas customizadas', 'hero.stat4': 'Casos de teste rastreados',
+        'cta.linkedin': 'LinkedIn', 'cta.github': 'GitHub', 'cta.email': 'E-mail', 'cta.perf': 'Desempenho &amp; Crescimento',
+        'about.label': '01 · Sobre', 'about.title': 'Quem sou eu',
+        'about.p1': 'Sou um Senior QA Engineer com <strong>mais de 10 anos</strong> construindo estratégias de automação de testes do zero — em fintech, educação e software empresarial. Atualmente sou responsável pela estratégia completa de QA para os fluxos de <strong>KYC, onboarding de clientes e verificação de identidade</strong>, desenhando frameworks que abrangem camadas de E2E, componente, API, mobile e performance.',
+        'about.p2': 'Me importo profundamente com a cultura de qualidade: fundei o <strong>QA School</strong> em 2019 para treinar profissionais de QA em início de carreira, e criei três métricas de QA customizadas — <strong>PPI, SRM e RBD</strong> — que apliquei ao longo de 27 sprints para medir tendências de qualidade reais, além de simples taxas de aprovação/reprovação.',
+        'about.p3': 'Trabalho remotamente em inglês, colaborando entre <strong>Brasil, Canadá e Ucrânia</strong>, e possuo certificação C1 Advanced em inglês. Atualmente cursando duas Pós-Graduações na CESAR School: DevOps e Agile Testing.',
+        'about.c1.h': 'Fundador do QA School', 'about.c1.p': 'Iniciativa de treinamento para profissionais de QA em início de carreira desde 2019',
+        'about.c2.h': 'Autor de Métricas de QA Customizadas', 'about.c2.p': 'Criou PPI, SRM &amp; RBD — rastreadas em 27 sprints, 361 tickets',
+        'about.c3.h': 'Experiência Internacional', 'about.c3.p': 'Co-op na Dalhousie University, Canadá · C1 Inglês · Remote-first',
+        'about.c4.h': 'Entrega Premiada', 'about.c4.p': 'Solid Performance Award na Questrade · 1º lugar Hackathon MV 2018',
+        'about.c5.h': 'Desempenho &amp; Crescimento →', 'about.c5.p': '4 anos de feedback de colegas, pontos fortes e no que estou trabalhando ativamente',
+        'skills.label': '02 · Habilidades', 'skills.title': 'Stack tecnológico',
+        'skills.r1': 'Automação Web &amp; Mobile', 'skills.r2': 'API &amp; Performance',
+        'skills.r3': 'Linguagens', 'skills.r4': 'CI/CD &amp; Cloud',
+        'skills.r5': 'Observabilidade &amp; Dados', 'skills.r6': 'Metodologia &amp; Ferramentas',
+        'exp.label': '03 · Experiência', 'exp.title': 'Onde trabalhei',
+        'exp.j1.title': 'Senior QA Engineer', 'exp.j1.period': 'Mai 2022 — presente',
+        'exp.j2.title': 'Pleno → Senior Test Engineer', 'exp.j2.period': 'Out 2020 — Mai 2022',
+        'exp.j3.title': 'Junior Test Engineer', 'exp.j3.period': 'Mai 2019 — Out 2020',
+        'exp.j4.title': 'Analista de Suporte → Junior QA Engineer', 'exp.j4.period': 'Set 2015 — Mai 2019',
+        'exp.j5.title': 'Analista de Testes — Intercâmbio', 'exp.j5.period': 'Mai 2014 — Set 2014',
+        'proj.label': '04 · Projetos', 'proj.title': 'Trabalhos notáveis',
+        'ach.label': '05 · Conquistas', 'ach.title': 'Reconhecimentos',
+        'edu.label': '06 · Formação', 'edu.title': 'Formação acadêmica',
+        'contact.label': '07 · Contato', 'contact.title': 'Vamos nos conectar',
+        'contact.p1': 'Estou aberto a conversas sobre oportunidades de <strong>Senior e Principal QA Engineer</strong>, consultoria, ou simplesmente trocar ideias sobre estratégia de automação, qualidade em fintech ou cultura de QA.',
+        'contact.p2': 'A melhor forma de me contatar é via LinkedIn ou e-mail. Estou em <strong>Recife, Brasil</strong> e trabalho totalmente remoto.',
+        'footer.text': 'Lucas Ferreira · Senior QA Engineer · Feito com HTML &amp; CSS · Hospedado no GitHub Pages'
+      }
+    };
+
+    function applyLang(lang) {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key] !== undefined) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
+      const btn = document.getElementById('lang-btn');
+      if (btn) btn.innerHTML = lang === 'en' ? '🇧🇷 PT' : '🇬🇧 EN';
+    }
+
+    function toggleLang() {
+      const html = document.documentElement;
+      const next = html.getAttribute('data-lang') === 'en' ? 'pt' : 'en';
+      html.setAttribute('data-lang', next);
+      localStorage.setItem('lang', next);
+      applyLang(next);
+    }
+
     function toggleTheme() {
       const html = document.documentElement;
-      const current = html.getAttribute('data-theme');
-      const next = current === 'dark' ? 'light' : 'dark';
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       html.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
     }
 
-    // Persist theme across reloads
     (function () {
-      const saved = localStorage.getItem('theme');
-      if (saved) document.documentElement.setAttribute('data-theme', saved);
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('lang');
+      if (savedLang && savedLang !== 'en') {
+        document.documentElement.setAttribute('data-lang', savedLang);
+        applyLang(savedLang);
+      }
     })();
   </script>
 
