@@ -1,0 +1,2207 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Performance & Growth — Lucas Ferreira</title>
+  <meta name="description" content="4-year performance journey at Questrade: ratings, peer feedback, strengths, and growth areas actively being developed." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --radius: 12px;
+      --radius-sm: 8px;
+      --font: 'Inter', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+      --transition: 0.2s ease;
+    }
+
+    [data-theme="dark"] {
+      --bg:         #080b12;
+      --bg2:        #0e1320;
+      --surface:    #111827;
+      --surface2:   #1a2235;
+      --surface3:   #1f2a40;
+      --border:     rgba(255,255,255,0.07);
+      --border2:    rgba(255,255,255,0.12);
+      --text:       #f0f4ff;
+      --text-2:     #8b9fc0;
+      --text-3:     #4d6080;
+      --accent:     #6c8cff;
+      --accent2:    #a78bfa;
+      --green:      #34d399;
+      --yellow:     #fbbf24;
+      --red:        #f87171;
+      --glow:       rgba(108,140,255,0.15);
+    }
+
+    [data-theme="light"] {
+      --bg:         #f6f8ff;
+      --bg2:        #edf0fa;
+      --surface:    #ffffff;
+      --surface2:   #f0f2fc;
+      --surface3:   #e8ebf7;
+      --border:     rgba(0,0,0,0.07);
+      --border2:    rgba(0,0,0,0.12);
+      --text:       #0f172a;
+      --text-2:     #475569;
+      --text-3:     #94a3b8;
+      --accent:     #4f72ff;
+      --accent2:    #7c3aed;
+      --green:      #059669;
+      --yellow:     #d97706;
+      --red:        #dc2626;
+      --glow:       rgba(79,114,255,0.10);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--accent2); }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px; height: 60px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+    }
+
+    .nav-logo { font-weight: 700; font-size: 0.95rem; color: var(--text); letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+
+    .nav-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.82rem; font-weight: 500; color: var(--text-2);
+      padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border);
+      background: var(--surface); transition: all var(--transition);
+    }
+    .nav-back:hover { color: var(--text); border-color: var(--border2); background: var(--surface2); }
+
+    .theme-toggle {
+      width: 36px; height: 36px; border-radius: 8px;
+      border: 1px solid var(--border2); background: var(--surface);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background var(--transition); font-size: 1rem;
+    }
+    .theme-toggle:hover { background: var(--surface2); }
+    [data-theme="dark"] .icon-sun  { display: none; }
+    [data-theme="light"] .icon-moon { display: none; }
+
+    .lang-btn {
+      height: 36px; padding: 0 12px; border-radius: 8px;
+      border: 1px solid var(--border2); background: var(--surface);
+      cursor: pointer; display: flex; align-items: center; gap: 5px;
+      font-size: 0.78rem; font-weight: 600; color: var(--text-2);
+      font-family: var(--font); transition: all var(--transition);
+    }
+    .lang-btn:hover { background: var(--surface2); color: var(--text); }
+
+    html[data-lang="pt"] .lt-improvement::before { content: 'Área de crescimento · '; }
+
+    /* ── Page hero ── */
+    .page-hero {
+      max-width: 860px; margin: 0 auto;
+      padding: 72px 24px 56px;
+    }
+
+    .page-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
+      color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+    .page-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+
+    .page-hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--text) 0%, var(--text-2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    .page-hero p {
+      color: var(--text-2); font-size: 1rem; max-width: 600px; line-height: 1.75;
+    }
+
+    .page-hero p strong { color: var(--text); }
+
+    /* ── Main ── */
+    main { max-width: 860px; margin: 0 auto; padding: 0 24px 100px; }
+
+    .section { margin-bottom: 80px; }
+
+    .section-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
+      color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;
+    }
+    .section-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+
+    .section-title {
+      font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em;
+      color: var(--text); margin-bottom: 32px;
+      padding-bottom: 16px; border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Timeline / ratings ── */
+    .ratings-track {
+      display: flex; flex-direction: column; gap: 0;
+      position: relative;
+    }
+
+    .ratings-track::before {
+      content: ''; position: absolute;
+      left: 23px; top: 14px; bottom: 14px; width: 1px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+      opacity: 0.2;
+    }
+
+    .rating-row {
+      display: grid; grid-template-columns: 48px 1fr;
+      gap: 20px; padding-bottom: 24px;
+    }
+    .rating-row:last-child { padding-bottom: 0; }
+
+    .rating-dot {
+      width: 14px; height: 14px; border-radius: 50%;
+      border: 2px solid var(--accent); background: var(--surface3);
+      margin-top: 18px; justify-self: center; position: relative; z-index: 1;
+      transition: background var(--transition);
+    }
+    .rating-row:hover .rating-dot { background: var(--accent); }
+    .rating-dot.exceeding { border-color: var(--green); }
+    .rating-row:hover .rating-dot.exceeding { background: var(--green); }
+    .rating-dot.expected { border-color: var(--yellow); }
+    .rating-row:hover .rating-dot.expected { background: var(--yellow); }
+
+    .rating-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 24px;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .rating-row:hover .rating-card { border-color: var(--border2); transform: translateX(4px); }
+
+    .rating-card-top {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 8px; margin-bottom: 12px;
+    }
+
+    .rating-year {
+      font-family: var(--mono); font-size: 0.85rem;
+      font-weight: 700; color: var(--text-2);
+    }
+
+    .rating-badge {
+      font-size: 0.72rem; font-family: var(--mono); font-weight: 600;
+      padding: 4px 12px; border-radius: 20px; border: 1px solid; letter-spacing: 0.04em;
+    }
+    .rating-badge.solid    { color: var(--accent);  border-color: rgba(108,140,255,0.4); background: rgba(108,140,255,0.08); }
+    .rating-badge.exceeding{ color: var(--green);   border-color: rgba(52,211,153,0.4); background: rgba(52,211,153,0.08); }
+    .rating-badge.expected { color: var(--yellow);  border-color: rgba(251,191,36,0.4); background: rgba(251,191,36,0.08); }
+
+    .peer-count {
+      font-size: 0.72rem; font-family: var(--mono); color: var(--text-3);
+      padding: 3px 9px; border-radius: 20px;
+      background: var(--surface2); border: 1px solid var(--border);
+    }
+
+    .rating-body { color: var(--text-2); font-size: 0.875rem; line-height: 1.65; }
+    .rating-body strong { color: var(--text); font-weight: 600; }
+
+    .rating-highlights {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;
+    }
+
+    .rh-chip {
+      font-size: 0.72rem; font-family: var(--mono);
+      padding: 3px 10px; border-radius: 20px;
+      background: var(--surface2); border: 1px solid var(--border); color: var(--text-3);
+    }
+
+    /* ── Growth chart bar ── */
+    .growth-chart {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px 28px 20px;
+      margin-bottom: 32px;
+    }
+
+    .chart-title {
+      font-size: 0.78rem; font-family: var(--mono); color: var(--text-3);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 20px;
+    }
+
+    .chart-bars { display: flex; align-items: flex-end; gap: 24px; height: 120px; }
+
+    .chart-bar-col { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
+
+    .chart-bar-wrap {
+      width: 100%; display: flex; align-items: flex-end;
+      height: 90px; position: relative;
+    }
+
+    .chart-bar {
+      width: 100%; border-radius: 4px 4px 0 0;
+      transition: opacity var(--transition);
+      position: relative;
+    }
+    .chart-bar:hover { opacity: 0.85; }
+
+    .chart-bar-label { font-size: 0.72rem; font-family: var(--mono); color: var(--text-3); }
+
+    .chart-bar-num {
+      position: absolute;
+      bottom: 100%;
+      left: 0; right: 0;
+      text-align: center;
+      margin-bottom: 5px;
+      font-size: 0.8rem; font-family: var(--mono); font-weight: 700; color: var(--accent);
+      pointer-events: none;
+    }
+
+    /* ── Strengths ── */
+    .strengths-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;
+    }
+
+    .strength-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-left: 3px solid var(--green); border-radius: var(--radius);
+      padding: 20px; transition: transform var(--transition), border-color var(--transition);
+    }
+    .strength-card:hover { transform: translateY(-2px); border-color: var(--border2); }
+
+    .strength-icon {
+      font-size: 1.4rem; margin-bottom: 10px;
+      width: 44px; height: 44px; background: var(--surface2);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border);
+    }
+
+    .strength-card h3 { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .strength-card p { font-size: 0.82rem; color: var(--text-2); line-height: 1.6; }
+
+    .strength-since {
+      margin-top: 10px; font-size: 0.69rem; font-family: var(--mono);
+      color: var(--green); padding: 2px 8px; border-radius: 20px;
+      border: 1px solid rgba(52,211,153,0.3); background: rgba(52,211,153,0.06);
+      display: inline-block;
+    }
+
+    /* ── Quotes ── */
+    .quotes-list { display: flex; flex-direction: column; gap: 14px; }
+
+    .quote-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 24px;
+      position: relative; transition: border-color var(--transition);
+    }
+    .quote-card:hover { border-color: var(--border2); }
+
+    .quote-mark {
+      position: absolute; top: 14px; right: 18px;
+      font-size: 2rem; color: var(--accent); opacity: 0.15;
+      font-family: Georgia, serif; line-height: 1;
+    }
+
+    .quote-text {
+      font-size: 0.9rem; color: var(--text-2); line-height: 1.7;
+      font-style: italic; margin-bottom: 12px;
+    }
+    .quote-text strong { color: var(--text); font-style: normal; font-weight: 600; }
+
+    .quote-meta {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .quote-source { font-size: 0.72rem; font-family: var(--mono); color: var(--text-3); }
+    .quote-year {
+      font-size: 0.68rem; font-family: var(--mono); color: var(--accent);
+      padding: 1px 7px; border-radius: 20px;
+      background: rgba(108,140,255,0.1); border: 1px solid rgba(108,140,255,0.25);
+    }
+
+    /* ── Growth areas ── */
+    .growth-areas { display: flex; flex-direction: column; gap: 16px; }
+
+    .growth-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 22px 24px;
+      transition: border-color var(--transition);
+    }
+    .growth-item:hover { border-color: var(--border2); }
+
+    .growth-item-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap; margin-bottom: 10px;
+    }
+
+    .growth-item-title-row { display: flex; align-items: center; gap: 12px; }
+
+    .growth-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: var(--surface2); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .growth-item h3 { font-size: 0.9rem; font-weight: 700; color: var(--text); }
+
+    .progress-tag {
+      font-size: 0.68rem; font-family: var(--mono); font-weight: 600;
+      padding: 3px 10px; border-radius: 20px; border: 1px solid; white-space: nowrap;
+    }
+    .progress-tag.active   { color: var(--accent);  border-color: rgba(108,140,255,0.4); background: rgba(108,140,255,0.08); }
+    .progress-tag.evolving { color: var(--green);   border-color: rgba(52,211,153,0.4); background: rgba(52,211,153,0.08); }
+    .progress-tag.recent   { color: var(--yellow);  border-color: rgba(251,191,36,0.4); background: rgba(251,191,36,0.08); }
+
+    .growth-item p { font-size: 0.86rem; color: var(--text-2); line-height: 1.65; }
+    .growth-item p strong { color: var(--text); font-weight: 600; }
+
+    .first-noted {
+      margin-top: 8px; font-size: 0.71rem; font-family: var(--mono); color: var(--text-3);
+    }
+
+    /* ── PIP / Leadership Plan ── */
+    .plan-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+    }
+
+    .plan-header {
+      padding: 24px 28px 20px;
+      background: linear-gradient(135deg, rgba(108,140,255,0.07) 0%, rgba(167,139,250,0.05) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .plan-header-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; margin-bottom: 10px;
+    }
+
+    .plan-header h3 { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+
+    .plan-status {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.72rem; font-family: var(--mono); font-weight: 600;
+      padding: 4px 12px; border-radius: 20px;
+      color: var(--green); border: 1px solid rgba(52,211,153,0.4); background: rgba(52,211,153,0.08);
+    }
+
+    .plan-status .dot-pulse {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--green);
+      box-shadow: 0 0 6px var(--green); animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    .plan-header p { font-size: 0.875rem; color: var(--text-2); line-height: 1.65; }
+    .plan-header p strong { color: var(--text); }
+
+    .plan-body { padding: 24px 28px; }
+
+    .phases-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }
+
+    .phase-row {
+      display: grid; grid-template-columns: 80px 1fr auto;
+      gap: 16px; align-items: center;
+      padding: 12px 16px; border-radius: var(--radius-sm);
+      background: var(--surface2); border: 1px solid var(--border);
+      font-size: 0.83rem;
+    }
+
+    .phase-week { font-family: var(--mono); font-size: 0.72rem; color: var(--text-3); }
+    .phase-name { color: var(--text-2); }
+    .phase-name strong { color: var(--text); font-weight: 500; }
+
+    .phase-status {
+      font-size: 0.68rem; font-family: var(--mono); font-weight: 600;
+      padding: 2px 9px; border-radius: 20px; border: 1px solid; white-space: nowrap;
+    }
+    .phase-status.done { color: var(--green); border-color: rgba(52,211,153,0.4); background: rgba(52,211,153,0.08); }
+    .phase-status.progress { color: var(--yellow); border-color: rgba(251,191,36,0.4); background: rgba(251,191,36,0.08); }
+
+    .kpis-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px;
+    }
+
+    .kpi-item {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 14px 16px;
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+
+    .kpi-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+    .kpi-body h4 { font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .kpi-body span { font-size: 0.75rem; color: var(--text-2); }
+    .kpi-body .result { font-family: var(--mono); font-size: 0.72rem; color: var(--green); font-weight: 600; }
+
+    /* ── Longitudinal note ── */
+    .longitudinal {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .longitudinal h3 { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 14px; }
+
+    .longitudinal p {
+      font-size: 0.88rem; color: var(--text-2); line-height: 1.75; margin-bottom: 10px;
+    }
+    .longitudinal p:last-child { margin-bottom: 0; }
+    .longitudinal strong { color: var(--text); }
+
+    /* ── Leader evaluations ── */
+    .leader-year {
+      margin-bottom: 44px; padding-bottom: 44px;
+      border-bottom: 1px solid var(--border);
+    }
+    .leader-year:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .leader-year-header {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 10px; margin-bottom: 20px;
+    }
+
+    .leader-topics {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .leader-topic {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px 18px;
+      display: flex; flex-direction: column; gap: 8px;
+      transition: border-color var(--transition);
+    }
+    .leader-topic:hover { border-color: var(--border2); }
+    .leader-topic.highlight-topic {
+      border-color: rgba(108,140,255,0.3);
+      background: linear-gradient(135deg, rgba(108,140,255,0.06) 0%, rgba(167,139,250,0.04) 100%);
+    }
+
+    .lt-title {
+      font-size: 0.78rem; font-weight: 700; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .leader-topic.highlight-topic .lt-title { color: var(--accent2); }
+
+    .lt-body { font-size: 0.845rem; color: var(--text-2); line-height: 1.65; }
+
+    .lt-improvement {
+      margin-top: 4px; padding-top: 10px; border-top: 1px solid var(--border);
+      font-size: 0.8rem; color: var(--text-2); line-height: 1.55;
+    }
+    .lt-improvement::before {
+      content: 'Growth area · ';
+      font-family: var(--mono); font-size: 0.67rem; font-weight: 700;
+      color: var(--yellow); text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .lt-improvement strong { color: var(--text); font-weight: 600; }
+
+    .leader-improvements {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-left: 3px solid var(--yellow); border-radius: var(--radius);
+      padding: 14px 18px;
+    }
+
+    .li-label {
+      display: block; font-size: 0.67rem; font-family: var(--mono); font-weight: 700;
+      color: var(--yellow); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;
+    }
+
+    .li-list {
+      padding-left: 18px; display: flex; flex-direction: column; gap: 5px;
+    }
+
+    .li-list li { font-size: 0.845rem; color: var(--text-2); line-height: 1.5; }
+
+    /* ── Longitudinal analysis ── */
+    .long-summary-row {
+      display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px;
+    }
+
+    .long-summary-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px 20px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+
+    .lsi-label {
+      font-size: 0.7rem; font-family: var(--mono); color: var(--text-3);
+      text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600;
+    }
+
+    .lsi-value { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+
+    .lsi-arrow { font-size: 0.75rem; color: var(--text-3); }
+
+    .lsi-chip {
+      font-size: 0.72rem; font-family: var(--mono); font-weight: 600;
+      padding: 3px 10px; border-radius: 20px; border: 1px solid;
+    }
+    .lsi-chip.solid     { color: var(--accent);  border-color: rgba(108,140,255,0.35); background: rgba(108,140,255,0.08); }
+    .lsi-chip.exceeding { color: var(--green);   border-color: rgba(52,211,153,0.35);  background: rgba(52,211,153,0.08); }
+    .lsi-chip.expected  { color: var(--yellow);  border-color: rgba(251,191,36,0.35);  background: rgba(251,191,36,0.08); }
+    .lsi-chip.neutral   { color: var(--text-2);  border-color: var(--border2);         background: var(--surface2); }
+    .lsi-chip.accent    { color: var(--accent);  border-color: rgba(108,140,255,0.5);  background: rgba(108,140,255,0.12); font-weight: 700; }
+
+    .long-narrative {
+      background: var(--surface); border: 1px solid var(--border);
+      border-left: 3px solid var(--accent); border-radius: var(--radius);
+      padding: 24px 26px; margin-bottom: 32px;
+    }
+    .long-narrative h3 {
+      font-size: 0.85rem; font-weight: 700; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px;
+    }
+    .long-narrative p { font-size: 0.875rem; color: var(--text-2); line-height: 1.75; margin-bottom: 10px; }
+    .long-narrative p:last-child { margin-bottom: 0; }
+    .long-narrative strong { color: var(--text); font-weight: 600; }
+
+    .long-block { margin-bottom: 32px; }
+
+    .long-block-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+    }
+
+    .long-block-icon { font-size: 1.1rem; }
+
+    .long-block-header h3 {
+      font-size: 0.95rem; font-weight: 700; color: var(--text);
+    }
+
+    .long-block-note {
+      font-size: 0.72rem; font-family: var(--mono); font-weight: 400;
+      color: var(--text-3); margin-left: 4px;
+    }
+
+    .long-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+    }
+
+    .long-item {
+      border-radius: var(--radius); padding: 18px 20px;
+      display: flex; flex-direction: column; gap: 8px;
+      transition: transform var(--transition), border-color var(--transition);
+    }
+    .long-item:hover { transform: translateY(-1px); }
+
+    .strength-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+    }
+    .strength-item:hover { border-color: rgba(52,211,153,0.35); }
+
+    .gap-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid rgba(251,191,36,0.6);
+    }
+    .gap-item:hover { border-color: rgba(251,191,36,0.35); }
+
+    .long-item-title {
+      font-size: 0.82rem; font-weight: 700; color: var(--text);
+    }
+
+    .long-item p { font-size: 0.82rem; color: var(--text-2); line-height: 1.6; flex: 1; }
+    .long-item em { font-style: italic; color: var(--text); }
+
+    .gap-since {
+      font-size: 0.68rem; font-family: var(--mono); color: var(--yellow);
+      padding: 2px 8px; border-radius: 20px;
+      border: 1px solid rgba(251,191,36,0.3); background: rgba(251,191,36,0.06);
+      display: inline-block; width: fit-content; margin-top: 4px;
+    }
+
+    .principal-reading {
+      border-left-color: var(--accent2) !important;
+      background: linear-gradient(135deg, rgba(108,140,255,0.05) 0%, rgba(167,139,250,0.04) 100%) !important;
+    }
+    .principal-reading h3 { color: var(--accent2) !important; }
+
+    .principal-chips {
+      display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px;
+    }
+
+    .pc-chip {
+      font-size: 0.73rem; font-family: var(--mono);
+      padding: 4px 12px; border-radius: 20px;
+      background: rgba(167,139,250,0.1); border: 1px solid rgba(167,139,250,0.3);
+      color: var(--accent2); font-weight: 500;
+    }
+
+    /* ── Peer feedback full record ── */
+    .feedback-year { margin-bottom: 48px; }
+    .feedback-year:last-child { margin-bottom: 0; }
+
+    .feedback-year-header {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .fy-left { display: flex; align-items: center; gap: 12px; }
+
+    .fy-year {
+      font-family: var(--mono); font-size: 1rem; font-weight: 700; color: var(--text);
+    }
+
+    .fy-rating {
+      font-size: 0.7rem; font-family: var(--mono); font-weight: 600;
+      padding: 3px 10px; border-radius: 20px; border: 1px solid;
+    }
+    .fy-rating.solid     { color: var(--accent);  border-color: rgba(108,140,255,0.4); background: rgba(108,140,255,0.08); }
+    .fy-rating.exceeding { color: var(--green);   border-color: rgba(52,211,153,0.4);  background: rgba(52,211,153,0.08); }
+    .fy-rating.expected  { color: var(--yellow);  border-color: rgba(251,191,36,0.4);  background: rgba(251,191,36,0.08); }
+
+    .fy-count { font-size: 0.72rem; font-family: var(--mono); color: var(--text-3); }
+
+    .feedback-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 12px;
+    }
+
+    .feedback-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 20px;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .feedback-card:hover { border-color: var(--border2); transform: translateY(-1px); }
+    .feedback-card.highlight { border-color: rgba(108,140,255,0.25); background: linear-gradient(135deg, rgba(108,140,255,0.04) 0%, rgba(167,139,250,0.03) 100%); }
+
+    .fc-header { display: flex; flex-direction: column; gap: 8px; }
+
+    .fc-peer {
+      font-family: var(--mono); font-size: 0.72rem; font-weight: 700;
+      color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em;
+    }
+
+    .fc-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+    .fc-tag {
+      font-size: 0.67rem; font-family: var(--mono);
+      padding: 2px 8px; border-radius: 20px; border: 1px solid;
+    }
+    .fc-tag.positive { color: var(--green);   border-color: rgba(52,211,153,0.3);  background: rgba(52,211,153,0.06); }
+    .fc-tag.iqtech   { color: var(--accent2); border-color: rgba(167,139,250,0.3); background: rgba(167,139,250,0.06); }
+
+    .fc-text {
+      font-size: 0.86rem; color: var(--text-2); line-height: 1.65;
+      flex: 1;
+    }
+    .fc-text em { color: var(--green); font-style: normal; font-weight: 500; }
+
+    .fc-improvement {
+      border-top: 1px solid var(--border);
+      padding-top: 10px; margin-top: 2px;
+    }
+
+    .fc-improvement-label {
+      display: block; font-size: 0.67rem; font-family: var(--mono); font-weight: 700;
+      color: var(--yellow); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;
+    }
+
+    .fc-improvement p { font-size: 0.82rem; color: var(--text-2); line-height: 1.55; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border); padding: 28px 24px;
+      text-align: center; font-family: var(--mono); font-size: 0.75rem; color: var(--text-3);
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 16px; }
+      .page-hero { padding: 56px 16px 36px; }
+      main { padding: 0 16px 60px; }
+      .phase-row { grid-template-columns: 60px 1fr auto; gap: 8px; }
+      .chart-bars { gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ── -->
+  <nav>
+    <div class="nav-logo">Lucas<span>.</span>dev</div>
+    <div class="nav-right">
+      <a class="nav-back" href="index.html" data-i18n="nav.back">← Back to portfolio</a>
+      <button id="lang-btn" class="lang-btn" onclick="toggleLang()" aria-label="Toggle language">🇧🇷 PT</button>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Page hero ── -->
+  <div class="page-hero">
+    <div class="page-label" data-i18n="hero.label">Performance & Growth</div>
+    <h1 data-i18n="hero.h1">4 years of honest<br/>feedback at Questrade</h1>
+    <p data-i18n="hero.desc">
+      This page consolidates my performance reviews, peer feedback, and growth trajectory from
+      <strong>2022 to 2025</strong>. I share it because I believe self-awareness and transparency
+      are core to good engineering — and to good QA.
+    </p>
+  </div>
+
+  <main>
+
+    <!-- ── Ratings timeline ── -->
+    <div class="section">
+      <div class="section-label" data-i18n="ratings.label">Ratings</div>
+      <div class="section-title" data-i18n="ratings.title">Performance trajectory</div>
+
+      <!-- Peer feedback bar chart -->
+      <div class="growth-chart">
+        <div class="chart-title" data-i18n="chart.title">Positive peer feedback count per year</div>
+        <div class="chart-bars">
+          <div class="chart-bar-col">
+            <div class="chart-bar-wrap">
+              <div class="chart-bar" style="height:30%; background: var(--accent); opacity:0.6;">
+                <span class="chart-bar-num">3</span>
+              </div>
+            </div>
+            <div class="chart-bar-label">2022</div>
+          </div>
+          <div class="chart-bar-col">
+            <div class="chart-bar-wrap">
+              <div class="chart-bar" style="height:50%; background: var(--accent); opacity:0.7;">
+                <span class="chart-bar-num">5</span>
+              </div>
+            </div>
+            <div class="chart-bar-label">2023</div>
+          </div>
+          <div class="chart-bar-col">
+            <div class="chart-bar-wrap">
+              <div class="chart-bar" style="height:72%; background: var(--accent); opacity:0.85;">
+                <span class="chart-bar-num">7</span>
+              </div>
+            </div>
+            <div class="chart-bar-label">2024</div>
+          </div>
+          <div class="chart-bar-col">
+            <div class="chart-bar-wrap">
+              <div class="chart-bar" style="height:100%; background: var(--accent);">
+                <span class="chart-bar-num">9</span>
+              </div>
+            </div>
+            <div class="chart-bar-label">2025</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ratings-track">
+
+        <div class="rating-row">
+          <div class="rating-dot"></div>
+          <div class="rating-card">
+            <div class="rating-card-top">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span class="rating-year">2022</span>
+                <span class="rating-badge solid">Solid Performance</span>
+              </div>
+              <span class="peer-count" data-i18n="r2022.peers">3 peer reviews</span>
+            </div>
+            <div class="rating-body" data-i18n="r2022.body">
+              First full year at Questrade. Strong signals across <strong>technical delivery</strong> (dashboards, metrics, automation), <strong>attitude and values</strong> (ownership, customer focus, punctuality) and <strong>leadership potential</strong> — explicitly highlighted by multiple reviewers. The only consistent improvement theme was verbal communication and active presence in agile ceremonies.
+            </div>
+            <div class="rating-highlights">
+              <span class="rh-chip" data-i18n="r2022.h1">QA metrics & dashboards</span>
+              <span class="rh-chip" data-i18n="r2022.h2">PPI metric introduced</span>
+              <span class="rh-chip" data-i18n="r2022.h3">Leadership potential flagged</span>
+              <span class="rh-chip" data-i18n="r2022.h4">Rapid tool onboarding</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rating-row">
+          <div class="rating-dot"></div>
+          <div class="rating-card">
+            <div class="rating-card-top">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span class="rating-year">2023</span>
+                <span class="rating-badge solid">Solid Performance</span>
+              </div>
+              <span class="peer-count" data-i18n="r2023.peers">5 peer reviews</span>
+            </div>
+            <div class="rating-body" data-i18n="r2023.body">
+              Consolidation year. QA Report gained visibility <strong>beyond the team</strong> — cited by other squads. Communication improved visibly day-to-day (acknowledged by the lead), but the challenge shifted to making that improvement <strong>perceived by peers</strong>. The QA Talk on QA metrics was cited as an example to replicate. Observability emerged for the first time as a development area.
+            </div>
+            <div class="rating-highlights">
+              <span class="rh-chip" data-i18n="r2023.h1">QA Report cross-team visibility</span>
+              <span class="rh-chip" data-i18n="r2023.h2">QA Talk on metrics</span>
+              <span class="rh-chip" data-i18n="r2023.h3">Communication improving</span>
+              <span class="rh-chip" data-i18n="r2023.h4">Observability gap identified</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rating-row">
+          <div class="rating-dot exceeding"></div>
+          <div class="rating-card">
+            <div class="rating-card-top">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span class="rating-year">2024</span>
+                <span class="rating-badge exceeding">Exceeding Performance ↑</span>
+              </div>
+              <span class="peer-count" data-i18n="r2024.peers">7 peer reviews</span>
+            </div>
+            <div class="rating-body" data-i18n="r2024.body">
+              Clear breakthrough. Automation recognized as a <strong>consolidated strength</strong> by the lead — with concrete deliveries in CLRE, Customer Profile Services and KYC Annual Review. Communication was praised for the first time as "clear and effective". <strong>Path to Principal QA Engineer explicitly named</strong> by the lead with three defined next steps: cross-team collaboration, innovation leadership, and team protagonism.
+            </div>
+            <div class="rating-highlights">
+              <span class="rh-chip" data-i18n="r2024.h1">CLRE automation</span>
+              <span class="rh-chip" data-i18n="r2024.h2">Customer Profile Services</span>
+              <span class="rh-chip" data-i18n="r2024.h3">KYC Annual Review</span>
+              <span class="rh-chip" data-i18n="r2024.h4">Communication praised</span>
+              <span class="rh-chip" data-i18n="r2024.h5">Principal QA path named</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rating-row">
+          <div class="rating-dot expected"></div>
+          <div class="rating-card">
+            <div class="rating-card-top">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span class="rating-year">2025</span>
+                <span class="rating-badge expected">Expected Performance</span>
+              </div>
+              <span class="peer-count" data-i18n="r2025.peers">9 peer reviews · highest ever</span>
+            </div>
+            <div class="rating-body" data-i18n="r2025.body">
+              The most revealing cycle. Peer technical recognition reached an <strong>all-time high</strong> — 9 reviewers, two with no improvement points at all. The formal rating stepped back due to a single specific gap: <strong>execution speed and sprint sequencing</strong> (not quality of work). The lead acknowledged values, domain knowledge, and impact — pointing clearly that the remaining gap is about <em>making contributions visible</em>, not about what is being delivered.
+            </div>
+            <div class="rating-highlights">
+              <span class="rh-chip" data-i18n="r2025.h1">Highest peer recognition</span>
+              <span class="rh-chip" data-i18n="r2025.h2">AI tooling in QA workflow</span>
+              <span class="rh-chip" data-i18n="r2025.h3">E2E coverage Thanos/CLRE</span>
+              <span class="rh-chip" data-i18n="r2025.h4">Delivery speed: open gap</span>
+              <span class="rh-chip" data-i18n="r2025.h5">Strategic visibility: in progress</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Leader evaluations ── -->
+    <div class="section">
+      <div class="section-label" data-i18n="leader.label">Leader Evaluations</div>
+      <div class="section-title" data-i18n="leader.title">Annual feedback from managers</div>
+
+      <!-- 2022 -->
+      <div class="leader-year">
+        <div class="leader-year-header">
+          <div class="fy-left">
+            <span class="fy-year">2022</span>
+            <span class="fy-rating solid">Solid Performance</span>
+          </div>
+          <span class="fy-count">Leader: Gustavo</span>
+        </div>
+        <div class="leader-topics">
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt22.1.title">Technical contribution &amp; QA maturity</div>
+            <p class="lt-body" data-i18n="lt22.1.body">Contributed significantly to the team's QA maturity by applying diverse testing techniques, defining quality metrics, presenting demos, and working on quality dashboards. Evolved rapidly in automation processes and tools.</p>
+          </div>
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt22.2.title">Business &amp; team orientation</div>
+            <p class="lt-body" data-i18n="lt22.2.body">Very business- and team-oriented professional: punctual, present in all meetings, and with concrete contributions to metrics like PPI, helping the team be more precise in deliveries.</p>
+          </div>
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt22.3.title">Integration &amp; knowledge</div>
+            <p class="lt-body" data-i18n="lt22.3.body">Integrated very well with the team, learning new tools and applying pre-existing knowledge to increase QA presence. Created dashboards that help the team assess the quality of delivered work.</p>
+          </div>
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt22.4.title">Values &amp; ownership</div>
+            <p class="lt-body" data-i18n="lt22.4.body">Demonstrated IQTech values (Innovative, Curious &amp; Optimistic, Honest with Integrity). Responsible professional with a customer vision who leads the team to deliver higher-quality software. Strong sense of product ownership.</p>
+          </div>
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt22.5.title">Leadership potential</div>
+            <p class="lt-body" data-i18n="lt22.5.body">Considered a focused professional on the right path to become a reference for other QAs in the company. Explicitly highlighted as having potential to be a good leader in the future — something Questrade can leverage.</p>
+          </div>
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt22.6.title">Attention to detail &amp; critical thinking</div>
+            <p class="lt-body" data-i18n="lt22.6.body">Demonstrated strong attention to detail, good ability to think critically about test scenarios, and good productivity.</p>
+          </div>
+
+        </div>
+        <div class="leader-improvements">
+          <span class="li-label" data-i18n="li22.label">Improvement points</span>
+          <ul class="li-list">
+            <li data-i18n="li22.1">Have a more active voice in agile ceremonies</li>
+            <li data-i18n="li22.2">Work more closely with the PO to help with backlog health, story refinement, and acceptance criteria</li>
+            <li data-i18n="li22.3">Continue evolving in automation knowledge</li>
+            <li data-i18n="li22.4">Engage more in verbal communication</li>
+            <li data-i18n="li22.5">Have a more active voice in the QA Chapter</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 2023 -->
+      <div class="leader-year">
+        <div class="leader-year-header">
+          <div class="fy-left">
+            <span class="fy-year">2023</span>
+            <span class="fy-rating solid">Solid Performance</span>
+          </div>
+          <span class="fy-count">Leader: Juarez</span>
+        </div>
+        <div class="leader-topics">
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt23.1.title">Observability</div>
+            <p class="lt-body" data-i18n="lt23.1.body">Individually did not demonstrate much interest in Observability, although the team as a whole had limited windows to go deeper on the topic. The leader committed to working to align Lucas and the team in this area.</p>
+          </div>
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt23.2.title">Personal goals</div>
+            <p class="lt-body" data-i18n="lt23.2.body">Weekly personal goal tracking was initiated but lost continuity throughout the year. The leader acknowledged co-responsibility and reinforced the importance of Lucas also actively engaging in that journey.</p>
+          </div>
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt23.3.title">Knowledge sharing &amp; leading by example</div>
+            <p class="lt-body" data-i18n="lt23.3.body">The standout point was the need for Lucas to communicate to the team the processes he is conducting and the documentation he is producing — becoming a reference and inspiring colleagues to do the same.</p>
+          </div>
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt23.4.title">Communication evolving</div>
+            <p class="lt-body" data-i18n="lt23.4.body">Lucas's communication improved visibly in day-to-day interactions. The next step is to interact more with colleagues so that this evolution is perceived by them. The QA Report was highlighted as a valuable tool, already being tracked by other teams.</p>
+          </div>
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt23.5.title">Values &amp; curiosity</div>
+            <p class="lt-body" data-i18n="lt23.5.body">Lucas is aligned with IQTech values and works toward the best quality level for products. The development point is to be more curious and bring new solutions to the testing process.</p>
+          </div>
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt23.6.title">General trajectory</div>
+            <p class="lt-body" data-i18n="lt23.6.body">The leader assessed that Lucas had solid performance, achieved good results, and grew where necessary. Contributed to the team achieving its objectives and is on the right path to elevate the team to new levels.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 2024 -->
+      <div class="leader-year">
+        <div class="leader-year-header">
+          <div class="fy-left">
+            <span class="fy-year">2024</span>
+            <span class="fy-rating exceeding">Exceeding Performance</span>
+          </div>
+          <span class="fy-count">Leader: Michael · also Paulo (pre-team dissolution)</span>
+        </div>
+        <div class="leader-topics">
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt24.1.title">SRE &amp; Observability</div>
+            <p class="lt-body" data-i18n="lt24.1.body">Lucas is developing a good understanding of SRE procedures through courses and indirectly contributes to SRE metrics through his commitment to application quality.</p>
+            <div class="lt-improvement" data-i18n="lt24.1.imp">Integrate SRE concepts into daily test practices; propose ideas for the Thanos team to reach RUN state in SRE; implement Synthetic Tests in the test framework.</div>
+          </div>
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt24.2.title">Documentation &amp; quality</div>
+            <p class="lt-body" data-i18n="lt24.2.body">The Quality section showed visible improvement. Lucas contributed significantly by creating detailed documents — Bug Priority, Bug Categories, Bug Subcategories, Bug Root Cause, and Bug Root Cause Analysis. Frequent use of AI to boost productivity was highlighted positively.</p>
+            <div class="lt-improvement" data-i18n="lt24.2.imp">Ensure documentation is actively used during testing and aligned with the latest application updates; work with Test Plans detailing tests and deliverables.</div>
+          </div>
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt24.3.title">Quality metrics</div>
+            <p class="lt-body" data-i18n="lt24.3.body">Lucas is leading the implementation of the Task Score metric and demonstrates genuine concern for team performance from a quality perspective. Constantly reinforces to developers the importance of following release guidelines and actively works to reduce the number of bugs per task.</p>
+            <div class="lt-improvement" data-i18n="lt24.3.imp">Develop new metrics to identify quality gaps; implement escaped bug tracking; use Datadog for metric monitoring.</div>
+          </div>
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt24.4.title">Automation</div>
+            <p class="lt-body" data-i18n="lt24.4.body">Lucas stands out in automation initiatives. The leader closely followed his evolution and confirms solid skills in this area. The CLRE automation is in progress, and the Customer Profile Services and KYC Annual Review initiatives were successfully implemented and considered critical for the team.</p>
+            <div class="lt-improvement" data-i18n="lt24.4.imp">Implement Component Tests for the Annual Review flow and multi-step modal scenarios; regularly analyse why escaped bugs were not captured by automation; align manual and automated tests in Zephyr at the end of each sprint.</div>
+          </div>
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt24.5.title">Posture &amp; ownership</div>
+            <p class="lt-body" data-i18n="lt24.5.body">Lucas exemplifies a customer-centred approach in QA, with a consistent ability to identify problems from the user's perspective. His communication was praised as clear and effective. He demonstrates full ownership of his deliveries — automation, documentation, and quality — and consistently meets deadlines.</p>
+            <div class="lt-improvement" data-i18n="lt24.5.imp">Consider volunteering for additional responsibilities outside the direct QA domain.</div>
+          </div>
+
+          <div class="leader-topic highlight-topic">
+            <div class="lt-title" data-i18n="lt24.6.title">Path to Principal QA Engineer</div>
+            <p class="lt-body" data-i18n="lt24.6.body">The leader recognises that Lucas is on the right path to becoming Principal QA Engineer and points out the next steps: collaborate effectively with other teams, implement improvements and lead innovation initiatives, be a protagonist in the team.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 2025 -->
+      <div class="leader-year">
+        <div class="leader-year-header">
+          <div class="fy-left">
+            <span class="fy-year">2025</span>
+            <span class="fy-rating expected">Expected Performance</span>
+          </div>
+          <span class="fy-count">Leader: Michael</span>
+        </div>
+        <div class="leader-topics">
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt25.1.title">Support &amp; accountability</div>
+            <p class="lt-body" data-i18n="lt25.1.body">Lucas contributed significantly to reducing friction for engineering clients. His participation in the support rotation and hands-on investigation of problems demonstrated strong accountability and a pragmatic approach, especially considering that most reported issues required deep technical investigation.</p>
+          </div>
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt25.2.title">AI in QA workflow</div>
+            <p class="lt-body" data-i18n="lt25.2.body">Lucas effectively integrated AI tools (Cursor and Gemini) into the QA workflow, improving test efficiency and robustness. The use of these tools directly contributed to broader coverage and identification of edge cases that were not initially mapped.</p>
+          </div>
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt25.3.title">Customer Profile Services</div>
+            <p class="lt-body" data-i18n="lt25.3.body">Exhaustive testing of Customer Profile Services endpoints helped establish a solid quality baseline, ensuring the platform is technically prepared for broader adoption.</p>
+          </div>
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt25.4.title">Connection to business impact</div>
+            <p class="lt-body" data-i18n="lt25.4.body">The leader encourages Lucas to more explicitly connect his quality insights to business impact — customer experience, risk reduction, and delivery confidence — to strengthen his strategic influence beyond the technical domain.</p>
+          </div>
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt25.5.title">Values &amp; visibility</div>
+            <p class="lt-body" data-i18n="lt25.5.body">Lucas strongly demonstrates the Customer Centric and Team Oriented &amp; Think Enterprise Wide values, consistently prioritising the experience of internal and external clients. The central growth opportunity is increasing visibility and communication about his own work — sharing progress, metrics, and outcomes proactively to amplify the impact of contributions and strengthen cross-team alignment.</p>
+          </div>
+
+          <div class="leader-topic">
+            <div class="lt-title" data-i18n="lt25.6.title">Execution speed &amp; sense of urgency</div>
+            <p class="lt-body" data-i18n="lt25.6.body">The main development point for the next cycle is increasing execution pace.</p>
+            <div class="lt-improvement" data-i18n="lt25.6.imp"><strong>Agile Efficiency:</strong> adopt a leaner, more agile approach to ensure faster deliveries without sacrificing quality · <strong>Sense of Urgency:</strong> prioritise high-impact tasks to achieve faster results in accelerated sprints · <strong>Strategic Visibility:</strong> combine this accelerated pace with clearer communication of impact to influence broader teams.</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Strengths ── -->
+    <div class="section">
+      <div class="section-label" data-i18n="strengths.label">Strengths</div>
+      <div class="section-title" data-i18n="strengths.title">What peers and leaders consistently recognize</div>
+
+      <div class="strengths-grid">
+
+        <div class="strength-card">
+          <div class="strength-icon">🤖</div>
+          <h3 data-i18n="str1.title">Test Automation</h3>
+          <p data-i18n="str1.body">Started as a development area in 2022, reached reference level by 2025. Cited concretely: CLRE, Customer Profile Services, KYC Annual Review, E2E coverage on Thanos, Cypress. Never flagged as a weakness across four years.</p>
+          <span class="strength-since" data-i18n="str1.since">recognized since 2022 · peak in 2025</span>
+        </div>
+
+        <div class="strength-card">
+          <div class="strength-icon">🔍</div>
+          <h3 data-i18n="str2.title">Attention to Detail & Critical Thinking</h3>
+          <p data-i18n="str2.body">The most universally noted characteristic — present in every cycle, from every evaluator type. "Always catches points that could slip through" appeared in multiple reviews. Described as deeply ingrained, not situational.</p>
+          <span class="strength-since" data-i18n="str2.since">consistent across all 4 cycles</span>
+        </div>
+
+        <div class="strength-card">
+          <div class="strength-icon">🤝</div>
+          <h3 data-i18n="str3.title">Ownership & Reliability</h3>
+          <p data-i18n="str3.body">Consolidated as a team reputation from 2024 onward. "Does what he says he'll do" appeared verbatim in two consecutive mid-reviews. Colleagues explicitly say they count on Lucas — a registered trademark, not a one-off compliment.</p>
+          <span class="strength-since" data-i18n="str3.since">trademark since 2024</span>
+        </div>
+
+        <div class="strength-card">
+          <div class="strength-icon">👤</div>
+          <h3 data-i18n="str4.title">Customer Centricity</h3>
+          <p data-i18n="str4.body">The most cited IQTech value across the entire trajectory. Leaders and peers in all four years noted the ability to think from the user's perspective and identify gaps that others miss. Recognized spontaneously and consistently.</p>
+          <span class="strength-since" data-i18n="str4.since">consistent across all 4 cycles</span>
+        </div>
+
+        <div class="strength-card">
+          <div class="strength-icon">🧠</div>
+          <h3 data-i18n="str5.title">Domain Knowledge</h3>
+          <p data-i18n="str5.body">Deep expertise in KYC, onboarding, CLP, CLRE and Customer Profile systems. By 2025, colleagues explicitly referred to this knowledge as "a critical resource for the entire team" — not just for QA tasks.</p>
+          <span class="strength-since" data-i18n="str5.since">deepening since 2022</span>
+        </div>
+
+        <div class="strength-card">
+          <div class="strength-icon">⚡</div>
+          <h3 data-i18n="str6.title">Innovation & Autonomous Learning</h3>
+          <p data-i18n="str6.body">Frequency of this recognition increased each year. Adoption of AI tools (Cursor, Gemini, Claude Code) in 2025, custom QA metrics (PPI, SRM, RBD), and creative automation solutions were highlighted as competitive differentiators.</p>
+          <span class="strength-since" data-i18n="str6.since">growing recognition 2023–2025</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Peer quotes ── -->
+    <div class="section">
+      <div class="section-label" data-i18n="quotes.label">Peer Voice</div>
+      <div class="section-title" data-i18n="quotes.title">Selected quotes from anonymous reviews</div>
+
+      <div class="quotes-list">
+
+        <div class="quote-card">
+          <div class="quote-mark">"</div>
+          <div class="quote-text" data-i18n="q1.text">Lucas is a <strong>true asset to the team</strong>. His contributions to the Thanos team and the CLRE project are invaluable. His dedication to quality assurance is exceptional, consistently exceeding expectations. His meticulous attention to detail ensures high-quality deliveries.</div>
+          <div class="quote-meta">
+            <span class="quote-source" data-i18n="q1.source">Peer — Mid-Review</span>
+            <span class="quote-year">2025</span>
+          </div>
+        </div>
+
+        <div class="quote-card">
+          <div class="quote-mark">"</div>
+          <div class="quote-text" data-i18n="q2.text">He <strong>takes responsibility seriously and is committed to completing tasks</strong>. He does what he says he will do, and people can count on him. He continually seeks improvements in the quality process and is on a great path in developing test automation.</div>
+          <div class="quote-meta">
+            <span class="quote-source" data-i18n="q2.source">Peer — Mid-Review (same peer, both 2024 and 2025)</span>
+            <span class="quote-year">2024 · 2025</span>
+          </div>
+        </div>
+
+        <div class="quote-card">
+          <div class="quote-mark">"</div>
+          <div class="quote-text" data-i18n="q3.text">Lucas is <strong>highly skilled and meticulous</strong>. It is a pleasure to work with him as he constantly pushes the team to deliver more quality. His automation capability is <strong>impressive</strong>.</div>
+          <div class="quote-meta">
+            <span class="quote-source" data-i18n="q3.source">Peer — Year-End Review</span>
+            <span class="quote-year">2023 · 2024</span>
+          </div>
+        </div>
+
+        <div class="quote-card">
+          <div class="quote-mark">"</div>
+          <div class="quote-text" data-i18n="q4.text">He performs <strong>exemplary end-to-end validation</strong>: in CLP, CRM and the CLRE/CLP APIs — which is extremely valuable for identifying issues that could go unnoticed. He has solid knowledge of onboarding and maintenance flows across multiple systems.</div>
+          <div class="quote-meta">
+            <span class="quote-source" data-i18n="q4.source">Peer — Year-End Review</span>
+            <span class="quote-year">2025</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Growth areas ── -->
+    <div class="section">
+      <div class="section-label" data-i18n="growth.label">Growth Areas</div>
+      <div class="section-title" data-i18n="growth.title">What I'm actively working on</div>
+
+      <div class="growth-areas">
+
+        <div class="growth-item">
+          <div class="growth-item-header">
+            <div class="growth-item-title-row">
+              <div class="growth-icon">📣</div>
+              <h3 data-i18n="ga1.title">Strategic Visibility & Proactive Communication</h3>
+            </div>
+            <span class="progress-tag active" data-i18n="ga1.tag">active focus</span>
+          </div>
+          <p data-i18n="ga1.body">The most persistent gap across all four years — and the one I'm most deliberately addressing. The pattern: <strong>I deliver substantial work but don't amplify it through active communication</strong>. In 2022 it was "speak up in ceremonies"; by 2025 the expectation evolved to metrics-driven storytelling and cross-team influence. The gap isn't about what I deliver — it's about making it visible before being asked. The leadership development plan running Apr–Jun 2026 is directly targeting this with weekly Slack posts, post-deploy reports, and proactive FYI messages to stakeholders.</p>
+          <div class="first-noted" data-i18n="ga1.noted">First noted: 2022 · Present in all 4 cycles</div>
+        </div>
+
+        <div class="growth-item">
+          <div class="growth-item-header">
+            <div class="growth-item-title-row">
+              <div class="growth-icon">🚀</div>
+              <h3 data-i18n="ga2.title">Execution Speed & Sprint Sequencing</h3>
+            </div>
+            <span class="progress-tag recent" data-i18n="ga2.tag">formal since 2025</span>
+          </div>
+          <p data-i18n="ga2.body">Named formally by the lead in 2025, but first observed in a peer mid-review in 2024. The specific pattern: <strong>spending too much time building automation before starting manual tests</strong>, which delays task closure within the sprint. Not a quality issue — it's about sequencing and time-boxing. I'm applying a lean-first approach: run manual tests to unblock the ticket, then layer in automation. The Apr–Jun 2026 plan tracked this with zero rollbacks and 100% MRs with tests.</p>
+          <div class="first-noted" data-i18n="ga2.noted">First noted: Mid-Review 2024 · Formal gap in 2025</div>
+        </div>
+
+        <div class="growth-item">
+          <div class="growth-item-header">
+            <div class="growth-item-title-row">
+              <div class="growth-icon">🌐</div>
+              <h3 data-i18n="ga3.title">Cross-Team Influence & Strategic Protagonism</h3>
+            </div>
+            <span class="progress-tag active" data-i18n="ga3.tag">active focus</span>
+          </div>
+          <p data-i18n="ga3.body">Consistently surfacing since 2023 under different labels: being more opinionated on the backlog, proposing ideas before being asked, connecting quality insights to business impact. This is the dimension that <strong>separates Senior from Principal QA</strong>. The lead named it directly in 2024: "collaborate effectively with other teams, implement improvements, and lead innovation initiatives." I'm working on this through Inner Sourcing contributions, proactive process proposals, and cross-team QA sync participation.</p>
+          <div class="first-noted" data-i18n="ga3.noted">First noted: 2023 · Escalating through 2025</div>
+        </div>
+
+        <div class="growth-item">
+          <div class="growth-item-header">
+            <div class="growth-item-title-row">
+              <div class="growth-icon">📋</div>
+              <h3 data-i18n="ga4.title">Test Scope Documentation</h3>
+            </div>
+            <span class="progress-tag recent" data-i18n="ga4.tag">identified 2025</span>
+          </div>
+          <p data-i18n="ga4.body">A new, specific, and actionable gap raised in Year-End 2025: <strong>systematically distinguishing in-scope vs. out-of-scope findings</strong>, and clearly separating regressions from pre-existing bugs. This is exactly the kind of rigor expected at Principal QA level. I'm building this into my test plan templates: every session now tags findings with scope, impact type, and whether they relate to the change under test or are pre-existing issues to track separately.</p>
+          <div class="first-noted" data-i18n="ga4.noted">First noted: Year-End 2025</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Leadership Development Plan ── -->
+    <div class="section">
+      <div class="section-label" data-i18n="pip.label">In Progress</div>
+      <div class="section-title" data-i18n="pip.title">Leadership development plan</div>
+
+      <div class="plan-card">
+        <div class="plan-header">
+          <div class="plan-header-top">
+            <h3 data-i18n="pip.h3">8-Week Leadership Visibility Plan · Apr–Jun 2026</h3>
+            <div class="plan-status">
+              <span class="dot-pulse"></span>
+              <span data-i18n="pip.status">8 / 8 phases complete</span>
+            </div>
+          </div>
+          <p data-i18n="pip.desc">
+            A structured plan focused on <strong>leadership visibility</strong>: delivery predictability, proactive Slack communication, Inner Sourcing participation, post-deploy ownership, and cross-team collaboration. All formal KPIs are on track. The goal is to bridge the gap between what I deliver technically and how that delivery is perceived across the organization.
+          </p>
+        </div>
+
+        <div class="plan-body">
+
+          <div class="phases-grid">
+            <div class="phase-row">
+              <span class="phase-week">Week 1–2</span>
+              <span class="phase-name" data-i18n="ph1"><strong>Foundation</strong> · Zero rollbacks, 100% MRs with tests, core hours respected</span>
+              <span class="phase-status done">✓ Done</span>
+            </div>
+            <div class="phase-row">
+              <span class="phase-week">Week 3–4</span>
+              <span class="phase-name" data-i18n="ph2"><strong>Inner Sourcing</strong> · MR approved by Steward + Slack visibility</span>
+              <span class="phase-status done">✓ Done</span>
+            </div>
+            <div class="phase-row">
+              <span class="phase-week">Week 5–6</span>
+              <span class="phase-name" data-i18n="ph3"><strong>Post-deploy leadership</strong> · Lead smoke tests, participate in syncs</span>
+              <span class="phase-status done">✓ Done</span>
+            </div>
+            <div class="phase-row">
+              <span class="phase-week">Week 7</span>
+              <span class="phase-name" data-i18n="ph4"><strong>Consolidation</strong> · AI-assisted review process & quality gates</span>
+              <span class="phase-status done">✓ Done</span>
+            </div>
+            <div class="phase-row">
+              <span class="phase-week">Week 8</span>
+              <span class="phase-name" data-i18n="ph5"><strong>Closure</strong> · Sustained predictability + 8-week narrative</span>
+              <span class="phase-status done">✓ Done</span>
+            </div>
+          </div>
+
+          <div class="kpis-grid">
+            <div class="kpi-item">
+              <span class="kpi-icon">🚫</span>
+              <div class="kpi-body">
+                <h4 data-i18n="kpi1.h4">Rollbacks</h4>
+                <span data-i18n="kpi1.target">Target: zero</span><br/>
+                <span class="result" data-i18n="kpi1.result">✓ Zero in 8 weeks</span>
+              </div>
+            </div>
+            <div class="kpi-item">
+              <span class="kpi-icon">✅</span>
+              <div class="kpi-body">
+                <h4 data-i18n="kpi2.h4">MRs with tests</h4>
+                <span data-i18n="kpi2.target">Target: 100%</span><br/>
+                <span class="result" data-i18n="kpi2.result">✓ All MRs with tests + checklist</span>
+              </div>
+            </div>
+            <div class="kpi-item">
+              <span class="kpi-icon">🔀</span>
+              <div class="kpi-body">
+                <h4 data-i18n="kpi3.h4">Inner Sourcing</h4>
+                <span data-i18n="kpi3.target">Target: 1 MR approved</span><br/>
+                <span class="result" data-i18n="kpi3.result">✓ MR approved by Steward</span>
+              </div>
+            </div>
+            <div class="kpi-item">
+              <span class="kpi-icon">💬</span>
+              <div class="kpi-body">
+                <h4 data-i18n="kpi4.h4">Slack visibility</h4>
+                <span data-i18n="kpi4.target">Target: proactive posts</span><br/>
+                <span class="result" data-i18n="kpi4.result">✓ Posts in #clp-opex, #clp-all</span>
+              </div>
+            </div>
+            <div class="kpi-item">
+              <span class="kpi-icon">🕐</span>
+              <div class="kpi-body">
+                <h4 data-i18n="kpi5.h4">Core hours</h4>
+                <span data-i18n="kpi5.target">Target: no unannounced gaps</span><br/>
+                <span class="result" data-i18n="kpi5.result">✓ Zero unannounced absences</span>
+              </div>
+            </div>
+            <div class="kpi-item">
+              <span class="kpi-icon">🤝</span>
+              <div class="kpi-body">
+                <h4 data-i18n="kpi6.h4">Collaboration documented</h4>
+                <span data-i18n="kpi6.target">Target: consistent cross-team</span><br/>
+                <span class="result" data-i18n="kpi6.result">✓ 8+ colleagues, all 8 weeks</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ── All peer feedback ── -->
+    <div class="section">
+      <div class="section-label" data-i18n="peer.label">Peer Feedback</div>
+      <div class="section-title" data-i18n="peer.title">All anonymous reviews — full record</div>
+
+      <!-- 2023 -->
+      <div class="feedback-year">
+        <div class="feedback-year-header">
+          <div class="fy-left">
+            <span class="fy-year">2023</span>
+            <span class="fy-rating solid">Solid Performance</span>
+          </div>
+          <span class="fy-count" data-i18n="fy2023.count">5 reviewers</span>
+        </div>
+        <div class="feedback-cards">
+
+          <div class="feedback-card">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 1</span>
+              <div class="fc-tags">
+                <span class="fc-tag positive" data-i18n="fc23.1.tag1">Quality mindset</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fc23.1.text">Lucas is a highly qualified and meticulous QA Engineer. It is a pleasure to work with him as he constantly pushes the team to deliver more quality.</p>
+            <div class="fc-improvement">
+              <span class="fc-improvement-label" data-i18n="fc.imp.label">Growth area</span>
+              <p data-i18n="fc23.1.imp">More active communication in ceremonies.</p>
+            </div>
+          </div>
+
+          <div class="feedback-card">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 2</span>
+              <div class="fc-tags">
+                <span class="fc-tag positive" data-i18n="fc23.2.tag1">Team objectives</span>
+                <span class="fc-tag positive" data-i18n="fc23.2.tag2">Customer focus</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fc23.2.text">Lucas exemplifies the principle of "demonstrating the importance of achieving team objectives". He cares about making applications as good as possible. His QA Talk on QA metrics was well received by the team.</p>
+            <div class="fc-improvement">
+              <span class="fc-improvement-label" data-i18n="fc.imp.label">Growth area</span>
+              <p data-i18n="fc23.2.imp">Has solid knowledge and could share it more frequently — the QA Talk on metrics was cited as an example to replicate.</p>
+            </div>
+          </div>
+
+          <div class="feedback-card">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 3</span>
+              <div class="fc-tags">
+                <span class="fc-tag positive" data-i18n="fc23.3.tag1">Technical depth</span>
+                <span class="fc-tag positive" data-i18n="fc23.3.tag2">Detail-oriented</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fc23.3.text">Lucas is intelligent, his QA knowledge is excellent, he is very detail-oriented and visibly helps the team a lot.</p>
+          </div>
+
+          <div class="feedback-card">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 4</span>
+              <div class="fc-tags">
+                <span class="fc-tag positive" data-i18n="fc23.4.tag1">Learning pace</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fc23.4.text">Lucas is doing well in the QA Automation training program. Participated well in meetings, followed the process, and completed the JavaScript and TypeScript courses on time.</p>
+            <div class="fc-improvement">
+              <span class="fc-improvement-label" data-i18n="fc.imp.label">Growth area</span>
+              <p data-i18n="fc23.4.imp">Focus on the big opportunities of the moment — such as participating in code reviews and checking logs in GCP and Datadog.</p>
+            </div>
+          </div>
+
+          <div class="feedback-card">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 5</span>
+              <div class="fc-tags">
+                <span class="fc-tag positive" data-i18n="fc23.5.tag1">Analytical skills</span>
+                <span class="fc-tag positive" data-i18n="fc23.5.tag2">Best practices</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fc23.5.text">Lucas has good analytical skills and attention to detail. He is willing to share knowledge when the team needs it and has a good understanding of QA best practices and new tools.</p>
+            <div class="fc-improvement">
+              <span class="fc-improvement-label" data-i18n="fc.imp.label">Growth area</span>
+              <p data-i18n="fc23.5.imp">Negotiation skills, communication, and availability. Could share more insights and knowledge with the team more proactively.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Mid-2024 -->
+      <div class="feedback-year">
+        <div class="feedback-year-header">
+          <div class="fy-left">
+            <span class="fy-year">Mid-2024</span>
+            <span class="fy-rating exceeding">Exceeding Performance</span>
+          </div>
+          <span class="fy-count" data-i18n="fymid24.count">4 reviewers</span>
+        </div>
+        <div class="feedback-cards">
+
+          <div class="feedback-card">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 1</span>
+              <div class="fc-tags">
+                <span class="fc-tag positive" data-i18n="fcm24.1.tag1">Attention to detail</span>
+                <span class="fc-tag positive" data-i18n="fcm24.1.tag2">Curiosity</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fcm24.1.text">Lucas is a very skilled professional, with great attention to detail and curious to learn new things. It is a pleasure to work with him.</p>
+            <div class="fc-improvement">
+              <span class="fc-improvement-label" data-i18n="fc.imp.label">Growth area</span>
+              <p data-i18n="fcm24.1.imp">Needs to be more active in ceremonies and more opinionated about the backlog, to increase the quality of the team's deliveries.</p>
+            </div>
+          </div>
+
+          <div class="feedback-card">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 2</span>
+              <div class="fc-tags">
+                <span class="fc-tag positive" data-i18n="fcm24.2.tag1">Reliability</span>
+                <span class="fc-tag positive" data-i18n="fcm24.2.tag2">Automation</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fcm24.2.text">"Takes responsibility seriously and is committed to completing tasks." This makes a big difference because it generates better quality processes through continuous improvement. Lucas is on a great path in test automation development, making day-to-day QA easier and bringing more reliable results. He is reliable — people count on him.</p>
+            <div class="fc-improvement">
+              <span class="fc-improvement-label" data-i18n="fc.advice.label">Advice</span>
+              <p data-i18n="fcm24.2.imp">Ask for support when stuck and trust others' ideas more. Combining colleagues' ideas with his own, he's on a great technical path.</p>
+            </div>
+          </div>
+
+          <div class="feedback-card">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 3</span>
+              <div class="fc-tags">
+                <span class="fc-tag positive" data-i18n="fcm24.3.tag1">Issue detection</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fcm24.3.text">Good professional with a good eye for identifying issues and improvements in the application.</p>
+            <div class="fc-improvement">
+              <span class="fc-improvement-label" data-i18n="fc.imp.label">Growth area</span>
+              <p data-i18n="fcm24.3.imp">Sometimes seems to spend too much time on the automation process, causing tasks to remain longer than necessary without being tested.</p>
+            </div>
+          </div>
+
+          <div class="feedback-card">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 4</span>
+              <div class="fc-tags">
+                <span class="fc-tag positive" data-i18n="fcm24.4.tag1">Autonomous learning</span>
+                <span class="fc-tag positive" data-i18n="fcm24.4.tag2">Customer focus</span>
+                <span class="fc-tag positive" data-i18n="fcm24.4.tag3">Automation</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fcm24.4.text">Lucas is very curious and has a great ability to learn autonomously. These learnings make him an innovative QA, always seeking improvements in hard skills. He is visibly customer-focused — often works with the "customer" perspective to identify gaps and improvements. His automation capability is impressive.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Year-End 2024 -->
+      <div class="feedback-year">
+        <div class="feedback-year-header">
+          <div class="fy-left">
+            <span class="fy-year">Year-End 2024</span>
+            <span class="fy-rating exceeding">Exceeding Performance</span>
+          </div>
+          <span class="fy-count" data-i18n="fyend24.count">4 reviewers</span>
+        </div>
+        <div class="feedback-cards">
+
+          <div class="feedback-card">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 1</span>
+              <div class="fc-tags">
+                <span class="fc-tag positive" data-i18n="fce24.1.tag1">Customer Profile</span>
+                <span class="fc-tag iqtech">Curious &amp; Optimistic</span>
+                <span class="fc-tag iqtech">Customer Centric</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fce24.1.text">Lucas demonstrated strong QA commitment and deep understanding of testing methodologies, with great growth in automation during the year. His contribution to the Customer Profile project was considered invaluable. He still has room to evolve in technical testing skills, but is on the right track.</p>
+          </div>
+
+          <div class="feedback-card">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 2</span>
+              <div class="fc-tags">
+                <span class="fc-tag positive" data-i18n="fce24.2.tag1">Reliability</span>
+                <span class="fc-tag positive" data-i18n="fce24.2.tag2">Any-team asset</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fce24.2.text">Lucas takes responsibility seriously and would be a great contribution to any team. He is reliable and committed.</p>
+            <div class="fc-improvement">
+              <span class="fc-improvement-label" data-i18n="fc.imp.label">Growth area</span>
+              <p data-i18n="fce24.2.imp">Should present himself more frequently and expose his ideas proactively — before people need to ask. The current risk is that colleagues may have the impression he is not present, when in reality he is.</p>
+            </div>
+          </div>
+
+          <div class="feedback-card">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 3</span>
+              <div class="fc-tags">
+                <span class="fc-tag positive" data-i18n="fce24.3.tag1">Detail-oriented</span>
+                <span class="fc-tag positive" data-i18n="fce24.3.tag2">Automation</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fce24.3.text">Lucas has a great eye for details and is a good teammate, always catching points that could escape. He is doing good work with automation, which brings more confidence to deliveries.</p>
+          </div>
+
+          <div class="feedback-card">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 4</span>
+              <div class="fc-tags">
+                <span class="fc-tag positive" data-i18n="fce24.4.tag1">Ownership</span>
+                <span class="fc-tag iqtech">Curious &amp; Optimistic</span>
+                <span class="fc-tag iqtech">Innovative</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fce24.4.text">Lucas works hard to meet deadlines and ensure quality. He is very good at finding almost all problems in deliveries and frequently offers suggestions. He interacts with UX, product owners and developers to improve the overall quality of the product and questions "why not". Demonstrates the IQTech values Curious &amp; Optimistic and Innovative exemplarily. Has ownership and commitment, and contributed greatly to test automation.</p>
+            <div class="fc-improvement">
+              <span class="fc-improvement-label" data-i18n="fc.imp.label">Growth area</span>
+              <p data-i18n="fce24.4.imp">Evolve in the value Team Oriented &amp; Think Enterprise Wide — flexibility, decision-making when collaborating with others, and focus on common team objectives.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Mid-2025 -->
+      <div class="feedback-year">
+        <div class="feedback-year-header">
+          <div class="fy-left">
+            <span class="fy-year">Mid-2025</span>
+            <span class="fy-rating expected">Expected Performance</span>
+          </div>
+          <span class="fy-count" data-i18n="fymid25.count">4 reviewers · strongest set to date</span>
+        </div>
+        <div class="feedback-cards">
+
+          <div class="feedback-card highlight">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 1</span>
+              <div class="fc-tags">
+                <span class="fc-tag positive" data-i18n="fcm25.1.tag1">True asset</span>
+                <span class="fc-tag iqtech">Innovative</span>
+                <span class="fc-tag iqtech">Honest with Integrity</span>
+                <span class="fc-tag iqtech">Entrepreneurial &amp; Agile</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fcm25.1.text">Working alongside Lucas has been highly productive and consistently pleasant. He is a true asset to the team. His contributions to the Thanos team and the CLRE project are invaluable. His dedication to quality assurance is exceptional, consistently exceeding expectations. His meticulous attention to detail ensures high-quality deliveries, and his proactive approach identifies potential problems before they escalate. He takes ownership of his deliveries with precision and commitment to excellence, and demonstrates Entrepreneurial &amp; Agile qualities by adapting quickly to changes and learning from challenges.</p>
+          </div>
+
+          <div class="feedback-card">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 2</span>
+              <div class="fc-tags">
+                <span class="fc-tag positive" data-i18n="fcm25.2.tag1">Reliability</span>
+                <span class="fc-tag iqtech">Honest with Integrity</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fcm25.2.text">"Takes responsibility seriously and is committed to completing tasks" and "Honest with Integrity." These qualities make a big difference because they generate better quality processes. Lucas continuously seeks improvements in the quality process and is on a great path in test automation development. He is reliable — does what he says he will do, and people can count on him.</p>
+            <div class="fc-improvement">
+              <span class="fc-improvement-label" data-i18n="fc.advice.label">Advice</span>
+              <p data-i18n="fcm25.2.imp">Continue on the technical path and seek to share automation ideas more frequently.</p>
+            </div>
+          </div>
+
+          <div class="feedback-card">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 3</span>
+              <div class="fc-tags">
+                <span class="fc-tag positive" data-i18n="fcm25.3.tag1">Technical innovation</span>
+                <span class="fc-tag positive" data-i18n="fcm25.3.tag2">Adaptability</span>
+                <span class="fc-tag positive" data-i18n="fcm25.3.tag3">Customer focus</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fcm25.3.text">Lucas demonstrates strong technical knowledge, which allows him to innovate and create creative solutions that benefit the entire team. He exhibits notable responsiveness to changes, quickly adapting to deliver solutions in a timely manner. His customer-centric approach is evident in the various improvement suggestions that can benefit clients and end users.</p>
+          </div>
+
+          <div class="feedback-card">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 4</span>
+              <div class="fc-tags">
+                <span class="fc-tag iqtech">Innovative</span>
+                <span class="fc-tag iqtech">Curious &amp; Optimistic</span>
+                <span class="fc-tag positive" data-i18n="fcm25.4.tag1">Edge cases</span>
+                <span class="fc-tag positive" data-i18n="fcm25.4.tag2">E2E coverage</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fcm25.4.text">Lucas has a creative approach and thinks outside the box. He frequently suggests customer experience improvements in Customer Profile. He has great ability to identify edge cases and intermittent problems, and possesses excellent testing skills. He has a positive attitude and finds solutions to challenging problems. He implemented several best practices to improve product quality and contributed notably to increasing E2E automation coverage in Thanos and to delivering CLRE with good quality.</p>
+            <div class="fc-improvement">
+              <span class="fc-improvement-label" data-i18n="fc.imp.label">Growth area</span>
+              <p data-i18n="fcm25.4.imp">Negotiation skills, adaptability, and transparency to increase deliverables as a team.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Year-End 2025 -->
+      <div class="feedback-year">
+        <div class="feedback-year-header">
+          <div class="fy-left">
+            <span class="fy-year">Year-End 2025</span>
+            <span class="fy-rating expected">Expected Performance</span>
+          </div>
+          <span class="fy-count" data-i18n="fyend25.count">5 reviewers · highest ever</span>
+        </div>
+        <div class="feedback-cards">
+
+          <div class="feedback-card">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 1</span>
+              <div class="fc-tags">
+                <span class="fc-tag positive" data-i18n="fce25.1.tag1">Team-oriented</span>
+                <span class="fc-tag positive" data-i18n="fce25.1.tag2">Honest</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fce25.1.text">Lucas is very team-oriented and honest with his deliveries. When available, he connects and resolves any doubts based on all the knowledge he has about the project.</p>
+          </div>
+
+          <div class="feedback-card highlight">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 2</span>
+              <div class="fc-tags">
+                <span class="fc-tag iqtech">Customer Centric</span>
+                <span class="fc-tag iqtech">Team Oriented &amp; Think Enterprise Wide</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fce25.2.text">Lucas demonstrates exceptional customer centricity, caring deeply about the use and experience of services. His deep knowledge of the Profile Page and its components is a critical resource for the entire team. <em>No improvement areas identified at this time.</em></p>
+          </div>
+
+          <div class="feedback-card">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 3</span>
+              <div class="fc-tags">
+                <span class="fc-tag positive" data-i18n="fce25.3.tag1">Innovative Excellence</span>
+                <span class="fc-tag positive" data-i18n="fce25.3.tag2">Knowledge sharing</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fce25.3.text">Recognition for Innovative Excellence. Lucas did notable work improving test automation in Cypress, being creative and resourceful in finding new ways to raise quality. In addition, he actively shares new Cypress code and features with other QAs — demonstrating an innovative spirit and the "why not" posture in the face of opportunities for change.</p>
+          </div>
+
+          <div class="feedback-card">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 4</span>
+              <div class="fc-tags">
+                <span class="fc-tag positive" data-i18n="fce25.4.tag1">Technical expertise</span>
+                <span class="fc-tag positive" data-i18n="fce25.4.tag2">Customer focus</span>
+                <span class="fc-tag positive" data-i18n="fce25.4.tag3">Adaptability</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fce25.4.text">Lucas is an invaluable team member, leveraging technical expertise to develop innovative solutions that benefit the entire team. His work is clearly customer-centric and he adapts quickly to changes.</p>
+            <div class="fc-improvement">
+              <span class="fc-improvement-label" data-i18n="fc.imp.label">Growth area</span>
+              <p data-i18n="fce25.4.imp">Ensure open communication about workload and progress. Sharing information proactively and including others in the process will help distribute tasks and demonstrate full accountability over responsibilities.</p>
+            </div>
+          </div>
+
+          <div class="feedback-card">
+            <div class="fc-header">
+              <span class="fc-peer" data-i18n="peer.n">Peer 5</span>
+              <div class="fc-tags">
+                <span class="fc-tag iqtech">Customer Centric</span>
+                <span class="fc-tag iqtech">Curious &amp; Optimistic</span>
+                <span class="fc-tag iqtech">Honest with Integrity</span>
+                <span class="fc-tag positive" data-i18n="fce25.5.tag1">End-to-end validation</span>
+              </div>
+            </div>
+            <p class="fc-text" data-i18n="fce25.5.text">Lucas is great to work with and collaborates well with the team. He has solid knowledge of onboarding and maintenance flows and uses this understanding to ensure quality across multiple systems. He performs exemplary end-to-end validation in CLP, CRM, and the CLRE/CLP APIs — which is extremely valuable for identifying issues that could go unnoticed.</p>
+            <div class="fc-improvement">
+              <span class="fc-improvement-label" data-i18n="fc.imp.label">Growth area</span>
+              <p data-i18n="fce25.5.imp">Maintain a clearer focus on the scope of each test. Issues found outside scope are important but should be tracked separately to avoid invalidating the test in progress. Recommendation: systematically document all identified problems, clearly tag what is related to the change being tested vs. what is pre-existing, and use this documentation to prioritize fixes and communicate the impact of recent changes.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Longitudinal analysis ── -->
+    <div class="section">
+      <div class="section-label" data-i18n="long.label">Longitudinal Analysis</div>
+      <div class="section-title" data-i18n="long.title">2022 – 2025 · four-year read</div>
+
+      <!-- Summary row -->
+      <div class="long-summary-row">
+        <div class="long-summary-item">
+          <div class="lsi-label" data-i18n="lsi1.label">Formal ratings</div>
+          <div class="lsi-value">
+            <span class="lsi-chip solid">2022 Solid</span>
+            <span class="lsi-arrow">→</span>
+            <span class="lsi-chip solid">2023 Solid</span>
+            <span class="lsi-arrow">→</span>
+            <span class="lsi-chip exceeding">2024 Exceeding ↑</span>
+            <span class="lsi-arrow">→</span>
+            <span class="lsi-chip expected">2025 Expected</span>
+          </div>
+        </div>
+        <div class="long-summary-item">
+          <div class="lsi-label" data-i18n="lsi2.label">Positive peer feedbacks</div>
+          <div class="lsi-value">
+            <span class="lsi-chip neutral">2022 ×3</span>
+            <span class="lsi-arrow">→</span>
+            <span class="lsi-chip neutral">2023 ×5</span>
+            <span class="lsi-arrow">→</span>
+            <span class="lsi-chip neutral">2024 ×7</span>
+            <span class="lsi-arrow">→</span>
+            <span class="lsi-chip accent">2025 ×9 ↑ peak</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- General trajectory -->
+      <div class="long-narrative">
+        <h3 data-i18n="long.nar.title">General trajectory</h3>
+        <p data-i18n="long.nar.p">In four years at Questrade, I went through a consistent and recognised arc of technical growth, with a formal rating that rose from Solid (2022–2023) to Exceeding (2024) and stepped back to Expected (2025). The most revealing data point, however, is not in the formal ratings: the volume of positive, detailed peer feedbacks grew from 3 to 9 between 2022 and 2025, while technical recognition peaked in the last cycle. This means I finished 2025 as the most technically respected engineer on the team across my entire trajectory — and still with the lowest formal rating since 2023. <strong>The distance between internal perception and formal evaluation is the central phenomenon to understand.</strong></p>
+      </div>
+
+      <!-- Consolidated strengths -->
+      <div class="long-block">
+        <div class="long-block-header">
+          <span class="long-block-icon">✅</span>
+          <h3 data-i18n="long.str.h3">Consolidated strengths <span class="long-block-note" data-i18n="long.str.note">consistent in 3+ cycles</span></h3>
+        </div>
+        <div class="long-grid">
+
+          <div class="long-item strength-item">
+            <div class="long-item-title" data-i18n="ls1.title">Test automation</div>
+            <p data-i18n="ls1.body">Recognised with growing confidence since 2022, reaching peak in 2024–2025 with concrete deliveries: CLRE, Customer Profile Services, KYC Annual Review, E2E coverage on Thanos, Cypress. Never flagged as a weakness in any cycle.</p>
+          </div>
+
+          <div class="long-item strength-item">
+            <div class="long-item-title" data-i18n="ls2.title">Attention to detail &amp; critical thinking</div>
+            <p data-i18n="ls2.body">The most universally noted characteristic — present in every cycle from every type of evaluator. Probably the most deeply ingrained trait.</p>
+          </div>
+
+          <div class="long-item strength-item">
+            <div class="long-item-title" data-i18n="ls3.title">Ownership &amp; reliability</div>
+            <p data-i18n="ls3.body">Consolidated as a team reputation from 2024. "Does what he says he'll do" appeared verbatim in two consecutive mid-reviews — 2024 and 2025 — by the same colleague. A registered trademark, not a one-off compliment.</p>
+          </div>
+
+          <div class="long-item strength-item">
+            <div class="long-item-title" data-i18n="ls4.title">Customer centricity</div>
+            <p data-i18n="ls4.body">The most cited IQTech value across the entire trajectory. Appears in leader and peer feedback in all four years. The ability to think like a customer and identify gaps from the user's perspective is a spontaneously and consistently recognised differentiator.</p>
+          </div>
+
+          <div class="long-item strength-item">
+            <div class="long-item-title" data-i18n="ls5.title">Deep domain knowledge</div>
+            <p data-i18n="ls5.body">Deep expertise in onboarding, KYC, CLP, CLRE, and Customer Profile systems. By 2025, colleagues explicitly referred to this knowledge as "a critical resource for the entire team" — not just for QA tasks.</p>
+          </div>
+
+          <div class="long-item strength-item">
+            <div class="long-item-title" data-i18n="ls6.title">Innovation &amp; autonomous learning</div>
+            <p data-i18n="ls6.body">Recognition frequency grew each year. Adoption of AI tools (Cursor, Gemini, Claude Code) in 2025, creation of custom QA metrics (PPI, SRM, RBD), and creative automation solutions were highlighted as productive differentiators.</p>
+          </div>
+
+          <div class="long-item strength-item">
+            <div class="long-item-title" data-i18n="ls7.title">IQTech values alignment</div>
+            <p data-i18n="ls7.body">Honest with Integrity, Curious &amp; Optimistic, and Innovative appear recurrently across leaders and peers. Alignment to company values was never questioned in any cycle.</p>
+          </div>
+
+          <div class="long-item strength-item">
+            <div class="long-item-title" data-i18n="ls8.title">Metrics &amp; documentation impact</div>
+            <p data-i18n="ls8.body">Dashboards, QA Report, Task Score, Bug taxonomy — work with visibility beyond the team. QA Report was tracked by other teams as early as 2023. Highlighted positively in 2024 by leader as a strategic asset.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Unresolved gaps -->
+      <div class="long-block">
+        <div class="long-block-header">
+          <span class="long-block-icon">🔧</span>
+          <h3 data-i18n="long.gap.h3">Unresolved gaps <span class="long-block-note" data-i18n="long.gap.note">persistent in 3+ cycles without documented closure</span></h3>
+        </div>
+        <div class="long-grid">
+
+          <div class="long-item gap-item">
+            <div class="long-item-title" data-i18n="lg1.title">Proactive visibility</div>
+            <p data-i18n="lg1.body">The most persistent gap of the entire trajectory — present in all four years, in all leaders, and in peer feedback from all cycles. The language evolves as the expected level rises: in 2022 "speak more in ceremonies"; in 2025 <em>metrics-driven storytelling</em> and <em>cross-team influence</em>. Exposure grew, but expectation grew with it.</p>
+            <span class="gap-since" data-i18n="lg1.since">Present since 2022 · all 4 cycles</span>
+          </div>
+
+          <div class="long-item gap-item">
+            <div class="long-item-title" data-i18n="lg2.title">Knowledge sharing</div>
+            <p data-i18n="lg2.body">A variation of the same theme, but with its own specificity: solid knowledge and capable of teaching it (the QA Talk on metrics in 2023 was cited as a positive example), but doesn't do so systematically. The same colleague repeated the same advice in the mid-reviews of 2024 and 2025.</p>
+            <span class="gap-since" data-i18n="lg2.since">Recurrent: 2022, 2023, 2024, 2025</span>
+          </div>
+
+          <div class="long-item gap-item">
+            <div class="long-item-title" data-i18n="lg3.title">Execution speed &amp; sense of urgency</div>
+            <p data-i18n="lg3.body">Emerged as an explicit gap in a peer mid-review (2024) and became a formal leader point in 2025. The identified pattern is specific: excessive time building automation before starting manual tests. Not a delivery failure — it's sequencing and prioritisation within the sprint.</p>
+            <span class="gap-since" data-i18n="lg3.since">First noted: Mid-2024 · Formal: 2025</span>
+          </div>
+
+          <div class="long-item gap-item">
+            <div class="long-item-title" data-i18n="lg4.title">Strategic influence &amp; negotiation</div>
+            <p data-i18n="lg4.body">Appeared in different forms in 2023, 2024, and 2025: being more opinionated on the backlog, proposing ideas before being asked, connecting quality to business impact. This is the dimension that separates Senior QA from Principal QA.</p>
+            <span class="gap-since" data-i18n="lg4.since">Named: 2023, 2024, 2025</span>
+          </div>
+
+          <div class="long-item gap-item">
+            <div class="long-item-title" data-i18n="lg5.title">Protagonism in ceremonies &amp; backlog</div>
+            <p data-i18n="lg5.body">Active voice in agile ceremonies and opinion on the backlog appear from 2022 and return in 2023 and 2024 mid-review peer feedback. Indicates that the evolution in communication recognised by the leader was not yet fully visible to colleagues in those cycles.</p>
+            <span class="gap-since" data-i18n="lg5.since">Named: 2022 → 2023 → Mid-2024</span>
+          </div>
+
+          <div class="long-item gap-item">
+            <div class="long-item-title" data-i18n="lg6.title">Test scope management</div>
+            <p data-i18n="lg6.body">A new, specific, and actionable gap raised in Year-End 2025: systematically differentiating in-scope vs. out-of-scope findings and separating regressions from pre-existing bugs. It's exactly the kind of documental rigour expected at the Principal QA level.</p>
+            <span class="gap-since" data-i18n="lg6.since">First noted: Year-End 2025</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Principal QA reading -->
+      <div class="long-narrative principal-reading">
+        <h3 data-i18n="long.pqa.title">Reading toward Principal QA</h3>
+        <p data-i18n="long.pqa.p1">The four persistent gaps are exactly the four attributes that differentiate the Principal level from Senior: <strong>strategic visibility, technical protagonism, execution speed, and cross-team influence</strong>. The technical foundation is consolidated and recognised. What is being evaluated now is no longer whether I can deliver — it's whether I can make the team and the organisation see and amplify what I deliver.</p>
+        <p data-i18n="long.pqa.p2">The leader in 2025 stated directly: the combination of <strong>accelerated pace + strategic visibility</strong> is what will position me for the responsibilities of the role I aspire to. The path is defined — what remains is visible execution.</p>
+        <div class="principal-chips">
+          <span class="pc-chip" data-i18n="pqa.c1">Cross-team collaboration</span>
+          <span class="pc-chip" data-i18n="pqa.c2">Innovation leadership</span>
+          <span class="pc-chip" data-i18n="pqa.c3">Team protagonism</span>
+          <span class="pc-chip" data-i18n="pqa.c4">Metrics-driven storytelling</span>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer>
+    <span data-i18n="footer.text">Lucas Ferreira · Senior QA Engineer · Performance & Growth · 2022–2026</span>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+
+    const translations = {
+      en: {
+        'nav.back': '← Back to portfolio',
+        'hero.label': 'Performance & Growth',
+        'hero.h1': '4 years of honest<br/>feedback at Questrade',
+        'hero.desc': 'This page consolidates my performance reviews, peer feedback, and growth trajectory from <strong>2022 to 2025</strong>. I share it because I believe self-awareness and transparency are core to good engineering — and to good QA.',
+        'ratings.label': 'Ratings', 'ratings.title': 'Performance trajectory',
+        'chart.title': 'Positive peer feedback count per year',
+        'r2022.peers': '3 peer reviews',
+        'r2022.body': 'First full year at Questrade. Strong signals across <strong>technical delivery</strong> (dashboards, metrics, automation), <strong>attitude and values</strong> (ownership, customer focus, punctuality) and <strong>leadership potential</strong> — explicitly highlighted by multiple reviewers. The only consistent improvement theme was verbal communication and active presence in agile ceremonies.',
+        'r2022.h1': 'QA metrics & dashboards', 'r2022.h2': 'PPI metric introduced', 'r2022.h3': 'Leadership potential flagged', 'r2022.h4': 'Rapid tool onboarding',
+        'r2023.peers': '5 peer reviews',
+        'r2023.body': 'Consolidation year. QA Report gained visibility <strong>beyond the team</strong> — cited by other squads. Communication improved visibly day-to-day (acknowledged by the lead), but the challenge shifted to making that improvement <strong>perceived by peers</strong>. The QA Talk on QA metrics was cited as an example to replicate. Observability emerged for the first time as a development area.',
+        'r2023.h1': 'QA Report cross-team visibility', 'r2023.h2': 'QA Talk on metrics', 'r2023.h3': 'Communication improving', 'r2023.h4': 'Observability gap identified',
+        'r2024.peers': '7 peer reviews',
+        'r2024.body': 'Clear breakthrough. Automation recognized as a <strong>consolidated strength</strong> by the lead — with concrete deliveries in CLRE, Customer Profile Services and KYC Annual Review. Communication was praised for the first time as "clear and effective". <strong>Path to Principal QA Engineer explicitly named</strong> by the lead with three defined next steps: cross-team collaboration, innovation leadership, and team protagonism.',
+        'r2024.h1': 'CLRE automation', 'r2024.h2': 'Customer Profile Services', 'r2024.h3': 'KYC Annual Review', 'r2024.h4': 'Communication praised', 'r2024.h5': 'Principal QA path named',
+        'r2025.peers': '9 peer reviews · highest ever',
+        'r2025.body': 'The most revealing cycle. Peer technical recognition reached an <strong>all-time high</strong> — 9 reviewers, two with no improvement points at all. The formal rating stepped back due to a single specific gap: <strong>execution speed and sprint sequencing</strong> (not quality of work). The lead acknowledged values, domain knowledge, and impact — pointing clearly that the remaining gap is about <em>making contributions visible</em>, not about what is being delivered.',
+        'r2025.h1': 'Highest peer recognition', 'r2025.h2': 'AI tooling in QA workflow', 'r2025.h3': 'E2E coverage Thanos/CLRE', 'r2025.h4': 'Delivery speed: open gap', 'r2025.h5': 'Strategic visibility: in progress',
+        'leader.label': 'Leader Evaluations', 'leader.title': 'Annual feedback from managers',
+        'lt22.1.title': 'Technical contribution & QA maturity', 'lt22.1.body': "Contributed significantly to the team's QA maturity by applying diverse testing techniques, defining quality metrics, presenting demos, and working on quality dashboards. Evolved rapidly in automation processes and tools.",
+        'lt22.2.title': 'Business & team orientation', 'lt22.2.body': 'Very business- and team-oriented professional: punctual, present in all meetings, and with concrete contributions to metrics like PPI, helping the team be more precise in deliveries.',
+        'lt22.3.title': 'Integration & knowledge', 'lt22.3.body': 'Integrated very well with the team, learning new tools and applying pre-existing knowledge to increase QA presence. Created dashboards that help the team assess the quality of delivered work.',
+        'lt22.4.title': 'Values & ownership', 'lt22.4.body': 'Demonstrated IQTech values (Innovative, Curious & Optimistic, Honest with Integrity). Responsible professional with a customer vision who leads the team to deliver higher-quality software. Strong sense of product ownership.',
+        'lt22.5.title': 'Leadership potential', 'lt22.5.body': 'Considered a focused professional on the right path to become a reference for other QAs in the company. Explicitly highlighted as having potential to be a good leader in the future — something Questrade can leverage.',
+        'lt22.6.title': 'Attention to detail & critical thinking', 'lt22.6.body': 'Demonstrated strong attention to detail, good ability to think critically about test scenarios, and good productivity.',
+        'li22.label': 'Improvement points', 'li22.1': 'Have a more active voice in agile ceremonies', 'li22.2': 'Work more closely with the PO to help with backlog health, story refinement, and acceptance criteria', 'li22.3': 'Continue evolving in automation knowledge', 'li22.4': 'Engage more in verbal communication', 'li22.5': 'Have a more active voice in the QA Chapter',
+        'lt23.1.title': 'Observability', 'lt23.1.body': 'Individually did not demonstrate much interest in Observability, although the team as a whole had limited windows to go deeper on the topic. The leader committed to working to align Lucas and the team in this area.',
+        'lt23.2.title': 'Personal goals', 'lt23.2.body': 'Weekly personal goal tracking was initiated but lost continuity throughout the year. The leader acknowledged co-responsibility and reinforced the importance of Lucas also actively engaging in that journey.',
+        'lt23.3.title': 'Knowledge sharing & leading by example', 'lt23.3.body': 'The standout point was the need for Lucas to communicate to the team the processes he is conducting and the documentation he is producing — becoming a reference and inspiring colleagues to do the same.',
+        'lt23.4.title': 'Communication evolving', 'lt23.4.body': "Lucas's communication improved visibly in day-to-day interactions. The next step is to interact more with colleagues so that this evolution is perceived by them. The QA Report was highlighted as a valuable tool, already being tracked by other teams.",
+        'lt23.5.title': 'Values & curiosity', 'lt23.5.body': 'Lucas is aligned with IQTech values and works toward the best quality level for products. The development point is to be more curious and bring new solutions to the testing process.',
+        'lt23.6.title': 'General trajectory', 'lt23.6.body': 'The leader assessed that Lucas had solid performance, achieved good results, and grew where necessary. Contributed to the team achieving its objectives and is on the right path to elevate the team to new levels.',
+        'lt24.1.title': 'SRE & Observability', 'lt24.1.body': 'Lucas is developing a good understanding of SRE procedures through courses and indirectly contributes to SRE metrics through his commitment to application quality.', 'lt24.1.imp': 'Integrate SRE concepts into daily test practices; propose ideas for the Thanos team to reach RUN state in SRE; implement Synthetic Tests in the test framework.',
+        'lt24.2.title': 'Documentation & quality', 'lt24.2.body': 'The Quality section showed visible improvement. Lucas contributed significantly by creating detailed documents — Bug Priority, Bug Categories, Bug Subcategories, Bug Root Cause, and Bug Root Cause Analysis. Frequent use of AI to boost productivity was highlighted positively.', 'lt24.2.imp': 'Ensure documentation is actively used during testing and aligned with the latest application updates; work with Test Plans detailing tests and deliverables.',
+        'lt24.3.title': 'Quality metrics', 'lt24.3.body': 'Lucas is leading the implementation of the Task Score metric and demonstrates genuine concern for team performance from a quality perspective. Constantly reinforces to developers the importance of following release guidelines and actively works to reduce the number of bugs per task.', 'lt24.3.imp': 'Develop new metrics to identify quality gaps; implement escaped bug tracking; use Datadog for metric monitoring.',
+        'lt24.4.title': 'Automation', 'lt24.4.body': 'Lucas stands out in automation initiatives. The leader closely followed his evolution and confirms solid skills in this area. The CLRE automation is in progress, and the Customer Profile Services and KYC Annual Review initiatives were successfully implemented and considered critical for the team.', 'lt24.4.imp': 'Implement Component Tests for the Annual Review flow and multi-step modal scenarios; regularly analyse why escaped bugs were not captured by automation; align manual and automated tests in Zephyr at the end of each sprint.',
+        'lt24.5.title': 'Posture & ownership', 'lt24.5.body': "Lucas exemplifies a customer-centred approach in QA, with a consistent ability to identify problems from the user's perspective. His communication was praised as clear and effective. He demonstrates full ownership of his deliveries — automation, documentation, and quality — and consistently meets deadlines.", 'lt24.5.imp': 'Consider volunteering for additional responsibilities outside the direct QA domain.',
+        'lt24.6.title': 'Path to Principal QA Engineer', 'lt24.6.body': 'The leader recognises that Lucas is on the right path to becoming Principal QA Engineer and points out the next steps: collaborate effectively with other teams, implement improvements and lead innovation initiatives, be a protagonist in the team.',
+        'lt25.1.title': 'Support & accountability', 'lt25.1.body': 'Lucas contributed significantly to reducing friction for engineering clients. His participation in the support rotation and hands-on investigation of problems demonstrated strong accountability and a pragmatic approach, especially considering that most reported issues required deep technical investigation.',
+        'lt25.2.title': 'AI in QA workflow', 'lt25.2.body': 'Lucas effectively integrated AI tools (Cursor and Gemini) into the QA workflow, improving test efficiency and robustness. The use of these tools directly contributed to broader coverage and identification of edge cases that were not initially mapped.',
+        'lt25.3.title': 'Customer Profile Services', 'lt25.3.body': 'Exhaustive testing of Customer Profile Services endpoints helped establish a solid quality baseline, ensuring the platform is technically prepared for broader adoption.',
+        'lt25.4.title': 'Connection to business impact', 'lt25.4.body': 'The leader encourages Lucas to more explicitly connect his quality insights to business impact — customer experience, risk reduction, and delivery confidence — to strengthen his strategic influence beyond the technical domain.',
+        'lt25.5.title': 'Values & visibility', 'lt25.5.body': 'Lucas strongly demonstrates the Customer Centric and Team Oriented & Think Enterprise Wide values, consistently prioritising the experience of internal and external clients. The central growth opportunity is increasing visibility and communication about his own work — sharing progress, metrics, and outcomes proactively to amplify the impact of contributions and strengthen cross-team alignment.',
+        'lt25.6.title': 'Execution speed & sense of urgency', 'lt25.6.body': 'The main development point for the next cycle is increasing execution pace.', 'lt25.6.imp': '<strong>Agile Efficiency:</strong> adopt a leaner, more agile approach to ensure faster deliveries without sacrificing quality · <strong>Sense of Urgency:</strong> prioritise high-impact tasks to achieve faster results in accelerated sprints · <strong>Strategic Visibility:</strong> combine this accelerated pace with clearer communication of impact to influence broader teams.',
+        'strengths.label': 'Strengths', 'strengths.title': 'What peers and leaders consistently recognize',
+        'str1.title': 'Test Automation', 'str1.body': 'Started as a development area in 2022, reached reference level by 2025. Cited concretely: CLRE, Customer Profile Services, KYC Annual Review, E2E coverage on Thanos, Cypress. Never flagged as a weakness across four years.', 'str1.since': 'recognized since 2022 · peak in 2025',
+        'str2.title': 'Attention to Detail & Critical Thinking', 'str2.body': 'The most universally noted characteristic — present in every cycle, from every evaluator type. "Always catches points that could slip through" appeared in multiple reviews. Described as deeply ingrained, not situational.', 'str2.since': 'consistent across all 4 cycles',
+        'str3.title': 'Ownership & Reliability', 'str3.body': 'Consolidated as a team reputation from 2024 onward. "Does what he says he\'ll do" appeared verbatim in two consecutive mid-reviews. Colleagues explicitly say they count on Lucas — a registered trademark, not a one-off compliment.', 'str3.since': 'trademark since 2024',
+        'str4.title': 'Customer Centricity', 'str4.body': "The most cited IQTech value across the entire trajectory. Leaders and peers in all four years noted the ability to think from the user's perspective and identify gaps that others miss. Recognized spontaneously and consistently.", 'str4.since': 'consistent across all 4 cycles',
+        'str5.title': 'Domain Knowledge', 'str5.body': 'Deep expertise in KYC, onboarding, CLP, CLRE and Customer Profile systems. By 2025, colleagues explicitly referred to this knowledge as "a critical resource for the entire team" — not just for QA tasks.', 'str5.since': 'deepening since 2022',
+        'str6.title': 'Innovation & Autonomous Learning', 'str6.body': 'Frequency of this recognition increased each year. Adoption of AI tools (Cursor, Gemini, Claude Code) in 2025, custom QA metrics (PPI, SRM, RBD), and creative automation solutions were highlighted as competitive differentiators.', 'str6.since': 'growing recognition 2023–2025',
+        'quotes.label': 'Peer Voice', 'quotes.title': 'Selected quotes from anonymous reviews',
+        'q1.text': 'Lucas is a <strong>true asset to the team</strong>. His contributions to the Thanos team and the CLRE project are invaluable. His dedication to quality assurance is exceptional, consistently exceeding expectations. His meticulous attention to detail ensures high-quality deliveries.', 'q1.source': 'Peer — Mid-Review',
+        'q2.text': 'He <strong>takes responsibility seriously and is committed to completing tasks</strong>. He does what he says he will do, and people can count on him. He continually seeks improvements in the quality process and is on a great path in developing test automation.', 'q2.source': 'Peer — Mid-Review (same peer, both 2024 and 2025)',
+        'q3.text': 'Lucas is <strong>highly skilled and meticulous</strong>. It is a pleasure to work with him as he constantly pushes the team to deliver more quality. His automation capability is <strong>impressive</strong>.', 'q3.source': 'Peer — Year-End Review',
+        'q4.text': 'He performs <strong>exemplary end-to-end validation</strong>: in CLP, CRM and the CLRE/CLP APIs — which is extremely valuable for identifying issues that could go unnoticed. He has solid knowledge of onboarding and maintenance flows across multiple systems.', 'q4.source': 'Peer — Year-End Review',
+        'growth.label': 'Growth Areas', 'growth.title': "What I'm actively working on",
+        'ga1.title': 'Strategic Visibility & Proactive Communication', 'ga1.tag': 'active focus', 'ga1.body': "The most persistent gap across all four years — and the one I'm most deliberately addressing. The pattern: <strong>I deliver substantial work but don't amplify it through active communication</strong>. In 2022 it was \"speak up in ceremonies\"; by 2025 the expectation evolved to metrics-driven storytelling and cross-team influence. The gap isn't about what I deliver — it's about making it visible before being asked. The leadership development plan running Apr–Jun 2026 is directly targeting this with weekly Slack posts, post-deploy reports, and proactive FYI messages to stakeholders.", 'ga1.noted': 'First noted: 2022 · Present in all 4 cycles',
+        'ga2.title': 'Execution Speed & Sprint Sequencing', 'ga2.tag': 'formal since 2025', 'ga2.body': 'Named formally by the lead in 2025, but first observed in a peer mid-review in 2024. The specific pattern: <strong>spending too much time building automation before starting manual tests</strong>, which delays task closure within the sprint. Not a quality issue — it\'s about sequencing and time-boxing. I\'m applying a lean-first approach: run manual tests to unblock the ticket, then layer in automation. The Apr–Jun 2026 plan tracked this with zero rollbacks and 100% MRs with tests.', 'ga2.noted': 'First noted: Mid-Review 2024 · Formal gap in 2025',
+        'ga3.title': 'Cross-Team Influence & Strategic Protagonism', 'ga3.tag': 'active focus', 'ga3.body': 'Consistently surfacing since 2023 under different labels: being more opinionated on the backlog, proposing ideas before being asked, connecting quality insights to business impact. This is the dimension that <strong>separates Senior from Principal QA</strong>. The lead named it directly in 2024: "collaborate effectively with other teams, implement improvements, and lead innovation initiatives." I\'m working on this through Inner Sourcing contributions, proactive process proposals, and cross-team QA sync participation.', 'ga3.noted': 'First noted: 2023 · Escalating through 2025',
+        'ga4.title': 'Test Scope Documentation', 'ga4.tag': 'identified 2025', 'ga4.body': 'A new, specific, and actionable gap raised in Year-End 2025: <strong>systematically distinguishing in-scope vs. out-of-scope findings</strong>, and clearly separating regressions from pre-existing bugs. This is exactly the kind of rigor expected at Principal QA level. I\'m building this into my test plan templates: every session now tags findings with scope, impact type, and whether they relate to the change under test or are pre-existing issues to track separately.', 'ga4.noted': 'First noted: Year-End 2025',
+        'pip.label': 'In Progress', 'pip.title': 'Leadership development plan', 'pip.h3': '8-Week Leadership Visibility Plan · Apr–Jun 2026', 'pip.status': '8 / 8 phases complete',
+        'pip.desc': 'A structured plan focused on <strong>leadership visibility</strong>: delivery predictability, proactive Slack communication, Inner Sourcing participation, post-deploy ownership, and cross-team collaboration. All formal KPIs are on track. The goal is to bridge the gap between what I deliver technically and how that delivery is perceived across the organization.',
+        'ph1': '<strong>Foundation</strong> · Zero rollbacks, 100% MRs with tests, core hours respected', 'ph2': '<strong>Inner Sourcing</strong> · MR approved by Steward + Slack visibility', 'ph3': '<strong>Post-deploy leadership</strong> · Lead smoke tests, participate in syncs', 'ph4': '<strong>Consolidation</strong> · AI-assisted review process & quality gates', 'ph5': '<strong>Closure</strong> · Sustained predictability + 8-week narrative',
+        'kpi1.h4': 'Rollbacks', 'kpi1.target': 'Target: zero', 'kpi1.result': '✓ Zero in 8 weeks',
+        'kpi2.h4': 'MRs with tests', 'kpi2.target': 'Target: 100%', 'kpi2.result': '✓ All MRs with tests + checklist',
+        'kpi3.h4': 'Inner Sourcing', 'kpi3.target': 'Target: 1 MR approved', 'kpi3.result': '✓ MR approved by Steward',
+        'kpi4.h4': 'Slack visibility', 'kpi4.target': 'Target: proactive posts', 'kpi4.result': '✓ Posts in #clp-opex, #clp-all',
+        'kpi5.h4': 'Core hours', 'kpi5.target': 'Target: no unannounced gaps', 'kpi5.result': '✓ Zero unannounced absences',
+        'kpi6.h4': 'Collaboration documented', 'kpi6.target': 'Target: consistent cross-team', 'kpi6.result': '✓ 8+ colleagues, all 8 weeks',
+        'peer.label': 'Peer Feedback', 'peer.title': 'All anonymous reviews — full record', 'peer.n': 'Peer',
+        'fc.imp.label': 'Growth area', 'fc.advice.label': 'Advice',
+        'fy2023.count': '5 reviewers',
+        'fc23.1.tag1': 'Quality mindset', 'fc23.1.text': 'Lucas is a highly qualified and meticulous QA Engineer. It is a pleasure to work with him as he constantly pushes the team to deliver more quality.', 'fc23.1.imp': 'More active communication in ceremonies.',
+        'fc23.2.tag1': 'Team objectives', 'fc23.2.tag2': 'Customer focus', 'fc23.2.text': 'Lucas exemplifies the principle of "demonstrating the importance of achieving team objectives". He cares about making applications as good as possible. His QA Talk on QA metrics was well received by the team.', 'fc23.2.imp': 'Has solid knowledge and could share it more frequently — the QA Talk on metrics was cited as an example to replicate.',
+        'fc23.3.tag1': 'Technical depth', 'fc23.3.tag2': 'Detail-oriented', 'fc23.3.text': 'Lucas is intelligent, his QA knowledge is excellent, he is very detail-oriented and visibly helps the team a lot.',
+        'fc23.4.tag1': 'Learning pace', 'fc23.4.text': 'Lucas is doing well in the QA Automation training program. Participated well in meetings, followed the process, and completed the JavaScript and TypeScript courses on time.', 'fc23.4.imp': 'Focus on the big opportunities of the moment — such as participating in code reviews and checking logs in GCP and Datadog.',
+        'fc23.5.tag1': 'Analytical skills', 'fc23.5.tag2': 'Best practices', 'fc23.5.text': 'Lucas has good analytical skills and attention to detail. He is willing to share knowledge when the team needs it and has a good understanding of QA best practices and new tools.', 'fc23.5.imp': 'Negotiation skills, communication, and availability. Could share more insights and knowledge with the team more proactively.',
+        'fymid24.count': '4 reviewers',
+        'fcm24.1.tag1': 'Attention to detail', 'fcm24.1.tag2': 'Curiosity', 'fcm24.1.text': 'Lucas is a very skilled professional, with great attention to detail and curious to learn new things. It is a pleasure to work with him.', 'fcm24.1.imp': "Needs to be more active in ceremonies and more opinionated about the backlog, to increase the quality of the team's deliveries.",
+        'fcm24.2.tag1': 'Reliability', 'fcm24.2.tag2': 'Automation', 'fcm24.2.text': '"Takes responsibility seriously and is committed to completing tasks." This makes a big difference because it generates better quality processes through continuous improvement. Lucas is on a great path in test automation development, making day-to-day QA easier and bringing more reliable results. He is reliable — people count on him.', 'fcm24.2.imp': "Ask for support when stuck and trust others' ideas more. Combining colleagues' ideas with his own, he's on a great technical path.",
+        'fcm24.3.tag1': 'Issue detection', 'fcm24.3.text': 'Good professional with a good eye for identifying issues and improvements in the application.', 'fcm24.3.imp': 'Sometimes seems to spend too much time on the automation process, causing tasks to remain longer than necessary without being tested.',
+        'fcm24.4.tag1': 'Autonomous learning', 'fcm24.4.tag2': 'Customer focus', 'fcm24.4.tag3': 'Automation', 'fcm24.4.text': 'Lucas is very curious and has a great ability to learn autonomously. These learnings make him an innovative QA, always seeking improvements in hard skills. He is visibly customer-focused — often works with the "customer" perspective to identify gaps and improvements. His automation capability is impressive.',
+        'fyend24.count': '4 reviewers',
+        'fce24.1.tag1': 'Customer Profile', 'fce24.1.text': 'Lucas demonstrated strong QA commitment and deep understanding of testing methodologies, with great growth in automation during the year. His contribution to the Customer Profile project was considered invaluable. He still has room to evolve in technical testing skills, but is on the right track.',
+        'fce24.2.tag1': 'Reliability', 'fce24.2.tag2': 'Any-team asset', 'fce24.2.text': 'Lucas takes responsibility seriously and would be a great contribution to any team. He is reliable and committed.', 'fce24.2.imp': 'Should present himself more frequently and expose his ideas proactively — before people need to ask. The current risk is that colleagues may have the impression he is not present, when in reality he is.',
+        'fce24.3.tag1': 'Detail-oriented', 'fce24.3.tag2': 'Automation', 'fce24.3.text': 'Lucas has a great eye for details and is a good teammate, always catching points that could escape. He is doing good work with automation, which brings more confidence to deliveries.',
+        'fce24.4.tag1': 'Ownership', 'fce24.4.text': 'Lucas works hard to meet deadlines and ensure quality. He is very good at finding almost all problems in deliveries and frequently offers suggestions. He interacts with UX, product owners and developers to improve the overall quality of the product and questions "why not". Demonstrates the IQTech values Curious & Optimistic and Innovative exemplarily. Has ownership and commitment, and contributed greatly to test automation.', 'fce24.4.imp': 'Evolve in the value Team Oriented & Think Enterprise Wide — flexibility, decision-making when collaborating with others, and focus on common team objectives.',
+        'fymid25.count': '4 reviewers · strongest set to date',
+        'fcm25.1.tag1': 'True asset', 'fcm25.1.text': 'Working alongside Lucas has been highly productive and consistently pleasant. He is a true asset to the team. His contributions to the Thanos team and the CLRE project are invaluable. His dedication to quality assurance is exceptional, consistently exceeding expectations. His meticulous attention to detail ensures high-quality deliveries, and his proactive approach identifies potential problems before they escalate. He takes ownership of his deliveries with precision and commitment to excellence, and demonstrates Entrepreneurial & Agile qualities by adapting quickly to changes and learning from challenges.',
+        'fcm25.2.tag1': 'Reliability', 'fcm25.2.text': '"Takes responsibility seriously and is committed to completing tasks" and "Honest with Integrity." These qualities make a big difference because they generate better quality processes. Lucas continuously seeks improvements in the quality process and is on a great path in test automation development. He is reliable — does what he says he will do, and people can count on him.', 'fcm25.2.imp': 'Continue on the technical path and seek to share automation ideas more frequently.',
+        'fcm25.3.tag1': 'Technical innovation', 'fcm25.3.tag2': 'Adaptability', 'fcm25.3.tag3': 'Customer focus', 'fcm25.3.text': 'Lucas demonstrates strong technical knowledge, which allows him to innovate and create creative solutions that benefit the entire team. He exhibits notable responsiveness to changes, quickly adapting to deliver solutions in a timely manner. His customer-centric approach is evident in the various improvement suggestions that can benefit clients and end users.',
+        'fcm25.4.tag1': 'Edge cases', 'fcm25.4.tag2': 'E2E coverage', 'fcm25.4.text': 'Lucas has a creative approach and thinks outside the box. He frequently suggests customer experience improvements in Customer Profile. He has great ability to identify edge cases and intermittent problems, and possesses excellent testing skills. He has a positive attitude and finds solutions to challenging problems. He implemented several best practices to improve product quality and contributed notably to increasing E2E automation coverage in Thanos and to delivering CLRE with good quality.', 'fcm25.4.imp': 'Negotiation skills, adaptability, and transparency to increase deliverables as a team.',
+        'fyend25.count': '5 reviewers · highest ever',
+        'fce25.1.tag1': 'Team-oriented', 'fce25.1.tag2': 'Honest', 'fce25.1.text': 'Lucas is very team-oriented and honest with his deliveries. When available, he connects and resolves any doubts based on all the knowledge he has about the project.',
+        'fce25.2.text': 'Lucas demonstrates exceptional customer centricity, caring deeply about the use and experience of services. His deep knowledge of the Profile Page and its components is a critical resource for the entire team. <em>No improvement areas identified at this time.</em>',
+        'fce25.3.tag1': 'Innovative Excellence', 'fce25.3.tag2': 'Knowledge sharing', 'fce25.3.text': 'Recognition for Innovative Excellence. Lucas did notable work improving test automation in Cypress, being creative and resourceful in finding new ways to raise quality. In addition, he actively shares new Cypress code and features with other QAs — demonstrating an innovative spirit and the "why not" posture in the face of opportunities for change.',
+        'fce25.4.tag1': 'Technical expertise', 'fce25.4.tag2': 'Customer focus', 'fce25.4.tag3': 'Adaptability', 'fce25.4.text': 'Lucas is an invaluable team member, leveraging technical expertise to develop innovative solutions that benefit the entire team. His work is clearly customer-centric and he adapts quickly to changes.', 'fce25.4.imp': 'Ensure open communication about workload and progress. Sharing information proactively and including others in the process will help distribute tasks and demonstrate full accountability over responsibilities.',
+        'fce25.5.tag1': 'End-to-end validation', 'fce25.5.text': 'Lucas is great to work with and collaborates well with the team. He has solid knowledge of onboarding and maintenance flows and uses this understanding to ensure quality across multiple systems. He performs exemplary end-to-end validation in CLP, CRM, and the CLRE/CLP APIs — which is extremely valuable for identifying issues that could go unnoticed.', 'fce25.5.imp': 'Maintain a clearer focus on the scope of each test. Issues found outside scope are important but should be tracked separately to avoid invalidating the test in progress. Recommendation: systematically document all identified problems, clearly tag what is related to the change being tested vs. what is pre-existing, and use this documentation to prioritize fixes and communicate the impact of recent changes.',
+        'long.label': 'Longitudinal Analysis', 'long.title': '2022 – 2025 · four-year read',
+        'lsi1.label': 'Formal ratings', 'lsi2.label': 'Positive peer feedbacks',
+        'long.nar.title': 'General trajectory',
+        'long.nar.p': 'In four years at Questrade, I went through a consistent and recognised arc of technical growth, with a formal rating that rose from Solid (2022–2023) to Exceeding (2024) and stepped back to Expected (2025). The most revealing data point, however, is not in the formal ratings: the volume of positive, detailed peer feedbacks grew from 3 to 9 between 2022 and 2025, while technical recognition peaked in the last cycle. This means I finished 2025 as the most technically respected engineer on the team across my entire trajectory — and still with the lowest formal rating since 2023. <strong>The distance between internal perception and formal evaluation is the central phenomenon to understand.</strong>',
+        'long.str.h3': 'Consolidated strengths', 'long.str.note': 'consistent in 3+ cycles',
+        'ls1.title': 'Test automation', 'ls1.body': 'Recognised with growing confidence since 2022, reaching peak in 2024–2025 with concrete deliveries: CLRE, Customer Profile Services, KYC Annual Review, E2E coverage on Thanos, Cypress. Never flagged as a weakness in any cycle.',
+        'ls2.title': 'Attention to detail & critical thinking', 'ls2.body': 'The most universally noted characteristic — present in every cycle from every type of evaluator. Probably the most deeply ingrained trait.',
+        'ls3.title': 'Ownership & reliability', 'ls3.body': 'Consolidated as a team reputation from 2024. "Does what he says he\'ll do" appeared verbatim in two consecutive mid-reviews — 2024 and 2025 — by the same colleague. A registered trademark, not a one-off compliment.',
+        'ls4.title': 'Customer centricity', 'ls4.body': "The most cited IQTech value across the entire trajectory. Appears in leader and peer feedback in all four years. The ability to think like a customer and identify gaps from the user's perspective is a spontaneously and consistently recognised differentiator.",
+        'ls5.title': 'Deep domain knowledge', 'ls5.body': 'Deep expertise in onboarding, KYC, CLP, CLRE, and Customer Profile systems. By 2025, colleagues explicitly referred to this knowledge as "a critical resource for the entire team" — not just for QA tasks.',
+        'ls6.title': 'Innovation & autonomous learning', 'ls6.body': 'Recognition frequency grew each year. Adoption of AI tools (Cursor, Gemini, Claude Code) in 2025, creation of custom QA metrics (PPI, SRM, RBD), and creative automation solutions were highlighted as productive differentiators.',
+        'ls7.title': 'IQTech values alignment', 'ls7.body': 'Honest with Integrity, Curious & Optimistic, and Innovative appear recurrently across leaders and peers. Alignment to company values was never questioned in any cycle.',
+        'ls8.title': 'Metrics & documentation impact', 'ls8.body': 'Dashboards, QA Report, Task Score, Bug taxonomy — work with visibility beyond the team. QA Report was tracked by other teams as early as 2023. Highlighted positively in 2024 by leader as a strategic asset.',
+        'long.gap.h3': 'Unresolved gaps', 'long.gap.note': 'persistent in 3+ cycles without documented closure',
+        'lg1.title': 'Proactive visibility', 'lg1.body': 'The most persistent gap of the entire trajectory — present in all four years, in all leaders, and in peer feedback from all cycles. The language evolves as the expected level rises: in 2022 "speak more in ceremonies"; in 2025 <em>metrics-driven storytelling</em> and <em>cross-team influence</em>. Exposure grew, but expectation grew with it.', 'lg1.since': 'Present since 2022 · all 4 cycles',
+        'lg2.title': 'Knowledge sharing', 'lg2.body': 'A variation of the same theme, but with its own specificity: solid knowledge and capable of teaching it (the QA Talk on metrics in 2023 was cited as a positive example), but doesn\'t do so systematically. The same colleague repeated the same advice in the mid-reviews of 2024 and 2025.', 'lg2.since': 'Recurrent: 2022, 2023, 2024, 2025',
+        'lg3.title': 'Execution speed & sense of urgency', 'lg3.body': 'Emerged as an explicit gap in a peer mid-review (2024) and became a formal leader point in 2025. The identified pattern is specific: excessive time building automation before starting manual tests. Not a delivery failure — it\'s sequencing and prioritisation within the sprint.', 'lg3.since': 'First noted: Mid-2024 · Formal: 2025',
+        'lg4.title': 'Strategic influence & negotiation', 'lg4.body': 'Appeared in different forms in 2023, 2024, and 2025: being more opinionated on the backlog, proposing ideas before being asked, connecting quality to business impact. This is the dimension that separates Senior QA from Principal QA.', 'lg4.since': 'Named: 2023, 2024, 2025',
+        'lg5.title': 'Protagonism in ceremonies & backlog', 'lg5.body': 'Active voice in agile ceremonies and opinion on the backlog appear from 2022 and return in 2023 and 2024 mid-review peer feedback. Indicates that the evolution in communication recognised by the leader was not yet fully visible to colleagues in those cycles.', 'lg5.since': 'Named: 2022 → 2023 → Mid-2024',
+        'lg6.title': 'Test scope management', 'lg6.body': 'A new, specific, and actionable gap raised in Year-End 2025: systematically differentiating in-scope vs. out-of-scope findings and separating regressions from pre-existing bugs. It\'s exactly the kind of documental rigour expected at the Principal QA level.', 'lg6.since': 'First noted: Year-End 2025',
+        'long.pqa.title': 'Reading toward Principal QA',
+        'long.pqa.p1': 'The four persistent gaps are exactly the four attributes that differentiate the Principal level from Senior: <strong>strategic visibility, technical protagonism, execution speed, and cross-team influence</strong>. The technical foundation is consolidated and recognised. What is being evaluated now is no longer whether I can deliver — it\'s whether I can make the team and the organisation see and amplify what I deliver.',
+        'long.pqa.p2': 'The leader in 2025 stated directly: the combination of <strong>accelerated pace + strategic visibility</strong> is what will position me for the responsibilities of the role I aspire to. The path is defined — what remains is visible execution.',
+        'pqa.c1': 'Cross-team collaboration', 'pqa.c2': 'Innovation leadership', 'pqa.c3': 'Team protagonism', 'pqa.c4': 'Metrics-driven storytelling',
+        'footer.text': 'Lucas Ferreira · Senior QA Engineer · Performance & Growth · 2022–2026'
+      },
+      pt: {
+        'nav.back': '← Voltar ao portfolio',
+        'hero.label': 'Desempenho & Crescimento',
+        'hero.h1': '4 anos de feedback<br/>honesto na Questrade',
+        'hero.desc': 'Esta página consolida minhas avaliações de desempenho, feedbacks de colegas e trajetória de crescimento de <strong>2022 a 2025</strong>. Compartilho porque acredito que autoconhecimento e transparência são fundamentais para a boa engenharia — e para um bom QA.',
+        'ratings.label': 'Avaliações', 'ratings.title': 'Trajetória de desempenho',
+        'chart.title': 'Quantidade de feedbacks positivos de colegas por ano',
+        'r2022.peers': '3 avaliações de colegas',
+        'r2022.body': 'Primeiro ano completo na Questrade. Sinais fortes em <strong>entregas técnicas</strong> (dashboards, métricas, automação), <strong>atitude e valores</strong> (ownership, foco no cliente, pontualidade) e <strong>potencial de liderança</strong> — destacado explicitamente por múltiplos avaliadores. O único tema recorrente de melhoria foi comunicação verbal e presença ativa em cerimônias ágeis.',
+        'r2022.h1': 'Métricas e dashboards de QA', 'r2022.h2': 'Métrica PPI introduzida', 'r2022.h3': 'Potencial de liderança identificado', 'r2022.h4': 'Onboarding rápido de ferramentas',
+        'r2023.peers': '5 avaliações de colegas',
+        'r2023.body': 'Ano de consolidação. O QA Report ganhou visibilidade <strong>além do time</strong> — citado por outros squads. A comunicação melhorou visivelmente no dia a dia (reconhecida pelo líder), mas o desafio passou a ser fazer essa melhoria <strong>percebida pelos colegas</strong>. O QA Talk sobre métricas de QA foi citado como exemplo a replicar. Observabilidade surgiu pela primeira vez como área de desenvolvimento.',
+        'r2023.h1': 'QA Report com visibilidade cross-team', 'r2023.h2': 'QA Talk sobre métricas', 'r2023.h3': 'Comunicação melhorando', 'r2023.h4': 'Gap de observabilidade identificado',
+        'r2024.peers': '7 avaliações de colegas',
+        'r2024.body': 'Avanço claro. Automação reconhecida como <strong>ponto forte consolidado</strong> pelo líder — com entregas concretas em CLRE, Customer Profile Services e KYC Annual Review. Comunicação elogiada pela primeira vez como "clara e efetiva". <strong>Caminho para Principal QA Engineer nomeado explicitamente</strong> pelo líder, com três próximos passos definidos: colaboração cross-team, liderança em inovação e protagonismo no time.',
+        'r2024.h1': 'Automação CLRE', 'r2024.h2': 'Customer Profile Services', 'r2024.h3': 'KYC Annual Review', 'r2024.h4': 'Comunicação elogiada', 'r2024.h5': 'Caminho para Principal QA nomeado',
+        'r2025.peers': '9 avaliações de colegas · o maior número',
+        'r2025.body': 'O ciclo mais revelador. O reconhecimento técnico dos colegas atingiu o <strong>pico histórico</strong> — 9 avaliadores, dois sem nenhum ponto de melhoria. A avaliação formal recuou por um gap específico: <strong>velocidade de execução e sequenciamento de sprint</strong> (não qualidade do trabalho). O líder reconheceu valores, conhecimento de domínio e impacto — apontando claramente que o gap restante é sobre <em>tornar as contribuições visíveis</em>, não sobre o que é entregue.',
+        'r2025.h1': 'Maior reconhecimento dos pares', 'r2025.h2': 'Ferramentas de IA no fluxo de QA', 'r2025.h3': 'Cobertura E2E Thanos/CLRE', 'r2025.h4': 'Velocidade de entrega: gap em aberto', 'r2025.h5': 'Visibilidade estratégica: em andamento',
+        'leader.label': 'Avaliações dos Líderes', 'leader.title': 'Feedback anual dos gestores',
+        'lt22.1.title': 'Contribuição técnica e maturidade de QA', 'lt22.1.body': 'Contribuiu significativamente para a maturidade de QA do time, aplicando diversas técnicas de teste, definindo métricas de qualidade, apresentando demos e trabalhando em dashboards de qualidade. Evoluiu rapidamente nos processos e ferramentas de automação.',
+        'lt22.2.title': 'Orientação ao negócio e ao time', 'lt22.2.body': 'Profissional muito orientado ao negócio e ao time: pontual, presente em todas as reuniões e com contribuições concretas a métricas como PPI, ajudando o time a ser mais preciso nas entregas.',
+        'lt22.3.title': 'Integração e conhecimento', 'lt22.3.body': 'Integrou-se muito bem ao time, aprendendo novas ferramentas e aplicando conhecimentos pré-existentes para aumentar a presença do QA. Criou dashboards que ajudam o time a avaliar a qualidade do trabalho entregue.',
+        'lt22.4.title': 'Valores e ownership', 'lt22.4.body': 'Demonstrou os valores IQTech (Inovador, Curioso & Otimista, Honesto com Integridade). Profissional responsável com visão de cliente que leva o time a entregar software de maior qualidade. Forte senso de ownership do produto.',
+        'lt22.5.title': 'Potencial de liderança', 'lt22.5.body': 'Considerado um profissional focado no caminho certo para se tornar referência para outros QAs na empresa. Destacado explicitamente como tendo potencial para ser um bom líder no futuro — algo que a Questrade pode aproveitar.',
+        'lt22.6.title': 'Atenção a detalhes e pensamento crítico', 'lt22.6.body': 'Demonstrou forte atenção a detalhes, boa capacidade de pensar criticamente sobre cenários de teste e boa produtividade.',
+        'li22.label': 'Pontos de melhoria', 'li22.1': 'Ter uma voz mais ativa nas cerimônias ágeis', 'li22.2': 'Trabalhar mais próximo ao PO para ajudar com a saúde do backlog, refinamento de histórias e critérios de aceite', 'li22.3': 'Continuar evoluindo no conhecimento de automação', 'li22.4': 'Engajar mais na comunicação verbal', 'li22.5': 'Ter uma voz mais ativa no Chapter de QA',
+        'lt23.1.title': 'Observabilidade', 'lt23.1.body': 'Individualmente não demonstrou muito interesse em Observabilidade, embora o time como um todo tenha tido janelas limitadas para se aprofundar no tema. O líder se comprometeu a trabalhar para alinhar Lucas e o time nessa área.',
+        'lt23.2.title': 'Metas pessoais', 'lt23.2.body': 'O acompanhamento semanal de metas pessoais foi iniciado mas perdeu continuidade ao longo do ano. O líder reconheceu a corresponsabilidade e reforçou a importância de Lucas também se engajar ativamente nessa jornada.',
+        'lt23.3.title': 'Compartilhamento de conhecimento e liderança pelo exemplo', 'lt23.3.body': 'O ponto de destaque foi a necessidade de Lucas comunicar ao time os processos que está conduzindo e a documentação que está produzindo — tornando-se referência e inspirando colegas a fazerem o mesmo.',
+        'lt23.4.title': 'Comunicação em evolução', 'lt23.4.body': 'A comunicação de Lucas melhorou visivelmente nas interações do dia a dia. O próximo passo é interagir mais com os colegas para que essa evolução seja percebida por eles. O QA Report foi destacado como uma ferramenta valiosa, já sendo acompanhado por outros times.',
+        'lt23.5.title': 'Valores e curiosidade', 'lt23.5.body': 'Lucas está alinhado com os valores IQTech e trabalha em direção ao melhor nível de qualidade para os produtos. O ponto de desenvolvimento é ser mais curioso e trazer novas soluções para o processo de testes.',
+        'lt23.6.title': 'Trajetória geral', 'lt23.6.body': 'O líder avaliou que Lucas teve desempenho sólido, alcançou bons resultados e cresceu onde necessário. Contribuiu para o time atingir seus objetivos e está no caminho certo para elevar o time a novos patamares.',
+        'lt24.1.title': 'SRE e Observabilidade', 'lt24.1.body': 'Lucas está desenvolvendo um bom entendimento dos procedimentos de SRE através de cursos e contribui indiretamente para as métricas de SRE por meio do seu compromisso com a qualidade das aplicações.', 'lt24.1.imp': 'Integrar conceitos de SRE às práticas diárias de teste; propor ideias para o time Thanos atingir o estado RUN em SRE; implementar Testes Sintéticos no framework de testes.',
+        'lt24.2.title': 'Documentação e qualidade', 'lt24.2.body': 'A seção de Qualidade demonstrou melhoria visível. Lucas contribuiu significativamente criando documentos detalhados — Prioridade de Bugs, Categorias, Subcategorias, Causa Raiz e Análise de Causa Raiz. O uso frequente de IA para aumentar a produtividade foi destacado positivamente.', 'lt24.2.imp': 'Garantir que a documentação seja ativamente utilizada durante os testes e alinhada às últimas atualizações da aplicação; trabalhar com Planos de Teste detalhando testes e entregáveis.',
+        'lt24.3.title': 'Métricas de qualidade', 'lt24.3.body': 'Lucas está liderando a implementação da métrica Task Score e demonstra genuína preocupação com o desempenho do time sob uma perspectiva de qualidade. Reforça constantemente aos desenvolvedores a importância de seguir as diretrizes de release e atua ativamente para reduzir o número de bugs por tarefa.', 'lt24.3.imp': 'Desenvolver novas métricas para identificar gaps de qualidade; implementar rastreamento de bugs escapados; usar o Datadog para monitoramento de métricas.',
+        'lt24.4.title': 'Automação', 'lt24.4.body': 'Lucas se destaca nas iniciativas de automação. O líder acompanhou de perto sua evolução e confirma sólidas habilidades nessa área. A automação do CLRE está em andamento, e as iniciativas de Customer Profile Services e KYC Annual Review foram implementadas com sucesso e consideradas críticas para o time.', 'lt24.4.imp': 'Implementar Testes de Componente para o fluxo do Annual Review e cenários de modal multi-passo; analisar regularmente por que bugs escapados não foram capturados pela automação; alinhar testes manuais e automatizados no Zephyr ao final de cada sprint.',
+        'lt24.5.title': 'Postura e ownership', 'lt24.5.body': 'Lucas exemplifica uma abordagem centrada no cliente no QA, com capacidade consistente de identificar problemas sob a perspectiva do usuário. Sua comunicação foi elogiada como clara e efetiva. Demonstra ownership total de suas entregas — automação, documentação e qualidade — e cumpre consistentemente os prazos.', 'lt24.5.imp': 'Considerar se voluntariar para responsabilidades adicionais fora do domínio direto de QA.',
+        'lt24.6.title': 'Caminho para Principal QA Engineer', 'lt24.6.body': 'O líder reconhece que Lucas está no caminho certo para se tornar Principal QA Engineer e aponta os próximos passos: colaborar efetivamente com outros times, implementar melhorias e liderar iniciativas de inovação, ser protagonista no time.',
+        'lt25.1.title': 'Suporte e responsabilidade', 'lt25.1.body': 'Lucas contribuiu significativamente para reduzir o atrito com os clientes de engenharia. Sua participação na rotação de suporte e investigação prática dos problemas demonstrou forte responsabilidade e abordagem pragmática, especialmente considerando que a maioria dos problemas relatados exigiu investigação técnica profunda.',
+        'lt25.2.title': 'IA no fluxo de QA', 'lt25.2.body': 'Lucas integrou efetivamente ferramentas de IA (Cursor e Gemini) ao fluxo de QA, melhorando a eficiência e robustez dos testes. O uso dessas ferramentas contribuiu diretamente para uma cobertura mais ampla e identificação de casos extremos que não foram inicialmente mapeados.',
+        'lt25.3.title': 'Customer Profile Services', 'lt25.3.body': 'Os testes exaustivos dos endpoints do Customer Profile Services ajudaram a estabelecer uma base sólida de qualidade, garantindo que a plataforma esteja tecnicamente preparada para adoção mais ampla.',
+        'lt25.4.title': 'Conexão com o impacto no negócio', 'lt25.4.body': 'O líder encoraja Lucas a conectar mais explicitamente seus insights de qualidade ao impacto no negócio — experiência do cliente, redução de riscos e confiança nas entregas — para fortalecer sua influência estratégica além do domínio técnico.',
+        'lt25.5.title': 'Valores e visibilidade', 'lt25.5.body': 'Lucas demonstra fortemente os valores Customer Centric e Team Oriented & Think Enterprise Wide, priorizando consistentemente a experiência de clientes internos e externos. A oportunidade central de crescimento é aumentar a visibilidade e comunicação sobre seu próprio trabalho — compartilhando progresso, métricas e resultados de forma proativa para amplificar o impacto das contribuições e fortalecer o alinhamento cross-team.',
+        'lt25.6.title': 'Velocidade de execução e senso de urgência', 'lt25.6.body': 'O principal ponto de desenvolvimento para o próximo ciclo é aumentar o ritmo de execução.', 'lt25.6.imp': '<strong>Eficiência Ágil:</strong> adotar uma abordagem mais enxuta e ágil para garantir entregas mais rápidas sem sacrificar a qualidade · <strong>Senso de Urgência:</strong> priorizar tarefas de alto impacto para alcançar resultados mais rápidos em sprints acelerados · <strong>Visibilidade Estratégica:</strong> combinar esse ritmo acelerado com comunicação mais clara do impacto para influenciar times mais amplos.',
+        'strengths.label': 'Pontos Fortes', 'strengths.title': 'O que colegas e líderes reconhecem consistentemente',
+        'str1.title': 'Automação de Testes', 'str1.body': 'Começou como área de desenvolvimento em 2022, atingiu nível de referência até 2025. Citado concretamente: CLRE, Customer Profile Services, KYC Annual Review, cobertura E2E no Thanos, Cypress. Nunca apontado como fraqueza em quatro anos.', 'str1.since': 'reconhecido desde 2022 · pico em 2025',
+        'str2.title': 'Atenção a Detalhes & Pensamento Crítico', 'str2.body': 'A característica mais universalmente notada — presente em todos os ciclos, por todos os tipos de avaliadores. "Sempre pega pontos que poderiam escapar" apareceu em múltiplas avaliações. Descrita como profundamente arraigada, não situacional.', 'str2.since': 'consistente em todos os 4 ciclos',
+        'str3.title': 'Ownership & Confiabilidade', 'str3.body': 'Consolidado como reputação no time a partir de 2024. "Faz o que diz que vai fazer" apareceu textualmente em duas mid-reviews consecutivas. Colegas explicitamente dizem que contam com Lucas — uma marca registrada, não um elogio isolado.', 'str3.since': 'marca registrada desde 2024',
+        'str4.title': 'Foco no Cliente', 'str4.body': 'O valor IQTech mais citado ao longo de toda a trajetória. Líderes e colegas em todos os quatro anos notaram a capacidade de pensar pela perspectiva do usuário e identificar gaps que outros não percebem. Reconhecido espontânea e consistentemente.', 'str4.since': 'consistente em todos os 4 ciclos',
+        'str5.title': 'Conhecimento de Domínio', 'str5.body': 'Profundo conhecimento em KYC, onboarding, CLP, CLRE e sistemas de Customer Profile. Em 2025, colegas explicitamente se referiram a esse conhecimento como "um recurso crítico para todo o time" — não apenas para tarefas de QA.', 'str5.since': 'aprofundando desde 2022',
+        'str6.title': 'Inovação & Aprendizado Autônomo', 'str6.body': 'A frequência desse reconhecimento aumentou a cada ano. A adoção de ferramentas de IA (Cursor, Gemini, Claude Code) em 2025, métricas de QA personalizadas (PPI, SRM, RBD) e soluções criativas de automação foram destacadas como diferenciais competitivos.', 'str6.since': 'reconhecimento crescente 2023–2025',
+        'quotes.label': 'Voz dos Colegas', 'quotes.title': 'Citações selecionadas de avaliações anônimas',
+        'q1.text': 'Lucas é um <strong>verdadeiro ativo para o time</strong>. Suas contribuições para o time Thanos e o projeto CLRE são inestimáveis. Sua dedicação à garantia de qualidade é excepcional, consistentemente superando as expectativas. Sua atenção meticulosa aos detalhes garante entregas de alta qualidade.', 'q1.source': 'Colega — Mid-Review',
+        'q2.text': 'Ele <strong>leva a responsabilidade a sério e está comprometido em concluir as tarefas</strong>. Faz o que diz que vai fazer, e as pessoas podem contar com ele. Busca continuamente melhorias no processo de qualidade e está em um ótimo caminho no desenvolvimento de automação de testes.', 'q2.source': 'Colega — Mid-Review (mesmo colega, 2024 e 2025)',
+        'q3.text': 'Lucas é <strong>altamente habilidoso e meticuloso</strong>. É um prazer trabalhar com ele, pois constantemente impulsiona o time a entregar mais qualidade. Sua capacidade de automação é <strong>impressionante</strong>.', 'q3.source': 'Colega — Avaliação de Fim de Ano',
+        'q4.text': 'Ele realiza uma <strong>validação end-to-end exemplar</strong>: no CLP, CRM e nas APIs CLRE/CLP — o que é extremamente valioso para identificar problemas que poderiam passar despercebidos. Tem conhecimento sólido dos fluxos de onboarding e manutenção em múltiplos sistemas.', 'q4.source': 'Colega — Avaliação de Fim de Ano',
+        'growth.label': 'Áreas de Crescimento', 'growth.title': 'No que estou trabalhando ativamente',
+        'ga1.title': 'Visibilidade Estratégica & Comunicação Proativa', 'ga1.tag': 'foco ativo', 'ga1.body': 'O gap mais persistente em todos os quatro anos — e aquele que estou abordando de forma mais deliberada. O padrão: <strong>entrego trabalho substancial mas não o amplfico através de comunicação ativa</strong>. Em 2022 era "fale mais nas cerimônias"; em 2025 a expectativa evoluiu para storytelling baseado em métricas e influência cross-team. O gap não é sobre o que entrego — é sobre tornar isso visível antes de ser solicitado. O plano de desenvolvimento de liderança de abril a junho de 2026 ataca isso diretamente com posts semanais no Slack, relatórios pós-deploy e mensagens FYI proativas para stakeholders.', 'ga1.noted': 'Primeiro registro: 2022 · Presente em todos os 4 ciclos',
+        'ga2.title': 'Velocidade de Execução & Sequenciamento de Sprint', 'ga2.tag': 'formal desde 2025', 'ga2.body': 'Formalizado pelo líder em 2025, mas observado pela primeira vez em uma mid-review de colega em 2024. O padrão específico: <strong>dedicar tempo excessivo à automação antes de iniciar os testes manuais</strong>, o que atrasa o fechamento das tarefas dentro do sprint. Não é um problema de qualidade — é sobre sequenciamento e time-boxing. Estou aplicando uma abordagem lean-first: executar testes manuais para desbloquear o ticket, depois adicionar automação. O plano de abril a junho de 2026 acompanhou isso com zero rollbacks e 100% dos MRs com testes.', 'ga2.noted': 'Primeiro registro: Mid-Review 2024 · Gap formal em 2025',
+        'ga3.title': 'Influência Cross-Team & Protagonismo Estratégico', 'ga3.tag': 'foco ativo', 'ga3.body': 'Emergindo consistentemente desde 2023 sob diferentes rótulos: ser mais opinativo sobre o backlog, propor ideias antes de ser solicitado, conectar insights de qualidade ao impacto no negócio. Esta é a dimensão que <strong>separa o QA Sênior do Principal QA</strong>. O líder nomeou diretamente em 2024: "colaborar efetivamente com outros times, implementar melhorias e liderar iniciativas de inovação." Estou trabalhando nisso através de contribuições de Inner Sourcing, propostas proativas de processos e participação em syncs de QA cross-team.', 'ga3.noted': 'Primeiro registro: 2023 · Escalando até 2025',
+        'ga4.title': 'Documentação de Escopo de Teste', 'ga4.tag': 'identificado em 2025', 'ga4.body': 'Um gap novo, específico e acionável levantado no fim de 2025: <strong>distinguir sistematicamente achados in-scope vs. out-of-scope</strong> e separar claramente regressões de bugs pré-existentes. É exatamente o tipo de rigor esperado no nível de Principal QA. Estou incorporando isso nos meus templates de plano de teste: toda sessão agora classifica os achados por escopo, tipo de impacto e se estão relacionados à mudança em teste ou são problemas pré-existentes.', 'ga4.noted': 'Primeiro registro: Fim de Ano 2025',
+        'pip.label': 'Em Andamento', 'pip.title': 'Plano de desenvolvimento de liderança', 'pip.h3': 'Plano de Visibilidade de Liderança · 8 Semanas · Abr–Jun 2026', 'pip.status': '8 / 8 fases concluídas',
+        'pip.desc': 'Um plano estruturado focado em <strong>visibilidade de liderança</strong>: previsibilidade de entrega, comunicação proativa no Slack, participação em Inner Sourcing, ownership pós-deploy e colaboração cross-team. Todos os KPIs formais estão no caminho certo. O objetivo é fechar o gap entre o que entrego tecnicamente e como essa entrega é percebida na organização.',
+        'ph1': '<strong>Fundação</strong> · Zero rollbacks, 100% dos MRs com testes, horários respeitados', 'ph2': '<strong>Inner Sourcing</strong> · MR aprovado pelo Steward + visibilidade no Slack', 'ph3': '<strong>Liderança pós-deploy</strong> · Liderar smoke tests, participar de syncs', 'ph4': '<strong>Consolidação</strong> · Processo de revisão com IA & quality gates', 'ph5': '<strong>Encerramento</strong> · Previsibilidade sustentada + narrativa das 8 semanas',
+        'kpi1.h4': 'Rollbacks', 'kpi1.target': 'Meta: zero', 'kpi1.result': '✓ Zero em 8 semanas',
+        'kpi2.h4': 'MRs com testes', 'kpi2.target': 'Meta: 100%', 'kpi2.result': '✓ Todos os MRs com testes + checklist',
+        'kpi3.h4': 'Inner Sourcing', 'kpi3.target': 'Meta: 1 MR aprovado', 'kpi3.result': '✓ MR aprovado pelo Steward',
+        'kpi4.h4': 'Visibilidade no Slack', 'kpi4.target': 'Meta: posts proativos', 'kpi4.result': '✓ Posts em #clp-opex, #clp-all',
+        'kpi5.h4': 'Horário core', 'kpi5.target': 'Meta: sem ausências não avisadas', 'kpi5.result': '✓ Zero ausências não avisadas',
+        'kpi6.h4': 'Colaboração documentada', 'kpi6.target': 'Meta: cross-team consistente', 'kpi6.result': '✓ 8+ colegas, todas as 8 semanas',
+        'peer.label': 'Feedback dos Pares', 'peer.title': 'Todas as avaliações anônimas — registro completo', 'peer.n': 'Colega',
+        'fc.imp.label': 'Área de crescimento', 'fc.advice.label': 'Conselho',
+        'fy2023.count': '5 avaliadores',
+        'fc23.1.tag1': 'Mentalidade de qualidade', 'fc23.1.text': 'Lucas é um Engenheiro de QA altamente qualificado e meticuloso. É um prazer trabalhar com ele, pois constantemente impulsiona o time a entregar mais qualidade.', 'fc23.1.imp': 'Comunicação mais ativa nas cerimônias.',
+        'fc23.2.tag1': 'Objetivos do time', 'fc23.2.tag2': 'Foco no cliente', 'fc23.2.text': 'Lucas exemplifica o princípio de "demonstrar a importância de alcançar os objetivos do time". Ele se preocupa em tornar as aplicações tão boas quanto possível. Seu QA Talk sobre métricas de QA foi bem recebido pelo time.', 'fc23.2.imp': 'Tem conhecimento sólido e poderia compartilhá-lo com mais frequência — o QA Talk sobre métricas foi citado como exemplo a replicar.',
+        'fc23.3.tag1': 'Profundidade técnica', 'fc23.3.tag2': 'Atenção a detalhes', 'fc23.3.text': 'Lucas é inteligente, seu conhecimento de QA é excelente, ele é muito orientado a detalhes e visivelmente ajuda muito o time.',
+        'fc23.4.tag1': 'Ritmo de aprendizado', 'fc23.4.text': 'Lucas está indo bem no programa de treinamento de Automação de QA. Participou bem das reuniões, seguiu o processo e completou os cursos de JavaScript e TypeScript no prazo.', 'fc23.4.imp': 'Focar nas grandes oportunidades do momento — como participar de code reviews e verificar logs no GCP e Datadog.',
+        'fc23.5.tag1': 'Habilidades analíticas', 'fc23.5.tag2': 'Boas práticas', 'fc23.5.text': 'Lucas tem boas habilidades analíticas e atenção a detalhes. Está disposto a compartilhar conhecimento quando o time precisa e tem boa compreensão das melhores práticas de QA e novas ferramentas.', 'fc23.5.imp': 'Habilidades de negociação, comunicação e disponibilidade. Poderia compartilhar mais insights e conhecimentos com o time de forma mais proativa.',
+        'fymid24.count': '4 avaliadores',
+        'fcm24.1.tag1': 'Atenção a detalhes', 'fcm24.1.tag2': 'Curiosidade', 'fcm24.1.text': 'Lucas é um profissional muito habilidoso, com grande atenção a detalhes e curioso para aprender coisas novas. É um prazer trabalhar com ele.', 'fcm24.1.imp': 'Precisa ser mais ativo nas cerimônias e mais opinativo sobre o backlog, para aumentar a qualidade das entregas do time.',
+        'fcm24.2.tag1': 'Confiabilidade', 'fcm24.2.tag2': 'Automação', 'fcm24.2.text': '"Leva a responsabilidade a sério e está comprometido em concluir as tarefas." Isso faz uma grande diferença porque gera processos de qualidade melhores por meio de melhoria contínua. Lucas está em um ótimo caminho no desenvolvimento de automação de testes, facilitando o QA do dia a dia e trazendo resultados mais confiáveis. Ele é confiável — as pessoas contam com ele.', 'fcm24.2.imp': 'Pedir suporte quando travado e confiar mais nas ideias dos outros. Combinando as ideias dos colegas com as suas, está em um ótimo caminho técnico.',
+        'fcm24.3.tag1': 'Detecção de problemas', 'fcm24.3.text': 'Bom profissional com um bom olho para identificar problemas e melhorias na aplicação.', 'fcm24.3.imp': 'Às vezes parece dedicar tempo demais ao processo de automação, fazendo com que as tarefas permaneçam por mais tempo do que o necessário sem serem testadas.',
+        'fcm24.4.tag1': 'Aprendizado autônomo', 'fcm24.4.tag2': 'Foco no cliente', 'fcm24.4.tag3': 'Automação', 'fcm24.4.text': 'Lucas é muito curioso e tem grande capacidade de aprender de forma autônoma. Esses aprendizados o tornam um QA inovador, sempre buscando melhorias em hard skills. É visivelmente focado no cliente — frequentemente trabalha com a perspectiva do "cliente" para identificar gaps e melhorias. Sua capacidade de automação é impressionante.',
+        'fyend24.count': '4 avaliadores',
+        'fce24.1.tag1': 'Customer Profile', 'fce24.1.text': 'Lucas demonstrou forte comprometimento com QA e profundo entendimento das metodologias de teste, com grande crescimento em automação durante o ano. Sua contribuição para o projeto de Customer Profile foi considerada inestimável. Ainda tem espaço para evoluir em habilidades técnicas de teste, mas está no caminho certo.',
+        'fce24.2.tag1': 'Confiabilidade', 'fce24.2.tag2': 'Ativo em qualquer time', 'fce24.2.text': 'Lucas leva a responsabilidade a sério e seria uma ótima contribuição para qualquer time. É confiável e comprometido.', 'fce24.2.imp': 'Deveria se apresentar com mais frequência e expor suas ideias de forma proativa — antes que as pessoas precisem perguntar. O risco atual é que os colegas possam ter a impressão de que ele não está presente, quando na realidade está.',
+        'fce24.3.tag1': 'Atenção a detalhes', 'fce24.3.tag2': 'Automação', 'fce24.3.text': 'Lucas tem um ótimo olho para detalhes e é um bom colega de time, sempre pegando pontos que poderiam escapar. Está fazendo um bom trabalho com automação, o que traz mais confiança nas entregas.',
+        'fce24.4.tag1': 'Ownership', 'fce24.4.text': 'Lucas trabalha duro para cumprir prazos e garantir qualidade. É muito bom em encontrar quase todos os problemas nas entregas e frequentemente oferece sugestões. Interage com UX, product owners e desenvolvedores para melhorar a qualidade geral do produto e questiona o "por que não". Demonstra os valores IQTech Curioso & Otimista e Inovador de forma exemplar. Tem ownership e comprometimento, e contribuiu muito para a automação de testes.', 'fce24.4.imp': 'Evoluir no valor Team Oriented & Think Enterprise Wide — flexibilidade, tomada de decisão ao colaborar com outros e foco nos objetivos comuns do time.',
+        'fymid25.count': '4 avaliadores · conjunto mais forte até agora',
+        'fcm25.1.tag1': 'Ativo do time', 'fcm25.1.text': 'Trabalhar ao lado de Lucas tem sido altamente produtivo e consistentemente agradável. Ele é um verdadeiro ativo para o time. Suas contribuições para o time Thanos e o projeto CLRE são inestimáveis. Sua dedicação à garantia de qualidade é excepcional, consistentemente superando as expectativas. Sua atenção meticulosa aos detalhes garante entregas de alta qualidade, e sua abordagem proativa identifica problemas potenciais antes que escalem. Assume ownership das suas entregas com precisão e compromisso com a excelência, e demonstra qualidades Empreendedoras & Ágeis adaptando-se rapidamente a mudanças e aprendendo com desafios.',
+        'fcm25.2.tag1': 'Confiabilidade', 'fcm25.2.text': '"Leva a responsabilidade a sério e está comprometido em concluir as tarefas" e "Honesto com Integridade." Essas qualidades fazem uma grande diferença porque geram processos de qualidade melhores. Lucas busca continuamente melhorias no processo de qualidade e está em um ótimo caminho no desenvolvimento de automação de testes. É confiável — faz o que diz que vai fazer, e as pessoas podem contar com ele.', 'fcm25.2.imp': 'Continuar no caminho técnico e buscar compartilhar ideias de automação com mais frequência.',
+        'fcm25.3.tag1': 'Inovação técnica', 'fcm25.3.tag2': 'Adaptabilidade', 'fcm25.3.tag3': 'Foco no cliente', 'fcm25.3.text': 'Lucas demonstra forte conhecimento técnico, o que lhe permite inovar e criar soluções criativas que beneficiam todo o time. Exibe notável capacidade de resposta a mudanças, adaptando-se rapidamente para entregar soluções em tempo hábil. Sua abordagem centrada no cliente é evidente nas várias sugestões de melhoria que podem beneficiar clientes e usuários finais.',
+        'fcm25.4.tag1': 'Casos extremos', 'fcm25.4.tag2': 'Cobertura E2E', 'fcm25.4.text': 'Lucas tem uma abordagem criativa e pensa fora da caixa. Frequentemente sugere melhorias na experiência do cliente no Customer Profile. Tem grande capacidade de identificar casos extremos e problemas intermitentes, e possui excelentes habilidades de teste. Tem uma atitude positiva e encontra soluções para problemas desafiadores. Implementou várias boas práticas para melhorar a qualidade do produto e contribuiu notavelmente para aumentar a cobertura de automação E2E no Thanos e para entregar o CLRE com boa qualidade.', 'fcm25.4.imp': 'Habilidades de negociação, adaptabilidade e transparência para aumentar as entregas como time.',
+        'fyend25.count': '5 avaliadores · o maior número',
+        'fce25.1.tag1': 'Orientado ao time', 'fce25.1.tag2': 'Honesto', 'fce25.1.text': 'Lucas é muito orientado ao time e honesto com suas entregas. Quando disponível, conecta e resolve quaisquer dúvidas com base em todo o conhecimento que tem sobre o projeto.',
+        'fce25.2.text': 'Lucas demonstra excepcional centralidade no cliente, preocupando-se profundamente com o uso e a experiência dos serviços. Seu profundo conhecimento da Página de Perfil e seus componentes é um recurso crítico para todo o time. <em>Nenhuma área de melhoria identificada no momento.</em>',
+        'fce25.3.tag1': 'Excelência Inovadora', 'fce25.3.tag2': 'Compartilhamento de conhecimento', 'fce25.3.text': 'Reconhecimento por Excelência Inovadora. Lucas fez um trabalho notável melhorando a automação de testes no Cypress, sendo criativo e engenhoso ao encontrar novas formas de elevar a qualidade. Além disso, compartilha ativamente novo código e funcionalidades do Cypress com outros QAs — demonstrando um espírito inovador e a postura "por que não" diante de oportunidades de mudança.',
+        'fce25.4.tag1': 'Expertise técnica', 'fce25.4.tag2': 'Foco no cliente', 'fce25.4.tag3': 'Adaptabilidade', 'fce25.4.text': 'Lucas é um membro inestimável do time, aproveitando a expertise técnica para desenvolver soluções inovadoras que beneficiam todo o time. Seu trabalho é claramente centrado no cliente e ele se adapta rapidamente a mudanças.', 'fce25.4.imp': 'Garantir comunicação aberta sobre carga de trabalho e progresso. Compartilhar informações proativamente e incluir outros no processo ajudará a distribuir tarefas e demonstrar responsabilidade total sobre as responsabilidades.',
+        'fce25.5.tag1': 'Validação end-to-end', 'fce25.5.text': 'Lucas é ótimo para trabalhar e colabora bem com o time. Tem conhecimento sólido dos fluxos de onboarding e manutenção e usa essa compreensão para garantir qualidade em múltiplos sistemas. Realiza uma validação end-to-end exemplar no CLP, CRM e nas APIs CLRE/CLP — o que é extremamente valioso para identificar problemas que poderiam passar despercebidos.', 'fce25.5.imp': 'Manter um foco mais claro no escopo de cada teste. Problemas encontrados fora do escopo são importantes, mas devem ser rastreados separadamente para evitar invalidar o teste em andamento. Recomendação: documentar sistematicamente todos os problemas identificados, marcar claramente o que está relacionado à mudança sendo testada vs. o que é pré-existente, e usar essa documentação para priorizar correções e comunicar o impacto das mudanças recentes.',
+        'long.label': 'Análise Longitudinal', 'long.title': '2022 – 2025 · leitura de quatro anos',
+        'lsi1.label': 'Avaliações formais', 'lsi2.label': 'Feedbacks positivos de colegas',
+        'long.nar.title': 'Trajetória geral',
+        'long.nar.p': 'Em quatro anos na Questrade, percorri um arco consistente e reconhecido de crescimento técnico, com uma avaliação formal que subiu de Solid (2022–2023) para Exceeding (2024) e recuou para Expected (2025). O dado mais revelador, porém, não está nas avaliações formais: o volume de feedbacks positivos e detalhados de colegas cresceu de 3 para 9 entre 2022 e 2025, enquanto o reconhecimento técnico atingiu o pico no último ciclo. Isso significa que terminei 2025 como o engenheiro mais respeitado tecnicamente no time ao longo de toda a minha trajetória — e ainda com a avaliação formal mais baixa desde 2023. <strong>A distância entre a percepção interna e a avaliação formal é o fenômeno central a compreender.</strong>',
+        'long.str.h3': 'Pontos fortes consolidados', 'long.str.note': 'consistentes em 3+ ciclos',
+        'ls1.title': 'Automação de testes', 'ls1.body': 'Reconhecida com crescente confiança desde 2022, atingindo pico em 2024–2025 com entregas concretas: CLRE, Customer Profile Services, KYC Annual Review, cobertura E2E no Thanos, Cypress. Nunca apontada como fraqueza em nenhum ciclo.',
+        'ls2.title': 'Atenção a detalhes e pensamento crítico', 'ls2.body': 'A característica mais universalmente notada — presente em todos os ciclos, por todos os tipos de avaliadores. Provavelmente o traço mais profundamente enraizado.',
+        'ls3.title': 'Ownership e confiabilidade', 'ls3.body': 'Consolidado como reputação no time a partir de 2024. "Faz o que diz que vai fazer" apareceu textualmente em duas mid-reviews consecutivas — 2024 e 2025 — pelo mesmo colega. Uma marca registrada, não um elogio isolado.',
+        'ls4.title': 'Centralidade no cliente', 'ls4.body': 'O valor IQTech mais citado ao longo de toda a trajetória. Aparece em feedbacks de líderes e colegas em todos os quatro anos. A capacidade de pensar como cliente e identificar gaps pela perspectiva do usuário é um diferencial reconhecido espontânea e consistentemente.',
+        'ls5.title': 'Conhecimento profundo de domínio', 'ls5.body': 'Profundo conhecimento em onboarding, KYC, CLP, CLRE e sistemas de Customer Profile. Em 2025, colegas explicitamente se referiram a esse conhecimento como "um recurso crítico para todo o time" — não apenas para tarefas de QA.',
+        'ls6.title': 'Inovação e aprendizado autônomo', 'ls6.body': 'A frequência desse reconhecimento cresceu a cada ano. Adoção de ferramentas de IA (Cursor, Gemini, Claude Code) em 2025, criação de métricas de QA personalizadas (PPI, SRM, RBD) e soluções criativas de automação foram destacadas como diferenciais produtivos.',
+        'ls7.title': 'Alinhamento aos valores IQTech', 'ls7.body': 'Honest with Integrity, Curious & Optimistic e Innovative aparecem recorrentemente entre líderes e colegas. O alinhamento aos valores da empresa nunca foi questionado em nenhum ciclo.',
+        'ls8.title': 'Impacto de métricas e documentação', 'ls8.body': 'Dashboards, QA Report, Task Score, taxonomia de bugs — trabalho com visibilidade além do time. O QA Report era acompanhado por outros times já em 2023. Destacado positivamente pelo líder em 2024 como um ativo estratégico.',
+        'long.gap.h3': 'Gaps não resolvidos', 'long.gap.note': 'persistentes em 3+ ciclos sem encerramento documentado',
+        'lg1.title': 'Visibilidade proativa', 'lg1.body': 'O gap mais persistente de toda a trajetória — presente em todos os quatro anos, em todos os líderes e em feedbacks de colegas de todos os ciclos. A linguagem evolui conforme o nível esperado sobe: em 2022 "fale mais nas cerimônias"; em 2025 <em>storytelling baseado em métricas</em> e <em>influência cross-team</em>. A exposição cresceu, mas a expectativa cresceu junto.', 'lg1.since': 'Presente desde 2022 · todos os 4 ciclos',
+        'lg2.title': 'Compartilhamento de conhecimento', 'lg2.body': 'Uma variação do mesmo tema, mas com sua própria especificidade: conhecimento sólido e capaz de ensiná-lo (o QA Talk sobre métricas de 2023 foi citado como exemplo positivo), mas não o faz sistematicamente. O mesmo colega repetiu o mesmo conselho nas mid-reviews de 2024 e 2025.', 'lg2.since': 'Recorrente: 2022, 2023, 2024, 2025',
+        'lg3.title': 'Velocidade de execução e senso de urgência', 'lg3.body': 'Emergiu como gap explícito em uma mid-review de colega (2024) e se tornou ponto formal do líder em 2025. O padrão identificado é específico: tempo excessivo construindo automação antes de iniciar os testes manuais. Não é uma falha de entrega — é sequenciamento e priorização dentro do sprint.', 'lg3.since': 'Primeiro registro: Mid-2024 · Formal: 2025',
+        'lg4.title': 'Influência estratégica e negociação', 'lg4.body': 'Apareceu de formas diferentes em 2023, 2024 e 2025: ser mais opinativo sobre o backlog, propor ideias antes de ser solicitado, conectar qualidade ao impacto no negócio. Esta é a dimensão que separa o QA Sênior do Principal QA.', 'lg4.since': 'Nomeado: 2023, 2024, 2025',
+        'lg5.title': 'Protagonismo em cerimônias e backlog', 'lg5.body': 'Voz ativa nas cerimônias ágeis e opinião sobre o backlog aparecem desde 2022 e retornam em feedbacks de colegas nas mid-reviews de 2023 e 2024. Indica que a evolução na comunicação reconhecida pelo líder ainda não era totalmente visível aos colegas nesses ciclos.', 'lg5.since': 'Nomeado: 2022 → 2023 → Mid-2024',
+        'lg6.title': 'Gestão de escopo de teste', 'lg6.body': 'Um gap novo, específico e acionável levantado no fim de 2025: diferenciar sistematicamente achados in-scope vs. out-of-scope e separar regressões de bugs pré-existentes. É exatamente o tipo de rigor documental esperado no nível de Principal QA.', 'lg6.since': 'Primeiro registro: Fim de Ano 2025',
+        'long.pqa.title': 'Leitura em direção ao Principal QA',
+        'long.pqa.p1': 'Os quatro gaps persistentes são exatamente os quatro atributos que diferenciam o nível Principal do Sênior: <strong>visibilidade estratégica, protagonismo técnico, velocidade de execução e influência cross-team</strong>. A base técnica está consolidada e reconhecida. O que está sendo avaliado agora não é mais se consigo entregar — é se consigo fazer o time e a organização verem e amplificarem o que entrego.',
+        'long.pqa.p2': 'O líder em 2025 afirmou diretamente: a combinação de <strong>ritmo acelerado + visibilidade estratégica</strong> é o que me posicionará para as responsabilidades do cargo que aspiro. O caminho está definido — o que resta é execução visível.',
+        'pqa.c1': 'Colaboração cross-team', 'pqa.c2': 'Liderança em inovação', 'pqa.c3': 'Protagonismo no time', 'pqa.c4': 'Storytelling baseado em métricas',
+        'footer.text': 'Lucas Ferreira · Senior QA Engineer · Desempenho & Crescimento · 2022–2026'
+      }
+    };
+
+    function applyLang(lang) {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key] !== undefined) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
+      const btn = document.getElementById('lang-btn');
+      if (btn) btn.innerHTML = lang === 'en' ? '🇧🇷 PT' : '🇬🇧 EN';
+    }
+
+    function toggleLang() {
+      const html = document.documentElement;
+      const next = html.getAttribute('data-lang') === 'en' ? 'pt' : 'en';
+      html.setAttribute('data-lang', next);
+      localStorage.setItem('lang', next);
+      applyLang(next);
+    }
+
+    (function () {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('lang');
+      if (savedLang && savedLang !== 'en') {
+        document.documentElement.setAttribute('data-lang', savedLang);
+        applyLang(savedLang);
+      }
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lucas Ferreira — Senior QA Engineer</title>
+  <meta name="description" content="Senior QA Engineer with 10+ years in test automation, fintech, KYC/AML compliance, Cypress, Playwright, k6, and CI/CD." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Tokens ── */
+    :root {
+      --radius: 12px;
+      --radius-sm: 8px;
+      --font: 'Inter', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+      --transition: 0.2s ease;
+    }
+
+    [data-theme="dark"] {
+      --bg:         #080b12;
+      --bg2:        #0e1320;
+      --surface:    #111827;
+      --surface2:   #1a2235;
+      --surface3:   #1f2a40;
+      --border:     rgba(255,255,255,0.07);
+      --border2:    rgba(255,255,255,0.12);
+      --text:       #f0f4ff;
+      --text-2:     #8b9fc0;
+      --text-3:     #4d6080;
+      --accent:     #6c8cff;
+      --accent2:    #a78bfa;
+      --green:      #34d399;
+      --yellow:     #fbbf24;
+      --glow:       rgba(108,140,255,0.15);
+      --glow2:      rgba(167,139,250,0.12);
+    }
+
+    [data-theme="light"] {
+      --bg:         #f6f8ff;
+      --bg2:        #edf0fa;
+      --surface:    #ffffff;
+      --surface2:   #f0f2fc;
+      --surface3:   #e8ebf7;
+      --border:     rgba(0,0,0,0.07);
+      --border2:    rgba(0,0,0,0.12);
+      --text:       #0f172a;
+      --text-2:     #475569;
+      --text-3:     #94a3b8;
+      --accent:     #4f72ff;
+      --accent2:    #7c3aed;
+      --green:      #059669;
+      --yellow:     #d97706;
+      --glow:       rgba(79,114,255,0.10);
+      --glow2:      rgba(124,58,237,0.08);
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+      overflow-x: hidden;
+    }
+
+    a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--accent2); }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
+
+    /* ── Background mesh ── */
+    .bg-mesh {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bg-mesh::before,
+    .bg-mesh::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.35;
+      transition: opacity var(--transition);
+    }
+
+    .bg-mesh::before {
+      width: 600px; height: 600px;
+      top: -200px; left: -150px;
+      background: var(--accent);
+      opacity: 0.07;
+    }
+
+    .bg-mesh::after {
+      width: 500px; height: 500px;
+      bottom: 10%; right: -100px;
+      background: var(--accent2);
+      opacity: 0.06;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: 60px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: background var(--transition);
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-2);
+      border-radius: 6px;
+      transition: color var(--transition), background var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: var(--surface2);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── Theme toggle ── */
+    .theme-toggle {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid var(--border2);
+      background: var(--surface);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition), border-color var(--transition);
+      font-size: 1rem;
+    }
+
+    .theme-toggle:hover { background: var(--surface2); }
+
+    .icon-sun, .icon-moon { line-height: 1; }
+    [data-theme="dark"] .icon-sun  { display: none; }
+    [data-theme="light"] .icon-moon { display: none; }
+
+    /* ── Wrapper ── */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px 60px;
+      text-align: center;
+    }
+
+    .hero-inner { max-width: 700px; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border2);
+      background: var(--surface);
+      font-size: 0.78rem;
+      font-family: var(--mono);
+      color: var(--text-2);
+      margin-bottom: 28px;
+    }
+
+    .hero-badge .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--text) 0%, var(--text-2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-role {
+      font-size: 1.15rem;
+      color: var(--text-2);
+      font-weight: 400;
+      margin-bottom: 32px;
+    }
+
+    .hero-role strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .stat-num {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      font-family: var(--mono);
+    }
+
+    .stat-num span { color: var(--accent); }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 500;
+    }
+
+    .hero-cta {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      padding: 11px 24px;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: opacity var(--transition), transform var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      padding: 10px 24px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border2);
+      background: var(--surface);
+      color: var(--text);
+      font-weight: 500;
+      font-size: 0.875rem;
+      transition: background var(--transition), transform var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface2);
+      transform: translateY(-1px);
+      color: var(--text);
+    }
+
+    /* ── Scroll indicator ── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-3);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ── Section ── */
+    .section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 100px 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 48px;
+    }
+
+    /* ── About ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .about-text {
+      color: var(--text-2);
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    .about-text p + p { margin-top: 16px; }
+    .about-text strong { color: var(--text); font-weight: 600; }
+
+    .about-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .about-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+
+    .about-card:hover {
+      border-color: var(--border2);
+      transform: translateX(4px);
+    }
+
+    .about-card .card-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      background: var(--surface2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about-card h4 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .about-card p {
+      font-size: 0.8rem;
+      color: var(--text-2);
+    }
+
+    /* ── Skills ── */
+    .skills-container {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .skill-row {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .skill-row-label {
+      font-size: 0.72rem;
+      font-family: var(--mono);
+      font-weight: 500;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-size: 0.8rem;
+      font-family: var(--mono);
+      color: var(--text-2);
+      font-weight: 500;
+      transition: border-color var(--transition), color var(--transition), background var(--transition), transform var(--transition);
+      cursor: default;
+    }
+
+    .chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--glow);
+      transform: translateY(-2px);
+    }
+
+    .chip.primary {
+      border-color: rgba(108,140,255,0.4);
+      color: var(--accent);
+      background: var(--glow);
+    }
+
+    /* ── Experience ── */
+    .timeline {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 10px;
+      bottom: 10px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      opacity: 0.25;
+    }
+
+    .job {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 20px;
+      padding-bottom: 40px;
+    }
+
+    .job:last-child { padding-bottom: 0; }
+
+    .job-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--surface3);
+      border: 2px solid var(--accent);
+      margin-top: 6px;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      justify-self: center;
+      transition: background var(--transition);
+    }
+
+    .job:hover .job-dot { background: var(--accent); }
+
+    .job-content {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+
+    .job:hover .job-content {
+      border-color: var(--border2);
+      transform: translateX(4px);
+    }
+
+    .job-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .job-title { font-size: 0.975rem; font-weight: 700; color: var(--text); }
+
+    .job-period {
+      font-size: 0.72rem;
+      font-family: var(--mono);
+      color: var(--text-3);
+      padding: 3px 10px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .job-company-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .job-company { font-size: 0.85rem; font-weight: 600; color: var(--accent); }
+
+    .award {
+      font-size: 0.69rem;
+      font-family: var(--mono);
+      padding: 2px 9px;
+      border-radius: 20px;
+      background: rgba(251,191,36,0.08);
+      border: 1px solid rgba(251,191,36,0.3);
+      color: var(--yellow);
+    }
+
+    .job-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .job-list li {
+      font-size: 0.855rem;
+      color: var(--text-2);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.55;
+    }
+
+    .job-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 5px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.6;
+    }
+
+    .job-list li strong { color: var(--text); font-weight: 600; }
+
+    /* ── Projects ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px var(--glow);
+    }
+
+    .project-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .project-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--surface2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      border: 1px solid var(--border);
+    }
+
+    .badge {
+      font-size: 0.68rem;
+      font-family: var(--mono);
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 20px;
+      border: 1px solid;
+    }
+
+    .badge-green { color: var(--green); border-color: rgba(52,211,153,0.3); background: rgba(52,211,153,0.07); }
+    .badge-blue  { color: var(--accent); border-color: rgba(108,140,255,0.3); background: rgba(108,140,255,0.07); }
+    .badge-purple{ color: var(--accent2); border-color: rgba(167,139,250,0.3); background: rgba(167,139,250,0.07); }
+
+    .project-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--text); }
+
+    .project-card p {
+      font-size: 0.83rem;
+      color: var(--text-2);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .project-tag {
+      font-size: 0.7rem;
+      font-family: var(--mono);
+      padding: 2px 9px;
+      border-radius: 20px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text-3);
+    }
+
+    /* ── Achievements ── */
+    .achievements-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .achievement {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--yellow);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      transition: transform var(--transition);
+    }
+
+    .achievement:hover { transform: translateX(4px); }
+
+    .achievement-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      background: var(--surface2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .achievement h3 { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .achievement p { font-size: 0.83rem; color: var(--text-2); line-height: 1.55; }
+
+    /* ── Education ── */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+
+    .edu-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: border-color var(--transition);
+    }
+
+    .edu-card:hover { border-color: var(--border2); }
+
+    .edu-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .edu-degree { font-size: 0.875rem; font-weight: 700; color: var(--text); }
+
+    .edu-period {
+      font-size: 0.7rem;
+      font-family: var(--mono);
+      color: var(--text-3);
+      white-space: nowrap;
+      padding: 2px 8px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+    }
+
+    .edu-institution { font-size: 0.8rem; color: var(--accent); font-weight: 500; }
+
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
+    }
+
+    .cert-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      transition: border-color var(--transition);
+    }
+
+    .cert-card:hover { border-color: var(--border2); }
+    .cert-card h4 { font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .cert-card span { font-size: 0.76rem; color: var(--text-3); }
+
+    /* ── Contact ── */
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .contact-intro {
+      color: var(--text-2);
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+
+    .contact-intro strong { color: var(--text); }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      transition: border-color var(--transition), transform var(--transition);
+      color: var(--text);
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      transform: translateX(4px);
+      color: var(--text);
+    }
+
+    .contact-link-icon {
+      width: 40px; height: 40px;
+      background: var(--surface2);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+
+    .contact-link-body { flex: 1; }
+    .contact-link-body .c-label { font-size: 0.69rem; font-family: var(--mono); color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em; }
+    .contact-link-body .c-value { font-size: 0.85rem; font-weight: 500; color: var(--text); margin-top: 1px; }
+    .contact-link-arrow { color: var(--text-3); font-size: 0.9rem; transition: transform var(--transition); }
+    .contact-link:hover .contact-link-arrow { transform: translateX(3px); color: var(--accent); }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 24px;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--text-3);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 16px; }
+      .nav-links { display: none; }
+
+      .hero { padding: 90px 20px 60px; }
+      .hero h1 { font-size: 2.2rem; }
+      .hero-stats { gap: 24px; }
+
+      .section { padding: 64px 20px; }
+      .section-title { font-size: 1.5rem; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      .contact-wrapper { grid-template-columns: 1fr; gap: 32px; }
+
+      .timeline::before { left: 15px; }
+      .job { grid-template-columns: 32px 1fr; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-mesh" aria-hidden="true"></div>
+
+  <!-- ── Nav ── -->
+  <nav>
+    <div class="nav-logo">Lucas<span>.</span>dev</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="wrapper">
+
+    <!-- ── Hero ── -->
+    <section class="hero" id="top">
+      <div class="hero-inner">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Available for senior &amp; principal QA roles
+        </div>
+
+        <h1>Lucas Ferreira</h1>
+
+        <p class="hero-role">
+          Senior QA Engineer · <strong>10+ years</strong> building automation at scale ·
+          Fintech &amp; KYC specialist
+        </p>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-num">10<span>+</span></div>
+            <div class="stat-label">Years in QA</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">86<span>%</span></div>
+            <div class="stat-label">Test time reduction</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">27</div>
+            <div class="stat-label">Sprints with custom metrics</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">373</div>
+            <div class="stat-label">Test cases tracked</div>
+          </div>
+        </div>
+
+        <div class="hero-cta">
+          <a class="btn-primary" href="https://linkedin.com/in/lflucasferreira" target="_blank">
+            Connect on LinkedIn →
+          </a>
+          <a class="btn-secondary" href="https://github.com/LFLucasFerreira" target="_blank">
+            View GitHub
+          </a>
+          <a class="btn-secondary" href="mailto:lucasferreira@outlook.com.br">
+            Send Email
+          </a>
+          <a class="btn-secondary" href="performance.html">
+            Performance & Growth →
+          </a>
+        </div>
+      </div>
+
+      <div class="scroll-hint" aria-hidden="true">
+        <span>scroll</span>
+        <span>↓</span>
+      </div>
+    </section>
+
+    <!-- ── About ── -->
+    <section class="section" id="about">
+      <div class="section-label">01 · About</div>
+      <h2 class="section-title">Who I am</h2>
+
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            I'm a Senior QA Engineer with <strong>10+ years</strong> building test automation strategies
+            from the ground up — across fintech, education, and enterprise software.
+            Currently I own the full QA strategy for <strong>KYC, customer onboarding, and identity
+            verification</strong> flows, designing frameworks that span E2E, component, API, mobile,
+            and performance layers.
+          </p>
+          <p>
+            I care deeply about quality culture: I founded <strong>QA School</strong> in 2019 to train
+            early-career QA professionals, and I created three custom QA metrics — <strong>PPI, SRM,
+            and RBD</strong> — that I've applied across 27 sprints to measure real-world quality trends
+            beyond simple pass/fail rates.
+          </p>
+          <p>
+            I work remotely in English, collaborating across <strong>Brazil, Canada, and Ukraine</strong>,
+            and I hold a C1 Advanced English certification. Currently pursuing two Post-Graduate
+            Diplomas at CESAR School: DevOps and Agile Testing.
+          </p>
+        </div>
+
+        <div class="about-cards">
+          <div class="about-card">
+            <div class="card-icon">🎓</div>
+            <div>
+              <h4>QA School Founder</h4>
+              <p>Training initiative for early-career QA professionals since 2019</p>
+            </div>
+          </div>
+          <div class="about-card">
+            <div class="card-icon">📊</div>
+            <div>
+              <h4>Custom QA Metrics Author</h4>
+              <p>Created PPI, SRM &amp; RBD — tracked across 27 sprints, 361 tickets</p>
+            </div>
+          </div>
+          <div class="about-card">
+            <div class="card-icon">🌍</div>
+            <div>
+              <h4>International Experience</h4>
+              <p>Co-op at Dalhousie University, Canada · C1 English · Remote-first</p>
+            </div>
+          </div>
+          <div class="about-card">
+            <div class="card-icon">🏆</div>
+            <div>
+              <h4>Award-Winning Delivery</h4>
+              <p>Solid Performance Award at Questrade · 1st place MV Hackathon 2018</p>
+            </div>
+          </div>
+          <a href="performance.html" class="about-card" style="text-decoration:none; border-color: rgba(108,140,255,0.3); background: linear-gradient(135deg, rgba(108,140,255,0.06) 0%, rgba(167,139,250,0.04) 100%);">
+            <div class="card-icon">📈</div>
+            <div>
+              <h4 style="color: var(--accent);">Performance & Growth →</h4>
+              <p>4 years of peer feedback, strengths, and what I'm actively working on</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Skills ── -->
+    <section class="section" id="skills">
+      <div class="section-label">02 · Skills</div>
+      <h2 class="section-title">Tech stack</h2>
+
+      <div class="skills-container">
+        <div class="skill-row">
+          <div class="skill-row-label">Web &amp; Mobile Automation</div>
+          <div class="skill-chips">
+            <span class="chip primary">Cypress</span>
+            <span class="chip primary">Playwright</span>
+            <span class="chip">Selenium</span>
+            <span class="chip">Appium</span>
+            <span class="chip">Capybara</span>
+            <span class="chip">BrowserStack</span>
+            <span class="chip">Percy</span>
+            <span class="chip">Storybook</span>
+          </div>
+        </div>
+
+        <div class="skill-row">
+          <div class="skill-row-label">API &amp; Performance</div>
+          <div class="skill-chips">
+            <span class="chip primary">k6</span>
+            <span class="chip primary">Postman</span>
+            <span class="chip">Newman</span>
+            <span class="chip">REST Assured</span>
+            <span class="chip">Swagger</span>
+          </div>
+        </div>
+
+        <div class="skill-row">
+          <div class="skill-row-label">Languages</div>
+          <div class="skill-chips">
+            <span class="chip primary">TypeScript</span>
+            <span class="chip primary">JavaScript</span>
+            <span class="chip">Python</span>
+            <span class="chip">Ruby</span>
+            <span class="chip">SQL</span>
+            <span class="chip">Bash</span>
+          </div>
+        </div>
+
+        <div class="skill-row">
+          <div class="skill-row-label">CI/CD &amp; Cloud</div>
+          <div class="skill-chips">
+            <span class="chip primary">GitLab CI</span>
+            <span class="chip">GitHub Actions</span>
+            <span class="chip">Docker</span>
+            <span class="chip">Kubernetes</span>
+            <span class="chip">GCP</span>
+            <span class="chip">Jenkins</span>
+            <span class="chip">SonarCloud</span>
+          </div>
+        </div>
+
+        <div class="skill-row">
+          <div class="skill-row-label">Observability &amp; Data</div>
+          <div class="skill-chips">
+            <span class="chip">Datadog</span>
+            <span class="chip">Grafana</span>
+            <span class="chip">InfluxDB</span>
+            <span class="chip">Looker Studio</span>
+            <span class="chip">PostgreSQL</span>
+            <span class="chip">MongoDB</span>
+            <span class="chip">Redis</span>
+          </div>
+        </div>
+
+        <div class="skill-row">
+          <div class="skill-row-label">Methodology &amp; Tooling</div>
+          <div class="skill-chips">
+            <span class="chip">BDD / Cucumber</span>
+            <span class="chip">Shift-Left</span>
+            <span class="chip">Test Pyramid</span>
+            <span class="chip">axe-core</span>
+            <span class="chip">GitHub Copilot</span>
+            <span class="chip">Claude Code</span>
+            <span class="chip">Cursor AI</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Experience ── -->
+    <section class="section" id="experience">
+      <div class="section-label">03 · Experience</div>
+      <h2 class="section-title">Where I've worked</h2>
+
+      <div class="timeline">
+
+        <div class="job">
+          <div class="job-dot"></div>
+          <div class="job-content">
+            <div class="job-meta">
+              <div class="job-title">Senior QA Engineer</div>
+              <span class="job-period">May 2022 — present</span>
+            </div>
+            <div class="job-company-row">
+              <span class="job-company">Questrade Financial Group</span>
+              <span class="award">🏆 Solid Performance 2023</span>
+            </div>
+            <ul class="job-list">
+              <li>Architected <strong>CLP Testing Automation Framework</strong> — E2E, component, API, mobile &amp; visual regression in TypeScript</li>
+              <li>Reduced component test execution from <strong>52s → 7s</strong> (86% improvement) via parallelisation and targeted isolation</li>
+              <li><strong>k6 performance suite</strong> for onboarding APIs — 100 VUs, P95 &lt; 2000ms, error rate &lt; 1%</li>
+              <li>Designed and tracked <strong>PPI, SRM &amp; RBD</strong> custom QA metrics across 27 sprints and 361 tickets</li>
+              <li>Built Dockerized metrics platform: Newman → InfluxDB → Grafana → SonarCloud → Looker Studio</li>
+              <li>Extended mobile coverage with Appium + BrowserStack + GCP Pub/Sub event-driven triggers</li>
+              <li>Coordinated QA across 3 time zones: Brazil, Canada, and Ukraine</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="job">
+          <div class="job-dot"></div>
+          <div class="job-content">
+            <div class="job-meta">
+              <div class="job-title">Mid-Level → Senior Test Engineer</div>
+              <span class="job-period">Oct 2020 — May 2022</span>
+            </div>
+            <div class="job-company-row">
+              <span class="job-company">CI&T</span>
+              <span class="award">🏆 Team Highlight &amp; Mission Accomplished 2021</span>
+            </div>
+            <ul class="job-list">
+              <li>Promoted from Mid-Level to Senior in <strong>15 months</strong></li>
+              <li>Designed BDD framework with Cucumber; containerized test environments with Docker</li>
+              <li>Automated REST API tests with Postman and integrated RabbitMQ queue testing into CI</li>
+              <li>Quality gates deployed became SRE reference — eliminated deployment bottlenecks</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="job">
+          <div class="job-dot"></div>
+          <div class="job-content">
+            <div class="job-meta">
+              <div class="job-title">Junior Test Engineer</div>
+              <span class="job-period">May 2019 — Oct 2020</span>
+            </div>
+            <div class="job-company-row">
+              <span class="job-company">Stefanini Brasil</span>
+            </div>
+            <ul class="job-list">
+              <li>Built Appium mobile automation framework for Android and iOS from scratch</li>
+              <li>E2E tests with Ruby, Selenium, and Capybara; API validation with Mocha/Chai</li>
+              <li>Configured Jenkins CI pipelines for automated test execution on every commit</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="job">
+          <div class="job-dot"></div>
+          <div class="job-content">
+            <div class="job-meta">
+              <div class="job-title">Support Analyst → Junior QA Engineer</div>
+              <span class="job-period">Sep 2015 — May 2019</span>
+            </div>
+            <div class="job-company-row">
+              <span class="job-company">Qualinfo Tecnologia para Educação</span>
+            </div>
+            <ul class="job-list">
+              <li>3 promotions in under 4 years: Support → Test Analyst → Junior QA</li>
+              <li>Led transition from manual to automated testing using Selenium and Cucumber</li>
+              <li>Managed multi-database environments: PostgreSQL, MySQL, SQL Server, Oracle, Redis</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="job">
+          <div class="job-dot"></div>
+          <div class="job-content">
+            <div class="job-meta">
+              <div class="job-title">Test Analyst — Co-op</div>
+              <span class="job-period">May 2014 — Sep 2014</span>
+            </div>
+            <div class="job-company-row">
+              <span class="job-company">SolutionInc · Halifax, NS, Canada</span>
+            </div>
+            <ul class="job-list">
+              <li>Tested a managed Wi-Fi captive portal platform across phones, tablets, and desktops</li>
+              <li>Created 200+ test cases via Science Without Borders / Dalhousie University co-op</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Projects ── -->
+    <section class="section" id="projects">
+      <div class="section-label">04 · Projects</div>
+      <h2 class="section-title">Notable work</h2>
+
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-card-top">
+            <div class="project-icon">🏗️</div>
+            <span class="badge badge-green">live</span>
+          </div>
+          <h3>CLP Automation Framework</h3>
+          <p>Full-stack test automation framework for the Customer Lifecycle Platform — E2E, component, API, mobile, and visual regression in a single TypeScript codebase with GitLab CI.</p>
+          <div class="project-tags">
+            <span class="project-tag">Cypress</span>
+            <span class="project-tag">Playwright</span>
+            <span class="project-tag">TypeScript</span>
+            <span class="project-tag">GitLab CI</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-card-top">
+            <div class="project-icon">⚡</div>
+            <span class="badge badge-green">live</span>
+          </div>
+          <h3>k6 Performance Suite</h3>
+          <p>Load testing suite for KYC onboarding APIs — 100 VUs, P95 &lt; 2000ms, error rate &lt; 1%. Real-time monitoring via Datadog dashboards during test runs.</p>
+          <div class="project-tags">
+            <span class="project-tag">k6</span>
+            <span class="project-tag">Datadog</span>
+            <span class="project-tag">GCP</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-card-top">
+            <div class="project-icon">📊</div>
+            <span class="badge badge-green">live</span>
+          </div>
+          <h3>QA Metrics Platform</h3>
+          <p>Dockerized observability stack: Newman feeds InfluxDB, Grafana visualizes PPI/SRM/RBD, SonarCloud tracks code quality, Looker Studio generates executive reports.</p>
+          <div class="project-tags">
+            <span class="project-tag">Docker</span>
+            <span class="project-tag">InfluxDB</span>
+            <span class="project-tag">Grafana</span>
+            <span class="project-tag">Newman</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-card-top">
+            <div class="project-icon">🎓</div>
+            <span class="badge badge-purple">ongoing</span>
+          </div>
+          <h3>QA School</h3>
+          <p>Test automation training initiative I founded in 2019. Hands-on workshops on Cypress, Playwright, and API testing for early-career QA professionals in Brazil.</p>
+          <div class="project-tags">
+            <span class="project-tag">Cypress</span>
+            <span class="project-tag">Playwright</span>
+            <span class="project-tag">Mentorship</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-card-top">
+            <div class="project-icon">📱</div>
+            <span class="badge badge-green">live</span>
+          </div>
+          <h3>Mobile KYC Coverage</h3>
+          <p>Appium-based mobile suite for KYC onboarding flows on real Android and iOS devices via BrowserStack, triggered by GCP Pub/Sub events from backend services.</p>
+          <div class="project-tags">
+            <span class="project-tag">Appium</span>
+            <span class="project-tag">BrowserStack</span>
+            <span class="project-tag">GCP Pub/Sub</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-card-top">
+            <div class="project-icon">🔗</div>
+            <span class="badge badge-blue">in progress</span>
+          </div>
+          <h3>API Contract Tests</h3>
+          <p>Postman/Newman collection for contract validation of KYC microservices, running in CI on every deployment to catch integration regressions before they reach staging.</p>
+          <div class="project-tags">
+            <span class="project-tag">Postman</span>
+            <span class="project-tag">Newman</span>
+            <span class="project-tag">GitLab CI</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Achievements ── -->
+    <section class="section" id="achievements">
+      <div class="section-label">05 · Achievements</div>
+      <h2 class="section-title">Recognition</h2>
+
+      <div class="achievements-list">
+
+        <div class="achievement">
+          <div class="achievement-icon">🏆</div>
+          <div>
+            <h3>Solid Performance Award — Questrade (Feb 2023)</h3>
+            <p>Recognized for delivery excellence on KYC/OAA automation, coordinating quality across a distributed team and driving measurable improvements to the test pyramid.</p>
+          </div>
+        </div>
+
+        <div class="achievement">
+          <div class="achievement-icon">🏆</div>
+          <div>
+            <h3>Team Highlight &amp; Mission Accomplished — CI&T (Aug 2021)</h3>
+            <p>Squad recognized for deploying quality gates that became the SRE reference. Automated test pyramid implementation eliminated deployment bottlenecks.</p>
+          </div>
+        </div>
+
+        <div class="achievement">
+          <div class="achievement-icon">🥇</div>
+          <div>
+            <h3>1st Place — MV Hackathon 2018</h3>
+            <p>Led one of 10 competing teams to build a blockchain solution for secure healthcare data management, presented and validated by a technical jury.</p>
+          </div>
+        </div>
+
+        <div class="achievement">
+          <div class="achievement-icon">❤️</div>
+          <div>
+            <h3>Corporate Volunteering — Questrade (May 2023)</h3>
+            <p>One of 5 volunteers preparing and delivering meals for 300 homeless people. Donations enabled purchase of an industrial oven for Grupo Partilhar - Iluminando Caminhos.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Education ── -->
+    <section class="section" id="education">
+      <div class="section-label">06 · Education</div>
+      <h2 class="section-title">Academic background</h2>
+
+      <div class="edu-grid">
+
+        <div class="edu-card">
+          <div class="edu-card-top">
+            <div class="edu-degree">Post-Grad · DevOps</div>
+            <span class="edu-period">2025 — 2027</span>
+          </div>
+          <div class="edu-institution">CESAR School</div>
+        </div>
+
+        <div class="edu-card">
+          <div class="edu-card-top">
+            <div class="edu-degree">Post-Grad · Agile Testing</div>
+            <span class="edu-period">2025 — 2027</span>
+          </div>
+          <div class="edu-institution">CESAR School</div>
+        </div>
+
+        <div class="edu-card">
+          <div class="edu-card-top">
+            <div class="edu-degree">B.Sc. Information Systems</div>
+            <span class="edu-period">2011 — 2022</span>
+          </div>
+          <div class="edu-institution">UFRPE — Federal Rural University of Pernambuco</div>
+        </div>
+
+        <div class="edu-card">
+          <div class="edu-card-top">
+            <div class="edu-degree">CS Exchange — Science Without Borders</div>
+            <span class="edu-period">2013 — 2014</span>
+          </div>
+          <div class="edu-institution">Dalhousie University · Halifax, Canada</div>
+        </div>
+
+      </div>
+
+      <div class="section-label" style="margin-bottom: 16px;">Certifications</div>
+      <div class="certs-grid">
+        <div class="cert-card">
+          <h4>EF SET English — C1 Advanced</h4>
+          <span>EF SET · 62/100</span>
+        </div>
+        <div class="cert-card">
+          <h4>GCP Core Infrastructure</h4>
+          <span>Google Cloud</span>
+        </div>
+        <div class="cert-card">
+          <h4>DevOps Essentials (DEPC)</h4>
+          <span>CertiProf</span>
+        </div>
+        <div class="cert-card">
+          <h4>Scrum Foundation (SFPC)</h4>
+          <span>CertiProf</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Contact ── -->
+    <section class="section" id="contact">
+      <div class="section-label">07 · Contact</div>
+      <h2 class="section-title">Let's connect</h2>
+
+      <div class="contact-wrapper">
+        <div class="contact-intro">
+          <p>
+            I'm open to conversations about <strong>Senior and Principal QA Engineer</strong> opportunities,
+            consulting, or just talking shop about test automation strategy, fintech quality, or QA culture.
+          </p>
+          <br />
+          <p>
+            Best way to reach me is via LinkedIn or email. I'm based in
+            <strong>Recife, Brazil</strong> and work fully remote.
+          </p>
+        </div>
+
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:lucasferreira@outlook.com.br">
+            <div class="contact-link-icon">✉️</div>
+            <div class="contact-link-body">
+              <div class="c-label">Email</div>
+              <div class="c-value">lucasferreira@outlook.com.br</div>
+            </div>
+            <span class="contact-link-arrow">→</span>
+          </a>
+          <a class="contact-link" href="https://linkedin.com/in/lflucasferreira" target="_blank">
+            <div class="contact-link-icon">💼</div>
+            <div class="contact-link-body">
+              <div class="c-label">LinkedIn</div>
+              <div class="c-value">linkedin.com/in/lflucasferreira</div>
+            </div>
+            <span class="contact-link-arrow">→</span>
+          </a>
+          <a class="contact-link" href="https://github.com/LFLucasFerreira" target="_blank">
+            <div class="contact-link-icon">🐙</div>
+            <div class="contact-link-body">
+              <div class="c-label">GitHub</div>
+              <div class="c-value">github.com/LFLucasFerreira</div>
+            </div>
+            <span class="contact-link-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /wrapper -->
+
+  <footer>
+    Lucas Ferreira · Senior QA Engineer · Built with HTML &amp; CSS · Hosted on GitHub Pages
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+
+    // Persist theme across reloads
+    (function () {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+    })();
+  </script>
+
+</body>
+</html>
