@@ -783,6 +783,53 @@
     .ts-formula .ts-key { color: var(--accent); font-weight: 600; }
     .ts-formula .ts-val { color: var(--green); }
 
+    .metric-sep {
+      display: flex; align-items: center; gap: 16px; margin: 52px 0 32px;
+    }
+    .metric-sep::before, .metric-sep::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+    .metric-sep span {
+      font-size: 0.72rem; font-family: var(--mono); color: var(--text-3);
+      text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap;
+    }
+
+    .metrics-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px;
+    }
+    .metric-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px; display: flex; flex-direction: column; gap: 14px;
+      transition: border-color var(--transition);
+    }
+    .metric-card:hover { border-color: var(--border2); }
+    .metric-card-top { display: flex; align-items: flex-start; gap: 14px; }
+    .metric-acronym {
+      font-size: 1rem; font-weight: 800; font-family: var(--mono); letter-spacing: -0.01em;
+      color: var(--accent); background: var(--glow); border: 1px solid rgba(108,140,255,0.2);
+      border-radius: 8px; padding: 8px 12px; flex-shrink: 0;
+    }
+    .metric-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .metric-card .metric-desc { font-size: 0.8rem; color: var(--text-2); line-height: 1.5; }
+    .metric-formula {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+      padding: 10px 14px; font-family: var(--mono); font-size: 0.76rem; color: var(--text-2); line-height: 1.6;
+    }
+    .metric-formula .mf-key { color: var(--accent); font-weight: 600; }
+    .metric-formula .mf-note { color: var(--text-3); font-size: 0.69rem; margin-top: 4px; display: block; }
+    .metric-scale { display: flex; gap: 2px; }
+    .metric-scale-item {
+      flex: 1; text-align: center; padding: 7px 4px; border-radius: 4px;
+      font-size: 0.67rem; font-family: var(--mono); font-weight: 600;
+    }
+    .metric-scale-item span { display: block; font-size: 0.59rem; font-weight: 400; opacity: 0.8; margin-top: 1px; }
+    .metric-problems { display: flex; flex-direction: column; gap: 6px; }
+    .metric-problem { font-size: 0.79rem; color: var(--text-2); padding-left: 14px; position: relative; line-height: 1.5; }
+    .metric-problem::before {
+      content: ''; position: absolute; left: 0; top: 8px;
+      width: 5px; height: 1px; background: var(--yellow); opacity: 0.8;
+    }
+
     @media (max-width: 768px) {
       .ts-criteria { grid-template-columns: repeat(2, 1fr); }
       .ts-results  { grid-template-columns: repeat(2, 1fr); }
@@ -1496,6 +1543,40 @@
       </div>
 
       <p class="ts-intro" data-i18n="ts.impact">Before Task Score, quality issues were caught reactively — after bugs reached staging or production. The metric surfaces <strong>process gaps per cadence</strong>, not just counts, enabling targeted retrospectives. The C2 dip to 23.43 (Good) was directly linked to two high-severity bugs in a complex integration — it prompted a mid-cadence adjustment that brought C3 back to 27.80. Task Score is now a <strong>leading quality indicator</strong> in sprint retrospectives at Questrade.</p>
+
+      <div class="metric-sep">
+        <span data-i18n="metrics.other.label">More custom metrics</span>
+      </div>
+
+      <div class="metrics-grid">
+
+        <!-- PPI -->
+        <div class="metric-card">
+          <div class="metric-card-top">
+            <div class="metric-acronym">PPI</div>
+            <div>
+              <h3 data-i18n="ppi.title">Ping Pong Index</h3>
+              <p class="metric-desc" data-i18n="ppi.desc">Measures how often a bug fix is rejected by QA and sent back to the developer — quantifying rework cycles between dev and QA.</p>
+            </div>
+          </div>
+          <div class="metric-formula">
+            <span class="mf-key">PPI</span> = Ping Pong Events / Total Bug Reports
+            <span class="mf-note">Lower is better &nbsp;·&nbsp; one ping pong event = fix rejected and returned to dev &nbsp;·&nbsp; range: 0.0 – 1.0</span>
+          </div>
+          <div class="metric-scale">
+            <div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Excellent<span>0.00–0.10</span></div>
+            <div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Good<span>0.11–0.20</span></div>
+            <div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Fair<span>0.21–0.35</span></div>
+            <div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Poor<span>&gt;0.35</span></div>
+          </div>
+          <div class="metric-problems">
+            <div class="metric-problem" data-i18n="ppi.p1">Exposes rework cycles that slow down delivery velocity</div>
+            <div class="metric-problem" data-i18n="ppi.p2">Identifies patterns — specific task types or sprints with higher ping-pong rates</div>
+            <div class="metric-problem" data-i18n="ppi.p3">Drives dev–QA alignment: clearer acceptance criteria and a sharper definition of done</div>
+          </div>
+        </div>
+
+      </div>
     </section>
 
     <!-- ── Achievements ── -->
@@ -1696,6 +1777,12 @@
         'ts.results.label': 'Questrade · Q4 2024 — real data',
         'ts.avg.label': 'Q4 Average',
         'ts.impact': 'Before Task Score, quality issues were caught reactively — after bugs reached staging or production. The metric surfaces <strong>process gaps per cadence</strong>, not just counts, enabling targeted retrospectives. The C2 dip to 23.43 (Good) was directly linked to two high-severity bugs in a complex integration — it prompted a mid-cadence adjustment that brought C3 back to 27.80. Task Score is now a <strong>leading quality indicator</strong> in sprint retrospectives at Questrade.',
+        'metrics.other.label': 'More custom metrics',
+        'ppi.title': 'Ping Pong Index',
+        'ppi.desc': 'Measures how often a bug fix is rejected by QA and sent back to the developer — quantifying rework cycles between dev and QA.',
+        'ppi.p1': 'Exposes rework cycles that slow down delivery velocity',
+        'ppi.p2': 'Identifies patterns — specific task types or sprints with higher ping-pong rates',
+        'ppi.p3': 'Drives dev–QA alignment: clearer acceptance criteria and a sharper definition of done',
         'ach.label': '06 · Achievements', 'ach.title': 'Recognition',
         'edu.label': '07 · Education', 'edu.title': 'Academic background',
         'contact.label': '08 · Contact', 'contact.title': "Let's connect",
@@ -1742,6 +1829,12 @@
         'ts.results.label': 'Questrade · Q4 2024 — dados reais',
         'ts.avg.label': 'Média Q4',
         'ts.impact': 'Antes do Task Score, problemas de qualidade eram identificados de forma reativa — após os bugs chegarem ao staging ou à produção. A métrica evidencia <strong>gaps de processo por cadência</strong>, não apenas contagens, viabilizando retrospectivas direcionadas. A queda no C2 para 23,43 (Good) foi diretamente ligada a dois bugs de alta severidade numa integração complexa — o que gerou um ajuste no meio da cadência que trouxe o C3 de volta para 27,80. O Task Score é hoje um <strong>indicador líder de qualidade</strong> nas retrospectivas de sprint na Questrade.',
+        'metrics.other.label': 'Mais métricas customizadas',
+        'ppi.title': 'Ping Pong Index',
+        'ppi.desc': 'Mede com que frequência uma correção de bug é rejeitada pelo QA e devolvida ao desenvolvedor — quantificando os ciclos de retrabalho entre dev e QA.',
+        'ppi.p1': 'Expõe ciclos de retrabalho que reduzem a velocidade de entrega',
+        'ppi.p2': 'Identifica padrões — tipos de tarefa ou sprints com maior taxa de ping-pong',
+        'ppi.p3': 'Orienta o alinhamento dev–QA: critérios de aceite mais claros e definição de pronto mais precisa',
         'ach.label': '06 · Conquistas', 'ach.title': 'Reconhecimentos',
         'edu.label': '07 · Formação', 'edu.title': 'Formação acadêmica',
         'contact.label': '08 · Contato', 'contact.title': 'Vamos nos conectar',
