@@ -1556,23 +1556,75 @@
             <div class="metric-acronym">PPI</div>
             <div>
               <h3 data-i18n="ppi.title">Ping Pong Index</h3>
-              <p class="metric-desc" data-i18n="ppi.desc">Measures how often a bug fix is rejected by QA and sent back to the developer — quantifying rework cycles between dev and QA.</p>
+              <p class="metric-desc" data-i18n="ppi.desc">Ratio of total bugs to total fix attempts. A value of 1.0 means every bug was fixed correctly on the first try — values below 1.0 reflect ping-pong cycles between dev and QA.</p>
             </div>
           </div>
           <div class="metric-formula">
-            <span class="mf-key">PPI</span> = Ping Pong Events / Total Bug Reports
-            <span class="mf-note">Lower is better &nbsp;·&nbsp; one ping pong event = fix rejected and returned to dev &nbsp;·&nbsp; range: 0.0 – 1.0</span>
+            <span class="mf-key">PPI</span> = ΣBug / ΣPingPong
+            <span class="mf-note">Each bug's PingPong starts at 1 · +1 on every failed fix returned to dev · 1.0 = perfect (one-time fix for all bugs)</span>
           </div>
           <div class="metric-scale">
-            <div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Excellent<span>0.00–0.10</span></div>
-            <div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Good<span>0.11–0.20</span></div>
-            <div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Fair<span>0.21–0.35</span></div>
-            <div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Poor<span>&gt;0.35</span></div>
+            <div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Poor<span>&lt;0.50</span></div>
+            <div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Fair<span>0.50–0.74</span></div>
+            <div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Good<span>0.75–0.89</span></div>
+            <div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Excellent<span>0.90–1.00</span></div>
           </div>
           <div class="metric-problems">
-            <div class="metric-problem" data-i18n="ppi.p1">Exposes rework cycles that slow down delivery velocity</div>
-            <div class="metric-problem" data-i18n="ppi.p2">Identifies patterns — specific task types or sprints with higher ping-pong rates</div>
-            <div class="metric-problem" data-i18n="ppi.p3">Drives dev–QA alignment: clearer acceptance criteria and a sharper definition of done</div>
+            <div class="metric-problem" data-i18n="ppi.p1">Signals bug report clarity — low PPI often means ambiguous descriptions, not just dev errors</div>
+            <div class="metric-problem" data-i18n="ppi.p2">A bug with PingPong = 1 is a clean, first-time fix — the ideal baseline for every ticket</div>
+            <div class="metric-problem" data-i18n="ppi.p3">Trending toward 1.0 over sprints is concrete evidence that dev–QA alignment is improving</div>
+          </div>
+        </div>
+
+        <!-- RBD -->
+        <div class="metric-card">
+          <div class="metric-card-top">
+            <div class="metric-acronym">RBD</div>
+            <div>
+              <h3 data-i18n="rbd.title">Real Bug Detection</h3>
+              <p class="metric-desc" data-i18n="rbd.desc">Percentage of reported issues that are genuine defects. Captures the cost of false positives — time spent opening, analyzing, and closing tickets that weren't real bugs.</p>
+            </div>
+          </div>
+          <div class="metric-formula">
+            <span class="mf-key">RBD</span> = (ΣBug − NoRealBug) / ΣBug × 100%
+            <span class="mf-note">NoRealBug = issues closed as "Invalid" · 100% = every reported ticket was a real defect</span>
+          </div>
+          <div class="metric-scale">
+            <div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Poor<span>&lt;70%</span></div>
+            <div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Fair<span>70–84%</span></div>
+            <div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Good<span>85–94%</span></div>
+            <div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Excellent<span>95–100%</span></div>
+          </div>
+          <div class="metric-problems">
+            <div class="metric-problem" data-i18n="rbd.p1">Reflects QA's grasp of acceptance criteria — low RBD suggests requirements need more precision</div>
+            <div class="metric-problem" data-i18n="rbd.p2">Quantifies wasted dev effort: each false positive consumes time to investigate and close</div>
+            <div class="metric-problem" data-i18n="rbd.p3">Indicates whether QA has adequate time to test — rushed cycles produce more false positives</div>
+          </div>
+        </div>
+
+        <!-- SRM -->
+        <div class="metric-card">
+          <div class="metric-card-top">
+            <div class="metric-acronym">SRM</div>
+            <div>
+              <h3 data-i18n="srm.title">Simple Rejection Metric</h3>
+              <p class="metric-desc" data-i18n="srm.desc">Count of tasks returned to dev before testing even begins — because too many acceptance criteria were unimplemented. A raw count per sprint; lower is better, 0 is the goal.</p>
+            </div>
+          </div>
+          <div class="metric-formula">
+            <span class="mf-key">SRM</span> = tasks rejected before testing begins (count per sprint)
+            <span class="mf-note">Rejection requires a formal comment listing missing ACs · tracked per developer and per sprint</span>
+          </div>
+          <div class="metric-scale">
+            <div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Ideal<span>0</span></div>
+            <div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Acceptable<span>1–2</span></div>
+            <div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Warning<span>3–5</span></div>
+            <div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Critical<span>&gt;5</span></div>
+          </div>
+          <div class="metric-problems">
+            <div class="metric-problem" data-i18n="srm.p1">Forces AC alignment before work reaches QA — eliminating wasted test cycles at the source</div>
+            <div class="metric-problem" data-i18n="srm.p2">Per-developer tracking identifies who needs clearer requirements or stricter pre-QA checklists</div>
+            <div class="metric-problem" data-i18n="srm.p3">Consistently hitting 0 for multiple sprints is the strongest signal of a mature dev–QA handoff</div>
           </div>
         </div>
 
@@ -1779,10 +1831,20 @@
         'ts.impact': 'Before Task Score, quality issues were caught reactively — after bugs reached staging or production. The metric surfaces <strong>process gaps per cadence</strong>, not just counts, enabling targeted retrospectives. The C2 dip to 23.43 (Good) was directly linked to two high-severity bugs in a complex integration — it prompted a mid-cadence adjustment that brought C3 back to 27.80. Task Score is now a <strong>leading quality indicator</strong> in sprint retrospectives at Questrade.',
         'metrics.other.label': 'More custom metrics',
         'ppi.title': 'Ping Pong Index',
-        'ppi.desc': 'Measures how often a bug fix is rejected by QA and sent back to the developer — quantifying rework cycles between dev and QA.',
-        'ppi.p1': 'Exposes rework cycles that slow down delivery velocity',
-        'ppi.p2': 'Identifies patterns — specific task types or sprints with higher ping-pong rates',
-        'ppi.p3': 'Drives dev–QA alignment: clearer acceptance criteria and a sharper definition of done',
+        'ppi.desc': 'Ratio of total bugs to total fix attempts. A value of 1.0 means every bug was fixed correctly on the first try — values below 1.0 reflect ping-pong cycles between dev and QA.',
+        'ppi.p1': 'Signals bug report clarity — low PPI often means ambiguous descriptions, not just dev errors',
+        'ppi.p2': 'A bug with PingPong = 1 is a clean, first-time fix — the ideal baseline for every ticket',
+        'ppi.p3': 'Trending toward 1.0 over sprints is concrete evidence that dev–QA alignment is improving',
+        'rbd.title': 'Real Bug Detection',
+        'rbd.desc': 'Percentage of reported issues that are genuine defects. Captures the cost of false positives — time spent opening, analyzing, and closing tickets that weren\'t real bugs.',
+        'rbd.p1': 'Reflects QA\'s grasp of acceptance criteria — low RBD suggests requirements need more precision',
+        'rbd.p2': 'Quantifies wasted dev effort: each false positive consumes time to investigate and close',
+        'rbd.p3': 'Indicates whether QA has adequate time to test — rushed cycles produce more false positives',
+        'srm.title': 'Simple Rejection Metric',
+        'srm.desc': 'Count of tasks returned to dev before testing even begins — because too many acceptance criteria were unimplemented. A raw count per sprint; lower is better, 0 is the goal.',
+        'srm.p1': 'Forces AC alignment before work reaches QA — eliminating wasted test cycles at the source',
+        'srm.p2': 'Per-developer tracking identifies who needs clearer requirements or stricter pre-QA checklists',
+        'srm.p3': 'Consistently hitting 0 for multiple sprints is the strongest signal of a mature dev–QA handoff',
         'ach.label': '06 · Achievements', 'ach.title': 'Recognition',
         'edu.label': '07 · Education', 'edu.title': 'Academic background',
         'contact.label': '08 · Contact', 'contact.title': "Let's connect",
@@ -1831,10 +1893,20 @@
         'ts.impact': 'Antes do Task Score, problemas de qualidade eram identificados de forma reativa — após os bugs chegarem ao staging ou à produção. A métrica evidencia <strong>gaps de processo por cadência</strong>, não apenas contagens, viabilizando retrospectivas direcionadas. A queda no C2 para 23,43 (Good) foi diretamente ligada a dois bugs de alta severidade numa integração complexa — o que gerou um ajuste no meio da cadência que trouxe o C3 de volta para 27,80. O Task Score é hoje um <strong>indicador líder de qualidade</strong> nas retrospectivas de sprint na Questrade.',
         'metrics.other.label': 'Mais métricas customizadas',
         'ppi.title': 'Ping Pong Index',
-        'ppi.desc': 'Mede com que frequência uma correção de bug é rejeitada pelo QA e devolvida ao desenvolvedor — quantificando os ciclos de retrabalho entre dev e QA.',
-        'ppi.p1': 'Expõe ciclos de retrabalho que reduzem a velocidade de entrega',
-        'ppi.p2': 'Identifica padrões — tipos de tarefa ou sprints com maior taxa de ping-pong',
-        'ppi.p3': 'Orienta o alinhamento dev–QA: critérios de aceite mais claros e definição de pronto mais precisa',
+        'ppi.desc': 'Razão entre o total de bugs e o total de tentativas de correção. Um valor de 1,0 significa que cada bug foi corrigido corretamente na primeira tentativa — valores abaixo de 1,0 refletem ciclos de ping-pong entre dev e QA.',
+        'ppi.p1': 'Indica o quão claro é o reporte de bugs — PPI baixo frequentemente aponta para descrições ambíguas, não apenas erros do dev',
+        'ppi.p2': 'Um bug com PingPong = 1 é uma correção limpa, na primeira tentativa — a base ideal para cada ticket',
+        'ppi.p3': 'Tendência em direção a 1,0 ao longo das sprints é evidência concreta de que o alinhamento dev–QA está melhorando',
+        'rbd.title': 'Real Bug Detection',
+        'rbd.desc': 'Percentual de issues reportadas que são defeitos genuínos. Captura o custo de falsos positivos — tempo gasto abrindo, analisando e fechando tickets que não eram bugs reais.',
+        'rbd.p1': 'Reflete a compreensão do QA sobre os critérios de aceite — RBD baixo sugere que os requisitos precisam de mais precisão',
+        'rbd.p2': 'Quantifica o esforço desperdiçado do dev: cada falso positivo consome tempo para investigar e fechar',
+        'rbd.p3': 'Indica se o QA tem tempo adequado para testar — ciclos apressados produzem mais falsos positivos',
+        'srm.title': 'Simple Rejection Metric',
+        'srm.desc': 'Contagem de tarefas devolvidas ao dev antes mesmo dos testes começarem — por ausência de muitos critérios de aceite. Contagem bruta por sprint; menor é melhor, 0 é o objetivo.',
+        'srm.p1': 'Força o alinhamento nos ACs antes que o trabalho chegue ao QA — eliminando ciclos de teste desperdiçados na origem',
+        'srm.p2': 'Rastreamento por desenvolvedor identifica quem precisa de requisitos mais claros ou checklists pré-QA mais rigorosos',
+        'srm.p3': 'Atingir 0 consistentemente por múltiplas sprints é o sinal mais forte de um processo de handoff dev–QA maduro',
         'ach.label': '06 · Conquistas', 'ach.title': 'Reconhecimentos',
         'edu.label': '07 · Formação', 'edu.title': 'Formação acadêmica',
         'contact.label': '08 · Contato', 'contact.title': 'Vamos nos conectar',
