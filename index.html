@@ -721,6 +721,73 @@
       color: var(--text-3);
     }
 
+    /* ── Task Score ── */
+    .ts-intro { color: var(--text-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 36px; }
+    .ts-intro strong { color: var(--text); }
+
+    .ts-scale {
+      display: flex; gap: 0; margin-bottom: 40px; border-radius: var(--radius-sm);
+      overflow: hidden; border: 1px solid var(--border);
+    }
+    .ts-scale-tier {
+      flex: 1; text-align: center; padding: 11px 8px;
+      font-size: 0.76rem; font-family: var(--mono); font-weight: 700;
+    }
+    .ts-scale-tier .ts-range { display: block; font-size: 0.64rem; font-weight: 400; opacity: 0.75; margin-top: 2px; }
+    .ts-tier-poor    { background: rgba(239,68,68,0.09); color: #ef4444; border-right: 1px solid var(--border); }
+    .ts-tier-fair    { background: rgba(251,191,36,0.09); color: var(--yellow); border-right: 1px solid var(--border); }
+    .ts-tier-good    { background: rgba(79,114,255,0.09); color: var(--accent); border-right: 1px solid var(--border); }
+    .ts-tier-excellent { background: rgba(52,211,153,0.09); color: var(--green); }
+
+    .ts-criteria {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 48px;
+    }
+    .ts-criterion {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 16px 18px; display: flex; flex-direction: column; gap: 6px;
+      transition: border-color var(--transition);
+    }
+    .ts-criterion:hover { border-color: var(--border2); }
+    .ts-points {
+      font-size: 0.7rem; font-family: var(--mono); font-weight: 700; color: var(--green);
+      background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2);
+      border-radius: 20px; padding: 2px 10px; align-self: flex-start;
+    }
+    .ts-criterion h4 { font-size: 0.875rem; font-weight: 600; color: var(--text); }
+    .ts-criterion p  { font-size: 0.78rem; color: var(--text-2); line-height: 1.5; }
+
+    .ts-results-label {
+      font-size: 0.72rem; font-family: var(--mono); font-weight: 500;
+      color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px;
+    }
+    .ts-results { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 32px; }
+    .ts-cadence {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 20px; display: flex; flex-direction: column; gap: 8px;
+    }
+    .ts-cadence.ts-avg { border-color: rgba(108,140,255,0.3); background: var(--glow); }
+    .ts-cadence-label { font-size: 0.7rem; font-family: var(--mono); color: var(--text-3); text-transform: uppercase; letter-spacing: 0.05em; }
+    .ts-cadence-score { font-size: 1.6rem; font-weight: 800; font-family: var(--mono); color: var(--text); letter-spacing: -0.03em; line-height: 1; }
+    .ts-cadence-score span { font-size: 0.75rem; font-weight: 400; color: var(--text-3); }
+    .ts-cadence-rating { font-size: 0.68rem; font-weight: 600; font-family: var(--mono); padding: 2px 9px; border-radius: 20px; align-self: flex-start; }
+    .ts-rating-excellent { background: rgba(52,211,153,0.1); color: var(--green); border: 1px solid rgba(52,211,153,0.25); }
+    .ts-rating-good      { background: rgba(79,114,255,0.1); color: var(--accent); border: 1px solid rgba(79,114,255,0.25); }
+    .ts-bar { height: 4px; background: var(--surface2); border-radius: 2px; overflow: hidden; margin-top: 4px; }
+    .ts-bar-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--green)); }
+
+    .ts-formula {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 16px 20px; font-family: var(--mono); font-size: 0.78rem; color: var(--text-2);
+      margin-bottom: 32px; line-height: 1.7;
+    }
+    .ts-formula .ts-key { color: var(--accent); font-weight: 600; }
+    .ts-formula .ts-val { color: var(--green); }
+
+    @media (max-width: 768px) {
+      .ts-criteria { grid-template-columns: repeat(2, 1fr); }
+      .ts-results  { grid-template-columns: repeat(2, 1fr); }
+    }
+
     /* ── Achievements ── */
     .achievements-list {
       display: flex;
@@ -1341,9 +1408,99 @@
       </div>
     </section>
 
+    <!-- ── Task Score ── -->
+    <section class="section" id="metrics">
+      <div class="section-label" data-i18n="ts.label">05 · Metrics</div>
+      <h2 class="section-title" data-i18n="ts.title">Task Score</h2>
+
+      <p class="ts-intro" data-i18n="ts.intro">In Q4 2024 at Questrade I designed <strong>Task Score</strong> — a delivery quality metric that evaluates, per task, whether the team followed quality gates before reaching production. The premise: pass/fail rates alone don't show how consistently processes are followed sprint to sprint. Task Score makes the invisible visible — and turns retrospectives from feelings into data.</p>
+
+      <div class="ts-scale">
+        <div class="ts-scale-tier ts-tier-poor">Poor<span class="ts-range">0 – 15</span></div>
+        <div class="ts-scale-tier ts-tier-fair">Fair<span class="ts-range">16 – 20</span></div>
+        <div class="ts-scale-tier ts-tier-good">Good<span class="ts-range">21 – 25</span></div>
+        <div class="ts-scale-tier ts-tier-excellent">Excellent<span class="ts-range">26 – 30</span></div>
+      </div>
+
+      <div class="ts-criteria">
+        <div class="ts-criterion">
+          <span class="ts-points">+5 pts</span>
+          <h4 data-i18n="ts.c1.h">Deploy in SIT</h4>
+          <p data-i18n="ts.c1.p">Task was deployed to the SIT environment before QA review begins</p>
+        </div>
+        <div class="ts-criterion">
+          <span class="ts-points">+5 pts</span>
+          <h4 data-i18n="ts.c2.h">Pipeline passed</h4>
+          <p data-i18n="ts.c2.p">All automated pipeline checks passed before QA handoff</p>
+        </div>
+        <div class="ts-criterion">
+          <span class="ts-points">+5 pts</span>
+          <h4 data-i18n="ts.c3.h">QA review performed</h4>
+          <p data-i18n="ts.c3.p">A formal QA review session was conducted on the task</p>
+        </div>
+        <div class="ts-criterion">
+          <span class="ts-points">+5 pts</span>
+          <h4 data-i18n="ts.c4.h">No major bugs</h4>
+          <p data-i18n="ts.c4.p">Zero Blocker, Critical, or High severity bugs found</p>
+        </div>
+        <div class="ts-criterion">
+          <span class="ts-points">+5 pts</span>
+          <h4 data-i18n="ts.c5.h">No Simple Rejection</h4>
+          <p data-i18n="ts.c5.p">Task not immediately rejected for not being ready to test</p>
+        </div>
+        <div class="ts-criterion">
+          <span class="ts-points">+5 / +3 / 0</span>
+          <h4 data-i18n="ts.c6.h">Bugs reported</h4>
+          <p data-i18n="ts.c6.p">0 bugs = +5 · ≤2 bugs = +3 · ≥3 bugs = 0</p>
+        </div>
+      </div>
+
+      <div class="ts-results-label" data-i18n="ts.results.label">Questrade · Q4 2024 — real data</div>
+      <div class="ts-results">
+        <div class="ts-cadence">
+          <div class="ts-cadence-label">24Q4C1</div>
+          <div class="ts-cadence-score">28.67<span>/30</span></div>
+          <div class="ts-cadence-rating ts-rating-excellent">Excellent</div>
+          <div class="ts-bar"><div class="ts-bar-fill" style="width:95.6%"></div></div>
+        </div>
+        <div class="ts-cadence">
+          <div class="ts-cadence-label">24Q4C2</div>
+          <div class="ts-cadence-score">23.43<span>/30</span></div>
+          <div class="ts-cadence-rating ts-rating-good">Good</div>
+          <div class="ts-bar"><div class="ts-bar-fill" style="width:78.1%"></div></div>
+        </div>
+        <div class="ts-cadence">
+          <div class="ts-cadence-label">24Q4C3</div>
+          <div class="ts-cadence-score">27.80<span>/30</span></div>
+          <div class="ts-cadence-rating ts-rating-excellent">Excellent</div>
+          <div class="ts-bar"><div class="ts-bar-fill" style="width:92.7%"></div></div>
+        </div>
+        <div class="ts-cadence ts-avg">
+          <div class="ts-cadence-label" data-i18n="ts.avg.label">Q4 Average</div>
+          <div class="ts-cadence-score">26.6<span>/30</span></div>
+          <div class="ts-cadence-rating ts-rating-excellent">Excellent</div>
+          <div class="ts-bar"><div class="ts-bar-fill" style="width:88.7%"></div></div>
+        </div>
+      </div>
+
+      <div class="ts-formula">
+        <span class="ts-key">TaskScore</span> =
+        SIT_Deploy(<span class="ts-val">5</span>) +
+        Pipeline(<span class="ts-val">5</span>) +
+        QA_Review(<span class="ts-val">5</span>) +
+        No_Major_Bug(<span class="ts-val">5</span>) +
+        No_Simple_Rejection(<span class="ts-val">5</span>) +
+        Bug_Count(<span class="ts-val">5</span>|<span class="ts-val">3</span>|<span class="ts-val">0</span>)
+        <br/>
+        <span style="color:var(--text-3)">→ avg per cadence = AVERAGEIF(tasks, cadence_id, score_col)</span>
+      </div>
+
+      <p class="ts-intro" data-i18n="ts.impact">Before Task Score, quality issues were caught reactively — after bugs reached staging or production. The metric surfaces <strong>process gaps per cadence</strong>, not just counts, enabling targeted retrospectives. The C2 dip to 23.43 (Good) was directly linked to two high-severity bugs in a complex integration — it prompted a mid-cadence adjustment that brought C3 back to 27.80. Task Score is now a <strong>leading quality indicator</strong> in sprint retrospectives at Questrade.</p>
+    </section>
+
     <!-- ── Achievements ── -->
     <section class="section" id="achievements">
-      <div class="section-label" data-i18n="ach.label">05 · Achievements</div>
+      <div class="section-label" data-i18n="ach.label">06 · Achievements</div>
       <h2 class="section-title" data-i18n="ach.title">Recognition</h2>
 
       <div class="achievements-list">
@@ -1385,7 +1542,7 @@
 
     <!-- ── Education ── -->
     <section class="section" id="education">
-      <div class="section-label" data-i18n="edu.label">06 · Education</div>
+      <div class="section-label" data-i18n="edu.label">07 · Education</div>
       <h2 class="section-title" data-i18n="edu.title">Academic background</h2>
 
       <div class="edu-grid">
@@ -1447,7 +1604,7 @@
 
     <!-- ── Contact ── -->
     <section class="section" id="contact">
-      <div class="section-label" data-i18n="contact.label">07 · Contact</div>
+      <div class="section-label" data-i18n="contact.label">08 · Contact</div>
       <h2 class="section-title" data-i18n="contact.title">Let's connect</h2>
 
       <div class="contact-wrapper">
@@ -1528,9 +1685,20 @@
         'exp.j4.title': 'Support Analyst → Junior QA Engineer', 'exp.j4.period': 'Sep 2015 — May 2019',
         'exp.j5.title': 'Test Analyst — Co-op', 'exp.j5.period': 'May 2014 — Sep 2014',
         'proj.label': '04 · Projects', 'proj.title': 'Notable work',
-        'ach.label': '05 · Achievements', 'ach.title': 'Recognition',
-        'edu.label': '06 · Education', 'edu.title': 'Academic background',
-        'contact.label': '07 · Contact', 'contact.title': "Let's connect",
+        'ts.label': '05 · Metrics', 'ts.title': 'Task Score',
+        'ts.intro': 'In Q4 2024 at Questrade I designed <strong>Task Score</strong> — a delivery quality metric that evaluates, per task, whether the team followed quality gates before reaching production. The premise: pass/fail rates alone don\'t show how consistently processes are followed sprint to sprint. Task Score makes the invisible visible — and turns retrospectives from feelings into data.',
+        'ts.c1.h': 'Deploy in SIT', 'ts.c1.p': 'Task was deployed to the SIT environment before QA review begins',
+        'ts.c2.h': 'Pipeline passed', 'ts.c2.p': 'All automated pipeline checks passed before QA handoff',
+        'ts.c3.h': 'QA review performed', 'ts.c3.p': 'A formal QA review session was conducted on the task',
+        'ts.c4.h': 'No major bugs', 'ts.c4.p': 'Zero Blocker, Critical, or High severity bugs found',
+        'ts.c5.h': 'No Simple Rejection', 'ts.c5.p': 'Task not immediately rejected for not being ready to test',
+        'ts.c6.h': 'Bugs reported', 'ts.c6.p': '0 bugs = +5 · ≤2 bugs = +3 · ≥3 bugs = 0',
+        'ts.results.label': 'Questrade · Q4 2024 — real data',
+        'ts.avg.label': 'Q4 Average',
+        'ts.impact': 'Before Task Score, quality issues were caught reactively — after bugs reached staging or production. The metric surfaces <strong>process gaps per cadence</strong>, not just counts, enabling targeted retrospectives. The C2 dip to 23.43 (Good) was directly linked to two high-severity bugs in a complex integration — it prompted a mid-cadence adjustment that brought C3 back to 27.80. Task Score is now a <strong>leading quality indicator</strong> in sprint retrospectives at Questrade.',
+        'ach.label': '06 · Achievements', 'ach.title': 'Recognition',
+        'edu.label': '07 · Education', 'edu.title': 'Academic background',
+        'contact.label': '08 · Contact', 'contact.title': "Let's connect",
         'contact.p1': 'I\'m open to conversations about <strong>Senior and Principal QA Engineer</strong> opportunities, consulting, or just talking shop about test automation strategy, fintech quality, or QA culture.',
         'contact.p2': 'Best way to reach me is via LinkedIn or email. I\'m based in <strong>Recife, Brazil</strong> and work fully remote.',
         'footer.text': 'Lucas Ferreira · Senior QA Engineer · Built with HTML &amp; CSS · Hosted on GitHub Pages'
@@ -1563,9 +1731,20 @@
         'exp.j4.title': 'Analista de Suporte → Junior QA Engineer', 'exp.j4.period': 'Set 2015 — Mai 2019',
         'exp.j5.title': 'Analista de Testes — Intercâmbio', 'exp.j5.period': 'Mai 2014 — Set 2014',
         'proj.label': '04 · Projetos', 'proj.title': 'Trabalhos notáveis',
-        'ach.label': '05 · Conquistas', 'ach.title': 'Reconhecimentos',
-        'edu.label': '06 · Formação', 'edu.title': 'Formação acadêmica',
-        'contact.label': '07 · Contato', 'contact.title': 'Vamos nos conectar',
+        'ts.label': '05 · Métricas', 'ts.title': 'Task Score',
+        'ts.intro': 'No Q4 2024 na Questrade, desenvolvi o <strong>Task Score</strong> — uma métrica de qualidade de entrega que avalia, por tarefa, se o time seguiu os quality gates antes de chegar à produção. A premissa: taxas de aprovação/reprovação isoladas não mostram a consistência dos processos sprint a sprint. O Task Score torna o invisível visível — e transforma retrospectivas de sentimentos em dados.',
+        'ts.c1.h': 'Deploy no SIT', 'ts.c1.p': 'A tarefa foi implantada no ambiente SIT antes do review de QA',
+        'ts.c2.h': 'Pipeline aprovada', 'ts.c2.p': 'Todas as verificações automáticas da pipeline passaram antes da entrega ao QA',
+        'ts.c3.h': 'Review de QA realizado', 'ts.c3.p': 'Uma sessão formal de review de QA foi conduzida na tarefa',
+        'ts.c4.h': 'Sem bugs graves', 'ts.c4.p': 'Zero bugs de severidade Blocker, Critical ou High encontrados',
+        'ts.c5.h': 'Sem Simple Rejection', 'ts.c5.p': 'Tarefa não foi imediatamente rejeitada por não estar pronta para teste',
+        'ts.c6.h': 'Bugs reportados', 'ts.c6.p': '0 bugs = +5 · ≤2 bugs = +3 · ≥3 bugs = 0',
+        'ts.results.label': 'Questrade · Q4 2024 — dados reais',
+        'ts.avg.label': 'Média Q4',
+        'ts.impact': 'Antes do Task Score, problemas de qualidade eram identificados de forma reativa — após os bugs chegarem ao staging ou à produção. A métrica evidencia <strong>gaps de processo por cadência</strong>, não apenas contagens, viabilizando retrospectivas direcionadas. A queda no C2 para 23,43 (Good) foi diretamente ligada a dois bugs de alta severidade numa integração complexa — o que gerou um ajuste no meio da cadência que trouxe o C3 de volta para 27,80. O Task Score é hoje um <strong>indicador líder de qualidade</strong> nas retrospectivas de sprint na Questrade.',
+        'ach.label': '06 · Conquistas', 'ach.title': 'Reconhecimentos',
+        'edu.label': '07 · Formação', 'edu.title': 'Formação acadêmica',
+        'contact.label': '08 · Contato', 'contact.title': 'Vamos nos conectar',
         'contact.p1': 'Estou aberto a conversas sobre oportunidades de <strong>Senior e Principal QA Engineer</strong>, consultoria, ou simplesmente trocar ideias sobre estratégia de automação, qualidade em fintech ou cultura de QA.',
         'contact.p2': 'A melhor forma de me contatar é via LinkedIn ou e-mail. Estou em <strong>Recife, Brasil</strong> e trabalho totalmente remoto.',
         'footer.text': 'Lucas Ferreira · Senior QA Engineer · Feito com HTML &amp; CSS · Hospedado no GitHub Pages'
