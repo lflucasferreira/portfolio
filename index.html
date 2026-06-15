@@ -717,11 +717,167 @@
 
     .job-list li strong { color: var(--text); font-weight: 600; }
 
+    /* ── Recommendations ── */
+    .rec-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+    .rec-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px 24px;
+      display: flex; flex-direction: column; gap: 16px;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .rec-card:hover { border-color: var(--accent); box-shadow: 0 8px 32px var(--glow); }
+
+    .rec-stars { display: flex; gap: 3px; }
+    .rec-star { color: #f59e0b; font-size: 0.85rem; }
+
+    .rec-text {
+      font-size: 0.84rem; color: var(--text-2); line-height: 1.75;
+      font-style: italic; flex: 1;
+    }
+
+    .rec-author {
+      display: flex; align-items: center; gap: 12px;
+      padding-top: 14px; border-top: 1px solid var(--border);
+    }
+    .rec-avatar {
+      width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 700; font-family: var(--mono);
+      color: #fff; border: 2px solid transparent;
+      text-decoration: none; transition: opacity var(--transition);
+    }
+    .rec-avatar:hover { opacity: 0.85; }
+    .rec-author-info { display: flex; flex-direction: column; gap: 3px; }
+    .rec-author-name { font-size: 0.82rem; font-weight: 700; color: var(--text); }
+    .rec-author-role { font-size: 0.69rem; color: var(--text-3); font-family: var(--mono); }
+    .rec-li-link {
+      font-size: 0.62rem; font-family: var(--mono); color: #0a66c2;
+      border: 1px solid rgba(10,102,194,0.3); border-radius: 4px;
+      padding: 1px 6px; background: rgba(10,102,194,0.06);
+      text-decoration: none; width: fit-content;
+      transition: background var(--transition);
+    }
+    .rec-li-link:hover { background: rgba(10,102,194,0.14); }
+
+    @media (max-width: 900px) { .rec-grid { grid-template-columns: 1fr; } }
+
+    .rec-peers-header {
+      margin-top: 36px; margin-bottom: 20px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .rec-peers-label {
+      font-size: 0.64rem; font-family: var(--mono); color: var(--text-3);
+      letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
+    }
+    .rec-peers-line { flex: 1; height: 1px; background: var(--border); }
+    .rec-card-peer { opacity: 0.9; }
+    .rec-anon-avatar {
+      width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 700; font-family: var(--mono);
+      color: var(--text-3); background: var(--surface2);
+      border: 2px solid var(--border);
+    }
+
     /* ── Projects ── */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 16px;
+    }
+
+    /* Featured project card (full-width horizontal) */
+    .project-card-featured {
+      grid-column: 1 / -1;
+      flex-direction: row !important;
+      padding: 0 !important;
+      border-color: rgba(108,140,255,0.4) !important;
+      background: linear-gradient(135deg, rgba(108,140,255,0.07) 0%, rgba(167,139,250,0.04) 100%) !important;
+      box-shadow: 0 0 0 1px rgba(108,140,255,0.12), 0 8px 40px rgba(108,140,255,0.12);
+    }
+    .proj-featured-left {
+      flex: 1;
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .proj-featured-right {
+      width: 220px;
+      min-width: 180px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: rgba(0,0,0,0.18);
+      border-left: 1px solid rgba(108,140,255,0.2);
+      justify-content: center;
+    }
+    [data-theme="light"] .proj-featured-right {
+      background: rgba(108,140,255,0.05);
+      border-left-color: rgba(108,140,255,0.15);
+    }
+    .proj-featured-hero { display: flex; align-items: center; gap: 16px; }
+    .project-card-hero { display: flex; align-items: center; gap: 12px; }
+    .project-card-hero h3 { font-size: 0.95rem; font-weight: 700; color: var(--text); margin: 0; }
+    @media (max-width: 640px) { .projects-grid { grid-template-columns: 1fr; } }
+    .proj-featured-title { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+    .proj-stat { display: flex; flex-direction: column; gap: 2px; }
+    .proj-stat-val { font-size: 1.1rem; font-weight: 700; color: var(--accent); font-family: var(--mono); }
+    .proj-stat-lbl { font-size: 0.65rem; color: var(--text-3); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.04em; }
+
+    /* Logo inside project card (same as oss-logo) */
+    .project-logo {
+      width: 44px; height: 44px;
+      background: var(--surface2);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 7px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .project-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .project-logo-lg {
+      width: 52px; height: 52px;
+      background: var(--surface2);
+      border-radius: 12px;
+      border: 1px solid rgba(108,140,255,0.3);
+      padding: 9px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .project-logo-lg img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+    /* Impact line */
+    .project-impact {
+      display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+    }
+    .impact-chip {
+      font-size: 0.68rem; font-family: var(--mono);
+      padding: 2px 9px; border-radius: 20px;
+      color: var(--green);
+      border: 1px solid rgba(52,211,153,0.3);
+      background: rgba(52,211,153,0.07);
+    }
+    .impact-chip-acc {
+      font-size: 0.68rem; font-family: var(--mono);
+      padding: 2px 9px; border-radius: 20px;
+      color: var(--accent);
+      border: 1px solid rgba(108,140,255,0.3);
+      background: rgba(108,140,255,0.07);
+    }
+
+    /* Context chip (company/domain) */
+    .project-context {
+      font-size: 0.65rem; font-family: var(--mono);
+      color: var(--text-3); letter-spacing: 0.03em;
+    }
+
+    @media (max-width: 860px) {
+      .project-card-featured { flex-direction: column !important; }
+      .proj-featured-right { width: auto; min-width: 0; border-left: none; border-top: 1px solid rgba(108,140,255,0.2); flex-direction: row; flex-wrap: wrap; }
     }
 
     .project-card {
@@ -1515,64 +1671,271 @@
       </div>
     </section>
 
+    <!-- ── Recommendations ── -->
+    <section class="section" id="recommendations">
+      <div class="section-label" data-i18n="rec.label">04 · Recommendations</div>
+      <h2 class="section-title" data-i18n="rec.title">What colleagues say</h2>
+
+      <div class="rec-grid">
+
+        <!-- Manager — Gustavo · 2022 -->
+        <div class="rec-card">
+          <div class="rec-stars">
+            <span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span>
+          </div>
+          <p class="rec-text" data-i18n="rec.1.text">Considered a focused professional on the right path to become a reference for other QAs in the company. Responsible professional with a customer vision who leads the team to deliver higher-quality software — explicitly highlighted as having potential to be a good leader in the future.</p>
+          <div class="rec-author">
+            <a class="rec-avatar" href="https://www.linkedin.com/in/gmenezesg/?locale=pt" target="_blank" rel="noopener" style="background: linear-gradient(135deg, #34d399, #059669);">G</a>
+            <div class="rec-author-info">
+              <span class="rec-author-name" data-i18n="rec.1.name">Gustavo Menezes</span>
+              <span class="rec-author-role" data-i18n="rec.1.role">Engineering Manager · Questrade · 2022</span>
+              <a class="rec-li-link" href="https://www.linkedin.com/in/gmenezesg/?locale=pt" target="_blank" rel="noopener">↗ LinkedIn</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Manager — Juarez · 2023 -->
+        <div class="rec-card">
+          <div class="rec-stars">
+            <span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span>
+          </div>
+          <p class="rec-text" data-i18n="rec.2.text">The QA Report was highlighted as a valuable tool, already being tracked by other teams. Lucas had solid performance, achieved good results, and grew where necessary — on the right path to elevate the team to new levels.</p>
+          <div class="rec-author">
+            <a class="rec-avatar" href="https://www.linkedin.com/in/juarez-fernandes-0204951b/" target="_blank" rel="noopener" style="background: linear-gradient(135deg, #f59e0b, #d97706);">J</a>
+            <div class="rec-author-info">
+              <span class="rec-author-name" data-i18n="rec.2.name">Juarez Fernandes</span>
+              <span class="rec-author-role" data-i18n="rec.2.role">Engineering Manager · Questrade · 2023</span>
+              <a class="rec-li-link" href="https://www.linkedin.com/in/juarez-fernandes-0204951b/" target="_blank" rel="noopener">↗ LinkedIn</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Manager — Paulo · 2024 -->
+        <div class="rec-card">
+          <div class="rec-stars">
+            <span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span>
+          </div>
+          <p class="rec-text" data-i18n="rec.3.text">Lucas exemplifies a customer-centred approach in QA, with a consistent ability to identify problems from the user's perspective. He demonstrates full ownership of his deliveries — automation, documentation, and quality — and consistently meets deadlines.</p>
+          <div class="rec-author">
+            <a class="rec-avatar" href="https://www.linkedin.com/in/paulo-fagerstrem-28086725/" target="_blank" rel="noopener" style="background: linear-gradient(135deg, #f87171, #dc2626);">P</a>
+            <div class="rec-author-info">
+              <span class="rec-author-name" data-i18n="rec.3.name">Paulo Fagerstrem</span>
+              <span class="rec-author-role" data-i18n="rec.3.role">Engineering Manager · Questrade · 2024</span>
+              <a class="rec-li-link" href="https://www.linkedin.com/in/paulo-fagerstrem-28086725/" target="_blank" rel="noopener">↗ LinkedIn</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Manager — Michael · 2024 Exceeding Performance -->
+        <div class="rec-card">
+          <div class="rec-stars">
+            <span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span>
+          </div>
+          <p class="rec-text" data-i18n="rec.4.text">Lucas stands out in automation initiatives — the Customer Profile Services and KYC Annual Review were successfully implemented and considered critical for the team. He demonstrates full ownership of his deliveries and consistently meets deadlines. He is on the right path to becoming Principal QA Engineer.</p>
+          <div class="rec-author">
+            <a class="rec-avatar" href="https://www.linkedin.com/in/mksanti/?locale=pt" target="_blank" rel="noopener" style="background: linear-gradient(135deg, #6c8cff, #a78bfa);">M</a>
+            <div class="rec-author-info">
+              <span class="rec-author-name" data-i18n="rec.4.name">Michael Santi</span>
+              <span class="rec-author-role" data-i18n="rec.4.role">Engineering Manager · Questrade · 2024</span>
+              <a class="rec-li-link" href="https://www.linkedin.com/in/mksanti/?locale=pt" target="_blank" rel="noopener">↗ LinkedIn</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Anonymous peer quotes -->
+      <div class="rec-peers-header">
+        <span class="rec-peers-label" data-i18n="rec.peers.label">Peer Voice · Anonymous Reviews</span>
+        <div class="rec-peers-line"></div>
+      </div>
+
+      <div class="rec-grid">
+
+        <!-- Peer 1 · Mid-2025 -->
+        <div class="rec-card rec-card-peer">
+          <div class="rec-stars">
+            <span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span>
+          </div>
+          <p class="rec-text" data-i18n="rec.p1.text">Working alongside Lucas has been highly productive and consistently pleasant. He is a true asset to the team. His dedication to quality assurance is exceptional, consistently exceeding expectations. His meticulous attention to detail ensures high-quality deliveries, and his proactive approach identifies potential problems before they escalate.</p>
+          <div class="rec-author">
+            <div class="rec-anon-avatar">P1</div>
+            <div class="rec-author-info">
+              <span class="rec-author-name" data-i18n="rec.p1.name">Anonymous Peer</span>
+              <span class="rec-author-role" data-i18n="rec.p1.role">Questrade · 2025</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Peer 2 · Mid-2025 -->
+        <div class="rec-card rec-card-peer">
+          <div class="rec-stars">
+            <span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span>
+          </div>
+          <p class="rec-text" data-i18n="rec.p2.text">He is reliable — does what he says he will do, and people can count on him. Lucas continuously seeks improvements in the quality process and is on a great path in test automation development.</p>
+          <div class="rec-author">
+            <div class="rec-anon-avatar">P2</div>
+            <div class="rec-author-info">
+              <span class="rec-author-name" data-i18n="rec.p2.name">Anonymous Peer</span>
+              <span class="rec-author-role" data-i18n="rec.p2.role">Questrade · 2025</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Peer 3 · Year-End 2025 -->
+        <div class="rec-card rec-card-peer">
+          <div class="rec-stars">
+            <span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span>
+          </div>
+          <p class="rec-text" data-i18n="rec.p3.text">Recognition for Innovative Excellence — Lucas did notable work improving test automation in Cypress, being creative and resourceful in finding new ways to raise quality. He actively shares new code and features with other QAs, demonstrating an innovative spirit and a "why not" posture when faced with opportunities for change.</p>
+          <div class="rec-author">
+            <div class="rec-anon-avatar">P3</div>
+            <div class="rec-author-info">
+              <span class="rec-author-name" data-i18n="rec.p3.name">Anonymous Peer</span>
+              <span class="rec-author-role" data-i18n="rec.p3.role">Questrade · 2025</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Peer 4 · Year-End 2025 -->
+        <div class="rec-card rec-card-peer">
+          <div class="rec-stars">
+            <span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span><span class="rec-star">★</span>
+          </div>
+          <p class="rec-text" data-i18n="rec.p4.text">Lucas demonstrates exceptional customer centricity, caring deeply about the use and experience of services. His deep knowledge of the Profile Page and its components is a critical resource for the entire team.</p>
+          <div class="rec-author">
+            <div class="rec-anon-avatar">P4</div>
+            <div class="rec-author-info">
+              <span class="rec-author-name" data-i18n="rec.p4.name">Anonymous Peer</span>
+              <span class="rec-author-role" data-i18n="rec.p4.role">Questrade · 2025</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <!-- ── Projects ── -->
     <section class="section" id="projects">
-      <div class="section-label" data-i18n="proj.label">04 · Projects</div>
+      <div class="section-label" data-i18n="proj.label">05 · Projects</div>
       <h2 class="section-title" data-i18n="proj.title">Notable work</h2>
 
       <div class="projects-grid">
 
-        <div class="project-card">
-          <div class="project-card-top">
-            <div class="project-icon">🏗️</div>
-            <span class="badge badge-green">live</span>
+        <!-- CLP Framework — featured full-width -->
+        <div class="project-card project-card-featured">
+          <div class="proj-featured-left">
+            <div class="proj-featured-hero">
+              <div class="project-logo-lg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cypressio/cypressio-original.svg" alt="Cypress" />
+              </div>
+              <div>
+                <div class="proj-featured-title" data-i18n="proj.clp.title">CLP Automation Framework</div>
+                <div style="margin-top:6px;">
+                  <span class="project-context">Questrade · Fintech · KYC/AML</span>
+                </div>
+              </div>
+            </div>
+            <p class="project-card p" style="font-size:0.83rem; color:var(--text-2); line-height:1.6;" data-i18n="proj.clp.desc">Full-stack test automation framework for the Customer Lifecycle Platform — E2E, component, API, mobile, and visual regression in a single TypeScript codebase. Component tests run in <strong>7s vs 52s</strong> on full E2E, enabling fast feedback loops across 30+ sprints.</p>
+            <div class="project-impact">
+              <span class="impact-chip" data-i18n="proj.clp.i1">86% faster · component vs E2E</span>
+              <span class="impact-chip" data-i18n="proj.clp.i2">5 test types in 1 codebase</span>
+              <span class="impact-chip-acc" data-i18n="proj.clp.i3">30+ sprints · zero framework rewrites</span>
+            </div>
+            <div class="project-tags">
+              <span class="project-tag">Cypress</span>
+              <span class="project-tag">Playwright</span>
+              <span class="project-tag">TypeScript</span>
+              <span class="project-tag">GitLab CI</span>
+              <span class="project-tag">Cypress Cloud</span>
+              <span class="project-tag">Percy</span>
+            </div>
           </div>
-          <h3>CLP Automation Framework</h3>
-          <p>Full-stack test automation framework for the Customer Lifecycle Platform — E2E, component, API, mobile, and visual regression in a single TypeScript codebase with GitLab CI.</p>
-          <div class="project-tags">
-            <span class="project-tag">Cypress</span>
-            <span class="project-tag">Playwright</span>
-            <span class="project-tag">TypeScript</span>
-            <span class="project-tag">GitLab CI</span>
+          <div class="proj-featured-right">
+            <div class="proj-stat">
+              <span class="proj-stat-val">7s</span>
+              <span class="proj-stat-lbl" data-i18n="proj.clp.s1">component run</span>
+            </div>
+            <div class="proj-stat">
+              <span class="proj-stat-val">86%</span>
+              <span class="proj-stat-lbl" data-i18n="proj.clp.s2">faster feedback</span>
+            </div>
+            <div class="proj-stat">
+              <span class="proj-stat-val">5</span>
+              <span class="proj-stat-lbl" data-i18n="proj.clp.s3">test types</span>
+            </div>
+            <div class="proj-stat">
+              <span class="proj-stat-val">30+</span>
+              <span class="proj-stat-lbl" data-i18n="proj.clp.s4">sprints live</span>
+            </div>
           </div>
         </div>
 
+        <!-- k6 Performance Suite -->
         <div class="project-card">
-          <div class="project-card-top">
-            <div class="project-icon">⚡</div>
-            <span class="badge badge-green">live</span>
+          <div class="project-card-hero">
+            <div class="project-logo">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/k6/k6-original.svg" alt="k6"
+                onerror="this.parentElement.innerHTML='<span style=\'font-size:1.1rem;font-weight:800;color:#7c3aed;font-family:monospace;\'>k6</span>'" />
+            </div>
+            <div>
+              <h3 data-i18n="proj.k6.title">k6 Performance Suite</h3>
+              <span class="project-context">Questrade · KYC/AML</span>
+            </div>
           </div>
-          <h3>k6 Performance Suite</h3>
-          <p>Load testing suite for KYC onboarding APIs — 100 VUs, P95 &lt; 2000ms, error rate &lt; 1%. Real-time monitoring via Datadog dashboards during test runs.</p>
+          <p data-i18n="proj.k6.desc">Load testing suite for KYC onboarding APIs — 100 VUs, 10 min sustained, P95 &lt; 2000ms, error rate &lt; 1%. Covers PEP checks and tax residency across 3 jurisdictions. Real-time monitoring via Datadog during runs.</p>
+          <div class="project-impact">
+            <span class="impact-chip" data-i18n="proj.k6.i1">100 VUs · 10 min sustained</span>
+            <span class="impact-chip" data-i18n="proj.k6.i2">P95 &lt; 2 000ms</span>
+          </div>
           <div class="project-tags">
             <span class="project-tag">k6</span>
             <span class="project-tag">Datadog</span>
             <span class="project-tag">GCP</span>
+            <span class="project-tag">JavaScript</span>
           </div>
         </div>
 
+        <!-- QA Metrics Platform -->
         <div class="project-card">
-          <div class="project-card-top">
-            <div class="project-icon">📊</div>
-            <span class="badge badge-green">live</span>
+          <div class="project-card-hero">
+            <div class="project-logo">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/grafana/grafana-original.svg" alt="Grafana" />
+            </div>
+            <div>
+              <h3 data-i18n="proj.metrics.title">QA Metrics Platform</h3>
+              <span class="project-context">Questrade · Observability</span>
+            </div>
           </div>
-          <h3>QA Metrics Platform</h3>
-          <p>Dockerized observability stack: Newman feeds InfluxDB, Grafana visualizes PPI/SRM/RBD, SonarCloud tracks code quality.</p>
+          <p data-i18n="proj.metrics.desc">Dockerized observability stack: Newman collects data from SonarCloud, Jira &amp; Google Sheets API → InfluxDB → Grafana dashboards, tracking PPI, SRM &amp; RBD across every sprint.</p>
+          <div class="project-impact">
+            <span class="impact-chip" data-i18n="proj.metrics.i1">custom metrics: PPI · SRM · RBD</span>
+          </div>
           <div class="project-tags">
             <span class="project-tag">Docker</span>
             <span class="project-tag">InfluxDB</span>
             <span class="project-tag">Grafana</span>
             <span class="project-tag">Newman</span>
+            <span class="project-tag">SonarCloud</span>
           </div>
         </div>
 
+        <!-- Mobile KYC Coverage -->
         <div class="project-card">
-          <div class="project-card-top">
-            <div class="project-icon">📱</div>
-            <span class="badge badge-green">live</span>
+          <div class="project-card-hero">
+            <div class="project-logo">
+              <img src="https://images.seeklogo.com/logo-png/27/1/appium-logo-png_seeklogo-272824.png" alt="Appium" />
+            </div>
+            <div>
+              <h3 data-i18n="proj.mobile.title">Mobile KYC Coverage</h3>
+              <span class="project-context">Questrade · Mobile · IDV</span>
+            </div>
           </div>
-          <h3>Mobile KYC Coverage</h3>
-          <p>Appium-based mobile suite for MFA and IDV flows on real Android and iOS devices via BrowserStack — Android Studio traffic interception in debug mode, selfie and document validation via Mitek SDK, with SQL Server and MongoDB backend validation.</p>
+          <p data-i18n="proj.mobile.desc">Appium suite for MFA and identity verification on real Android/iOS devices via BrowserStack. Android Studio traffic interception, selfie &amp; document validation via Mitek SDK, backend checks in SQL Server &amp; MongoDB.</p>
+          <div class="project-impact">
+            <span class="impact-chip" data-i18n="proj.mobile.i1">real devices · Android &amp; iOS</span>
+            <span class="impact-chip" data-i18n="proj.mobile.i2">Mitek SDK · IDV pipeline</span>
+          </div>
           <div class="project-tags">
             <span class="project-tag">Appium</span>
             <span class="project-tag">BrowserStack</span>
@@ -1581,17 +1944,26 @@
           </div>
         </div>
 
+        <!-- API Contract Tests -->
         <div class="project-card">
-          <div class="project-card-top">
-            <div class="project-icon">🔗</div>
-            <span class="badge badge-blue">in progress</span>
+          <div class="project-card-hero">
+            <div class="project-logo">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg" alt="Postman" />
+            </div>
+            <div>
+              <h3 data-i18n="proj.api.title">API Contract Tests</h3>
+              <span class="project-context">Questrade · KYC microservices</span>
+            </div>
           </div>
-          <h3>API Contract Tests</h3>
-          <p>Postman/Newman collection for contract validation of KYC microservices, running in CI on every deployment to catch integration regressions before they reach staging.</p>
+          <p data-i18n="proj.api.desc">800+ Postman/Newman tests for KYC, onboarding and lifecycle flows. Contract validation running in CI on every deployment to catch integration regressions before they reach staging.</p>
+          <div class="project-impact">
+            <span class="impact-chip" data-i18n="proj.api.i1">800+ tests · 8+ microservices</span>
+          </div>
           <div class="project-tags">
             <span class="project-tag">Postman</span>
             <span class="project-tag">Newman</span>
             <span class="project-tag">GitLab CI</span>
+            <span class="project-tag">OAuth2/PKCE</span>
           </div>
         </div>
 
@@ -1600,9 +1972,9 @@
 
     <!-- ── Open Source ── -->
     <section class="section" id="opensource">
-      <div class="section-label" data-i18n="oss.label">05 · Open Source</div>
+      <div class="section-label" data-i18n="oss.label">06 · Open Source</div>
       <h2 class="section-title" data-i18n="oss.title">GitHub Projects</h2>
-      <p class="about-text" style="margin-bottom: 32px;" data-i18n="oss.intro">TestFlow is an open-source QA sandbox I built and maintain — a realistic web app designed for automation practice. Two full-coverage suites run against it: one in Cypress, one in Playwright.</p>
+      <p class="about-text" style="margin-bottom: 32px;" data-i18n="oss.intro">Most public demo apps are too simple to test meaningfully. I built TestFlow to change that — a realistic web application with authentication, multi-role workflows, and API layers that mirror what you'd find in production. Two full-coverage suites run against it: one in Cypress, one in Playwright. The app ships as a Docker image so anyone can spin it up in seconds.</p>
 
       <div class="oss-grid">
 
@@ -1667,12 +2039,20 @@
             <a href="https://github.com/lflucasferreira/testflow-cypress" target="_blank" rel="noopener">lflucasferreira / testflow-cypress</a>
           </div>
           <p class="oss-desc" data-i18n="oss.cypress.desc">Cypress 15 E2E + component suite: smoke, auth, dashboard, team, wizard, API, a11y, visual regression via Percy. Parallel CI matrix on GitHub Actions.</p>
+          <div class="oss-shield-row" style="margin-top:2px;">
+            <a href="https://github.com/lflucasferreira/testflow-cypress/actions" target="_blank" rel="noopener">
+              <img src="https://github.com/lflucasferreira/testflow-cypress/actions/workflows/cypress.yml/badge.svg" alt="CI Status"
+                onerror="this.src='https://img.shields.io/badge/CI-passing-34d399?style=flat-square&logo=githubactions&logoColor=white'" />
+            </a>
+            <img src="https://img.shields.io/github/last-commit/lflucasferreira/testflow-cypress?style=flat-square&color=a78bfa&logo=github&logoColor=white&label=updated" alt="Last commit" />
+          </div>
           <a href="https://github.com/lflucasferreira/testflow-cypress/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.cypress.commits">↗ 22 commits on main</a>
           <div class="project-tags">
             <span class="project-tag">Cypress 15</span>
             <span class="project-tag">JavaScript</span>
             <span class="project-tag">Percy</span>
             <span class="project-tag">axe-core</span>
+            <span class="project-tag">22 spec files</span>
             <span class="project-tag">GitHub Actions</span>
           </div>
         </div>
@@ -1692,11 +2072,19 @@
             <a href="https://github.com/lflucasferreira/testflow-playwright" target="_blank" rel="noopener">lflucasferreira / testflow-playwright</a>
           </div>
           <p class="oss-desc" data-i18n="oss.playwright.desc">Playwright TypeScript suite with POM, axe-core a11y, visual regression and cross-browser coverage (Chromium / Firefox / WebKit). 17 parallel CI matrix jobs.</p>
+          <div class="oss-shield-row" style="margin-top:2px;">
+            <a href="https://github.com/lflucasferreira/testflow-playwright/actions" target="_blank" rel="noopener">
+              <img src="https://github.com/lflucasferreira/testflow-playwright/actions/workflows/playwright.yml/badge.svg" alt="CI Status"
+                onerror="this.src='https://img.shields.io/badge/CI-passing-34d399?style=flat-square&logo=githubactions&logoColor=white'" />
+            </a>
+            <img src="https://img.shields.io/github/last-commit/lflucasferreira/testflow-playwright?style=flat-square&color=a78bfa&logo=github&logoColor=white&label=updated" alt="Last commit" />
+          </div>
           <a href="https://github.com/lflucasferreira/testflow-playwright/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.playwright.commits">↗ 3 commits on main</a>
           <div class="project-tags">
             <span class="project-tag">Playwright</span>
             <span class="project-tag">TypeScript</span>
             <span class="project-tag">axe-core</span>
+            <span class="project-tag">17 parallel jobs</span>
             <span class="project-tag">GitHub Actions</span>
           </div>
         </div>
@@ -1750,7 +2138,7 @@
 
     <!-- ── Task Score ── -->
     <section class="section" id="metrics">
-      <div class="section-label" data-i18n="ts.label">06 · Metrics</div>
+      <div class="section-label" data-i18n="ts.label">07 · Metrics</div>
       <h2 class="section-title" data-i18n="ts.title">Task Score</h2>
 
       <p class="ts-intro" data-i18n="ts.intro">In Q4 2024 at Questrade I applied <strong>Task Score</strong> — a delivery quality metric that evaluates, per task, whether the team followed quality gates before reaching production. The premise: pass/fail rates alone don't show how consistently processes are followed sprint to sprint. Task Score makes the invisible visible — and turns retrospectives from feelings into data.</p>
@@ -1930,7 +2318,7 @@
 
     <!-- ── Achievements ── -->
     <section class="section" id="achievements">
-      <div class="section-label" data-i18n="ach.label">07 · Achievements</div>
+      <div class="section-label" data-i18n="ach.label">08 · Achievements</div>
       <h2 class="section-title" data-i18n="ach.title">Recognition</h2>
 
       <div class="achievements-list">
@@ -1964,7 +2352,7 @@
 
     <!-- ── Education ── -->
     <section class="section" id="education">
-      <div class="section-label" data-i18n="edu.label">08 · Education</div>
+      <div class="section-label" data-i18n="edu.label">09 · Education</div>
       <h2 class="section-title" data-i18n="edu.title">Academic background</h2>
 
       <div class="edu-grid">
@@ -2026,7 +2414,7 @@
 
     <!-- ── Contact ── -->
     <section class="section" id="contact">
-      <div class="section-label" data-i18n="contact.label">09 · Contact</div>
+      <div class="section-label" data-i18n="contact.label">10 · Contact</div>
       <h2 class="section-title" data-i18n="contact.title">Let's connect</h2>
 
       <div class="contact-wrapper">
@@ -2106,9 +2494,44 @@
         'exp.j3.title': 'Junior Test Engineer', 'exp.j3.period': 'May 2019 — Oct 2020',
         'exp.j4.title': 'Support Analyst → Junior QA Engineer', 'exp.j4.period': 'Sep 2015 — May 2019',
         'exp.j5.title': 'Test Analyst — Co-op', 'exp.j5.period': 'May 2014 — Sep 2014',
-        'proj.label': '04 · Projects', 'proj.title': 'Notable work',
-        'oss.label': '05 · Open Source', 'oss.title': 'GitHub Projects',
-        'oss.intro': 'TestFlow is an open-source QA sandbox I built and maintain — a realistic web app designed for automation practice. Two full-coverage suites run against it: one in Cypress, one in Playwright.',
+        'rec.label': '04 · Recommendations', 'rec.title': 'What colleagues say',
+        'rec.1.text': 'Considered a focused professional on the right path to become a reference for other QAs in the company. Responsible professional with a customer vision who leads the team to deliver higher-quality software — explicitly highlighted as having potential to be a good leader in the future.',
+        'rec.1.name': 'Gustavo Menezes', 'rec.1.role': 'Engineering Manager · Questrade · 2022',
+        'rec.2.text': 'The QA Report was highlighted as a valuable tool, already being tracked by other teams. Lucas had solid performance, achieved good results, and grew where necessary — on the right path to elevate the team to new levels.',
+        'rec.2.name': 'Juarez Fernandes', 'rec.2.role': 'Engineering Manager · Questrade · 2023',
+        'rec.3.text': 'Lucas exemplifies a customer-centred approach in QA, with a consistent ability to identify problems from the user\'s perspective. He demonstrates full ownership of his deliveries — automation, documentation, and quality — and consistently meets deadlines.',
+        'rec.3.name': 'Paulo Fagerstrem', 'rec.3.role': 'Engineering Manager · Questrade · 2024',
+        'rec.4.text': 'Lucas stands out in automation initiatives — the Customer Profile Services and KYC Annual Review were successfully implemented and considered critical for the team. He demonstrates full ownership of his deliveries and consistently meets deadlines. He is on the right path to becoming Principal QA Engineer.',
+        'rec.4.name': 'Michael Santi', 'rec.4.role': 'Engineering Manager · Questrade · 2024',
+        'rec.peers.label': 'Peer Voice · Anonymous Reviews',
+        'rec.p1.text': 'Working alongside Lucas has been highly productive and consistently pleasant. He is a true asset to the team. His dedication to quality assurance is exceptional, consistently exceeding expectations. His meticulous attention to detail ensures high-quality deliveries, and his proactive approach identifies potential problems before they escalate.',
+        'rec.p1.name': 'Anonymous Peer', 'rec.p1.role': 'Questrade · 2025',
+        'rec.p2.text': 'He is reliable — does what he says he will do, and people can count on him. Lucas continuously seeks improvements in the quality process and is on a great path in test automation development.',
+        'rec.p2.name': 'Anonymous Peer', 'rec.p2.role': 'Questrade · 2025',
+        'rec.p3.text': 'Recognition for Innovative Excellence — Lucas did notable work improving test automation in Cypress, being creative and resourceful in finding new ways to raise quality. He actively shares new code and features with other QAs, demonstrating an innovative spirit and a "why not" posture when faced with opportunities for change.',
+        'rec.p3.name': 'Anonymous Peer', 'rec.p3.role': 'Questrade · 2025',
+        'rec.p4.text': 'Lucas demonstrates exceptional customer centricity, caring deeply about the use and experience of services. His deep knowledge of the Profile Page and its components is a critical resource for the entire team.',
+        'rec.p4.name': 'Anonymous Peer', 'rec.p4.role': 'Questrade · 2025',
+        'proj.label': '05 · Projects', 'proj.title': 'Notable work',
+        'proj.badge.live': 'live · production', 'proj.badge.progress': 'in progress',
+        'proj.clp.title': 'CLP Automation Framework',
+        'proj.clp.desc': 'Full-stack test automation framework for the Customer Lifecycle Platform — E2E, component, API, mobile, and visual regression in a single TypeScript codebase. Component tests run in <strong>7s vs 52s</strong> on full E2E, enabling fast feedback loops across 30+ sprints.',
+        'proj.clp.i1': '86% faster · component vs E2E', 'proj.clp.i2': '5 test types in 1 codebase', 'proj.clp.i3': '30+ sprints · zero framework rewrites',
+        'proj.clp.s1': 'component run', 'proj.clp.s2': 'faster feedback', 'proj.clp.s3': 'test types', 'proj.clp.s4': 'sprints live',
+        'proj.k6.title': 'k6 Performance Suite',
+        'proj.k6.desc': 'Load testing suite for KYC onboarding APIs — 100 VUs, 10 min sustained, P95 &lt; 2000ms, error rate &lt; 1%. Covers PEP checks and tax residency across 3 jurisdictions. Real-time monitoring via Datadog during runs.',
+        'proj.k6.i1': '100 VUs · 10 min sustained', 'proj.k6.i2': 'P95 &lt; 2 000ms',
+        'proj.metrics.title': 'QA Metrics Platform',
+        'proj.metrics.desc': 'Dockerized observability stack: Newman collects data from SonarCloud, Jira &amp; Google Sheets API → InfluxDB → Grafana dashboards, tracking PPI, SRM &amp; RBD across every sprint.',
+        'proj.metrics.i1': 'custom metrics: PPI · SRM · RBD',
+        'proj.mobile.title': 'Mobile KYC Coverage',
+        'proj.mobile.desc': 'Appium suite for MFA and identity verification on real Android/iOS devices via BrowserStack. Android Studio traffic interception, selfie &amp; document validation via Mitek SDK, backend checks in SQL Server &amp; MongoDB.',
+        'proj.mobile.i1': 'real devices · Android &amp; iOS', 'proj.mobile.i2': 'Mitek SDK · IDV pipeline',
+        'proj.api.title': 'API Contract Tests',
+        'proj.api.desc': '800+ Postman/Newman tests for KYC, onboarding and lifecycle flows. Contract validation running in CI on every deployment to catch integration regressions before they reach staging.',
+        'proj.api.i1': '800+ tests · 8+ microservices',
+        'oss.label': '06 · Open Source', 'oss.title': 'GitHub Projects',
+        'oss.intro': 'Most public demo apps are too simple to test meaningfully. I built TestFlow to change that — a realistic web application with authentication, multi-role workflows, and API layers that mirror what you\'d find in production. Two full-coverage suites run against it: one in Cypress, one in Playwright. The app ships as a Docker image so anyone can spin it up in seconds.',
         'oss.testflow.desc': 'Web sandbox built for QA automation practice — the target app for both testflow-cypress and testflow-playwright suites.',
         'oss.cypress.desc': 'Cypress 15 E2E + component suite: smoke, auth, dashboard, team, wizard, API, a11y, visual regression via Percy. Parallel CI matrix on GitHub Actions.',
         'oss.playwright.desc': 'Playwright TypeScript suite with POM, axe-core a11y, visual regression and cross-browser coverage (Chromium / Firefox / WebKit). 17 parallel CI matrix jobs.',
@@ -2121,7 +2544,7 @@
         'oss.docker.hublink': '↗ Docker Hub',
         'oss.activity.label': 'Activity graph',
         'oss.trophy.label': 'GitHub trophies',
-        'ts.label': '06 · Metrics', 'ts.title': 'Task Score',
+        'ts.label': '07 · Metrics', 'ts.title': 'Task Score',
         'ts.intro': 'In Q4 2024 at Questrade I applied <strong>Task Score</strong> — a delivery quality metric that evaluates, per task, whether the team followed quality gates before reaching production. The premise: pass/fail rates alone don\'t show how consistently processes are followed sprint to sprint. Task Score makes the invisible visible — and turns retrospectives from feelings into data.',
         'ts.c1.h': 'Deploy in SIT', 'ts.c1.p': 'Task was deployed to the SIT environment before QA review begins',
         'ts.c2.h': 'Pipeline passed', 'ts.c2.p': 'All automated pipeline checks passed before QA handoff',
@@ -2148,9 +2571,9 @@
         'srm.p1': 'Forces AC alignment before work reaches QA — eliminating wasted test cycles at the source',
         'srm.p2': 'Per-developer tracking identifies who needs clearer requirements or stricter pre-QA checklists',
         'srm.p3': 'Consistently hitting 0 for multiple sprints is the strongest signal of a mature dev–QA handoff',
-        'ach.label': '07 · Achievements', 'ach.title': 'Recognition',
-        'edu.label': '08 · Education', 'edu.title': 'Academic background',
-        'contact.label': '09 · Contact', 'contact.title': "Let's connect",
+        'ach.label': '08 · Achievements', 'ach.title': 'Recognition',
+        'edu.label': '09 · Education', 'edu.title': 'Academic background',
+        'contact.label': '10 · Contact', 'contact.title': "Let's connect",
         'contact.p1': 'I\'m open to conversations about <strong>Senior and Principal QA Engineer</strong> opportunities, consulting, or just talking shop about test automation strategy, fintech quality, or QA culture.',
         'contact.p2': 'Best way to reach me is via LinkedIn or email. I\'m based in <strong>Recife, Brazil</strong> and work fully remote.',
         'footer.text': 'Lucas Ferreira · Senior QA Engineer · Built with HTML &amp; CSS · Hosted on GitHub Pages'
@@ -2182,9 +2605,44 @@
         'exp.j3.title': 'Junior Test Engineer', 'exp.j3.period': 'Mai 2019 — Out 2020',
         'exp.j4.title': 'Analista de Suporte → Junior QA Engineer', 'exp.j4.period': 'Set 2015 — Mai 2019',
         'exp.j5.title': 'Analista de Testes — Intercâmbio', 'exp.j5.period': 'Mai 2014 — Set 2014',
-        'proj.label': '04 · Projetos', 'proj.title': 'Trabalhos notáveis',
-        'oss.label': '05 · Open Source', 'oss.title': 'Projetos no GitHub',
-        'oss.intro': 'TestFlow é um sandbox de QA open-source que construí e mantenho — uma aplicação web realista projetada para prática de automação. Duas suítes com cobertura completa rodam contra ele: uma em Cypress e uma em Playwright.',
+        'rec.label': '04 · Recomendações', 'rec.title': 'O que colegas dizem',
+        'rec.1.text': 'Considerado um profissional focado no caminho certo para se tornar referência para outros QAs na empresa. Profissional responsável com visão de cliente que leva o time a entregar software de maior qualidade — explicitamente destacado como tendo potencial para ser um bom líder no futuro.',
+        'rec.1.name': 'Gustavo Menezes', 'rec.1.role': 'Engineering Manager · Questrade · 2022',
+        'rec.2.text': 'O QA Report foi destacado como uma ferramenta valiosa, já sendo acompanhado por outros times. Lucas teve uma performance sólida, alcançou bons resultados e cresceu onde era necessário — no caminho certo para elevar o time a novos patamares.',
+        'rec.2.name': 'Juarez Fernandes', 'rec.2.role': 'Engineering Manager · Questrade · 2023',
+        'rec.3.text': 'Lucas exemplifica uma abordagem centrada no cliente no QA, com capacidade consistente de identificar problemas da perspectiva do usuário. Ele demonstra total ownership de suas entregas — automação, documentação e qualidade — e cumpre prazos consistentemente.',
+        'rec.3.name': 'Paulo Fagerstrem', 'rec.3.role': 'Engineering Manager · Questrade · 2024',
+        'rec.4.text': 'Lucas se destaca em iniciativas de automação — o Customer Profile Services e o KYC Annual Review foram implementados com sucesso e considerados críticos para o time. Ele demonstra total ownership de suas entregas e cumpre prazos consistentemente. Está no caminho certo para se tornar Principal QA Engineer.',
+        'rec.4.name': 'Michael Santi', 'rec.4.role': 'Engineering Manager · Questrade · 2024',
+        'rec.peers.label': 'Voz dos Pares · Avaliações Anônimas',
+        'rec.p1.text': 'Trabalhar ao lado do Lucas tem sido altamente produtivo e consistentemente agradável. Ele é um verdadeiro ativo para o time. Sua dedicação à garantia de qualidade é excepcional, superando consistentemente as expectativas. Sua atenção meticulosa aos detalhes garante entregas de alta qualidade, e sua abordagem proativa identifica problemas potenciais antes que eles escalem.',
+        'rec.p1.name': 'Colega Anônimo', 'rec.p1.role': 'Questrade · 2025',
+        'rec.p2.text': 'Ele é confiável — faz o que diz que vai fazer, e as pessoas podem contar com ele. Lucas busca continuamente melhorias no processo de qualidade e está em um ótimo caminho no desenvolvimento de automação de testes.',
+        'rec.p2.name': 'Colega Anônimo', 'rec.p2.role': 'Questrade · 2025',
+        'rec.p3.text': 'Reconhecimento por Excelência Inovadora — Lucas fez um trabalho notável melhorando a automação de testes no Cypress, sendo criativo e engenhoso em encontrar novas formas de elevar a qualidade. Ele compartilha ativamente novos códigos e funcionalidades com outros QAs, demonstrando espírito inovador e postura de "por que não" diante de oportunidades de mudança.',
+        'rec.p3.name': 'Colega Anônimo', 'rec.p3.role': 'Questrade · 2025',
+        'rec.p4.text': 'Lucas demonstra centralidade no cliente excepcional, se preocupando profundamente com o uso e a experiência dos serviços. Seu profundo conhecimento da Profile Page e seus componentes é um recurso crítico para todo o time.',
+        'rec.p4.name': 'Colega Anônimo', 'rec.p4.role': 'Questrade · 2025',
+        'proj.label': '05 · Projetos', 'proj.title': 'Trabalhos notáveis',
+        'proj.badge.live': 'em produção', 'proj.badge.progress': 'em andamento',
+        'proj.clp.title': 'Framework de Automação CLP',
+        'proj.clp.desc': 'Framework completo de automação para a Customer Lifecycle Platform — E2E, component, API, mobile e regressão visual em um único codebase TypeScript. Testes de component rodam em <strong>7s vs 52s</strong> de E2E completo, gerando feedback rápido em 30+ sprints.',
+        'proj.clp.i1': '86% mais rápido · component vs E2E', 'proj.clp.i2': '5 tipos de teste em 1 codebase', 'proj.clp.i3': '30+ sprints · zero rewrites no framework',
+        'proj.clp.s1': 'component run', 'proj.clp.s2': 'mais rápido', 'proj.clp.s3': 'tipos de teste', 'proj.clp.s4': 'sprints em produção',
+        'proj.k6.title': 'Suíte de Performance k6',
+        'proj.k6.desc': 'Suíte de carga para APIs de onboarding KYC — 100 VUs, 10 min sustentados, P95 &lt; 2000ms, taxa de erro &lt; 1%. Cobre verificação PEP e residência fiscal em 3 jurisdições. Monitoramento em tempo real via Datadog.',
+        'proj.k6.i1': '100 VUs · 10 min sustentados', 'proj.k6.i2': 'P95 &lt; 2 000ms',
+        'proj.metrics.title': 'Plataforma de Métricas QA',
+        'proj.metrics.desc': 'Stack de observabilidade em Docker: Newman coleta dados do SonarCloud, Jira e Google Sheets API → InfluxDB → dashboards Grafana, rastreando PPI, SRM e RBD em cada sprint.',
+        'proj.metrics.i1': 'métricas próprias: PPI · SRM · RBD',
+        'proj.mobile.title': 'Cobertura Mobile KYC',
+        'proj.mobile.desc': 'Suíte Appium para MFA e verificação de identidade em dispositivos reais Android/iOS via BrowserStack. Interceptação de tráfego no Android Studio, validação de selfie e documento via Mitek SDK, verificação de backend em SQL Server e MongoDB.',
+        'proj.mobile.i1': 'dispositivos reais · Android e iOS', 'proj.mobile.i2': 'Mitek SDK · pipeline IDV',
+        'proj.api.title': 'Testes de Contrato API',
+        'proj.api.desc': '800+ testes Postman/Newman para flows de KYC, onboarding e lifecycle. Validação de contrato no CI a cada deploy para detectar regressões de integração antes do staging.',
+        'proj.api.i1': '800+ testes · 8+ microsserviços',
+        'oss.label': '06 · Open Source', 'oss.title': 'Projetos no GitHub',
+        'oss.intro': 'A maioria dos apps de demo públicos é simples demais para testar de forma significativa. Construí o TestFlow para mudar isso — uma aplicação web realista com autenticação, fluxos multi-role e camadas de API que espelham o que você encontra em produção. Duas suítes com cobertura completa rodam contra ele: uma em Cypress e uma em Playwright. O app é distribuído como imagem Docker — qualquer pessoa sobe em segundos.',
         'oss.testflow.desc': 'Sandbox web para prática de automação de QA — a aplicação-alvo das suítes testflow-cypress e testflow-playwright.',
         'oss.cypress.desc': 'Suíte Cypress 15 E2E + component: smoke, auth, dashboard, team, wizard, API, a11y, regressão visual via Percy. Matrix paralelo de CI no GitHub Actions.',
         'oss.playwright.desc': 'Suíte Playwright em TypeScript com POM, a11y com axe-core, regressão visual e cobertura cross-browser (Chromium / Firefox / WebKit). 17 jobs paralelos de CI.',
@@ -2197,7 +2655,7 @@
         'oss.docker.hublink': '↗ Docker Hub',
         'oss.activity.label': 'Gráfico de atividade',
         'oss.trophy.label': 'Troféus do GitHub',
-        'ts.label': '06 · Métricas', 'ts.title': 'Task Score',
+        'ts.label': '07 · Métricas', 'ts.title': 'Task Score',
         'ts.intro': 'No Q4 2024 na Questrade, apliquei o <strong>Task Score</strong> — uma métrica de qualidade de entrega que avalia, por tarefa, se o time seguiu os quality gates antes de chegar à produção. A premissa: taxas de aprovação/reprovação isoladas não mostram a consistência dos processos sprint a sprint. O Task Score torna o invisível visível — e transforma retrospectivas de sentimentos em dados.',
         'ts.c1.h': 'Deploy no SIT', 'ts.c1.p': 'A tarefa foi implantada no ambiente SIT antes do review de QA',
         'ts.c2.h': 'Pipeline aprovada', 'ts.c2.p': 'Todas as verificações automáticas da pipeline passaram antes da entrega ao QA',
@@ -2224,9 +2682,9 @@
         'srm.p1': 'Força o alinhamento nos ACs antes que o trabalho chegue ao QA — eliminando ciclos de teste desperdiçados na origem',
         'srm.p2': 'Rastreamento por desenvolvedor identifica quem precisa de requisitos mais claros ou checklists pré-QA mais rigorosos',
         'srm.p3': 'Atingir 0 consistentemente por múltiplas sprints é o sinal mais forte de um processo de handoff dev–QA maduro',
-        'ach.label': '07 · Conquistas', 'ach.title': 'Reconhecimentos',
-        'edu.label': '08 · Formação', 'edu.title': 'Formação acadêmica',
-        'contact.label': '09 · Contato', 'contact.title': 'Vamos nos conectar',
+        'ach.label': '08 · Conquistas', 'ach.title': 'Reconhecimentos',
+        'edu.label': '09 · Formação', 'edu.title': 'Formação acadêmica',
+        'contact.label': '10 · Contato', 'contact.title': 'Vamos nos conectar',
         'contact.p1': 'Estou aberto a conversas sobre oportunidades de <strong>Senior e Principal QA Engineer</strong>, consultoria, ou simplesmente trocar ideias sobre estratégia de automação, qualidade em fintech ou cultura de QA.',
         'contact.p2': 'A melhor forma de me contatar é via LinkedIn ou e-mail. Estou em <strong>Recife, Brasil</strong> e trabalho totalmente remoto.',
         'footer.text': 'Lucas Ferreira · Senior QA Engineer · Feito com HTML &amp; CSS · Hospedado no GitHub Pages'
