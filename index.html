@@ -793,6 +793,83 @@
       color: var(--text-3);
     }
 
+    /* ── Open Source ── */
+    .oss-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+    /* Base card */
+    .oss-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px; display: flex; flex-direction: column; gap: 12px;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .oss-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 12px 40px var(--glow); }
+
+    /* Logo icon (regular cards) */
+    .oss-logo { width: 44px; height: 44px; background: var(--surface2); border-radius: 10px; border: 1px solid var(--border); padding: 7px; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
+    .oss-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .oss-card-top { display: flex; align-items: flex-start; justify-content: space-between; }
+    .oss-badges { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+    .oss-lang { font-size: 0.68rem; font-family: var(--mono); color: var(--text-3); padding: 3px 8px; border-radius: 20px; background: var(--surface2); border: 1px solid var(--border); }
+    .oss-repo-name a { font-size: 0.82rem; font-family: var(--mono); font-weight: 600; color: var(--accent); text-decoration: none; }
+    .oss-repo-name a:hover { text-decoration: underline; }
+    .oss-desc { font-size: 0.83rem; color: var(--text-2); line-height: 1.6; flex: 1; }
+    .oss-commit-link { font-size: 0.75rem; font-family: var(--mono); color: var(--text-3); text-decoration: none; transition: color var(--transition); }
+    .oss-commit-link:hover { color: var(--accent); }
+
+    /* Featured Docker card */
+    .oss-card-featured {
+      grid-column: 1 / -1; flex-direction: row; padding: 0;
+      border-color: rgba(108,140,255,0.45);
+      background: linear-gradient(135deg, rgba(108,140,255,0.07) 0%, rgba(167,139,250,0.04) 100%);
+      box-shadow: 0 0 0 1px rgba(108,140,255,0.12), 0 8px 40px rgba(108,140,255,0.14);
+    }
+    .oss-card-featured:hover {
+      border-color: rgba(108,140,255,0.7);
+      box-shadow: 0 0 0 1px rgba(108,140,255,0.25), 0 16px 56px rgba(108,140,255,0.2);
+    }
+    .oss-featured-left { flex: 1; padding: 28px 32px; display: flex; flex-direction: column; gap: 14px; }
+    .oss-featured-right {
+      width: 310px; min-width: 260px; padding: 28px 24px; display: flex; flex-direction: column; gap: 12px;
+      background: rgba(0,0,0,0.18); border-left: 1px solid rgba(108,140,255,0.2);
+    }
+    [data-theme="light"] .oss-featured-right { background: rgba(108,140,255,0.05); border-left-color: rgba(108,140,255,0.15); }
+    .oss-featured-hero { display: flex; align-items: center; gap: 16px; }
+    .oss-logo-lg { width: 52px; height: 52px; background: var(--surface2); border-radius: 12px; border: 1px solid rgba(108,140,255,0.3); padding: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .oss-logo-lg img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .oss-featured-title { font-size: 1.05rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+    .oss-featured-title a { color: inherit; text-decoration: none; }
+    .oss-featured-title a:hover { color: var(--accent); }
+    .oss-cmd-label { font-size: 0.7rem; font-family: var(--mono); color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em; }
+    .oss-cmd-block {
+      background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 9px 12px; display: flex; align-items: center; gap: 8px;
+    }
+    .oss-cmd-block code { font-size: 0.71rem; font-family: var(--mono); color: var(--green); flex: 1; word-break: break-all; }
+    .oss-copy-btn {
+      flex-shrink: 0; background: none; border: 1px solid var(--border); border-radius: 5px;
+      padding: 3px 8px; font-size: 0.65rem; font-family: var(--mono); color: var(--text-3);
+      cursor: pointer; transition: all var(--transition);
+    }
+    .oss-copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .oss-shield-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .oss-shield-row img { height: 18px; display: block; }
+    .oss-hub-link { font-size: 0.75rem; font-family: var(--mono); color: var(--accent); text-decoration: none; opacity: 0.75; transition: opacity var(--transition); }
+    .oss-hub-link:hover { opacity: 1; }
+
+    /* Widgets */
+    .oss-widgets { margin-top: 40px; display: flex; flex-direction: column; gap: 20px; }
+    .oss-widget-label { font-size: 0.72rem; font-family: var(--mono); color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+    .oss-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; overflow: hidden; }
+    .oss-wrap img { width: 100%; height: auto; display: block; border-radius: 4px; }
+    [data-theme="light"] .oss-contrib-img { filter: none; }
+    [data-theme="dark"]  .oss-contrib-img { filter: invert(1) hue-rotate(180deg) saturate(0.9) brightness(0.88); }
+    .oss-stats-row { display: flex; gap: 16px; flex-wrap: wrap; }
+    .oss-stats-cell { flex: 1; min-width: 200px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 4px; overflow: hidden; display: flex; }
+    .oss-stats-cell img { width: 100%; height: auto; display: block; }
+
+    @media (max-width: 860px) { .oss-card-featured { flex-direction: column; } .oss-featured-right { width: auto; min-width: 0; border-left: none; border-top: 1px solid rgba(108,140,255,0.2); } }
+    @media (max-width: 640px) { .oss-grid { grid-template-columns: 1fr; } .oss-stats-row { flex-direction: column; } }
+
     /* ── Task Score ── */
     .ts-intro { color: var(--text-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 36px; }
     .ts-intro strong { color: var(--text); }
@@ -1150,12 +1227,12 @@
             <div class="stat-label" data-i18n="hero.stat2">Test time reduction</div>
           </div>
           <div class="stat">
-            <div class="stat-num">27</div>
+            <div class="stat-num">30<span>+</span></div>
             <div class="stat-label" data-i18n="hero.stat3">Sprints with custom metrics</div>
           </div>
           <div class="stat">
-            <div class="stat-num">373</div>
-            <div class="stat-label" data-i18n="hero.stat4">Test cases tracked</div>
+            <div class="stat-num">1.3<span>k+</span></div>
+            <div class="stat-label" data-i18n="hero.stat4">Automated tests</div>
           </div>
         </div>
 
@@ -1200,10 +1277,10 @@
             and performance layers.
           </p>
           <p data-i18n="about.p2">
-            I care deeply about quality culture: I founded <strong>QA School</strong> in 2019 to train
-            early-career QA professionals, and I created three custom QA metrics — <strong>PPI, SRM,
-            and RBD</strong> — that I've applied across 27 sprints to measure real-world quality trends
-            beyond simple pass/fail rates.
+            I care deeply about quality culture: I created three custom QA metrics — <strong>PPI, SRM,
+            and RBD</strong> — applied across <strong>30+ sprints</strong> to measure real-world quality
+            trends beyond simple pass/fail rates. I've also adopted generative AI tools early — reducing
+            test delivery by ~75% at Questrade.
           </p>
           <p data-i18n="about.p3">
             I work remotely in English, collaborating across <strong>Brazil, Canada, and Ukraine</strong>,
@@ -1214,17 +1291,17 @@
 
         <div class="about-cards">
           <div class="about-card">
-            <div class="card-icon">🎓</div>
+            <div class="card-icon">🤖</div>
             <div>
-              <h4 data-i18n="about.c1.h">QA School Founder</h4>
-              <p data-i18n="about.c1.p">Training initiative for early-career QA professionals since 2019</p>
+              <h4 data-i18n="about.c1.h">Generative AI Early Adopter</h4>
+              <p data-i18n="about.c1.p">Cursor, Claude Code, Copilot, Gemini &amp; Postbot — ~75% faster test delivery</p>
             </div>
           </div>
           <div class="about-card">
             <div class="card-icon">📊</div>
             <div>
               <h4 data-i18n="about.c2.h">Custom QA Metrics Author</h4>
-              <p data-i18n="about.c2.p">Created PPI, SRM &amp; RBD — tracked across 27 sprints, 361 tickets</p>
+              <p data-i18n="about.c2.p">Created PPI, SRM &amp; RBD — tracked across 30+ sprints</p>
             </div>
           </div>
           <div class="about-card">
@@ -1238,7 +1315,7 @@
             <div class="card-icon">🏆</div>
             <div>
               <h4 data-i18n="about.c4.h">Award-Winning Delivery</h4>
-              <p data-i18n="about.c4.p">Solid Performance Award at Questrade · 1st place MV Hackathon 2018</p>
+              <p data-i18n="about.c4.p">Exceeding Performance at Questrade (2024) · Team Highlight at CI&amp;T (2021)</p>
             </div>
           </div>
           <a href="performance.html" class="about-card" style="text-decoration:none; border-color: rgba(108,140,255,0.3); background: linear-gradient(135deg, rgba(108,140,255,0.06) 0%, rgba(167,139,250,0.04) 100%);">
@@ -1267,8 +1344,6 @@
             <span class="chip">Appium</span>
             <span class="chip">Capybara</span>
             <span class="chip">BrowserStack</span>
-            <span class="chip">Percy</span>
-            <span class="chip">Storybook</span>
           </div>
         </div>
 
@@ -1279,7 +1354,6 @@
             <span class="chip primary">Postman</span>
             <span class="chip">Newman</span>
             <span class="chip">REST Assured</span>
-            <span class="chip">Swagger</span>
           </div>
         </div>
 
@@ -1288,10 +1362,9 @@
           <div class="skill-chips">
             <span class="chip primary">TypeScript</span>
             <span class="chip primary">JavaScript</span>
-            <span class="chip">Python</span>
+            <span class="chip">Java</span>
             <span class="chip">Ruby</span>
             <span class="chip">SQL</span>
-            <span class="chip">Bash</span>
           </div>
         </div>
 
@@ -1301,9 +1374,7 @@
             <span class="chip primary">GitLab CI</span>
             <span class="chip">GitHub Actions</span>
             <span class="chip">Docker</span>
-            <span class="chip">Kubernetes</span>
             <span class="chip">GCP</span>
-            <span class="chip">AWS</span>
             <span class="chip">Jenkins</span>
             <span class="chip">SonarCloud</span>
           </div>
@@ -1315,24 +1386,24 @@
             <span class="chip">Datadog</span>
             <span class="chip">Grafana</span>
             <span class="chip">InfluxDB</span>
-            <span class="chip">Looker Studio</span>
-            <span class="chip">PostgreSQL</span>
             <span class="chip">MongoDB</span>
-            <span class="chip">Redis</span>
+            <span class="chip">SQL Server</span>
+            <span class="chip">PostgreSQL</span>
+            <span class="chip">MySQL</span>
           </div>
         </div>
 
         <div class="skill-row">
           <div class="skill-row-label" data-i18n="skills.r6">Methodology &amp; Tooling</div>
           <div class="skill-chips">
-            <span class="chip">BDD / Cucumber</span>
-            <span class="chip">Contract Testing</span>
             <span class="chip">Shift-Left</span>
             <span class="chip">Test Pyramid</span>
-            <span class="chip">axe-core</span>
+            <span class="chip">Agile / Scrum</span>
+            <span class="chip">Zephyr Scale</span>
             <span class="chip">GitHub Copilot</span>
             <span class="chip">Claude Code</span>
             <span class="chip">Cursor AI</span>
+            <span class="chip">Gemini</span>
             <span class="chip">Postbot</span>
           </div>
         </div>
@@ -1358,16 +1429,14 @@
               <span class="award">🏆 Exceeding Performance 2024</span>
             </div>
             <ul class="job-list">
-              <li>QA across the full <strong>KYC/AML onboarding domain</strong>: personal identity, employment, financial profile, and tax residency — regulated under FINTRAC &amp; PCMLTFA</li>
-              <li>Architected <strong>CLP Testing Automation Framework</strong> — E2E, component (Storybook), API, mobile &amp; visual regression for KYC profile services and <strong>KYC Annual Review</strong> flows — Cypress Cloud flakiness tracking; component tests run in <strong>7s vs 52s</strong> on E2E (86% faster)</li>
-              <li>Defined and owned <strong>visual testing layer</strong> (Perfect Pixel) — pixel-by-pixel comparison across breakpoints, fonts, colours, theme &amp; i18n, with formalised DoR &amp; DoD per component</li>
-              <li><strong>k6 performance suite</strong> for the full OAA onboarding flow — 100 VUs, 10 min sustained, P95 &lt; 2000ms, error rate &lt; 1% — covering compliance endpoints: PEP, tax residency in 3 jurisdictions, reporting insider</li>
-              <li>Designed and tracked <strong>PPI, SRM &amp; RBD</strong> across 27 sprints and 361 tickets — team maintained mean <strong>PPI of 1.06</strong> (near-ideal first-time fix rate)</li>
-              <li>Built and presented sprint <strong>Quality Reports</strong> for 5+ consecutive sprints via Looker Studio — 373 TCs tracked, 27.9% automated, bug ratio per ticket, sprint achievement, and test pyramid coverage across 5 projects</li>
-              <li>Dockerised <strong>QA metrics platform</strong>: Newman collecting data from SonarCloud, Jira (4 squads) &amp; Google Sheets API → InfluxDB → 3 Grafana dashboards; Datadog for production monitoring &amp; alarm coverage</li>
-              <li>Extended mobile coverage with Appium + BrowserStack + GCP Pub/Sub — including <strong>Android Studio traffic interception</strong> and identity verification via Mitek SDK</li>
-              <li>Defined <strong>SLO/SLI criteria</strong> for KYC domain sections (Employment, Tax, Financial), aligning quality gates with service reliability targets</li>
-              <li>Onboarded and mentored QA engineers — including <strong>Principal level</strong> — transferring 4 years of accumulated <strong>KYC/AML domain knowledge</strong> across 3 time zones</li>
+              <li>QA across the full <strong>KYC/AML onboarding domain</strong>: personal identity, employment, financial profile, and tax residency</li>
+              <li>Architected <strong>Cypress test automation framework</strong> — E2E, component, API, mobile &amp; performance regression for KYC profile services and <strong>KYC Annual Review</strong> flows — Cypress Cloud flakiness tracking; component tests run in <strong>7s vs 52s</strong> on E2E (86% faster)</li>
+              <li><strong>k6 performance suite</strong> for the full OAA onboarding flow — 100 VUs, 10 min sustained, P95 &lt; 2000ms, error rate &lt; 1% — covering compliance endpoints: PEP, tax residency in 3 jurisdictions</li>
+              <li>Built <strong>800+ Postman/Newman API tests</strong> for KYC, onboarding and lifecycle flows; built <strong>Playwright suite with OAuth2/PKCE and TOTP</strong> covering MFA scenarios (phone/email change, withdrawals, multi-tenant isolation across 8+ services) in SIT/UAT</li>
+              <li>Extended mobile coverage with <strong>Appium + BrowserStack</strong> — Android Studio traffic interception in debug mode; identity verification via <strong>Mitek SDK</strong> with approval/rejection validation on physical devices</li>
+              <li>Designed and tracked <strong>PPI, SRM &amp; RBD</strong> across 30+ sprints — maintained near-ideal first-time fix rates</li>
+              <li>Dockerised <strong>QA metrics platform</strong>: Newman collecting data from SonarCloud, Jira &amp; Google Sheets API → InfluxDB → Grafana dashboards; Datadog for production monitoring &amp; observability in GCP</li>
+              <li>Adopted <strong>generative AI</strong> (Cursor, Claude Code, Copilot, Gemini, Postbot) for test plan creation and analysis — ~75% faster test delivery — and conducted KTs for the full QA team (Junior to Principal) on KYC/OAA architecture and 4+ years of accumulated domain knowledge — recognized with <strong>Exceeding Performance (2024)</strong></li>
             </ul>
           </div>
         </div>
@@ -1384,10 +1453,9 @@
               <span class="award">🏆 Team Highlight &amp; Mission Accomplished 2021</span>
             </div>
             <ul class="job-list">
-              <li>Promoted from Mid-Level to Senior in <strong>15 months</strong> through technical leadership and delivery quality</li>
-              <li>Designed BDD framework with Cucumber; containerized test environments with Docker, eliminating environment inconsistencies as a source of failures</li>
-              <li>Automated REST API tests with Postman; integrated RabbitMQ queue testing into CI, catching async failures before production</li>
-              <li>Quality gates became SRE reference — <em>"The team is recognized for the quality control that improved with the testing implemented and the test pyramid."</em></li>
+              <li>Promoted from Mid-Level to Senior in <strong>15 months</strong> — Team Highlight, Mission Accomplished &amp; Client Satisfaction (Aug 2021)</li>
+              <li>Led test plan creation and business rule validation for the <strong>BEES platform (AB InBev)</strong> — a B2B marketplace for small retailers — covering price computation, discount coupons, and bundle composition</li>
+              <li>Automated REST API tests with <strong>Postman</strong> and <strong>REST Assured (Java)</strong>; validated data persistence in <strong>MongoDB</strong> via Compass and NoSQLBooster</li>
             </ul>
           </div>
         </div>
@@ -1403,9 +1471,8 @@
               <span class="job-company">Stefanini Brasil</span>
             </div>
             <ul class="job-list">
-              <li>Built Appium mobile automation framework for Android and iOS from scratch</li>
-              <li>E2E tests with Ruby, Selenium, and Capybara; API validation with Mocha/Chai</li>
-              <li>Configured Jenkins CI pipelines for automated test execution on every commit</li>
+              <li>Built <strong>Appium mobile automation framework</strong> (Android/iOS) to validate the IDP pipeline for Banco Bradesco and Banco RCI — covering document capture, OCR extraction with per-character confidence scores, and onboarding pipeline accuracy</li>
+              <li>Implemented E2E web tests with <strong>Ruby, Selenium, and Capybara</strong>; API tests with <strong>HTTParty</strong>, covering critical user journeys across banking clients' onboarding systems</li>
             </ul>
           </div>
         </div>
@@ -1421,9 +1488,9 @@
               <span class="job-company">Qualinfo Tecnologia para Educação</span>
             </div>
             <ul class="job-list">
-              <li>3 promotions in under 4 years: Support → Test Analyst → Junior QA</li>
-              <li>Led transition from manual to automated testing using Selenium and Cucumber</li>
-              <li>Managed multi-database environments: PostgreSQL, MySQL, SQL Server, Oracle, Redis</li>
+              <li>Sole QA engineer — 3 promotions in under 4 years: Support → Test Analyst → Junior QA</li>
+              <li>Tested <strong>Acadweb</strong> (educational ERP in Delphi + Crystal Reports) and the <strong>Academic Portal</strong> (Laravel/PostgreSQL); developed <strong>TimeDesk</strong> — internal tool for license control, expiration alerts, and client-side deployments</li>
+              <li>Automated daily incremental backup routines; managed multi-database environments (MySQL, SQL Server, Oracle, PostgreSQL); initiated test automation with <strong>Selenium WebDriver and Java</strong></li>
             </ul>
           </div>
         </div>
@@ -1490,7 +1557,7 @@
             <span class="badge badge-green">live</span>
           </div>
           <h3>QA Metrics Platform</h3>
-          <p>Dockerized observability stack: Newman feeds InfluxDB, Grafana visualizes PPI/SRM/RBD, SonarCloud tracks code quality, Looker Studio generates executive reports.</p>
+          <p>Dockerized observability stack: Newman feeds InfluxDB, Grafana visualizes PPI/SRM/RBD, SonarCloud tracks code quality.</p>
           <div class="project-tags">
             <span class="project-tag">Docker</span>
             <span class="project-tag">InfluxDB</span>
@@ -1501,29 +1568,16 @@
 
         <div class="project-card">
           <div class="project-card-top">
-            <div class="project-icon">🎓</div>
-            <span class="badge badge-purple">ongoing</span>
-          </div>
-          <h3>QA School</h3>
-          <p>Test automation training initiative I founded in 2019. Hands-on workshops on Cypress, Playwright, and API testing for early-career QA professionals in Brazil.</p>
-          <div class="project-tags">
-            <span class="project-tag">Cypress</span>
-            <span class="project-tag">Playwright</span>
-            <span class="project-tag">Mentorship</span>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-card-top">
             <div class="project-icon">📱</div>
             <span class="badge badge-green">live</span>
           </div>
           <h3>Mobile KYC Coverage</h3>
-          <p>Appium-based mobile suite for KYC onboarding flows on real Android and iOS devices via BrowserStack, triggered by GCP Pub/Sub events from backend services.</p>
+          <p>Appium-based mobile suite for MFA and IDV flows on real Android and iOS devices via BrowserStack — Android Studio traffic interception in debug mode, selfie and document validation via Mitek SDK, with SQL Server and MongoDB backend validation.</p>
           <div class="project-tags">
             <span class="project-tag">Appium</span>
             <span class="project-tag">BrowserStack</span>
-            <span class="project-tag">GCP Pub/Sub</span>
+            <span class="project-tag">Android Studio</span>
+            <span class="project-tag">Mitek SDK</span>
           </div>
         </div>
 
@@ -1544,9 +1598,159 @@
       </div>
     </section>
 
+    <!-- ── Open Source ── -->
+    <section class="section" id="opensource">
+      <div class="section-label" data-i18n="oss.label">05 · Open Source</div>
+      <h2 class="section-title" data-i18n="oss.title">GitHub Projects</h2>
+      <p class="about-text" style="margin-bottom: 32px;" data-i18n="oss.intro">TestFlow is an open-source QA sandbox I built and maintain — a realistic web app designed for automation practice. Two full-coverage suites run against it: one in Cypress, one in Playwright.</p>
+
+      <div class="oss-grid">
+
+        <!-- TestFlow app — full-width featured card -->
+        <div class="oss-card oss-card-featured">
+          <div class="oss-featured-left">
+            <div class="oss-featured-hero">
+              <div class="oss-logo-lg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker" />
+              </div>
+              <div>
+                <div class="oss-featured-title">
+                  <a href="https://github.com/qaschoolbr/testflow" target="_blank" rel="noopener">qaschoolbr / testflow</a>
+                </div>
+                <div class="oss-badges" style="margin-top: 6px;">
+                  <span class="badge badge-blue">app</span>
+                  <span class="oss-lang">Node.js</span>
+                  <span class="oss-lang">Express</span>
+                </div>
+              </div>
+            </div>
+            <p class="oss-desc" data-i18n="oss.testflow.desc">Web sandbox built for QA automation practice — the target app for both testflow-cypress and testflow-playwright suites.</p>
+            <div class="oss-shield-row">
+              <img src="https://img.shields.io/docker/pulls/qaschool/testflow?style=flat-square&color=6c8cff&logo=docker&logoColor=white&label=pulls" alt="Docker Pulls" />
+              <img src="https://img.shields.io/docker/image-size/qaschool/testflow?style=flat-square&color=34d399&logo=docker&logoColor=white&label=size" alt="Image Size" />
+              <img src="https://img.shields.io/github/last-commit/qaschoolbr/testflow?style=flat-square&color=a78bfa&logo=github&logoColor=white&label=updated" alt="Last Commit" />
+            </div>
+            <div class="project-tags">
+              <span class="project-tag">Docker</span>
+              <span class="project-tag">Node.js</span>
+              <span class="project-tag">Express</span>
+              <span class="project-tag">SQLite</span>
+            </div>
+          </div>
+          <div class="oss-featured-right">
+            <div class="oss-cmd-label" data-i18n="oss.docker.quickstart">Quick start</div>
+            <div class="oss-cmd-block">
+              <code>docker pull qaschool/testflow:latest</code>
+              <button class="oss-copy-btn" onclick="navigator.clipboard.writeText('docker pull qaschool/testflow:latest').then(()=>{this.textContent='✓';setTimeout(()=>this.textContent='copy',1500)})">copy</button>
+            </div>
+            <div class="oss-cmd-block">
+              <code>docker run -p 5050:5050 qaschool/testflow:latest</code>
+              <button class="oss-copy-btn" onclick="navigator.clipboard.writeText('docker run -p 5050:5050 qaschool/testflow:latest').then(()=>{this.textContent='✓';setTimeout(()=>this.textContent='copy',1500)})">copy</button>
+            </div>
+            <a href="https://hub.docker.com/r/qaschool/testflow" target="_blank" rel="noopener" class="oss-hub-link">↗ Docker Hub</a>
+            <a href="https://github.com/qaschoolbr/testflow" target="_blank" rel="noopener" class="oss-hub-link">↗ GitHub</a>
+          </div>
+        </div>
+
+        <!-- testflow-cypress -->
+        <div class="oss-card">
+          <div class="oss-card-top">
+            <div class="oss-logo">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cypressio/cypressio-original.svg" alt="Cypress" />
+            </div>
+            <div class="oss-badges">
+              <span class="badge badge-green" data-i18n="oss.badge.active">active</span>
+              <span class="oss-lang">JavaScript</span>
+            </div>
+          </div>
+          <div class="oss-repo-name">
+            <a href="https://github.com/lflucasferreira/testflow-cypress" target="_blank" rel="noopener">lflucasferreira / testflow-cypress</a>
+          </div>
+          <p class="oss-desc" data-i18n="oss.cypress.desc">Cypress 15 E2E + component suite: smoke, auth, dashboard, team, wizard, API, a11y, visual regression via Percy. Parallel CI matrix on GitHub Actions.</p>
+          <a href="https://github.com/lflucasferreira/testflow-cypress/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.cypress.commits">↗ 22 commits on main</a>
+          <div class="project-tags">
+            <span class="project-tag">Cypress 15</span>
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag">Percy</span>
+            <span class="project-tag">axe-core</span>
+            <span class="project-tag">GitHub Actions</span>
+          </div>
+        </div>
+
+        <!-- testflow-playwright -->
+        <div class="oss-card">
+          <div class="oss-card-top">
+            <div class="oss-logo">
+              <img src="https://playwright.dev/img/playwright-logo.svg" alt="Playwright" />
+            </div>
+            <div class="oss-badges">
+              <span class="badge badge-green" data-i18n="oss.badge.active">active</span>
+              <span class="oss-lang">TypeScript</span>
+            </div>
+          </div>
+          <div class="oss-repo-name">
+            <a href="https://github.com/lflucasferreira/testflow-playwright" target="_blank" rel="noopener">lflucasferreira / testflow-playwright</a>
+          </div>
+          <p class="oss-desc" data-i18n="oss.playwright.desc">Playwright TypeScript suite with POM, axe-core a11y, visual regression and cross-browser coverage (Chromium / Firefox / WebKit). 17 parallel CI matrix jobs.</p>
+          <a href="https://github.com/lflucasferreira/testflow-playwright/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.playwright.commits">↗ 3 commits on main</a>
+          <div class="project-tags">
+            <span class="project-tag">Playwright</span>
+            <span class="project-tag">TypeScript</span>
+            <span class="project-tag">axe-core</span>
+            <span class="project-tag">GitHub Actions</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- GitHub widgets -->
+      <div class="oss-widgets">
+
+        <div>
+          <div class="oss-widget-label" data-i18n="oss.contrib.label">Contribution activity</div>
+          <div class="oss-wrap">
+            <img src="https://ghchart.rshah.org/6c8cff/lflucasferreira" alt="GitHub contribution chart" class="oss-contrib-img" />
+          </div>
+        </div>
+
+        <div>
+          <div class="oss-widget-label" data-i18n="oss.stats.label">GitHub stats</div>
+          <div class="oss-stats-row">
+            <div class="oss-stats-cell">
+              <img src="https://github-readme-stats.vercel.app/api?username=lflucasferreira&show_icons=true&bg_color=00000000&text_color=8892b0&icon_color=6c8cff&title_color=6c8cff&hide_border=true&count_private=true" alt="GitHub Stats" />
+            </div>
+            <div class="oss-stats-cell">
+              <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=lflucasferreira&layout=compact&bg_color=00000000&text_color=8892b0&title_color=6c8cff&hide_border=true&langs_count=6" alt="Top Languages" />
+            </div>
+            <div class="oss-stats-cell">
+              <img src="https://github-readme-streak-stats.herokuapp.com/?user=lflucasferreira&hide_border=true&background=00000000&stroke=6c8cff40&ring=6c8cff&fire=a78bfa&currStreakLabel=6c8cff&sideLabels=8892b0&dates=8892b0&currStreakNum=c9d1d9&sideNums=c9d1d9" alt="GitHub Streak" />
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="oss-widget-label" data-i18n="oss.activity.label">Activity graph</div>
+          <div class="oss-wrap">
+            <img src="https://github-readme-activity-graph.vercel.app/graph?username=lflucasferreira&bg_color=0d1117&color=6c8cff&line=6c8cff&point=a78bfa&area=true&area_color=6c8cff&hide_border=true" alt="Activity Graph" />
+          </div>
+        </div>
+
+        <div>
+          <div class="oss-widget-label" data-i18n="oss.trophy.label">GitHub trophies</div>
+          <div class="oss-wrap" style="padding: 20px 24px;">
+            <div id="gh-trophies" style="display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center;">
+              <span style="font-size:0.75rem; color:var(--text-3); font-family:var(--mono);">loading...</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
     <!-- ── Task Score ── -->
     <section class="section" id="metrics">
-      <div class="section-label" data-i18n="ts.label">05 · Metrics</div>
+      <div class="section-label" data-i18n="ts.label">06 · Metrics</div>
       <h2 class="section-title" data-i18n="ts.title">Task Score</h2>
 
       <p class="ts-intro" data-i18n="ts.intro">In Q4 2024 at Questrade I applied <strong>Task Score</strong> — a delivery quality metric that evaluates, per task, whether the team followed quality gates before reaching production. The premise: pass/fail rates alone don't show how consistently processes are followed sprint to sprint. Task Score makes the invisible visible — and turns retrospectives from feelings into data.</p>
@@ -1664,8 +1868,8 @@
             <div class="metric-problem" data-i18n="ppi.p3">Trending toward 1.0 over sprints is concrete evidence that dev–QA alignment is improving</div>
           </div>
           <div class="metric-formula" style="margin-top:12px;background:rgba(52,211,153,0.07);border-color:rgba(52,211,153,0.25);">
-            <span class="mf-key" style="color:var(--green);">Mean PPI = 1.06</span>
-            <span class="mf-note">27 sprints · 361 tickets · Excellent range — near-ideal first-time fix rate</span>
+            <span class="mf-key" style="color:var(--green);">Mean PPI · Excellent range</span>
+            <span class="mf-note">30+ sprints · near-ideal first-time fix rate</span>
           </div>
         </div>
 
@@ -1726,7 +1930,7 @@
 
     <!-- ── Achievements ── -->
     <section class="section" id="achievements">
-      <div class="section-label" data-i18n="ach.label">06 · Achievements</div>
+      <div class="section-label" data-i18n="ach.label">07 · Achievements</div>
       <h2 class="section-title" data-i18n="ach.title">Recognition</h2>
 
       <div class="achievements-list">
@@ -1734,8 +1938,8 @@
         <div class="achievement">
           <div class="achievement-icon">🏆</div>
           <div>
-            <h3>Solid Performance Award — Questrade (Feb 2023)</h3>
-            <p>Recognized for delivery excellence on KYC/OAA automation, coordinating quality across a distributed team and driving measurable improvements to the test pyramid.</p>
+            <h3>Exceeding Performance — Questrade (2024)</h3>
+            <p>Recognized for technical leadership on KYC/OAA — architectural innovation in the testing framework (86% reduction in component test execution time) and adoption of generative AI to reduce test delivery from ~1 week to 1–2 days.</p>
           </div>
         </div>
 
@@ -1744,22 +1948,6 @@
           <div>
             <h3>Team Highlight &amp; Mission Accomplished — CI&T (Aug 2021)</h3>
             <p>Squad recognized for deploying quality gates that became the SRE reference. Automated test pyramid implementation eliminated deployment bottlenecks.</p>
-          </div>
-        </div>
-
-        <div class="achievement">
-          <div class="achievement-icon">🥇</div>
-          <div>
-            <h3>1st Place — MV Hackathon 2018</h3>
-            <p>Led one of 10 competing teams to build a blockchain solution for secure healthcare data management, presented and validated by a technical jury.</p>
-          </div>
-        </div>
-
-        <div class="achievement">
-          <div class="achievement-icon">🎤</div>
-          <div>
-            <h3>Kotlin Track Organizer — TDC São Paulo (Jul 2018)</h3>
-            <p>Organized the Kotlin track at The Developers Conference — Brazil's largest developer conference — coordinating speakers and sessions for the São Paulo edition.</p>
           </div>
         </div>
 
@@ -1776,7 +1964,7 @@
 
     <!-- ── Education ── -->
     <section class="section" id="education">
-      <div class="section-label" data-i18n="edu.label">07 · Education</div>
+      <div class="section-label" data-i18n="edu.label">08 · Education</div>
       <h2 class="section-title" data-i18n="edu.title">Academic background</h2>
 
       <div class="edu-grid">
@@ -1838,7 +2026,7 @@
 
     <!-- ── Contact ── -->
     <section class="section" id="contact">
-      <div class="section-label" data-i18n="contact.label">08 · Contact</div>
+      <div class="section-label" data-i18n="contact.label">09 · Contact</div>
       <h2 class="section-title" data-i18n="contact.title">Let's connect</h2>
 
       <div class="contact-wrapper">
@@ -1897,16 +2085,16 @@
         'hero.badge': 'Available for senior &amp; principal QA roles',
         'hero.role': 'Senior QA Engineer · SDET · <strong>10+ years</strong> building automation at scale ·<br>Fintech &amp; KYC/AML specialist',
         'hero.stat1': 'Years in QA', 'hero.stat2': 'Test time reduction',
-        'hero.stat3': 'Sprints with custom metrics', 'hero.stat4': 'Test cases tracked',
+        'hero.stat3': 'Sprints with custom metrics', 'hero.stat4': 'Automated tests',
         'cta.linkedin': 'LinkedIn', 'cta.github': 'GitHub', 'cta.email': 'Email', 'cta.perf': 'Performance &amp; Growth',
         'about.label': '01 · About', 'about.title': 'Who I am',
         'about.p1': "I'm a Senior QA Engineer · SDET with <strong>10+ years</strong> building test automation strategies from the ground up — across fintech, education, and enterprise software. Currently I own the full QA strategy for <strong>KYC/AML and customer onboarding</strong> — a regulated, multi-stage flow covering personal identity verification, employment, financial profile, and tax residency — designing frameworks that span E2E, component, API, mobile, and performance layers.",
-        'about.p2': 'I care deeply about quality culture: I founded <strong>QA School</strong> in 2019 to train early-career QA professionals, and I created three custom QA metrics — <strong>PPI, SRM, and RBD</strong> — that I\'ve applied across 27 sprints to measure real-world quality trends beyond simple pass/fail rates.',
+        'about.p2': 'I care deeply about quality culture: I created three custom QA metrics — <strong>PPI, SRM, and RBD</strong> — applied across <strong>30+ sprints</strong> to measure real-world quality trends beyond simple pass/fail rates. I\'ve also adopted generative AI tools early — reducing test delivery by ~75% at Questrade.',
         'about.p3': 'I work remotely in English, collaborating across <strong>Brazil, Canada, and Ukraine</strong>, and I hold a C1 Advanced English certification. Currently pursuing two Post-Graduate Diplomas at CESAR School: DevOps and Agile Testing.',
-        'about.c1.h': 'QA School Founder', 'about.c1.p': 'Training initiative for early-career QA professionals since 2019',
-        'about.c2.h': 'Custom QA Metrics Author', 'about.c2.p': 'Created PPI, SRM &amp; RBD — tracked across 27 sprints, 361 tickets',
+        'about.c1.h': 'Generative AI Early Adopter', 'about.c1.p': 'Cursor, Claude Code, Copilot, Gemini &amp; Postbot — ~75% faster test delivery',
+        'about.c2.h': 'Custom QA Metrics Author', 'about.c2.p': 'Created PPI, SRM &amp; RBD — tracked across 30+ sprints',
         'about.c3.h': 'International Experience', 'about.c3.p': 'Co-op at Dalhousie University, Canada · C1 English · Remote-first',
-        'about.c4.h': 'Award-Winning Delivery', 'about.c4.p': 'Solid Performance Award at Questrade · 1st place MV Hackathon 2018',
+        'about.c4.h': 'Award-Winning Delivery', 'about.c4.p': 'Exceeding Performance at Questrade (2024) · Team Highlight at CI&amp;T (2021)',
         'about.c5.h': 'Performance &amp; Growth →', 'about.c5.p': "4 years of peer feedback, strengths, and what I'm actively working on",
         'skills.label': '02 · Skills', 'skills.title': 'Tech stack',
         'skills.r1': 'Web &amp; Mobile Automation', 'skills.r2': 'API &amp; Performance',
@@ -1919,7 +2107,21 @@
         'exp.j4.title': 'Support Analyst → Junior QA Engineer', 'exp.j4.period': 'Sep 2015 — May 2019',
         'exp.j5.title': 'Test Analyst — Co-op', 'exp.j5.period': 'May 2014 — Sep 2014',
         'proj.label': '04 · Projects', 'proj.title': 'Notable work',
-        'ts.label': '05 · Metrics', 'ts.title': 'Task Score',
+        'oss.label': '05 · Open Source', 'oss.title': 'GitHub Projects',
+        'oss.intro': 'TestFlow is an open-source QA sandbox I built and maintain — a realistic web app designed for automation practice. Two full-coverage suites run against it: one in Cypress, one in Playwright.',
+        'oss.testflow.desc': 'Web sandbox built for QA automation practice — the target app for both testflow-cypress and testflow-playwright suites.',
+        'oss.cypress.desc': 'Cypress 15 E2E + component suite: smoke, auth, dashboard, team, wizard, API, a11y, visual regression via Percy. Parallel CI matrix on GitHub Actions.',
+        'oss.playwright.desc': 'Playwright TypeScript suite with POM, axe-core a11y, visual regression and cross-browser coverage (Chromium / Firefox / WebKit). 17 parallel CI matrix jobs.',
+        'oss.badge.active': 'active',
+        'oss.cypress.commits': '↗ 22 commits on main',
+        'oss.playwright.commits': '↗ 3 commits on main',
+        'oss.contrib.label': 'Contribution activity',
+        'oss.stats.label': 'GitHub stats',
+        'oss.docker.quickstart': 'Quick start',
+        'oss.docker.hublink': '↗ Docker Hub',
+        'oss.activity.label': 'Activity graph',
+        'oss.trophy.label': 'GitHub trophies',
+        'ts.label': '06 · Metrics', 'ts.title': 'Task Score',
         'ts.intro': 'In Q4 2024 at Questrade I applied <strong>Task Score</strong> — a delivery quality metric that evaluates, per task, whether the team followed quality gates before reaching production. The premise: pass/fail rates alone don\'t show how consistently processes are followed sprint to sprint. Task Score makes the invisible visible — and turns retrospectives from feelings into data.',
         'ts.c1.h': 'Deploy in SIT', 'ts.c1.p': 'Task was deployed to the SIT environment before QA review begins',
         'ts.c2.h': 'Pipeline passed', 'ts.c2.p': 'All automated pipeline checks passed before QA handoff',
@@ -1946,9 +2148,9 @@
         'srm.p1': 'Forces AC alignment before work reaches QA — eliminating wasted test cycles at the source',
         'srm.p2': 'Per-developer tracking identifies who needs clearer requirements or stricter pre-QA checklists',
         'srm.p3': 'Consistently hitting 0 for multiple sprints is the strongest signal of a mature dev–QA handoff',
-        'ach.label': '06 · Achievements', 'ach.title': 'Recognition',
-        'edu.label': '07 · Education', 'edu.title': 'Academic background',
-        'contact.label': '08 · Contact', 'contact.title': "Let's connect",
+        'ach.label': '07 · Achievements', 'ach.title': 'Recognition',
+        'edu.label': '08 · Education', 'edu.title': 'Academic background',
+        'contact.label': '09 · Contact', 'contact.title': "Let's connect",
         'contact.p1': 'I\'m open to conversations about <strong>Senior and Principal QA Engineer</strong> opportunities, consulting, or just talking shop about test automation strategy, fintech quality, or QA culture.',
         'contact.p2': 'Best way to reach me is via LinkedIn or email. I\'m based in <strong>Recife, Brazil</strong> and work fully remote.',
         'footer.text': 'Lucas Ferreira · Senior QA Engineer · Built with HTML &amp; CSS · Hosted on GitHub Pages'
@@ -1959,16 +2161,16 @@
         'hero.badge': 'Disponível para vagas de QA Sênior e Principal',
         'hero.role': 'Senior QA Engineer · SDET · <strong>10+ anos</strong> construindo automação em escala ·<br>Especialista em Fintech &amp; KYC/AML',
         'hero.stat1': 'Anos em QA', 'hero.stat2': 'Redução no tempo de testes',
-        'hero.stat3': 'Sprints com métricas customizadas', 'hero.stat4': 'Casos de teste rastreados',
+        'hero.stat3': 'Sprints com métricas customizadas', 'hero.stat4': 'Testes automatizados',
         'cta.linkedin': 'LinkedIn', 'cta.github': 'GitHub', 'cta.email': 'E-mail', 'cta.perf': 'Desempenho &amp; Crescimento',
         'about.label': '01 · Sobre', 'about.title': 'Quem sou eu',
         'about.p1': 'Sou um Senior QA Engineer · SDET com <strong>mais de 10 anos</strong> construindo estratégias de automação de testes do zero — em fintech, educação e software empresarial. Atualmente sou responsável pela estratégia completa de QA para <strong>KYC/AML e onboarding de clientes</strong> — um fluxo multietapa regulado que abrange verificação de identidade pessoal, emprego, perfil financeiro e residência fiscal — desenhando frameworks que abrangem camadas de E2E, componente, API, mobile e performance.',
-        'about.p2': 'Me importo profundamente com a cultura de qualidade: fundei o <strong>QA School</strong> em 2019 para treinar profissionais de QA em início de carreira, e criei três métricas de QA customizadas — <strong>PPI, SRM e RBD</strong> — que apliquei ao longo de 27 sprints para medir tendências de qualidade reais, além de simples taxas de aprovação/reprovação.',
+        'about.p2': 'Me importo profundamente com a cultura de qualidade: criei três métricas de QA customizadas — <strong>PPI, SRM e RBD</strong> — aplicadas ao longo de <strong>30+ sprints</strong> para medir tendências de qualidade reais, além de simples taxas de aprovação/reprovação. Também adotei ferramentas de IA generativa cedo — reduzindo a entrega de testes em ~75% na Questrade.',
         'about.p3': 'Trabalho remotamente em inglês, colaborando entre <strong>Brasil, Canadá e Ucrânia</strong>, e possuo certificação C1 Advanced em inglês. Atualmente cursando duas Pós-Graduações na CESAR School: DevOps e Agile Testing.',
-        'about.c1.h': 'Fundador do QA School', 'about.c1.p': 'Iniciativa de treinamento para profissionais de QA em início de carreira desde 2019',
-        'about.c2.h': 'Autor de Métricas de QA Customizadas', 'about.c2.p': 'Criou PPI, SRM &amp; RBD — rastreadas em 27 sprints, 361 tickets',
+        'about.c1.h': 'Early Adopter de IA Generativa', 'about.c1.p': 'Cursor, Claude Code, Copilot, Gemini &amp; Postbot — ~75% mais rápido na entrega de testes',
+        'about.c2.h': 'Autor de Métricas de QA Customizadas', 'about.c2.p': 'Criou PPI, SRM &amp; RBD — rastreadas em 30+ sprints',
         'about.c3.h': 'Experiência Internacional', 'about.c3.p': 'Co-op na Dalhousie University, Canadá · C1 Inglês · Remote-first',
-        'about.c4.h': 'Entrega Premiada', 'about.c4.p': 'Solid Performance Award na Questrade · 1º lugar Hackathon MV 2018',
+        'about.c4.h': 'Entrega Premiada', 'about.c4.p': 'Exceeding Performance na Questrade (2024) · Team Highlight na CI&amp;T (2021)',
         'about.c5.h': 'Desempenho &amp; Crescimento →', 'about.c5.p': '4 anos de feedback de colegas, pontos fortes e no que estou trabalhando ativamente',
         'skills.label': '02 · Habilidades', 'skills.title': 'Stack tecnológico',
         'skills.r1': 'Automação Web &amp; Mobile', 'skills.r2': 'API &amp; Performance',
@@ -1981,7 +2183,21 @@
         'exp.j4.title': 'Analista de Suporte → Junior QA Engineer', 'exp.j4.period': 'Set 2015 — Mai 2019',
         'exp.j5.title': 'Analista de Testes — Intercâmbio', 'exp.j5.period': 'Mai 2014 — Set 2014',
         'proj.label': '04 · Projetos', 'proj.title': 'Trabalhos notáveis',
-        'ts.label': '05 · Métricas', 'ts.title': 'Task Score',
+        'oss.label': '05 · Open Source', 'oss.title': 'Projetos no GitHub',
+        'oss.intro': 'TestFlow é um sandbox de QA open-source que construí e mantenho — uma aplicação web realista projetada para prática de automação. Duas suítes com cobertura completa rodam contra ele: uma em Cypress e uma em Playwright.',
+        'oss.testflow.desc': 'Sandbox web para prática de automação de QA — a aplicação-alvo das suítes testflow-cypress e testflow-playwright.',
+        'oss.cypress.desc': 'Suíte Cypress 15 E2E + component: smoke, auth, dashboard, team, wizard, API, a11y, regressão visual via Percy. Matrix paralelo de CI no GitHub Actions.',
+        'oss.playwright.desc': 'Suíte Playwright em TypeScript com POM, a11y com axe-core, regressão visual e cobertura cross-browser (Chromium / Firefox / WebKit). 17 jobs paralelos de CI.',
+        'oss.badge.active': 'ativo',
+        'oss.cypress.commits': '↗ 22 commits na main',
+        'oss.playwright.commits': '↗ 3 commits na main',
+        'oss.contrib.label': 'Atividade de contribuições',
+        'oss.stats.label': 'Estatísticas do GitHub',
+        'oss.docker.quickstart': 'Quick start',
+        'oss.docker.hublink': '↗ Docker Hub',
+        'oss.activity.label': 'Gráfico de atividade',
+        'oss.trophy.label': 'Troféus do GitHub',
+        'ts.label': '06 · Métricas', 'ts.title': 'Task Score',
         'ts.intro': 'No Q4 2024 na Questrade, apliquei o <strong>Task Score</strong> — uma métrica de qualidade de entrega que avalia, por tarefa, se o time seguiu os quality gates antes de chegar à produção. A premissa: taxas de aprovação/reprovação isoladas não mostram a consistência dos processos sprint a sprint. O Task Score torna o invisível visível — e transforma retrospectivas de sentimentos em dados.',
         'ts.c1.h': 'Deploy no SIT', 'ts.c1.p': 'A tarefa foi implantada no ambiente SIT antes do review de QA',
         'ts.c2.h': 'Pipeline aprovada', 'ts.c2.p': 'Todas as verificações automáticas da pipeline passaram antes da entrega ao QA',
@@ -2008,9 +2224,9 @@
         'srm.p1': 'Força o alinhamento nos ACs antes que o trabalho chegue ao QA — eliminando ciclos de teste desperdiçados na origem',
         'srm.p2': 'Rastreamento por desenvolvedor identifica quem precisa de requisitos mais claros ou checklists pré-QA mais rigorosos',
         'srm.p3': 'Atingir 0 consistentemente por múltiplas sprints é o sinal mais forte de um processo de handoff dev–QA maduro',
-        'ach.label': '06 · Conquistas', 'ach.title': 'Reconhecimentos',
-        'edu.label': '07 · Formação', 'edu.title': 'Formação acadêmica',
-        'contact.label': '08 · Contato', 'contact.title': 'Vamos nos conectar',
+        'ach.label': '07 · Conquistas', 'ach.title': 'Reconhecimentos',
+        'edu.label': '08 · Formação', 'edu.title': 'Formação acadêmica',
+        'contact.label': '09 · Contato', 'contact.title': 'Vamos nos conectar',
         'contact.p1': 'Estou aberto a conversas sobre oportunidades de <strong>Senior e Principal QA Engineer</strong>, consultoria, ou simplesmente trocar ideias sobre estratégia de automação, qualidade em fintech ou cultura de QA.',
         'contact.p2': 'A melhor forma de me contatar é via LinkedIn ou e-mail. Estou em <strong>Recife, Brasil</strong> e trabalho totalmente remoto.',
         'footer.text': 'Lucas Ferreira · Senior QA Engineer · Feito com HTML &amp; CSS · Hospedado no GitHub Pages'
@@ -2050,6 +2266,52 @@
       if (savedLang && savedLang !== 'en') {
         document.documentElement.setAttribute('data-lang', savedLang);
         applyLang(savedLang);
+      }
+    })();
+  </script>
+
+  <script>
+    // GitHub trophies via API
+    (async () => {
+      const el = document.getElementById('gh-trophies');
+      if (!el) return;
+      try {
+        const res = await fetch('https://api.github.com/users/lflucasferreira');
+        if (!res.ok) throw new Error();
+        const u = await res.json();
+
+        const reposRes = await fetch('https://api.github.com/users/lflucasferreira/repos?per_page=100');
+        const repos = reposRes.ok ? await reposRes.json() : [];
+        const stars = Array.isArray(repos) ? repos.reduce((s, r) => s + r.stargazers_count, 0) : 0;
+        const forks = Array.isArray(repos) ? repos.reduce((s, r) => s + r.forks_count, 0) : 0;
+        const langs = new Set(repos.filter(r => r.language).map(r => r.language)).size;
+
+        const trophies = [
+          { icon: '📦', label: 'Repositories', value: u.public_repos },
+          { icon: '👥', label: 'Followers', value: u.followers },
+          { icon: '⭐', label: 'Stars earned', value: stars },
+          { icon: '🍴', label: 'Forks', value: forks },
+          { icon: '💻', label: 'Languages', value: langs },
+          { icon: '🏢', label: 'Organizations', value: u.public_gists ?? 0 },
+        ];
+
+        el.innerHTML = trophies.map(t => `
+          <div style="
+            background:var(--surface2);
+            border:1px solid var(--border);
+            border-radius:var(--radius-sm);
+            padding:14px 18px;
+            text-align:center;
+            min-width:100px;
+            flex:1;
+          ">
+            <div style="font-size:1.4rem; line-height:1;">${t.icon}</div>
+            <div style="font-size:1.25rem; font-weight:700; color:var(--accent); font-family:var(--mono); margin:4px 0 2px;">${t.value}</div>
+            <div style="font-size:0.68rem; color:var(--text-3); font-family:var(--mono);">${t.label}</div>
+          </div>
+        `).join('');
+      } catch(e) {
+        el.innerHTML = '<span style="font-size:0.75rem;color:var(--text-3);font-family:var(--mono);">unavailable</span>';
       }
     })();
   </script>
