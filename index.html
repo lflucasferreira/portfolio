@@ -1222,14 +1222,60 @@
     }
     .oss-arch-frame {
       border: 1px solid var(--border); border-radius: var(--radius-sm);
-      background: var(--surface2); padding: 10px 8px; overflow-x: auto;
+      background: var(--surface2); padding: 10px 8px; overflow: visible;
     }
-    .oss-arch-frame img, .oss-arch-frame svg { width: 100%; min-width: 520px; height: auto; display: block; }
-    [data-theme="light"] .oss-arch-frame svg text { fill: #475569; }
-    [data-theme="light"] .oss-arch-frame svg rect[fill="#1a2235"] { fill: #f0f2fc; }
-    [data-theme="light"] .oss-arch-frame svg text[fill="#f0f4ff"] { fill: #0f172a; }
-    [data-theme="light"] .oss-arch-frame svg text[fill="#8b9fc0"] { fill: #475569; }
-    [data-theme="light"] .oss-arch-frame svg text[fill="#4d6080"] { fill: #94a3b8; }
+    .oss-arch-svg { width: 100%; min-width: 0; height: auto; display: block; }
+    .oss-card-featured--qametrics { flex-direction: column; align-items: stretch; }
+    .oss-featured-top {
+      display: flex; flex-direction: row; align-items: stretch; width: 100%;
+    }
+    .oss-card-featured--qametrics .oss-featured-right {
+      justify-content: flex-start; align-self: stretch;
+    }
+    .oss-card-featured--qametrics .oss-featured-right .oss-link-bar { margin-top: auto; }
+    .oss-featured-arch {
+      width: 100%; box-sizing: border-box;
+      padding: 16px 32px 28px;
+      border-top: 1px solid rgba(108,140,255,0.2);
+    }
+    .oss-dash-block { margin-top: 0; }
+    .oss-dash-block .oss-dash-gallery { margin-top: 8px; }
+    .oss-reader-block {
+      margin-top: 14px; padding: 12px 14px;
+      border: 1px dashed rgba(167,139,250,0.4); border-radius: var(--radius-sm);
+      background: rgba(167,139,250,0.05);
+    }
+    .oss-reader-desc {
+      margin: 8px 0 0; font-size: 0.78rem; color: var(--text-2); line-height: 1.55;
+    }
+    .oss-reader-desc a { color: var(--accent); text-decoration: none; }
+    .oss-reader-desc a:hover { text-decoration: underline; }
+    .oss-reader-desc code {
+      font-family: var(--mono); font-size: 0.92em;
+      padding: 1px 5px; border-radius: 4px;
+      background: var(--surface3); border: 1px solid var(--border);
+    }
+    .oss-reader-flow {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+      margin-top: 10px; font-size: 0.65rem; font-family: var(--mono); color: var(--text-3);
+    }
+    .oss-reader-flow span { white-space: nowrap; }
+    .oss-reader-flow .oss-reader-arrow { color: var(--accent); opacity: 0.7; }
+    .oss-reader-note {
+      margin-top: 10px; font-size: 0.68rem; font-family: var(--mono);
+      color: var(--text-3); line-height: 1.45;
+    }
+    .oss-arch-svg .arch-box { fill: var(--surface3); stroke: var(--accent); stroke-opacity: 0.45; }
+    .oss-arch-svg .arch-box-accent { fill: rgba(108,140,255,0.08); stroke: var(--accent); stroke-opacity: 0.35; }
+    .oss-arch-svg .arch-box-dashed { fill: var(--surface3); stroke: var(--accent2); stroke-opacity: 0.45; stroke-dasharray: 4 3; }
+    .oss-arch-svg .arch-box-green { fill: var(--surface3); stroke: var(--green); stroke-opacity: 0.55; }
+    .oss-arch-svg .arch-text { fill: var(--text-2); font-family: var(--mono); font-size: 10px; }
+    .oss-arch-svg .arch-text-strong { fill: var(--text); font-family: var(--mono); font-size: 11px; font-weight: 600; }
+    .oss-arch-svg .arch-text-muted { fill: var(--text-3); font-family: var(--mono); font-size: 9px; }
+    .oss-arch-svg .arch-text-dash { fill: var(--text-2); font-family: var(--mono); font-size: 8px; }
+    .oss-arch-svg .arch-text-accent { fill: var(--accent); font-family: var(--mono); font-size: 10px; }
+    .oss-arch-svg .arch-line { stroke: var(--accent); stroke-width: 1.5; fill: none; }
+    .oss-arch-svg .arch-line-muted { stroke: var(--accent2); stroke-width: 1.5; fill: none; }
 
     .oss-dash-gallery {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px;
@@ -1269,15 +1315,38 @@
       display: flex; align-items: center; justify-content: space-between; gap: 12px;
       padding: 10px 14px; border-bottom: 1px solid var(--border); background: var(--surface2);
     }
+    .dash-modal-heading { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
     .dash-modal-title { font-size: 0.78rem; font-weight: 600; color: var(--text); font-family: var(--mono); margin: 0; }
-    .dash-modal-close {
+    .dash-modal-counter { font-size: 0.68rem; font-family: var(--mono); color: var(--text-3); white-space: nowrap; }
+    .dash-modal-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .dash-modal-nav, .dash-modal-close {
       display: inline-flex; align-items: center; justify-content: center;
       width: 34px; height: 34px; border-radius: 8px;
       border: 1px solid var(--border); background: var(--surface); color: var(--text-2); cursor: pointer;
+      transition: border-color var(--transition), color var(--transition), background var(--transition);
     }
-    .dash-modal-close:hover { border-color: var(--accent); color: var(--accent); }
-    .dash-modal-close svg { width: 16px; height: 16px; }
-    .dash-modal-img { display: block; width: 100%; max-height: calc(90vh - 52px); object-fit: contain; background: var(--bg); }
+    .dash-modal-nav:hover, .dash-modal-close:hover { border-color: var(--accent); color: var(--accent); }
+    .dash-modal-nav svg, .dash-modal-close svg { width: 16px; height: 16px; }
+    .dash-modal-body {
+      position: relative; display: flex; align-items: center; background: var(--bg);
+    }
+    .dash-modal-nav--side {
+      flex-shrink: 0; margin: 0 6px; background: var(--surface2);
+    }
+    .dash-modal-img {
+      display: block; flex: 1; min-width: 0; width: 100%;
+      max-height: calc(90vh - 52px); object-fit: contain; background: var(--bg);
+    }
+    @media (max-width: 640px) {
+      .dash-modal { padding: 12px; }
+      .dash-modal-nav--side {
+        position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+        margin: 0; background: rgba(17,24,39,0.82); border-color: rgba(255,255,255,0.12);
+      }
+      [data-theme="light"] .dash-modal-nav--side { background: rgba(255,255,255,0.92); }
+      .dash-modal-nav--side[data-dash-prev] { left: 8px; }
+      .dash-modal-nav--side[data-dash-next] { right: 8px; }
+    }
 
     /* PDF reader modal — fullscreen */
     .sr-only {
@@ -1321,12 +1390,14 @@
 
     @media (max-width: 860px) {
       .oss-card-featured { flex-direction: column; }
+      .oss-featured-top { flex-direction: column; }
       .oss-featured-right { width: auto; max-width: none; flex: none; border-left: none; border-top: 1px solid rgba(108,140,255,0.2); }
     }
     @media (max-width: 640px) {
       .oss-grid { grid-template-columns: 1fr; }
       .oss-featured-right .oss-link-bar { flex-wrap: wrap; }
       .oss-dash-gallery { grid-template-columns: 1fr; }
+      .oss-arch-svg { min-width: 0; }
       .oss-eco-svg--desktop { display: none; }
       .oss-eco-svg--mobile { display: block; }
       .oss-eco-suites { grid-template-columns: 1fr; gap: 0; max-width: 320px; }
@@ -1339,6 +1410,25 @@
     }
 
     /* ── Task Score ── */
+    .metrics-meta { margin-bottom: 32px; }
+    .metrics-context {
+      color: var(--text-2); font-size: 0.95rem; line-height: 1.65; margin-bottom: 10px;
+    }
+    .metrics-context strong { color: var(--text); }
+    .metrics-collection {
+      font-size: 0.8rem; font-family: var(--mono); color: var(--text-3); line-height: 1.55; margin-bottom: 12px;
+    }
+    .metrics-collection strong { color: var(--text-2); font-weight: 500; }
+    .metrics-viz-link {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 0.8rem; font-family: var(--mono); color: var(--accent);
+      text-decoration: none; transition: opacity var(--transition);
+    }
+    .metrics-viz-link:hover { opacity: 0.85; text-decoration: underline; }
+    .metrics-subtitle {
+      font-size: 1.05rem; font-weight: 700; color: var(--text);
+      margin: 0 0 14px; letter-spacing: -0.01em;
+    }
     .ts-intro { color: var(--text-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 36px; }
     .ts-intro strong { color: var(--text); }
 
@@ -1445,6 +1535,180 @@
     .metric-problem::before {
       content: ''; position: absolute; left: 0; top: 8px;
       width: 5px; height: 1px; background: var(--yellow); opacity: 0.8;
+    }
+
+    .metrics-trends {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 10px;
+    }
+    .metric-trend-card {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 14px 16px 10px;
+    }
+    .metric-trend-head {
+      display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 8px;
+    }
+    .metric-trend-label {
+      font-size: 0.72rem; font-family: var(--mono); color: var(--text-2);
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .metric-trend-badge {
+      font-size: 0.72rem; font-family: var(--mono); font-weight: 600; color: var(--green); white-space: nowrap;
+    }
+    .metric-trend-badge--srm { color: var(--accent); }
+    .metric-sparkline { width: 100%; height: 56px; display: block; overflow: visible; }
+    .metric-trend-axis {
+      display: flex; justify-content: space-between;
+      font-size: 0.62rem; font-family: var(--mono); color: var(--text-2); margin-top: 4px;
+    }
+    .metrics-trends-note {
+      font-size: 0.72rem; font-family: var(--mono); color: var(--text-2);
+      text-align: center; margin-bottom: 18px; line-height: 1.5;
+    }
+    [data-theme="dark"] .metric-trend-label,
+    [data-theme="dark"] .metric-trend-axis {
+      color: #b8c4dc;
+    }
+    [data-theme="dark"] .metric-trend-card {
+      background: var(--surface3);
+      border-color: var(--border2);
+    }
+    [data-theme="dark"] .metrics-trends-note { color: #94a8c8; }
+
+    .metrics-advanced {
+      margin-top: 4px; padding: 28px 24px 12px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    }
+    .metrics-adv-study {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 14px 16px; margin-bottom: 22px; border-radius: var(--radius-sm);
+      background: var(--glow); border: 1px solid rgba(108,140,255,0.22); border-left: 3px solid var(--accent);
+      font-size: 0.84rem; color: var(--text-2); line-height: 1.6;
+    }
+    .metrics-adv-study strong { color: var(--text); }
+    .metrics-adv-study-icon { flex-shrink: 0; font-size: 1rem; line-height: 1.4; opacity: 0.9; }
+    [data-theme="dark"] .metrics-adv-study { color: #94a8c8; }
+    [data-theme="dark"] .metrics-adv-study strong { color: #dce4f5; }
+    .metrics-adv-intro {
+      color: var(--text-2); font-size: 0.88rem; line-height: 1.65; margin: -6px 0 22px; max-width: 72ch;
+    }
+    .metrics-trends--quad { margin-bottom: 10px; }
+    .metric-trend-badge--warn { color: var(--yellow); }
+    .metric-trend-badge--flaky { color: var(--accent2); }
+    .metric-trend-kpi {
+      font-size: 1.05rem; font-weight: 700; font-family: var(--mono); color: var(--text);
+      margin-top: 6px; line-height: 1.2;
+    }
+    .metric-trend-kpi span { font-size: 0.72rem; font-weight: 500; color: var(--text-3); margin-left: 6px; }
+    .metrics-pyramid-bar {
+      display: flex; height: 28px; border-radius: 6px; overflow: hidden; margin: 10px 0 12px;
+    }
+    .metrics-pyramid-seg {
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.58rem; font-family: var(--mono); font-weight: 700; color: #fff; min-width: 0;
+    }
+    .metrics-pyramid-legend {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px;
+      font-size: 0.68rem; font-family: var(--mono); color: var(--text-2);
+    }
+    .metrics-pyramid-legend span { display: flex; align-items: center; gap: 6px; }
+    .metrics-pyramid-legend i {
+      width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; font-style: normal;
+    }
+    [data-theme="dark"] .metrics-adv-intro { color: #94a8c8; }
+    [data-theme="dark"] .metric-trend-kpi span { color: #94a8c8; }
+
+    .pyramid-card {
+      margin-top: 20px; padding: 22px 24px;
+      background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    }
+    .pyramid-card-head { margin-bottom: 18px; }
+    .pyramid-card-head h4 {
+      font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 6px;
+    }
+    .pyramid-card-head p { font-size: 0.82rem; color: var(--text-2); line-height: 1.55; max-width: 68ch; }
+    .pyramid-card-body {
+      display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 240px); gap: 32px; align-items: center;
+    }
+    .pyramid-svg-wrap {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 420px; padding: 8px 0 4px;
+    }
+    .pyramid-svg {
+      width: 100%; max-width: 520px; min-height: 380px; height: auto; display: block; overflow: visible;
+    }
+    .pyramid-face { stroke: rgba(255,255,255,0.22); stroke-width: 1.5; stroke-linejoin: round; }
+    [data-theme="light"] .pyramid-face { stroke: rgba(255,255,255,0.45); }
+    .pyramid-outline {
+      fill: none; stroke: var(--border2); stroke-width: 1.5; stroke-linejoin: round;
+    }
+    .pyramid-shadow {
+      fill: var(--glow); opacity: 0.55;
+    }
+    .pyramid-tier-label {
+      font-family: var(--mono); font-size: 14px; font-weight: 700; fill: #fff; pointer-events: none;
+      dominant-baseline: middle;
+    }
+    .pyramid-tier-label--dark { fill: #422006; }
+    .pyramid-leader {
+      stroke: var(--text-3); stroke-width: 1; stroke-dasharray: 5 4; opacity: 0.65;
+    }
+    [data-theme="dark"] .pyramid-leader { stroke: #94a8c8; opacity: 0.5; }
+    .pyramid-ext-val {
+      font-family: var(--mono); font-size: 12px; font-weight: 600; fill: var(--text-2);
+      dominant-baseline: middle;
+    }
+    [data-theme="dark"] .pyramid-ext-val { fill: #b8c4dc; }
+    .pyramid-ext-link {
+      font-family: var(--mono); font-size: 11px; font-weight: 600; fill: var(--accent);
+    }
+    .pyramid-face--coda {
+      fill: var(--surface3); stroke: var(--border2); stroke-dasharray: 6 4;
+    }
+    [data-theme="dark"] .pyramid-face--coda { fill: rgba(255,255,255,0.04); }
+    .pyramid-coda-ref {
+      margin-top: 8px; font-size: 0.72rem; font-family: var(--mono); text-align: center;
+    }
+    .pyramid-coda-ref a { color: var(--accent); }
+    .pyramid-caption {
+      margin-top: 10px; font-size: 0.68rem; font-family: var(--mono); color: var(--text-3); text-align: center;
+    }
+    [data-theme="dark"] .pyramid-caption { color: #94a8c8; }
+    .pyramid-stats { display: flex; flex-direction: column; gap: 10px; }
+    .pyramid-stat {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    }
+    .pyramid-stat-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+    .pyramid-stat-info { flex: 1; min-width: 0; }
+    .pyramid-stat-name {
+      font-size: 0.72rem; font-family: var(--mono); font-weight: 600; color: var(--text); text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .pyramid-stat-val { font-size: 0.68rem; font-family: var(--mono); color: var(--text-3); margin-top: 2px; }
+    .pyramid-stat-count {
+      font-size: 0.95rem; font-weight: 700; font-family: var(--mono); color: var(--text); flex-shrink: 0;
+    }
+    .pyramid-total {
+      margin-top: 4px; padding: 12px 14px; border-radius: 8px;
+      background: var(--glow); border: 1px solid rgba(108,140,255,0.2);
+      font-size: 0.78rem; font-family: var(--mono); color: var(--text-2); text-align: center;
+    }
+    .pyramid-total strong { color: var(--accent); font-size: 1rem; }
+    [data-theme="dark"] .pyramid-card-head p { color: #94a8c8; }
+    [data-theme="dark"] .pyramid-stat-val { color: #94a8c8; }
+
+    @media (max-width: 720px) {
+      .pyramid-card-body { grid-template-columns: 1fr; }
+      .pyramid-svg-wrap { min-height: 360px; }
+      .pyramid-svg { max-width: 100%; min-height: 320px; }
+      .pyramid-stats { display: grid; grid-template-columns: 1fr 1fr; }
+      .pyramid-total { grid-column: 1 / -1; }
+    }
+    @media (max-width: 480px) {
+      .pyramid-stats { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .metrics-trends { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 768px) {
@@ -1689,14 +1953,14 @@
 
         <p class="hero-role" data-i18n="hero.role">
           Senior QA Engineer · SDET · <strong>10+ years</strong> building automation at scale ·<br>
-          Fintech &amp; KYC/AML specialist
+          Fintech · KYC · OAA onboarding · Client lifecycle
         </p>
 
         <div class="hero-tags" aria-hidden="true">
-          <span class="hero-tag">KYC · AML</span>
-          <span class="hero-tag">Cypress · Playwright</span>
-          <span class="hero-tag">k6 · Performance</span>
-          <span class="hero-tag">SDET · Fintech</span>
+          <span class="hero-tag" data-i18n="hero.tag1">KYC · OAA</span>
+          <span class="hero-tag" data-i18n="hero.tag2">Cypress · Playwright</span>
+          <span class="hero-tag" data-i18n="hero.tag3">k6 · Performance</span>
+          <span class="hero-tag" data-i18n="hero.tag4">SDET · Fintech</span>
         </div>
 
         <div class="hero-stats">
@@ -2220,7 +2484,7 @@
         </div>
 
         <!-- QA Observability Platform -->
-        <div class="project-card">
+        <div class="project-card" id="proj-observability">
           <div class="project-card-hero">
             <div class="project-logo">
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/grafana/grafana-original.svg" alt="Grafana" />
@@ -2230,10 +2494,10 @@
               <span class="project-context" data-i18n="proj.metrics.context">Questrade · TCC evolution · Observability</span>
             </div>
           </div>
-          <p data-i18n="proj.metrics.desc">Evolution of the QA Metrics undergrad thesis (open source) at Questrade: Dockerized platform with GitHub Actions — Newman integrates SonarCloud, Jira and Google Sheets via API → InfluxDB → real-time Grafana dashboards, plus custom sprint metrics (PPI, SRM, RBD) across 30+ sprints — giving the team, manager and PO visibility into rework hotspots and root cause analysis.</p>
+          <p data-i18n="proj.metrics.desc">Evolution of the QA Metrics undergrad thesis (open source) at Questrade: Dockerized platform with GitHub Actions — Newman integrates SonarCloud, Jira and Google Sheets via API → InfluxDB → real-time Grafana dashboards, replacing manual spreadsheet extraction and giving the team, manager and PO visibility into rework hotspots and root cause analysis.</p>
           <div class="project-impact">
             <span class="impact-chip" data-i18n="proj.metrics.i1">real-time dashboards · root cause analysis</span>
-            <span class="impact-chip" data-i18n="proj.metrics.i2">evolved from open-source TCC · 30+ sprints</span>
+            <span class="impact-chip" data-i18n="proj.metrics.i2">evolved from open-source TCC · GitHub Actions</span>
           </div>
           <div class="project-tags">
             <span class="project-tag">Docker</span>
@@ -2249,12 +2513,7 @@
         <div class="project-card">
           <div class="project-card-hero">
             <div class="project-logo">
-              <!-- Shield + lock — MFA / security (recommended) -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M12 3.5 5 6.5v5.5c0 4.2 3 7.9 7 9 4-1.1 7-4.8 7-9V6.5L12 3.5z" />
-                <rect x="10" y="11" width="4" height="4.5" rx="1" />
-                <path d="M11 11V9.5a1 1 0 0 1 2 0V11" />
-              </svg>
+              <img src="assets/browserstack.png" alt="BrowserStack" />
             </div>
             <div>
               <h3 data-i18n="proj.mobile.title">Mobile MFA &amp; IDV Coverage</h3>
@@ -2494,7 +2753,8 @@
         </div>
 
         <!-- qametrics — UFRPE undergrad thesis -->
-        <div class="oss-card oss-card-featured">
+        <div class="oss-card oss-card-featured oss-card-featured--qametrics">
+          <div class="oss-featured-top">
           <div class="oss-featured-left">
             <div class="oss-featured-hero">
               <div class="oss-logo-lg">
@@ -2531,31 +2791,29 @@
               <span class="project-tag">Postman</span>
               <span class="project-tag">Jira</span>
               <span class="project-tag">SonarCloud</span>
+              <span class="project-tag">Google Sheets</span>
             </div>
-            <div class="oss-arch-block">
-              <div class="oss-arch-label" data-i18n="oss.qametrics.arch.label">Architecture</div>
-              <div class="oss-arch-frame">
-                <img src="assets/qametrics/architecture.svg" alt="QA Metrics architecture diagram" loading="lazy" />
-              </div>
-            </div>
-            <div class="oss-dash-gallery" aria-label="Grafana dashboards">
-              <div class="oss-dash-item">
-                <button type="button" class="oss-dash-thumb" data-dash-open="assets/qametrics/dashboard-jira.png" data-dash-title="oss.qametrics.dash.jira">
-                  <img src="assets/qametrics/dashboard-jira.png" alt="Jira dashboard preview" loading="lazy" />
-                </button>
-                <div class="oss-dash-caption" data-i18n="oss.qametrics.dash.jira">Jira</div>
-              </div>
-              <div class="oss-dash-item">
-                <button type="button" class="oss-dash-thumb" data-dash-open="assets/qametrics/dashboard-pyramid.png" data-dash-title="oss.qametrics.dash.pyramid">
-                  <img src="assets/qametrics/dashboard-pyramid.png" alt="Pyramid dashboard preview" loading="lazy" />
-                </button>
-                <div class="oss-dash-caption" data-i18n="oss.qametrics.dash.pyramid">Pyramid</div>
-              </div>
-              <div class="oss-dash-item">
-                <button type="button" class="oss-dash-thumb" data-dash-open="assets/qametrics/dashboard-sonar.png" data-dash-title="oss.qametrics.dash.sonar">
-                  <img src="assets/qametrics/dashboard-sonar.png" alt="Sonar dashboard preview" loading="lazy" />
-                </button>
-                <div class="oss-dash-caption" data-i18n="oss.qametrics.dash.sonar">Sonar</div>
+            <div class="oss-dash-block">
+              <div class="oss-arch-label" data-i18n="oss.qametrics.dash.label">Dashboards</div>
+              <div class="oss-dash-gallery" aria-label="Grafana dashboards">
+                <div class="oss-dash-item">
+                  <button type="button" class="oss-dash-thumb" data-dash-open="assets/qametrics/dashboard-jira.png" data-dash-title="oss.qametrics.dash.jira">
+                    <img src="assets/qametrics/dashboard-jira.png" alt="Jira dashboard preview" loading="lazy" />
+                  </button>
+                  <div class="oss-dash-caption" data-i18n="oss.qametrics.dash.jira">Jira</div>
+                </div>
+                <div class="oss-dash-item">
+                  <button type="button" class="oss-dash-thumb" data-dash-open="assets/qametrics/dashboard-pyramid.png" data-dash-title="oss.qametrics.dash.pyramid">
+                    <img src="assets/qametrics/dashboard-pyramid.png" alt="Pyramid dashboard preview" loading="lazy" />
+                  </button>
+                  <div class="oss-dash-caption" data-i18n="oss.qametrics.dash.pyramid">Pyramid</div>
+                </div>
+                <div class="oss-dash-item">
+                  <button type="button" class="oss-dash-thumb" data-dash-open="assets/qametrics/dashboard-sonar.png" data-dash-title="oss.qametrics.dash.sonar">
+                    <img src="assets/qametrics/dashboard-sonar.png" alt="Sonar dashboard preview" loading="lazy" />
+                  </button>
+                  <div class="oss-dash-caption" data-i18n="oss.qametrics.dash.sonar">Sonar</div>
+                </div>
               </div>
             </div>
           </div>
@@ -2601,6 +2859,74 @@
                 </button>
             </div>
           </div>
+          </div>
+          <div class="oss-featured-arch">
+            <div class="oss-arch-label" data-i18n="oss.qametrics.arch.label">Architecture</div>
+            <div class="oss-arch-frame">
+              <svg class="oss-arch-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 120" role="img" aria-labelledby="oss-arch-title">
+                <title id="oss-arch-title">QA Metrics architecture</title>
+                <defs>
+                  <marker id="arch-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+                    <path d="M0 0 L7 3.5 L0 7 Z" fill="currentColor"/>
+                  </marker>
+                </defs>
+                <g color="#6c8cff">
+                  <!-- Sources -->
+                  <rect class="arch-box" x="8" y="10" width="112" height="40" rx="8"/>
+                  <text class="arch-text" x="64" y="28" text-anchor="middle">Jira API</text>
+                  <text class="arch-text" x="64" y="40" text-anchor="middle">SonarCloud</text>
+                  <rect class="arch-box-dashed" x="8" y="58" width="112" height="40" rx="8"/>
+                  <text class="arch-text" x="64" y="76" text-anchor="middle">Test Reader</text>
+                  <text class="arch-text-muted" x="64" y="88" text-anchor="middle">semi-manual</text>
+                  <!-- Merge bus → Newman -->
+                  <path class="arch-line" d="M120 30 H142"/>
+                  <path class="arch-line-muted" d="M120 78 H142"/>
+                  <path class="arch-line" d="M142 30 V78"/>
+                  <path class="arch-line" d="M142 58 H162" marker-end="url(#arch-arrow)"/>
+                  <!-- Newman -->
+                  <rect class="arch-box" x="162" y="34" width="96" height="48" rx="8"/>
+                  <text class="arch-text-strong" x="210" y="54" text-anchor="middle">Newman</text>
+                  <text class="arch-text-muted" x="210" y="68" text-anchor="middle">Postman</text>
+                  <path class="arch-line" d="M258 58 H303" marker-end="url(#arch-arrow)"/>
+                  <!-- InfluxDB -->
+                  <rect class="arch-box" x="303" y="34" width="96" height="48" rx="8"/>
+                  <text class="arch-text-strong" x="351" y="54" text-anchor="middle">InfluxDB</text>
+                  <text class="arch-text-muted" x="351" y="68" text-anchor="middle">time series</text>
+                  <path class="arch-line" d="M399 58 H444" marker-end="url(#arch-arrow)"/>
+                  <!-- Grafana -->
+                  <rect class="arch-box-green" x="444" y="8" width="128" height="88" rx="8"/>
+                  <text class="arch-text-strong" x="508" y="30" text-anchor="middle">Grafana</text>
+                  <text class="arch-text-dash" x="508" y="46" text-anchor="middle">Jira</text>
+                  <text class="arch-text-dash" x="508" y="58" text-anchor="middle">Pyramid</text>
+                  <text class="arch-text-dash" x="508" y="70" text-anchor="middle">Sonar</text>
+                  <text class="arch-text-muted" x="508" y="86" text-anchor="middle">localhost:3000</text>
+                  <path class="arch-line" d="M572 58 H616" marker-end="url(#arch-arrow)"/>
+                  <!-- Docker Compose -->
+                  <rect class="arch-box-accent" x="616" y="34" width="96" height="48" rx="8"/>
+                  <text class="arch-text-accent" x="664" y="54" text-anchor="middle">Docker</text>
+                  <text class="arch-text-accent" x="664" y="68" text-anchor="middle">Compose</text>
+                </g>
+              </svg>
+            </div>
+            <div class="oss-reader-block">
+              <div class="oss-arch-label" data-i18n="oss.qametrics.reader.label">Test Reader · Pyramid metrics</div>
+              <p class="oss-reader-desc" data-i18n="oss.qametrics.reader.desc">Semi-manual step <strong>outside</strong> <code>docker-compose up</code>: the open-source Python tool <a href="https://github.com/amandaquaglio/test-reader" target="_blank" rel="noopener">test-reader</a> scans service repos using YAML RegEx rules (<code>@Test</code>, file paths, descriptions), classifies automated tests by pyramid layer (Unit · Integration · Component · E2E) and exports counts to a Google Sheets metrics tab. Newman then reads that sheet via Google Sheets API into InfluxDB — powering the Pyramid Grafana dashboard alongside Jira and SonarCloud.</p>
+              <div class="oss-reader-flow" aria-hidden="true">
+                <span data-i18n="oss.qametrics.reader.s1">test-reader-start</span>
+                <span class="oss-reader-arrow">→</span>
+                <span data-i18n="oss.qametrics.reader.s2">RegEx scan</span>
+                <span class="oss-reader-arrow">→</span>
+                <span>Google Sheets</span>
+                <span class="oss-reader-arrow">→</span>
+                <span>Newman</span>
+                <span class="oss-reader-arrow">→</span>
+                <span>InfluxDB</span>
+                <span class="oss-reader-arrow">→</span>
+                <span data-i18n="oss.qametrics.reader.s3">Pyramid dashboard</span>
+              </div>
+              <p class="oss-reader-note" data-i18n="oss.qametrics.reader.note">Configured per repo in YAML (TCC §3.2.8). Not wired into the Docker pipeline — run once per sprint before refreshing metrics.</p>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -2622,8 +2948,15 @@
     <!-- ── Task Score ── -->
     <section class="section" id="metrics">
       <div class="section-label" data-i18n="ts.label">07 · Metrics</div>
-      <h2 class="section-title" data-i18n="ts.title">Task Score</h2>
+      <h2 class="section-title" data-i18n="metrics.title">Custom QA Metrics</h2>
 
+      <div class="metrics-meta">
+        <p class="metrics-context" data-i18n="metrics.context">Custom metrics tracked across <strong>30+ sprints</strong> at Questrade (2022–2024).</p>
+        <p class="metrics-collection" data-i18n="metrics.collection">Tracked in <strong>Google Sheets</strong> + <strong>Jira</strong>; visualized via Grafana / Looker Studio</p>
+        <a href="#proj-observability" class="metrics-viz-link" data-i18n="metrics.vizlink">How metrics were visualized → QA Observability Platform</a>
+      </div>
+
+      <h3 class="metrics-subtitle" data-i18n="ts.subtitle">Task Score</h3>
       <p class="ts-intro" data-i18n="ts.intro">In Q4 2024 at Questrade I applied <strong>Task Score</strong> — a delivery quality metric that evaluates, per task, whether the team followed quality gates before reaching production. The premise: pass/fail rates alone don't show how consistently processes are followed sprint to sprint. Task Score makes the invisible visible — and turns retrospectives from feelings into data.</p>
 
       <div class="ts-scale">
@@ -2709,8 +3042,40 @@
       <p class="ts-intro" data-i18n="ts.impact">Before Task Score, quality issues were caught reactively — after bugs reached staging or production. The metric surfaces <strong>process gaps per cadence</strong>, not just counts, enabling targeted retrospectives. The C2 dip to 23.43 (Good) was directly linked to two high-severity bugs in a complex integration — it prompted a mid-cadence adjustment that brought C3 back to 27.80. Task Score is now a <strong>leading quality indicator</strong> in sprint retrospectives at Questrade.</p>
 
       <div class="metric-sep">
-        <span data-i18n="metrics.other.label">More custom metrics</span>
+        <span data-i18n="metrics.other.label">PPI · SRM · RBD</span>
       </div>
+
+      <div class="metrics-trends">
+        <div class="metric-trend-card">
+          <div class="metric-trend-head">
+            <span class="metric-trend-label" data-i18n="metrics.trends.ppi.label">PPI · 10 sprints</span>
+            <span class="metric-trend-badge" data-i18n="metrics.trends.ppi.dir">↑ Excellent range</span>
+          </div>
+          <svg class="metric-sparkline" viewBox="0 0 240 56" aria-hidden="true">
+            <line x1="8" y1="12" x2="232" y2="12" stroke="var(--border2)" stroke-width="1" stroke-dasharray="4 3"/>
+            <text x="234" y="15" fill="var(--text-2)" font-size="7" font-family="var(--mono)" text-anchor="end">1.0</text>
+            <polygon points="8,37.6 32.9,32.8 57.8,28.8 82.7,25.6 107.6,22.4 132.4,19.2 157.3,16.8 182.2,14.4 207.1,12.8 232,11.2 232,48 8,48" fill="var(--green)" opacity="0.12"/>
+            <polyline points="8,37.6 32.9,32.8 57.8,28.8 82.7,25.6 107.6,22.4 132.4,19.2 157.3,16.8 182.2,14.4 207.1,12.8 232,11.2" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="232" cy="11.2" r="3" fill="var(--green)"/>
+          </svg>
+          <div class="metric-trend-axis"><span>S1</span><span>S10</span></div>
+        </div>
+        <div class="metric-trend-card">
+          <div class="metric-trend-head">
+            <span class="metric-trend-label" data-i18n="metrics.trends.srm.label">SRM · 10 sprints</span>
+            <span class="metric-trend-badge metric-trend-badge--srm" data-i18n="metrics.trends.srm.dir">↓ toward 0</span>
+          </div>
+          <svg class="metric-sparkline" viewBox="0 0 240 56" aria-hidden="true">
+            <line x1="8" y1="44" x2="232" y2="44" stroke="var(--border2)" stroke-width="1" stroke-dasharray="4 3"/>
+            <text x="234" y="47" fill="var(--text-2)" font-size="7" font-family="var(--mono)" text-anchor="end">0</text>
+            <polygon points="8,12.5 32.9,17 57.8,21.5 82.7,26 107.6,26 132.4,30.5 157.3,35 182.2,39.5 207.1,39.5 232,44 232,48 8,48" fill="var(--accent)" opacity="0.1"/>
+            <polyline points="8,12.5 32.9,17 57.8,21.5 82.7,26 107.6,26 132.4,30.5 157.3,35 182.2,39.5 207.1,39.5 232,44" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="232" cy="44" r="3" fill="var(--accent)"/>
+          </svg>
+          <div class="metric-trend-axis"><span>S1</span><span>S10</span></div>
+        </div>
+      </div>
+      <p class="metrics-trends-note" data-i18n="metrics.trends.note">Sanitized sample — illustrative trend, not client data</p>
 
       <div class="metrics-grid">
 
@@ -2797,6 +3162,176 @@
         </div>
 
       </div>
+
+      <!-- Extended metrics · draft subsection -->
+      <div class="metrics-advanced" id="metrics-extended">
+        <div class="metric-sep" style="margin-top:0">
+          <span data-i18n="metrics.adv.label">Metrics in study</span>
+        </div>
+
+        <div class="metrics-adv-study">
+          <span class="metrics-adv-study-icon" aria-hidden="true">📐</span>
+          <p data-i18n="metrics.adv.study">Metrics I'm <strong>currently studying</strong> to apply in my day-to-day QA work at companies — extending the PPI · SRM · RBD framework with prevention, automation health, and shift-left signals. Charts below use <strong>sanitized illustrative data</strong>, not production metrics from a client.</p>
+        </div>
+
+        <h3 class="metrics-subtitle" data-i18n="metrics.adv.title">Pipeline &amp; release health</h3>
+        <p class="metrics-adv-intro" data-i18n="metrics.adv.intro">Candidate indicators I'm evaluating for sprint retrospectives and QA observability — same collection patterns I'd use in practice (Sheets + Jira + Grafana).</p>
+
+        <div class="metrics-trends metrics-trends--quad">
+
+          <!-- Escape Rate -->
+          <div class="metric-trend-card">
+            <div class="metric-trend-head">
+              <span class="metric-trend-label" data-i18n="metrics.adv.der.label">DER · Defect escape rate</span>
+              <span class="metric-trend-badge metric-trend-badge--warn" data-i18n="metrics.adv.der.dir">↓ PROD escapes</span>
+            </div>
+            <svg class="metric-sparkline" viewBox="0 0 240 56" aria-hidden="true">
+              <line x1="8" y1="44" x2="232" y2="44" stroke="var(--border2)" stroke-width="1" stroke-dasharray="4 3"/>
+              <text x="234" y="47" fill="var(--text-2)" font-size="7" font-family="var(--mono)" text-anchor="end">0%</text>
+              <polygon points="8,12.5 32.9,17 57.8,21.5 82.7,23.8 107.6,28.3 132.4,30.5 157.3,32.8 182.2,35 207.1,37.3 232,39.5 232,48 8,48" fill="var(--yellow)" opacity="0.12"/>
+              <polyline points="8,12.5 32.9,17 57.8,21.5 82.7,23.8 107.6,28.3 132.4,30.5 157.3,32.8 182.2,35 207.1,37.3 232,39.5" fill="none" stroke="var(--yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="232" cy="39.5" r="3" fill="var(--yellow)"/>
+            </svg>
+            <div class="metric-trend-axis"><span>S1</span><span>S10</span></div>
+            <div class="metric-trend-kpi">6%<span data-i18n="metrics.adv.der.kpi">PROD · S10</span></div>
+          </div>
+
+          <!-- Flakiness Rate -->
+          <div class="metric-trend-card">
+            <div class="metric-trend-head">
+              <span class="metric-trend-label" data-i18n="metrics.adv.flake.label">Flakiness · CI runs</span>
+              <span class="metric-trend-badge metric-trend-badge--flaky" data-i18n="metrics.adv.flake.dir">↓ stable suite</span>
+            </div>
+            <svg class="metric-sparkline" viewBox="0 0 240 56" aria-hidden="true">
+              <line x1="8" y1="44" x2="232" y2="44" stroke="var(--border2)" stroke-width="1" stroke-dasharray="4 3"/>
+              <text x="234" y="47" fill="var(--text-2)" font-size="7" font-family="var(--mono)" text-anchor="end">0%</text>
+              <polygon points="8,11.6 32.9,15.2 57.8,18.8 82.7,22.4 107.6,26 132.4,29.6 157.3,31.4 182.2,33.2 207.1,35 232,36.8 232,48 8,48" fill="var(--accent2)" opacity="0.14"/>
+              <polyline points="8,11.6 32.9,15.2 57.8,18.8 82.7,22.4 107.6,26 132.4,29.6 157.3,31.4 182.2,33.2 207.1,35 232,36.8" fill="none" stroke="var(--accent2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="232" cy="36.8" r="3" fill="var(--accent2)"/>
+            </svg>
+            <div class="metric-trend-axis"><span>S1</span><span>S10</span></div>
+            <div class="metric-trend-kpi">4%<span data-i18n="metrics.adv.flake.kpi">unstable runs · S10</span></div>
+          </div>
+
+          <!-- Time-to-QA-Ready -->
+          <div class="metric-trend-card">
+            <div class="metric-trend-head">
+              <span class="metric-trend-label" data-i18n="metrics.adv.ttqr.label">TTQR · Time to QA-ready</span>
+              <span class="metric-trend-badge metric-trend-badge--srm" data-i18n="metrics.adv.ttqr.dir">↓ faster handoff</span>
+            </div>
+            <svg class="metric-sparkline" viewBox="0 0 240 56" aria-hidden="true">
+              <line x1="8" y1="44" x2="232" y2="44" stroke="var(--border2)" stroke-width="1" stroke-dasharray="4 3"/>
+              <text x="234" y="47" fill="var(--text-2)" font-size="7" font-family="var(--mono)" text-anchor="end">0d</text>
+              <polygon points="8,9.9 32.9,13.6 57.8,17.4 82.7,21.2 107.6,25.1 132.4,28.8 157.3,32.6 182.2,36.4 207.1,38.3 232,40.2 232,48 8,48" fill="var(--accent)" opacity="0.1"/>
+              <polyline points="8,9.9 32.9,13.6 57.8,17.4 82.7,21.2 107.6,25.1 132.4,28.8 157.3,32.6 182.2,36.4 207.1,38.3 232,40.2" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="232" cy="40.2" r="3" fill="var(--accent)"/>
+            </svg>
+            <div class="metric-trend-axis"><span>S1</span><span>S10</span></div>
+            <div class="metric-trend-kpi">0.8d<span data-i18n="metrics.adv.ttqr.kpi">median · S10</span></div>
+          </div>
+
+          <!-- Test Pyramid Index -->
+          <div class="metric-trend-card">
+            <div class="metric-trend-head">
+              <span class="metric-trend-label" data-i18n="metrics.adv.tpi.label">TPI · Test pyramid index</span>
+              <span class="metric-trend-badge" data-i18n="metrics.adv.tpi.dir">↑ shift-left</span>
+            </div>
+            <div class="metrics-pyramid-bar" aria-hidden="true">
+              <div class="metrics-pyramid-seg" style="width:62%;background:#4f72ff;" title="Unit 62%">62</div>
+              <div class="metrics-pyramid-seg" style="width:22%;background:var(--yellow);" title="API 22%">22</div>
+              <div class="metrics-pyramid-seg" style="width:8%;background:var(--green);" title="Component 8%">8</div>
+              <div class="metrics-pyramid-seg" style="width:8%;background:#ef4444;" title="E2E 8%">8</div>
+            </div>
+            <div class="metrics-pyramid-legend">
+              <span><i style="background:#4f72ff;"></i><span data-i18n="metrics.adv.tpi.unit">Unit 62%</span></span>
+              <span><i style="background:var(--yellow);"></i><span data-i18n="metrics.adv.tpi.int">API 22%</span></span>
+              <span><i style="background:var(--green);"></i><span data-i18n="metrics.adv.tpi.comp">Component 8%</span></span>
+              <span><i style="background:#ef4444;"></i><span data-i18n="metrics.adv.tpi.e2e">E2E 8%</span></span>
+            </div>
+            <div class="metric-trend-kpi" style="margin-top:10px;">3,497<span data-i18n="metrics.adv.tpi.kpi">tests · repo scan</span></div>
+          </div>
+
+        </div>
+        <p class="metrics-trends-note" data-i18n="metrics.adv.note">Study metrics · illustrative trends for portfolio exploration</p>
+
+        <!-- Test pyramid visual · TPI data -->
+        <div class="pyramid-card" id="metrics-pyramid" data-unit="2161" data-api="774" data-component="276" data-e2e="286" data-e2e-cypress="235" data-e2e-playwright="51">
+          <div class="pyramid-card-head">
+            <h4 data-i18n="metrics.pyramid.title">Test pyramid · Questrade apps</h4>
+            <p data-i18n="metrics.pyramid.desc"><strong>Unit</strong> — xUnit in <strong>clre</strong> · <strong>clre-v2</strong> · <strong>profile</strong> CPS. <strong>API</strong> — Postman/Newman (734 + 40). <strong>Component</strong> — Cypress CT in <strong>profile</strong> (276). <strong>E2E</strong> — top layer in our stack: Cypress UI flows (235) + Playwright API/integration for <strong>clre-v2</strong> &amp; CPS (51) — OAuth2/PKCE, SIT/UAT.</p>
+          </div>
+          <div class="pyramid-card-body">
+            <div class="pyramid-svg-wrap">
+              <svg class="pyramid-svg" viewBox="0 0 380 290" role="img" aria-labelledby="pyramid-title pyramid-desc">
+                <title id="pyramid-title">Questrade test pyramid</title>
+                <desc id="pyramid-desc">Unit 2161, API 774 Postman, Component 276 Cypress CT, E2E 286 Cypress UI plus Playwright API integration clre-v2 and profile CPS</desc>
+
+                <ellipse class="pyramid-shadow" cx="235" cy="272" rx="118" ry="7"/>
+                <polygon class="pyramid-outline" points="235,18 353,258 117,258"/>
+
+                <polygon class="pyramid-face" points="117,258 353,258 294.5,198 175.5,198" fill="#4f72ff"/>
+                <polygon class="pyramid-face" points="175.5,198 294.5,198 236,138 234,138" fill="#eab308"/>
+                <polygon class="pyramid-face" points="234,138 236,138 220.5,78 219.5,78" fill="#34d399"/>
+                <polygon class="pyramid-face" points="235,18 219.5,78 220.5,78" fill="#ef4444"/>
+
+                <text class="pyramid-tier-label" x="235" y="228" text-anchor="middle" dominant-baseline="middle">Unit</text>
+                <text class="pyramid-tier-label pyramid-tier-label--dark" x="235" y="168" text-anchor="middle" dominant-baseline="middle" font-size="12">API</text>
+                <text class="pyramid-tier-label" x="235" y="108" text-anchor="middle" dominant-baseline="middle" font-size="11">Component</text>
+                <text class="pyramid-tier-label" x="235" y="48" text-anchor="middle" dominant-baseline="middle" font-size="11">E2E</text>
+
+                <line class="pyramid-leader" x1="84" y1="228" x2="148" y2="228"/>
+                <line class="pyramid-leader" x1="84" y1="168" x2="188" y2="168"/>
+                <line class="pyramid-leader" x1="84" y1="108" x2="212" y2="108"/>
+                <line class="pyramid-leader" x1="84" y1="48" x2="206" y2="48"/>
+
+                <text class="pyramid-ext-val" x="80" y="228" text-anchor="end" dominant-baseline="middle">2,161 · 62%</text>
+                <text class="pyramid-ext-val" x="80" y="168" text-anchor="end" dominant-baseline="middle">774 · 22%</text>
+                <text class="pyramid-ext-val" x="80" y="108" text-anchor="end" dominant-baseline="middle">276 · 8%</text>
+                <text class="pyramid-ext-val" x="80" y="48" text-anchor="end" dominant-baseline="middle">286 · 8%</text>
+              </svg>
+              <p class="pyramid-caption" data-i18n="metrics.pyramid.axis">Questrade · clre · clre-v2 · profile · shift-left base</p>
+            </div>
+            <div class="pyramid-stats">
+              <div class="pyramid-stat">
+                <span class="pyramid-stat-dot" style="background:#4f72ff;"></span>
+                <div class="pyramid-stat-info">
+                  <div class="pyramid-stat-name" data-i18n="metrics.pyramid.unit.name">Unit</div>
+                  <div class="pyramid-stat-val" data-i18n="metrics.pyramid.unit.val">157 + 364 + 1,640 · xUnit · clre · clre-v2 · profile CPS</div>
+                </div>
+                <span class="pyramid-stat-count">2,161</span>
+              </div>
+              <div class="pyramid-stat">
+                <span class="pyramid-stat-dot" style="background:var(--yellow);"></span>
+                <div class="pyramid-stat-info">
+                  <div class="pyramid-stat-name" data-i18n="metrics.pyramid.api.name">API · Postman</div>
+                  <div class="pyramid-stat-val" data-i18n="metrics.pyramid.api.val">734 profile CPS + 40 CLRE v2 · Newman in CI</div>
+                </div>
+                <span class="pyramid-stat-count">774</span>
+              </div>
+              <div class="pyramid-stat">
+                <span class="pyramid-stat-dot" style="background:var(--green);"></span>
+                <div class="pyramid-stat-info">
+                  <div class="pyramid-stat-name" data-i18n="metrics.pyramid.comp.name">Component</div>
+                  <div class="pyramid-stat-val" data-i18n="metrics.pyramid.comp.val">276 · profile customer-profile-components · 23 × *.component.cy.ts</div>
+                </div>
+                <span class="pyramid-stat-count">276</span>
+              </div>
+              <div class="pyramid-stat">
+                <span class="pyramid-stat-dot" style="background:#ef4444;"></span>
+                <div class="pyramid-stat-info">
+                  <div class="pyramid-stat-name" data-i18n="metrics.pyramid.e2e.name">E2E · integration</div>
+                  <div class="pyramid-stat-val" data-i18n="metrics.pyramid.e2e.val">235 Cypress UI (137 clre + 98 profile) + 51 Playwright API (13 clre-v2 + 38 CPS)</div>
+                </div>
+                <span class="pyramid-stat-count">286</span>
+              </div>
+              <div class="pyramid-total" data-i18n="metrics.pyramid.total"><strong>3,497</strong> tests · clre · clre-v2 · profile repos</div>
+              <div class="pyramid-total" style="margin-top:0;background:var(--surface2);border-color:var(--border);" data-i18n="metrics.pyramid.unitnote">Mar 2026 scan · xUnit · Postman · Cypress · Playwright API</div>
+              <div class="pyramid-total" style="margin-top:0;background:var(--glow);border-color:rgba(108,140,255,0.2);" data-i18n="metrics.pyramid.automation"><strong>1,336</strong> QA layers · Postman + Cypress + Playwright · aligns with <strong>1,300+</strong> CV</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </section>
 
     <!-- ── Achievements ── -->
@@ -2966,7 +3501,9 @@
         'nav.about': 'About', 'nav.skills': 'Skills', 'nav.experience': 'Experience',
         'nav.projects': 'Projects', 'nav.education': 'Education', 'nav.contact': 'Contact',
         'hero.badge': 'Available for senior &amp; principal QA roles',
-        'hero.role': 'Senior QA Engineer · SDET · <strong>10+ years</strong> building automation at scale ·<br>Fintech &amp; KYC/AML specialist',
+        'hero.role': 'Senior QA Engineer · SDET · <strong>10+ years</strong> building automation at scale ·<br>Fintech · KYC · OAA onboarding · Client lifecycle',
+        'hero.tag1': 'KYC · OAA', 'hero.tag2': 'Cypress · Playwright',
+        'hero.tag3': 'k6 · Performance', 'hero.tag4': 'SDET · Fintech',
         'hero.stat1': 'Years in QA', 'hero.stat2': 'Test time reduction',
         'hero.stat3': 'Metrics collection time saved', 'hero.stat4': 'Automated tests',
         'cta.linkedin': 'LinkedIn', 'cta.github': 'GitHub', 'cta.email': 'Email', 'cta.perf': 'Performance &amp; Growth',
@@ -3037,9 +3574,9 @@
         'proj.k6.i1': '100 VUs · 10 min sustained', 'proj.k6.i2': 'P95 &lt; 2 000ms',
         'proj.metrics.title': 'QA Observability Platform',
         'proj.metrics.context': 'Questrade · TCC evolution · Observability',
-        'proj.metrics.desc': 'Evolution of the QA Metrics undergrad thesis (open source) at Questrade: Dockerized platform with GitHub Actions — Newman integrates SonarCloud, Jira and Google Sheets via API → InfluxDB → real-time Grafana dashboards, plus custom sprint metrics (PPI, SRM, RBD) across 30+ sprints — giving the team, manager and PO visibility into rework hotspots and root cause analysis.',
+        'proj.metrics.desc': 'Evolution of the QA Metrics undergrad thesis (open source) at Questrade: Dockerized platform with GitHub Actions — Newman integrates SonarCloud, Jira and Google Sheets via API → InfluxDB → real-time Grafana dashboards, replacing manual spreadsheet extraction and giving the team, manager and PO visibility into rework hotspots and root cause analysis.',
         'proj.metrics.i1': 'real-time dashboards · root cause analysis',
-        'proj.metrics.i2': 'evolved from open-source TCC · 30+ sprints',
+        'proj.metrics.i2': 'evolved from open-source TCC · GitHub Actions',
         'proj.mobile.title': 'Mobile MFA &amp; IDV Coverage',
         'proj.mobile.desc': 'QA coverage for mobile MFA and IDV flows not covered by the existing Detox setup — inspecting payloads via Android Studio in debug mode. Cross-device regression on BrowserStack and physical devices, validating selfie and document approval/rejection via Mitek SDK; backend checks in SQL Server and MongoDB.',
         'proj.mobile.i1': 'physical devices · BrowserStack', 'proj.mobile.i2': 'Android Studio debug · Mitek SDK',
@@ -3071,6 +3608,13 @@
         'oss.qametrics.i2': '3 dashboards · Jira · Sonar · Pyramid',
         'oss.qametrics.i3': '30–60s startup · 4 pods',
         'oss.qametrics.arch.label': 'Architecture',
+        'oss.qametrics.reader.label': 'Test Reader · Pyramid metrics',
+        'oss.qametrics.reader.desc': 'Semi-manual step <strong>outside</strong> <code>docker-compose up</code>: the open-source Python tool <a href="https://github.com/amandaquaglio/test-reader" target="_blank" rel="noopener">test-reader</a> scans service repos using YAML RegEx rules (<code>@Test</code>, file paths, descriptions), classifies automated tests by pyramid layer (Unit · Integration · Component · E2E) and exports counts to a Google Sheets metrics tab. Newman then reads that sheet via Google Sheets API into InfluxDB — powering the Pyramid Grafana dashboard alongside Jira and SonarCloud.',
+        'oss.qametrics.reader.s1': 'test-reader-start',
+        'oss.qametrics.reader.s2': 'RegEx scan',
+        'oss.qametrics.reader.s3': 'Pyramid dashboard',
+        'oss.qametrics.reader.note': 'Configured per repo in YAML (TCC §3.2.8). Not wired into the Docker pipeline — run once per sprint before refreshing metrics.',
+        'oss.qametrics.dash.label': 'Dashboards',
         'oss.qametrics.dash.jira': 'Jira dashboard',
         'oss.qametrics.dash.pyramid': 'Pyramid dashboard',
         'oss.qametrics.dash.sonar': 'Sonar dashboard',
@@ -3088,7 +3632,12 @@
         'oss.demo.e2e': 'E2E app',
         'oss.copy': 'copy',
         'oss.qametrics.github': 'GitHub',
-        'ts.label': '07 · Metrics', 'ts.title': 'Task Score',
+        'ts.label': '07 · Metrics',
+        'metrics.title': 'Custom QA Metrics',
+        'metrics.context': 'Custom metrics tracked across <strong>30+ sprints</strong> at Questrade (2022–2024).',
+        'metrics.collection': 'Tracked in <strong>Google Sheets</strong> + <strong>Jira</strong>; visualized via Grafana / Looker Studio',
+        'metrics.vizlink': 'How metrics were visualized → QA Observability Platform',
+        'ts.subtitle': 'Task Score',
         'ts.intro': 'In Q4 2024 at Questrade I applied <strong>Task Score</strong> — a delivery quality metric that evaluates, per task, whether the team followed quality gates before reaching production. The premise: pass/fail rates alone don\'t show how consistently processes are followed sprint to sprint. Task Score makes the invisible visible — and turns retrospectives from feelings into data.',
         'ts.c1.h': 'Deploy in SIT', 'ts.c1.p': 'Task was deployed to the SIT environment before QA review begins',
         'ts.c2.h': 'Pipeline passed', 'ts.c2.p': 'All automated pipeline checks passed before QA handoff',
@@ -3099,7 +3648,12 @@
         'ts.results.label': 'Questrade · Q4 2024 — real data',
         'ts.avg.label': 'Q4 Average',
         'ts.impact': 'Before Task Score, quality issues were caught reactively — after bugs reached staging or production. The metric surfaces <strong>process gaps per cadence</strong>, not just counts, enabling targeted retrospectives. The C2 dip to 23.43 (Good) was directly linked to two high-severity bugs in a complex integration — it prompted a mid-cadence adjustment that brought C3 back to 27.80. Task Score is now a <strong>leading quality indicator</strong> in sprint retrospectives at Questrade.',
-        'metrics.other.label': 'More custom metrics',
+        'metrics.other.label': 'PPI · SRM · RBD',
+        'metrics.trends.ppi.label': 'PPI · 10 sprints',
+        'metrics.trends.ppi.dir': '↑ Excellent range',
+        'metrics.trends.srm.label': 'SRM · 10 sprints',
+        'metrics.trends.srm.dir': '↓ toward 0',
+        'metrics.trends.note': 'Sanitized sample — illustrative trend, not client data',
         'ppi.title': 'Ping Pong Index',
         'ppi.desc': 'Ratio of total bugs to total fix attempts. A value of 1.0 means every bug was fixed correctly on the first try — values below 1.0 reflect ping-pong cycles between dev and QA.',
         'ppi.p1': 'Signals bug report clarity — low PPI often means ambiguous descriptions, not just dev errors',
@@ -3115,6 +3669,41 @@
         'srm.p1': 'Forces AC alignment before work reaches QA — eliminating wasted test cycles at the source',
         'srm.p2': 'Per-developer tracking identifies who needs clearer requirements or stricter pre-QA checklists',
         'srm.p3': 'Consistently hitting 0 for multiple sprints is the strongest signal of a mature dev–QA handoff',
+        'metrics.adv.label': 'Metrics in study',
+        'metrics.adv.study': 'Metrics I\'m <strong>currently studying</strong> to apply in my day-to-day QA work at companies — extending the PPI · SRM · RBD framework with prevention, automation health, and shift-left signals. Charts below use <strong>sanitized illustrative data</strong>, not production metrics from a client.',
+        'metrics.adv.title': 'Pipeline & release health',
+        'metrics.adv.intro': 'Candidate indicators I\'m evaluating for sprint retrospectives and QA observability — same collection patterns I\'d use in practice (Sheets + Jira + Grafana).',
+        'metrics.adv.der.label': 'DER · Defect escape rate',
+        'metrics.adv.der.dir': '↓ PROD escapes',
+        'metrics.adv.der.kpi': 'PROD · S10',
+        'metrics.adv.flake.label': 'Flakiness · CI runs',
+        'metrics.adv.flake.dir': '↓ stable suite',
+        'metrics.adv.flake.kpi': 'unstable runs · S10',
+        'metrics.adv.ttqr.label': 'TTQR · Time to QA-ready',
+        'metrics.adv.ttqr.dir': '↓ faster handoff',
+        'metrics.adv.ttqr.kpi': 'median · S10',
+        'metrics.adv.tpi.label': 'TPI · Test pyramid index',
+        'metrics.adv.tpi.dir': '↑ shift-left',
+        'metrics.adv.tpi.unit': 'Unit 62%',
+        'metrics.adv.tpi.int': 'API 22%',
+        'metrics.adv.tpi.comp': 'Component 8%',
+        'metrics.adv.tpi.e2e': 'E2E 8%',
+        'metrics.adv.tpi.kpi': 'tests · repo scan',
+        'metrics.adv.note': 'Study metrics · illustrative trends for portfolio exploration',
+        'metrics.pyramid.title': 'Test pyramid · Questrade apps',
+        'metrics.pyramid.desc': '<strong>Unit</strong> — xUnit in <strong>clre</strong> · <strong>clre-v2</strong> · <strong>profile</strong> CPS. <strong>API</strong> — Postman/Newman (734 + 40). <strong>Component</strong> — Cypress CT in <strong>profile</strong> (276). <strong>E2E</strong> — top layer in our stack: Cypress UI flows (235) + Playwright API/integration for <strong>clre-v2</strong> &amp; CPS (51) — OAuth2/PKCE, SIT/UAT.',
+        'metrics.pyramid.axis': 'Questrade · clre · clre-v2 · profile · shift-left base',
+        'metrics.pyramid.unit.name': 'Unit',
+        'metrics.pyramid.unit.val': '157 + 364 + 1,640 · xUnit · clre · clre-v2 · profile CPS',
+        'metrics.pyramid.api.name': 'API · Postman',
+        'metrics.pyramid.api.val': '734 profile CPS + 40 CLRE v2 · Newman in CI',
+        'metrics.pyramid.comp.name': 'Component · Cypress CT',
+        'metrics.pyramid.comp.val': '276 · profile customer-profile-components · 23 × *.component.cy.ts',
+        'metrics.pyramid.e2e.name': 'E2E · integration',
+        'metrics.pyramid.e2e.val': '235 Cypress UI (137 clre + 98 profile) + 51 Playwright API (13 clre-v2 + 38 CPS)',
+        'metrics.pyramid.total': '<strong>3,497</strong> tests · clre · clre-v2 · profile repos',
+        'metrics.pyramid.unitnote': 'Mar 2026 scan · xUnit · Postman · Cypress · Playwright API',
+        'metrics.pyramid.automation': '<strong>1,336</strong> QA layers · Postman + Cypress + Playwright · aligns with <strong>1,300+</strong> CV',
         'ach.label': '08 · Achievements', 'ach.title': 'Recognition',
         'ach.tcc.title': 'Undergrad Thesis Approved — UFRPE (Jun 2022)',
         'ach.tcc.desc': 'QA Metrics: Docker-based integration of Jira, SonarCloud and Test Pyramid metrics into Grafana dashboards — Company thesis modality. Open-sourced at <a href="https://github.com/lflucasferreira/qametrics" target="_blank" rel="noopener">github.com/lflucasferreira/qametrics</a>.',
@@ -3130,7 +3719,9 @@
         'nav.about': 'Sobre', 'nav.skills': 'Habilidades', 'nav.experience': 'Experiência',
         'nav.projects': 'Projetos', 'nav.education': 'Formação', 'nav.contact': 'Contato',
         'hero.badge': 'Disponível para vagas de QA Sênior e Principal',
-        'hero.role': 'Senior QA Engineer · SDET · <strong>10+ anos</strong> construindo automação em escala ·<br>Especialista em Fintech &amp; KYC/AML',
+        'hero.role': 'Senior QA Engineer · SDET · <strong>10+ anos</strong> construindo automação em escala ·<br>Fintech · KYC · onboarding OAA · lifecycle do cliente',
+        'hero.tag1': 'KYC · OAA', 'hero.tag2': 'Cypress · Playwright',
+        'hero.tag3': 'k6 · Performance', 'hero.tag4': 'SDET · Fintech',
         'hero.stat1': 'Anos em QA', 'hero.stat2': 'Redução no tempo de testes',
         'hero.stat3': 'Economia na coleta de métricas', 'hero.stat4': 'Testes automatizados',
         'cta.linkedin': 'LinkedIn', 'cta.github': 'GitHub', 'cta.email': 'E-mail', 'cta.perf': 'Desempenho &amp; Crescimento',
@@ -3152,7 +3743,7 @@
         'exp.j1.badges': '<span class="job-badge">Remoto</span><span class="job-badge">CLT</span><span class="job-badge">Fintech</span><span class="job-badge">Canadá</span>',
         'exp.j1.b1': 'Arquitetei framework de automação Cypress (Page Object Model, 50+ custom commands) com 86% de redução por componente (7s vs 52s E2E) aplicando abordagem Shift Left — cobrindo regressão E2E, componentes, API, mobile e performance nos domínios KYC, lifecycle rule engine e Annual Review, com test plans e casos de teste gerenciados no Zephyr Scale — incluindo validação de conformidade visual frente às specs de design no Figma —, paralelização e rastreamento de flakiness via Cypress Cloud.',
         'exp.j1.b2': 'Validei integridade de dados nos fluxos mobile de MFA e IDV — não cobertos pelo Detox existente — inspecionando payloads via Android Studio em modo debug; cobertura em BrowserStack e dispositivos físicos com validação de aprovação e rejeição de selfie e documento via Mitek SDK, backend em SQL Server e MongoDB.',
-        'exp.j1.b3': 'Construí cobertura de API testing com duas abordagens: Postman/Newman (800+ testes) para fluxos KYC, onboarding e lifecycle; Cypress para component testing dos mesmos domínios integrado ao CI/CD; e Playwright para fluxos MFA com OAuth2/PKCE, TOTP e cache de token — validando troca de telefone, email, saques e isolamento multi-tenant (8+ serviços) em SIT/UAT.',
+        'exp.j1.b3': 'Construí cobertura abrangente de API e component testing em três camadas: Postman/Newman (800+ testes) para fluxos KYC, onboarding e lifecycle; Cypress component testing dos mesmos domínios integrado ao CI/CD; e Playwright para fluxos MFA com OAuth2/PKCE, TOTP e cache de token — validando troca de telefone, email, saques e isolamento multi-tenant (8+ serviços) em SIT/UAT, garantindo verificação dos fluxos regulados antes de cada release.',
         'exp.j1.b4': 'Executei testes de performance com k6 no onboarding OAA (100 VUs, 10 min, P95 &lt; 2000ms, error rate &lt; 1%) cobrindo endpoints de compliance críticos (PEP, tax residency em 3 jurisdições); e validei observabilidade com Datadog em GCP (SIT, UAT e produção) — embasando recomendações de cobertura estática e unitária via SonarCloud; e assinei verificação pós-deploy de CRs em produção — responsável pela aprovação/reprovação para prod-support após cada release.',
         'exp.j1.b5': 'Implantei métricas QA customizadas (PPI, SRM, RBD, Task Score médio de 26,6, máx. 30) em 30+ sprints e construí plataforma Dockerizada com GitHub Actions integrando SonarCloud, Jira e Google Sheets via Newman — substituindo extração manual de planilhas por dashboards Grafana/InfluxDB em tempo real que deram ao time, gerente e PO visibilidade sobre pontos de retrabalho e análise de root causes.',
         'exp.j1.b6': 'Adotei IA generativa (Copilot, Cursor, Claude Code, Gemini, Postbot) para criação de test plans, análise e refatoração — cerca de 75% mais rápido na entrega de testes — e conduzi sessões de KT para todo o time QA (Júnior ao Principal) sobre arquitetura KYC/OAA, APIs e regras de negócio acumuladas em 4 anos — reconhecido com Exceeding Performance (2024).',
@@ -3201,9 +3792,9 @@
         'proj.k6.i1': '100 VUs · 10 min sustentados', 'proj.k6.i2': 'P95 &lt; 2 000ms',
         'proj.metrics.title': 'Plataforma de Observabilidade QA',
         'proj.metrics.context': 'Questrade · evolução do TCC · Observabilidade',
-        'proj.metrics.desc': 'Evolução do TCC QA Metrics (open source) na Questrade: plataforma Dockerizada com GitHub Actions — Newman integra SonarCloud, Jira e Google Sheets via API → InfluxDB → dashboards Grafana em tempo real, mais métricas customizadas de sprint (PPI, SRM, RBD) em 30+ sprints — dando ao time, gerente e PO visibilidade sobre retrabalho e root causes.',
+        'proj.metrics.desc': 'Evolução do TCC QA Metrics (open source) na Questrade: plataforma Dockerizada com GitHub Actions — Newman integra SonarCloud, Jira e Google Sheets via API → InfluxDB → dashboards Grafana em tempo real, substituindo extração manual de planilhas e dando ao time, gerente e PO visibilidade sobre retrabalho e root causes.',
         'proj.metrics.i1': 'dashboards em tempo real · root cause analysis',
-        'proj.metrics.i2': 'evolução do TCC open source · 30+ sprints',
+        'proj.metrics.i2': 'evolução do TCC open source · GitHub Actions',
         'proj.mobile.title': 'Cobertura Mobile MFA &amp; IDV',
         'proj.mobile.desc': 'Cobertura de QA nos fluxos mobile de MFA e IDV — não cobertos pelo Detox existente — inspecionando payloads via Android Studio em modo debug. Regressão cross-device em BrowserStack e dispositivos físicos, com validação de aprovação e rejeição de selfie e documento via Mitek SDK; backend em SQL Server e MongoDB.',
         'proj.mobile.i1': 'dispositivos físicos · BrowserStack', 'proj.mobile.i2': 'Android Studio debug · Mitek SDK',
@@ -3235,6 +3826,13 @@
         'oss.qametrics.i2': '3 dashboards · Jira · Sonar · Pyramid',
         'oss.qametrics.i3': '30–60s de startup · 4 pods',
         'oss.qametrics.arch.label': 'Arquitetura',
+        'oss.qametrics.reader.label': 'Test Reader · métricas da Pirâmide',
+        'oss.qametrics.reader.desc': 'Passo <strong>semi-manual</strong>, <strong>fora</strong> do <code>docker-compose up</code>: a ferramenta open source em Python <a href="https://github.com/amandaquaglio/test-reader" target="_blank" rel="noopener">test-reader</a> varre repositórios dos serviços com regras RegEx em YAML (<code>@Test</code>, caminhos de arquivo, descrições), classifica testes automatizados por camada da pirâmide (Unit · Integration · Component · E2E) e exporta contagens para uma aba de métricas no Google Sheets. O Newman lê essa planilha via Google Sheets API no InfluxDB — alimentando o dashboard Pyramid no Grafana junto com Jira e SonarCloud.',
+        'oss.qametrics.reader.s1': 'test-reader-start',
+        'oss.qametrics.reader.s2': 'varredura RegEx',
+        'oss.qametrics.reader.s3': 'dashboard Pyramid',
+        'oss.qametrics.reader.note': 'Configuração por repositório em YAML (TCC §3.2.8). Não integrado à pipeline Docker — executar uma vez por sprint antes de atualizar as métricas.',
+        'oss.qametrics.dash.label': 'Dashboards',
         'oss.qametrics.dash.jira': 'Dashboard Jira',
         'oss.qametrics.dash.pyramid': 'Dashboard Pyramid',
         'oss.qametrics.dash.sonar': 'Dashboard Sonar',
@@ -3252,7 +3850,12 @@
         'oss.demo.e2e': 'App E2E',
         'oss.copy': 'copiar',
         'oss.qametrics.github': 'GitHub',
-        'ts.label': '07 · Métricas', 'ts.title': 'Task Score',
+        'ts.label': '07 · Métricas',
+        'metrics.title': 'Métricas QA customizadas',
+        'metrics.context': 'Métricas customizadas acompanhadas em <strong>30+ sprints</strong> na Questrade (2022–2024).',
+        'metrics.collection': 'Coletadas em <strong>Google Sheets</strong> + <strong>Jira</strong>; visualizadas via Grafana / Looker Studio',
+        'metrics.vizlink': 'Como as métricas foram visualizadas → Plataforma de Observabilidade QA',
+        'ts.subtitle': 'Task Score',
         'ts.intro': 'No Q4 2024 na Questrade, apliquei o <strong>Task Score</strong> — uma métrica de qualidade de entrega que avalia, por tarefa, se o time seguiu os quality gates antes de chegar à produção. A premissa: taxas de aprovação/reprovação isoladas não mostram a consistência dos processos sprint a sprint. O Task Score torna o invisível visível — e transforma retrospectivas de sentimentos em dados.',
         'ts.c1.h': 'Deploy no SIT', 'ts.c1.p': 'A tarefa foi implantada no ambiente SIT antes do review de QA',
         'ts.c2.h': 'Pipeline aprovada', 'ts.c2.p': 'Todas as verificações automáticas da pipeline passaram antes da entrega ao QA',
@@ -3263,7 +3866,12 @@
         'ts.results.label': 'Questrade · Q4 2024 — dados reais',
         'ts.avg.label': 'Média Q4',
         'ts.impact': 'Antes do Task Score, problemas de qualidade eram identificados de forma reativa — após os bugs chegarem ao staging ou à produção. A métrica evidencia <strong>gaps de processo por cadência</strong>, não apenas contagens, viabilizando retrospectivas direcionadas. A queda no C2 para 23,43 (Good) foi diretamente ligada a dois bugs de alta severidade numa integração complexa — o que gerou um ajuste no meio da cadência que trouxe o C3 de volta para 27,80. O Task Score é hoje um <strong>indicador líder de qualidade</strong> nas retrospectivas de sprint na Questrade.',
-        'metrics.other.label': 'Mais métricas customizadas',
+        'metrics.other.label': 'PPI · SRM · RBD',
+        'metrics.trends.ppi.label': 'PPI · 10 sprints',
+        'metrics.trends.ppi.dir': '↑ faixa Excellent',
+        'metrics.trends.srm.label': 'SRM · 10 sprints',
+        'metrics.trends.srm.dir': '↓ em direção a 0',
+        'metrics.trends.note': 'Amostra sanitizada — tendência ilustrativa, não são dados reais do cliente',
         'ppi.title': 'Ping Pong Index',
         'ppi.desc': 'Razão entre o total de bugs e o total de tentativas de correção. Um valor de 1,0 significa que cada bug foi corrigido corretamente na primeira tentativa — valores abaixo de 1,0 refletem ciclos de ping-pong entre dev e QA.',
         'ppi.p1': 'Indica o quão claro é o reporte de bugs — PPI baixo frequentemente aponta para descrições ambíguas, não apenas erros do dev',
@@ -3279,6 +3887,41 @@
         'srm.p1': 'Força o alinhamento nos ACs antes que o trabalho chegue ao QA — eliminando ciclos de teste desperdiçados na origem',
         'srm.p2': 'Rastreamento por desenvolvedor identifica quem precisa de requisitos mais claros ou checklists pré-QA mais rigorosos',
         'srm.p3': 'Atingir 0 consistentemente por múltiplas sprints é o sinal mais forte de um processo de handoff dev–QA maduro',
+        'metrics.adv.label': 'Métricas em estudo',
+        'metrics.adv.study': 'Métricas que estou <strong>estudando atualmente</strong> para aplicar no meu dia a dia como QA nas empresas — estendendo o framework PPI · SRM · RBD com sinais de prevenção, saúde da automação e shift-left. Os gráficos abaixo usam <strong>dados ilustrativos sanitizados</strong>, não métricas de produção de um cliente.',
+        'metrics.adv.title': 'Saúde de pipeline & release',
+        'metrics.adv.intro': 'Indicadores candidatos que estou avaliando para retrospectivas de sprint e observabilidade de QA — mesmos padrões de coleta que usaria na prática (Sheets + Jira + Grafana).',
+        'metrics.adv.der.label': 'DER · Defect escape rate',
+        'metrics.adv.der.dir': '↓ escapes PROD',
+        'metrics.adv.der.kpi': 'PROD · S10',
+        'metrics.adv.flake.label': 'Flakiness · runs CI',
+        'metrics.adv.flake.dir': '↓ suite estável',
+        'metrics.adv.flake.kpi': 'runs instáveis · S10',
+        'metrics.adv.ttqr.label': 'TTQR · Time to QA-ready',
+        'metrics.adv.ttqr.dir': '↓ handoff mais rápido',
+        'metrics.adv.ttqr.kpi': 'mediana · S10',
+        'metrics.adv.tpi.label': 'TPI · Test pyramid index',
+        'metrics.adv.tpi.dir': '↑ shift-left',
+        'metrics.adv.tpi.unit': 'Unit 62%',
+        'metrics.adv.tpi.int': 'API 22%',
+        'metrics.adv.tpi.comp': 'Component 8%',
+        'metrics.adv.tpi.e2e': 'E2E 8%',
+        'metrics.adv.tpi.kpi': 'testes · scan repos',
+        'metrics.adv.note': 'Métricas em estudo · tendências ilustrativas para exploração no portfolio',
+        'metrics.pyramid.title': 'Pirâmide de testes · apps Questrade',
+        'metrics.pyramid.desc': '<strong>Unit</strong> — xUnit em <strong>clre</strong> · <strong>clre-v2</strong> · <strong>profile</strong> CPS. <strong>API</strong> — Postman/Newman (734 + 40). <strong>Component</strong> — Cypress CT em <strong>profile</strong> (276). <strong>E2E</strong> — camada superior no stack: fluxos UI Cypress (235) + Playwright API/integração em <strong>clre-v2</strong> e CPS (51) — OAuth2/PKCE, SIT/UAT.',
+        'metrics.pyramid.axis': 'Questrade · clre · clre-v2 · profile · base shift-left',
+        'metrics.pyramid.unit.name': 'Unit',
+        'metrics.pyramid.unit.val': '157 + 364 + 1.640 · xUnit · clre · clre-v2 · profile CPS',
+        'metrics.pyramid.api.name': 'API · Postman',
+        'metrics.pyramid.api.val': '734 profile CPS + 40 CLRE v2 · Newman no CI',
+        'metrics.pyramid.comp.name': 'Component · Cypress CT',
+        'metrics.pyramid.comp.val': '276 · profile customer-profile-components · 23 × *.component.cy.ts',
+        'metrics.pyramid.e2e.name': 'E2E · integração',
+        'metrics.pyramid.e2e.val': '235 Cypress UI (137 clre + 98 profile) + 51 Playwright API (13 clre-v2 + 38 CPS)',
+        'metrics.pyramid.total': '<strong>3.497</strong> testes · repos clre · clre-v2 · profile',
+        'metrics.pyramid.unitnote': 'Scan Mar 2026 · xUnit · Postman · Cypress · Playwright API',
+        'metrics.pyramid.automation': '<strong>1.336</strong> camadas QA · Postman + Cypress + Playwright · alinha com <strong>1.300+</strong> CV',
         'ach.label': '08 · Conquistas', 'ach.title': 'Reconhecimentos',
         'ach.tcc.title': 'TCC Aprovado — UFRPE (jun/2022)',
         'ach.tcc.desc': 'QA Metrics: integração em Docker de métricas do Jira, SonarCloud e Pirâmide de Testes em dashboards Grafana — modalidade Empresa. Open source em <a href="https://github.com/lflucasferreira/qametrics" target="_blank" rel="noopener">github.com/lflucasferreira/qametrics</a>.',
@@ -3436,14 +4079,33 @@
   <div id="dash-modal" class="dash-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="dash-modal-title">
     <div class="dash-modal-panel">
       <header class="dash-modal-header">
-        <h3 id="dash-modal-title" class="dash-modal-title">Jira dashboard</h3>
-        <button type="button" class="dash-modal-close" data-dash-close aria-label="Close">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-          </svg>
-        </button>
+        <div class="dash-modal-heading">
+          <h3 id="dash-modal-title" class="dash-modal-title">Jira dashboard</h3>
+          <span id="dash-modal-counter" class="dash-modal-counter">1 / 3</span>
+        </div>
+        <div class="dash-modal-actions">
+          <button type="button" class="dash-modal-nav" data-dash-prev aria-label="Previous dashboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button type="button" class="dash-modal-nav" data-dash-next aria-label="Next dashboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+          <button type="button" class="dash-modal-close" data-dash-close aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
       </header>
-      <img id="dash-modal-img" class="dash-modal-img" src="" alt="" />
+      <div class="dash-modal-body">
+        <button type="button" class="dash-modal-nav dash-modal-nav--side" data-dash-prev aria-label="Previous dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <img id="dash-modal-img" class="dash-modal-img" src="" alt="" />
+        <button type="button" class="dash-modal-nav dash-modal-nav--side" data-dash-next aria-label="Next dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -3487,15 +4149,41 @@
         document.querySelectorAll('[data-pdf-close]').forEach((el) => {
           el.addEventListener('click', closePdfModal);
         });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && pdfModal.classList.contains('is-open')) {
+            closePdfModal();
+          }
+        });
       }
 
       if (dashModal && dashImg && dashTitle) {
-        function openDashModal(src, titleKey) {
+        const dashCounter = document.getElementById('dash-modal-counter');
+        const dashSlides = Array.from(document.querySelectorAll('[data-dash-open]')).map((btn) => ({
+          src: btn.getAttribute('data-dash-open'),
+          titleKey: btn.getAttribute('data-dash-title'),
+        }));
+        let dashIndex = 0;
+
+        function getDashTitle(titleKey) {
           const lang = document.documentElement.getAttribute('data-lang') || 'en';
-          const title = (titleKey && translations[lang]?.[titleKey]) || titleKey || '';
-          dashImg.src = src;
+          return (titleKey && translations[lang]?.[titleKey]) || titleKey || '';
+        }
+
+        function showDashSlide(index) {
+          if (!dashSlides.length) return;
+          dashIndex = (index + dashSlides.length) % dashSlides.length;
+          const slide = dashSlides[dashIndex];
+          dashImg.src = slide.src;
+          const title = getDashTitle(slide.titleKey);
           dashImg.alt = title;
           dashTitle.textContent = title;
+          if (dashCounter) dashCounter.textContent = `${dashIndex + 1} / ${dashSlides.length}`;
+        }
+
+        function openDashModal(src) {
+          const idx = dashSlides.findIndex((slide) => slide.src === src);
+          showDashSlide(idx >= 0 ? idx : 0);
           dashModal.classList.add('is-open');
           dashModal.setAttribute('aria-hidden', 'false');
           lockScroll();
@@ -3508,9 +4196,13 @@
           unlockScroll();
         }
 
+        function stepDashSlide(delta) {
+          showDashSlide(dashIndex + delta);
+        }
+
         document.querySelectorAll('[data-dash-open]').forEach((btn) => {
           btn.addEventListener('click', () => {
-            openDashModal(btn.getAttribute('data-dash-open'), btn.getAttribute('data-dash-title'));
+            openDashModal(btn.getAttribute('data-dash-open'));
           });
         });
 
@@ -3518,24 +4210,41 @@
           el.addEventListener('click', closeDashModal);
         });
 
+        document.querySelectorAll('[data-dash-prev]').forEach((el) => {
+          el.addEventListener('click', (e) => {
+            e.stopPropagation();
+            stepDashSlide(-1);
+          });
+        });
+
+        document.querySelectorAll('[data-dash-next]').forEach((el) => {
+          el.addEventListener('click', (e) => {
+            e.stopPropagation();
+            stepDashSlide(1);
+          });
+        });
+
         dashModal.addEventListener('click', (e) => {
           if (e.target === dashModal) closeDashModal();
         });
-      }
 
-      document.addEventListener('keydown', (e) => {
-        if (e.key !== 'Escape') return;
-        if (dashModal?.classList.contains('is-open')) {
-          dashModal.classList.remove('is-open');
-          dashModal.setAttribute('aria-hidden', 'true');
-          if (dashImg) dashImg.src = '';
-          unlockScroll();
-        } else if (pdfModal?.classList.contains('is-open')) {
-          pdfModal.classList.remove('is-open');
-          pdfModal.setAttribute('aria-hidden', 'true');
-          unlockScroll();
-        }
-      });
+        document.addEventListener('keydown', (e) => {
+          if (!dashModal.classList.contains('is-open')) return;
+          if (e.key === 'Escape') {
+            closeDashModal();
+            return;
+          }
+          if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            stepDashSlide(-1);
+            return;
+          }
+          if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            stepDashSlide(1);
+          }
+        });
+      }
     })();
   </script>
 
