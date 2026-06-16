@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basic QA Interview Questions — Lucas Ferreira</title>
+  <meta name="description" content="24 essential QA interview topics — SDLC, STLC, test types, bug lifecycle, smoke vs sanity, deliverables, entry/exit criteria, and API fundamentals." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root { --radius: 12px; --radius-sm: 8px; --font: 'Inter', system-ui, sans-serif; --mono: 'JetBrains Mono', monospace; --transition: 0.2s ease; }
+    [data-theme="dark"] {
+      --bg: #080b12; --bg2: #0e1320; --surface: #111827; --surface2: #1a2235; --surface3: #1f2a40;
+      --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.12);
+      --text: #f0f4ff; --text-2: #8b9fc0; --text-3: #4d6080;
+      --accent: #6c8cff; --accent2: #a78bfa; --green: #34d399; --yellow: #fbbf24; --red: #f87171; --glow: rgba(108,140,255,0.15);
+    }
+    [data-theme="light"] {
+      --bg: #f6f8ff; --bg2: #edf0fa; --surface: #ffffff; --surface2: #f0f2fc; --surface3: #e8ebf7;
+      --border: rgba(0,0,0,0.07); --border2: rgba(0,0,0,0.12);
+      --text: #0f172a; --text-2: #475569; --text-3: #94a3b8;
+      --accent: #4f72ff; --accent2: #7c3aed; --green: #059669; --yellow: #d97706; --red: #dc2626; --glow: rgba(79,114,255,0.10);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.6; transition: background var(--transition), color var(--transition); }
+    a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--accent2); }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px; height: 60px;
+      background: var(--bg); border-bottom: 1px solid var(--border); backdrop-filter: blur(20px);
+    }
+    .nav-logo { font-weight: 700; font-size: 0.95rem; color: var(--text); letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .nav-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.82rem; font-weight: 500; color: var(--text-2);
+      padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border);
+      background: var(--surface); transition: all var(--transition);
+    }
+    .nav-back:hover { color: var(--text); border-color: var(--border2); background: var(--surface2); }
+    .theme-toggle, .lang-btn {
+      height: 36px; border-radius: 8px; border: 1px solid var(--border2); background: var(--surface);
+      cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background var(--transition);
+    }
+    .theme-toggle { width: 36px; font-size: 1rem; }
+    .lang-btn { padding: 0 12px; gap: 5px; font-size: 0.78rem; font-weight: 600; color: var(--text-2); font-family: var(--font); }
+    .theme-toggle:hover, .lang-btn:hover { background: var(--surface2); color: var(--text); }
+    [data-theme="dark"] .icon-sun { display: none; }
+    [data-theme="light"] .icon-moon { display: none; }
+
+    .page-hero { max-width: 960px; margin: 0 auto; padding: 72px 24px 32px; }
+    .page-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
+      color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;
+    }
+    .page-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+    .page-hero h1 {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--text) 0%, var(--text-2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 16px; max-width: 720px;
+    }
+    .page-hero p { color: var(--text-2); font-size: 0.95rem; max-width: 680px; line-height: 1.75; }
+    .page-hero p strong { color: var(--text); }
+
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .hero-chip {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 7px 12px; border-radius: 8px; border: 1px solid var(--border);
+      background: var(--surface); font-family: var(--mono); font-size: 0.72rem; font-weight: 500; color: var(--text-2);
+      transition: all var(--transition);
+    }
+    .hero-chip:hover { border-color: rgba(108,140,255,0.45); color: var(--accent); background: rgba(108,140,255,0.08); }
+    .hero-chip svg { width: 14px; height: 14px; opacity: 0.85; }
+
+    main { max-width: 960px; margin: 0 auto; padding: 0 24px 100px; }
+
+    .controls {
+      display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;
+      margin-bottom: 28px; padding: 14px 16px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    }
+    .controls-left { display: flex; flex-wrap: wrap; gap: 8px; }
+    .filter-btn {
+      font-family: var(--mono); font-size: 0.68rem; font-weight: 600;
+      padding: 5px 11px; border-radius: 20px; border: 1px solid var(--border);
+      background: var(--surface2); color: var(--text-3); cursor: pointer; transition: all var(--transition);
+    }
+    .filter-btn:hover { color: var(--text-2); border-color: var(--border2); }
+    .filter-btn.active { color: var(--accent); border-color: rgba(108,140,255,0.45); background: rgba(108,140,255,0.10); }
+    .flash-toggle {
+      font-family: var(--mono); font-size: 0.68rem; font-weight: 600;
+      padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border);
+      background: var(--surface2); color: var(--text-2); cursor: pointer;
+    }
+    .flash-toggle[aria-pressed="true"] { color: var(--green); border-color: rgba(52,211,153,0.4); background: rgba(52,211,153,0.08); }
+
+    .qa-section { margin-bottom: 40px; scroll-margin-top: 80px; }
+    .qa-section-label {
+      font-family: var(--mono); font-size: 0.72rem; font-weight: 600;
+      color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em;
+      margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+    }
+
+    .qa-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    @media (max-width: 820px) { .qa-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 520px) { .qa-grid { grid-template-columns: 1fr; } }
+
+    .qa-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 18px 18px 16px; position: relative; overflow: hidden;
+      border-right-width: 3px; cursor: pointer;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .qa-card:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .qa-card.is-open { cursor: default; }
+
+    .qa-num {
+      position: absolute; top: 12px; right: 12px;
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 0.72rem; font-weight: 700; color: #fff;
+    }
+
+    .qa-card--orange { border-right-color: #ea580c; } .qa-card--orange .qa-num { background: #ea580c; }
+    .qa-card--green { border-right-color: #16a34a; } .qa-card--green .qa-num { background: #16a34a; }
+    .qa-card--blue { border-right-color: #0284c7; } .qa-card--blue .qa-num { background: #0284c7; }
+    .qa-card--dark { border-right-color: #334155; } .qa-card--dark .qa-num { background: #334155; }
+    .qa-card--teal { border-right-color: #0d9488; } .qa-card--teal .qa-num { background: #0d9488; }
+    .qa-card--purple { border-right-color: #7c3aed; } .qa-card--purple .qa-num { background: #7c3aed; }
+
+    .qa-title { font-size: 0.95rem; font-weight: 800; color: var(--text); margin-bottom: 8px; padding-right: 36px; letter-spacing: -0.02em; }
+    .qa-hint { font-size: 0.68rem; font-family: var(--mono); color: var(--text-3); margin-bottom: 10px; }
+    .qa-body { font-size: 0.82rem; color: var(--text-2); line-height: 1.55; }
+    .qa-body ul { margin: 8px 0 0 16px; }
+    .qa-body li { margin-bottom: 4px; }
+    .qa-body li strong { color: var(--text); font-weight: 600; }
+    .qa-body p { margin-top: 8px; }
+
+    [data-flash="true"] .qa-body { display: none; }
+    [data-flash="true"] .qa-card.is-open .qa-body { display: block; }
+    [data-flash="true"] .qa-card.is-open .qa-hint { display: none; }
+
+    .page-note {
+      margin-top: 36px; padding: 16px 18px; border-radius: var(--radius-sm);
+      background: var(--glow); border: 1px solid rgba(108,140,255,0.2);
+      font-size: 0.78rem; color: var(--text-2); line-height: 1.55;
+    }
+    .page-note strong { color: var(--text); }
+
+    footer {
+      text-align: center; padding: 32px 24px;
+      font-size: 0.75rem; font-family: var(--mono); color: var(--text-3);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 16px; }
+      .page-hero, main { padding-left: 16px; padding-right: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">Lucas<span>.</span>dev</div>
+    <div class="nav-right">
+      <a class="nav-back" href="index.html#skills" data-i18n="nav.back">← Back to portfolio</a>
+      <button id="lang-btn" class="lang-btn" onclick="toggleLang()" aria-label="Toggle language">🇧🇷 PT</button>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-label" data-i18n="hero.label">Interview prep · QA fundamentals</div>
+    <h1 data-i18n="hero.h1">Basic QA interview questions</h1>
+    <p data-i18n="hero.desc"><strong>24 core topics</strong> every QA candidate should be able to explain — from SDLC/STLC and test types to bug lifecycle, smoke vs sanity, deliverables, entry/exit criteria, and API basics. Click a card to reveal the answer; toggle <strong>flashcard mode</strong> to practice recall.</p>
+    <div class="hero-actions">
+      <a href="assets/basic-qa-interview-questions.pdf" download class="hero-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <span data-i18n="hero.pdf">Source PDF</span>
+      </a>
+      <a href="certification.html" class="hero-chip">
+        <span data-i18n="hero.certification">Certification answer key →</span>
+      </a>
+      <a href="priorities.html" class="hero-chip">
+        <span data-i18n="hero.priorities">Prioritization frameworks →</span>
+      </a>
+    </div>
+  </div>
+
+  <main>
+    <div class="controls">
+      <div class="controls-left" id="filters"></div>
+      <button type="button" class="flash-toggle" id="flash-toggle" aria-pressed="false" data-i18n="controls.flash">Flashcard mode</button>
+    </div>
+    <div id="qa-root"></div>
+    <p class="page-note" data-i18n="page.note"><strong>Tip:</strong> In interviews, lead with a one-line definition, then structure your answer with phases, examples, or contrasts (e.g. smoke vs sanity, QC vs QA). Content adapted from a basic QA interview reference — typos corrected for clarity.</p>
+  </main>
+
+  <footer><span data-i18n="footer.text">Lucas Ferreira · Senior QA Engineer · QA Interview Prep</span></footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+
+    const sections = [
+      { id: 'fundamentals', labelKey: 'sec.fundamentals' },
+      { id: 'artifacts', labelKey: 'sec.artifacts' },
+      { id: 'process', labelKey: 'sec.process' },
+      { id: 'api', labelKey: 'sec.api' }
+    ];
+
+    const cards = [
+      { n: 1, section: 'fundamentals', color: 'orange', titleKey: 'q01.title', hintKey: 'q01.hint', bodyKey: 'q01.body' },
+      { n: 2, section: 'fundamentals', color: 'green', titleKey: 'q02.title', hintKey: 'q02.hint', bodyKey: 'q02.body' },
+      { n: 3, section: 'fundamentals', color: 'blue', titleKey: 'q03.title', hintKey: 'q03.hint', bodyKey: 'q03.body' },
+      { n: 4, section: 'fundamentals', color: 'dark', titleKey: 'q04.title', hintKey: 'q04.hint', bodyKey: 'q04.body' },
+      { n: 5, section: 'fundamentals', color: 'teal', titleKey: 'q05.title', hintKey: 'q05.hint', bodyKey: 'q05.body' },
+      { n: 6, section: 'fundamentals', color: 'purple', titleKey: 'q06.title', hintKey: 'q06.hint', bodyKey: 'q06.body' },
+      { n: 7, section: 'artifacts', color: 'orange', titleKey: 'q07.title', hintKey: 'q07.hint', bodyKey: 'q07.body' },
+      { n: 8, section: 'artifacts', color: 'green', titleKey: 'q08.title', hintKey: 'q08.hint', bodyKey: 'q08.body' },
+      { n: 9, section: 'artifacts', color: 'blue', titleKey: 'q09.title', hintKey: 'q09.hint', bodyKey: 'q09.body' },
+      { n: 10, section: 'artifacts', color: 'dark', titleKey: 'q10.title', hintKey: 'q10.hint', bodyKey: 'q10.body' },
+      { n: 11, section: 'artifacts', color: 'green', titleKey: 'q11.title', hintKey: 'q11.hint', bodyKey: 'q11.body' },
+      { n: 12, section: 'artifacts', color: 'purple', titleKey: 'q12.title', hintKey: 'q12.hint', bodyKey: 'q12.body' },
+      { n: 13, section: 'process', color: 'orange', titleKey: 'q13.title', hintKey: 'q13.hint', bodyKey: 'q13.body' },
+      { n: 14, section: 'process', color: 'green', titleKey: 'q14.title', hintKey: 'q14.hint', bodyKey: 'q14.body' },
+      { n: 15, section: 'process', color: 'blue', titleKey: 'q15.title', hintKey: 'q15.hint', bodyKey: 'q15.body' },
+      { n: 16, section: 'process', color: 'dark', titleKey: 'q16.title', hintKey: 'q16.hint', bodyKey: 'q16.body' },
+      { n: 17, section: 'process', color: 'green', titleKey: 'q17.title', hintKey: 'q17.hint', bodyKey: 'q17.body' },
+      { n: 18, section: 'process', color: 'blue', titleKey: 'q18.title', hintKey: 'q18.hint', bodyKey: 'q18.body' },
+      { n: 19, section: 'api', color: 'orange', titleKey: 'q19.title', hintKey: 'q19.hint', bodyKey: 'q19.body' },
+      { n: 20, section: 'api', color: 'green', titleKey: 'q20.title', hintKey: 'q20.hint', bodyKey: 'q20.body' },
+      { n: 21, section: 'api', color: 'blue', titleKey: 'q21.title', hintKey: 'q21.hint', bodyKey: 'q21.body' },
+      { n: 22, section: 'api', color: 'dark', titleKey: 'q22.title', hintKey: 'q22.hint', bodyKey: 'q22.body' },
+      { n: 23, section: 'api', color: 'green', titleKey: 'q23.title', hintKey: 'q23.hint', bodyKey: 'q23.body' },
+      { n: 24, section: 'api', color: 'purple', titleKey: 'q24.title', hintKey: 'q24.hint', bodyKey: 'q24.body' }
+    ];
+
+    const translations = {
+      en: {
+        'nav.back': '← Back to portfolio',
+        'hero.label': 'Interview prep · QA fundamentals',
+        'hero.h1': 'Basic QA interview questions',
+        'hero.desc': '<strong>24 core topics</strong> every QA candidate should be able to explain — from SDLC/STLC and test types to bug lifecycle, smoke vs sanity, deliverables, entry/exit criteria, and API basics. Click a card to reveal the answer; toggle <strong>flashcard mode</strong> to practice recall.',
+        'hero.pdf': 'Source PDF', 'hero.certification': 'CTFL v4.0 answer key →', 'hero.priorities': 'Prioritization frameworks →',
+        'controls.flash': 'Flashcard mode', 'controls.all': 'All',
+        'sec.fundamentals': '01 · Lifecycle & fundamentals',
+        'sec.artifacts': '02 · Artifacts & test approaches',
+        'sec.process': '03 · Process & deliverables',
+        'sec.api': '04 · API basics',
+        'page.note': '<strong>Tip:</strong> In interviews, lead with a one-line definition, then structure your answer with phases, examples, or contrasts (e.g. smoke vs sanity, QC vs QA). Content adapted from a basic QA interview reference — typos corrected for clarity.',
+        'footer.text': 'Lucas Ferreira · Senior QA Engineer · QA Interview Prep',
+        'q01.title': 'SDLC?', 'q01.hint': 'Tap to reveal phases', 'q01.body': '<p>Software Development Life Cycle — phases of building software:</p><ul><li>Requirement</li><li>Design</li><li>Development</li><li>Testing</li><li>Deployment</li><li>Maintenance</li></ul>',
+        'q02.title': 'STLC?', 'q02.hint': 'Tap to reveal phases', 'q02.body': '<p>Software Test Life Cycle — QA-specific phases:</p><ul><li>Requirement analysis</li><li>Test planning</li><li>Test case development</li><li>Test environment setup</li><li>Test execution</li><li>Test closure</li></ul>',
+        'q03.title': 'QC & QA?', 'q03.hint': 'Tap to compare', 'q03.body': '<ul><li><strong>QC (Quality Control):</strong> perform test activities to detect/prevent defects in the product.</li><li><strong>QA (Quality Assurance):</strong> focus on the test process — define root causes and prevent future defects.</li></ul>',
+        'q04.title': 'Test types?', 'q04.hint': 'Tap for categories', 'q04.body': '<ul><li><strong>Functional:</strong> what the system does</li><li><strong>Non-functional:</strong> how the system performs (speed, security, usability)</li><li><strong>Structural:</strong> architecture — code &amp; database</li><li><strong>Change-related:</strong> retest &amp; regression</li></ul>',
+        'q05.title': 'Test levels?', 'q05.hint': 'Tap for pyramid order', 'q05.body': '<ul><li>Unit testing</li><li>Integration testing</li><li>System testing</li><li>Acceptance testing</li></ul>',
+        'q06.title': 'Test techniques?', 'q06.hint': 'Tap for approaches', 'q06.body': '<ul><li><strong>Black box:</strong> functional &amp; non-functional (no code access)</li><li><strong>White box:</strong> structure — code &amp; DB</li><li><strong>Experience-based:</strong> error guessing, checklists, exploratory testing</li></ul>',
+        'q07.title': 'Test case?', 'q07.hint': 'Tap for fields', 'q07.body': '<p>Minimum fields in a test case:</p><ul><li>ID</li><li>Description</li><li>Pre-condition</li><li>Steps</li><li>Test data</li><li>Expected result</li><li>Status</li></ul>',
+        'q08.title': 'Bug report?', 'q08.hint': 'Tap for fields', 'q08.body': '<ul><li>ID</li><li>Summary</li><li>Description</li><li>Steps to reproduce</li><li>Expected result</li><li>Actual result</li><li>Environment</li><li>Screenshot / evidence</li></ul>',
+        'q09.title': 'Bug life cycle?', 'q09.hint': 'Tap for states', 'q09.body': '<p>Typical flow:</p><ul><li>New → Assigned → Open → Fixed → Retest → <strong>Closed</strong> or <strong>Reopened</strong></li></ul>',
+        'q10.title': 'Smoke testing?', 'q10.hint': 'Tap for definition', 'q10.body': '<p><strong>What:</strong> verify that main functions start successfully — a shallow, wide pass.</p><p><strong>When:</strong> initial builds when software is still unstable; gate before deeper testing.</p>',
+        'q11.title': 'Sanity testing?', 'q11.hint': 'Tap for definition', 'q11.body': '<p><strong>What:</strong> narrow check that bug fixes from the previous build and new features work as intended.</p><p><strong>When:</strong> later in the SDLC when software is more stable — often after smoke passes.</p>',
+        'q12.title': 'Exploratory testing?', 'q12.hint': 'Tap for process', 'q12.body': '<p>Testing without fully written requirements — learning while testing.</p><ul><li>Learn &amp; explore</li><li>Test design</li><li>Test execution</li><li>Analysis</li></ul>',
+        'q13.title': 'Test deliverables?', 'q13.hint': 'Tap for documents', 'q13.body': '<ul><li>Test strategy</li><li>Test plan</li><li>Test scenario</li><li>Traceability matrix</li><li>Test cases</li><li>Test closure report</li><li>Test summary report</li></ul>',
+        'q14.title': 'Static testing?', 'q14.hint': 'Tap for techniques', 'q14.body': '<p>Testing software <strong>without executing</strong> it:</p><ul><li>Code walkthrough</li><li>Informal review</li><li>Peer review</li><li>Inspections</li></ul>',
+        'q15.title': 'Dynamic testing?', 'q15.hint': 'Tap for scope', 'q15.body': '<p>Testing by <strong>running</strong> the software — checks functional behavior, memory usage, and performance.</p><ul><li>Functional testing</li><li>Non-functional testing</li></ul>',
+        'q16.title': 'Error · Defect · Bug · Failure?', 'q16.hint': 'Tap for definitions', 'q16.body': '<ul><li><strong>Error:</strong> mistake made by a developer in code</li><li><strong>Defect:</strong> variation between expected and actual result</li><li><strong>Bug:</strong> defect found by a tester in the system</li><li><strong>Failure:</strong> issue found by a customer in production</li></ul>',
+        'q17.title': 'Entry criteria?', 'q17.hint': 'Tap for prerequisites', 'q17.body': '<p>Prerequisites that must be met <strong>before testing begins</strong>:</p><ul><li>Identify types of tests to perform</li><li>Gather testing priorities and focus</li><li>Identify test environment</li><li>Automation feasibility analysis</li></ul>',
+        'q18.title': 'Exit criteria?', 'q18.hint': 'Tap for completion gates', 'q18.body': '<p>Conditions to meet <strong>before testing concludes</strong>:</p><ul><li>All critical test cases passed</li><li>High-priority defects identified and fixed</li><li>No open Critical / Severity-1 defects</li></ul>',
+        'q19.title': 'API?', 'q19.hint': 'Tap for definition', 'q19.body': '<p>An <strong>Application Programming Interface</strong> — a computing interface that enables communication and data exchange between two separate software systems.</p>',
+        'q20.title': 'API testing?', 'q20.hint': 'Tap for purpose', 'q20.body': '<p>Validates APIs directly — checks <strong>functionality, reliability, performance, and security</strong> of programming interfaces without relying on the UI alone.</p>',
+        'q21.title': 'API methods?', 'q21.hint': 'Tap for HTTP verbs', 'q21.body': '<ul><li><strong>GET:</strong> request information about an API resource</li><li><strong>POST:</strong> create a REST API resource</li><li><strong>PUT:</strong> update a REST API resource</li><li><strong>DELETE:</strong> remove a resource or related component</li></ul>',
+        'q22.title': 'API status codes?', 'q22.hint': 'Tap for common codes', 'q22.body': '<ul><li><strong>200:</strong> OK</li><li><strong>400:</strong> Bad Request</li><li><strong>401:</strong> Unauthorized</li><li><strong>403:</strong> Forbidden</li><li><strong>404:</strong> Not Found</li><li><strong>500:</strong> Internal Server Error</li></ul>',
+        'q23.title': 'SOAP API?', 'q23.hint': 'Tap for traits', 'q23.body': '<ul><li>Simple Object Access Protocol</li><li>Application communication protocol</li><li>XML-based message format</li><li>Platform independent</li></ul>',
+        'q24.title': 'REST API?', 'q24.hint': 'Tap for traits', 'q24.body': '<ul><li>Representational State Transfer</li><li>Based on URIs and the HTTP protocol</li><li>Client–server architecture</li><li>Typically uses JSON payloads</li></ul>'
+      },
+      pt: {
+        'nav.back': '← Voltar ao portfolio',
+        'hero.label': 'Preparação para entrevista · Fundamentos QA',
+        'hero.h1': 'Perguntas básicas de entrevista QA',
+        'hero.desc': '<strong>24 tópicos essenciais</strong> que todo candidato QA deve saber explicar — de SDLC/STLC e tipos de teste a ciclo de bug, smoke vs sanity, entregáveis, critérios de entrada/saída e fundamentos de API. Clique no card para revelar a resposta; ative o <strong>modo flashcard</strong> para praticar recall.',
+        'hero.pdf': 'PDF original', 'hero.certification': 'Gabarito CTFL v4.0 →', 'hero.priorities': 'Frameworks de priorização →',
+        'controls.flash': 'Modo flashcard', 'controls.all': 'Todos',
+        'sec.fundamentals': '01 · Ciclo de vida & fundamentos',
+        'sec.artifacts': '02 · Artefatos & abordagens de teste',
+        'sec.process': '03 · Processo & entregáveis',
+        'sec.api': '04 · Fundamentos de API',
+        'page.note': '<strong>Dica:</strong> Em entrevistas, comece com uma definição de uma linha e estruture com fases, exemplos ou contrastes (ex.: smoke vs sanity, QC vs QA). Conteúdo adaptado de referência básica de entrevista QA — typos corrigidos.',
+        'footer.text': 'Lucas Ferreira · Senior QA Engineer · Preparação Entrevista QA',
+        'q01.title': 'SDLC?', 'q01.hint': 'Toque para ver fases', 'q01.body': '<p>Software Development Life Cycle — fases de construção do software:</p><ul><li>Requirement (Requisitos)</li><li>Design</li><li>Development (Desenvolvimento)</li><li>Testing (Testes)</li><li>Deployment (Implantação)</li><li>Maintenance (Manutenção)</li></ul>',
+        'q02.title': 'STLC?', 'q02.hint': 'Toque para ver fases', 'q02.body': '<p>Software Test Life Cycle — fases específicas de QA:</p><ul><li>Análise de requisitos</li><li>Planejamento de testes</li><li>Desenvolvimento de casos de teste</li><li>Setup do ambiente de teste</li><li>Execução de testes</li><li>Encerramento de testes</li></ul>',
+        'q03.title': 'QC & QA?', 'q03.hint': 'Toque para comparar', 'q03.body': '<ul><li><strong>QC (Quality Control):</strong> executar atividades de teste para detectar/prevenir defeitos no produto.</li><li><strong>QA (Quality Assurance):</strong> foco no processo de teste — definir causas raiz e prevenir defeitos futuros.</li></ul>',
+        'q04.title': 'Tipos de teste?', 'q04.hint': 'Toque para categorias', 'q04.body': '<ul><li><strong>Funcional:</strong> o que o sistema faz</li><li><strong>Não funcional:</strong> como o sistema se comporta (performance, segurança, usabilidade)</li><li><strong>Estrutural:</strong> arquitetura — código &amp; banco de dados</li><li><strong>Relacionado a mudança:</strong> reteste &amp; regressão</li></ul>',
+        'q05.title': 'Níveis de teste?', 'q05.hint': 'Toque para a pirâmide', 'q05.body': '<ul><li>Teste unitário</li><li>Teste de integração</li><li>Teste de sistema</li><li>Teste de aceitação</li></ul>',
+        'q06.title': 'Técnicas de teste?', 'q06.hint': 'Toque para abordagens', 'q06.body': '<ul><li><strong>Caixa preta:</strong> funcional &amp; não funcional (sem acesso ao código)</li><li><strong>Caixa branca:</strong> estrutura — código &amp; DB</li><li><strong>Baseada em experiência:</strong> error guessing, checklists, teste exploratório</li></ul>',
+        'q07.title': 'Caso de teste?', 'q07.hint': 'Toque para campos', 'q07.body': '<p>Campos mínimos em um caso de teste:</p><ul><li>ID</li><li>Descrição</li><li>Pré-condição</li><li>Passos</li><li>Dados de teste</li><li>Resultado esperado</li><li>Status</li></ul>',
+        'q08.title': 'Bug report?', 'q08.hint': 'Toque para campos', 'q08.body': '<ul><li>ID</li><li>Summary (Resumo)</li><li>Descrição</li><li>Passos para reproduzir</li><li>Resultado esperado</li><li>Resultado atual</li><li>Ambiente</li><li>Screenshot / evidência</li></ul>',
+        'q09.title': 'Ciclo de vida do bug?', 'q09.hint': 'Toque para estados', 'q09.body': '<p>Fluxo típico:</p><ul><li>New → Assigned → Open → Fixed → Retest → <strong>Closed</strong> ou <strong>Reopened</strong></li></ul>',
+        'q10.title': 'Smoke testing?', 'q10.hint': 'Toque para definição', 'q10.body': '<p><strong>O quê:</strong> verificar se as funções principais iniciam com sucesso — passagem rasa e ampla.</p><p><strong>Quando:</strong> builds iniciais com software instável; gate antes de testes profundos.</p>',
+        'q11.title': 'Sanity testing?', 'q11.hint': 'Toque para definição', 'q11.body': '<p><strong>O quê:</strong> verificação estreita de que correções do build anterior e novas features funcionam.</p><p><strong>Quando:</strong> fase tardia do SDLC com software mais estável — muitas vezes após smoke passar.</p>',
+        'q12.title': 'Teste exploratório?', 'q12.hint': 'Toque para processo', 'q12.body': '<p>Testar sem requisitos totalmente escritos — aprender enquanto testa.</p><ul><li>Aprender &amp; explorar</li><li>Design de teste</li><li>Execução</li><li>Análise</li></ul>',
+        'q13.title': 'Entregáveis de teste?', 'q13.hint': 'Toque para documentos', 'q13.body': '<ul><li>Test strategy</li><li>Test plan</li><li>Cenário de teste</li><li>Matriz de rastreabilidade</li><li>Casos de teste</li><li>Test closure report</li><li>Test summary report</li></ul>',
+        'q14.title': 'Teste estático?', 'q14.hint': 'Toque para técnicas', 'q14.body': '<p>Testar software <strong>sem executar</strong>:</p><ul><li>Code walkthrough</li><li>Revisão informal</li><li>Peer review</li><li>Inspeções</li></ul>',
+        'q15.title': 'Teste dinâmico?', 'q15.hint': 'Toque para escopo', 'q15.body': '<p>Testar <strong>executando</strong> o software — verifica comportamento funcional, memória e performance.</p><ul><li>Teste funcional</li><li>Teste não funcional</li></ul>',
+        'q16.title': 'Error · Defect · Bug · Failure?', 'q16.hint': 'Toque para definições', 'q16.body': '<ul><li><strong>Error:</strong> erro do desenvolvedor no código</li><li><strong>Defect:</strong> variação entre resultado esperado e atual</li><li><strong>Bug:</strong> defeito encontrado pelo tester no sistema</li><li><strong>Failure:</strong> problema encontrado pelo cliente em produção</li></ul>',
+        'q17.title': 'Critérios de entrada?', 'q17.hint': 'Toque para pré-requisitos', 'q17.body': '<p>Pré-requisitos antes de <strong>iniciar os testes</strong>:</p><ul><li>Identificar tipos de teste a executar</li><li>Definir prioridades e foco</li><li>Identificar ambiente de teste</li><li>Análise de viabilidade de automação</li></ul>',
+        'q18.title': 'Critérios de saída?', 'q18.hint': 'Toque para gates', 'q18.body': '<p>Condições para <strong>encerrar os testes</strong>:</p><ul><li>Todos os casos críticos passaram</li><li>Defeitos de alta prioridade corrigidos</li><li>Nenhum defeito Critical / Severity-1 aberto</li></ul>',
+        'q19.title': 'API?', 'q19.hint': 'Toque para definição', 'q19.body': '<p><strong>Application Programming Interface</strong> — interface que permite comunicação e troca de dados entre dois sistemas de software separados.</p>',
+        'q20.title': 'Teste de API?', 'q20.hint': 'Toque para propósito', 'q20.body': '<p>Valida APIs diretamente — verifica <strong>funcionalidade, confiabilidade, performance e segurança</strong> das interfaces, sem depender só da UI.</p>',
+        'q21.title': 'Métodos de API?', 'q21.hint': 'Toque para verbos HTTP', 'q21.body': '<ul><li><strong>GET:</strong> solicitar informação sobre um recurso</li><li><strong>POST:</strong> criar um recurso REST</li><li><strong>PUT:</strong> atualizar um recurso REST</li><li><strong>DELETE:</strong> remover recurso ou componente</li></ul>',
+        'q22.title': 'Status codes de API?', 'q22.hint': 'Toque para códigos', 'q22.body': '<ul><li><strong>200:</strong> OK</li><li><strong>400:</strong> Bad Request</li><li><strong>401:</strong> Unauthorized</li><li><strong>403:</strong> Forbidden</li><li><strong>404:</strong> Not Found</li><li><strong>500:</strong> Internal Server Error</li></ul>',
+        'q23.title': 'SOAP API?', 'q23.hint': 'Toque para características', 'q23.body': '<ul><li>Simple Object Access Protocol</li><li>Protocolo de comunicação entre aplicações</li><li>Formato de mensagens em XML</li><li>Independente de plataforma</li></ul>',
+        'q24.title': 'REST API?', 'q24.hint': 'Toque para características', 'q24.body': '<ul><li>Representational State Transfer</li><li>Baseado em URIs e protocolo HTTP</li><li>Arquitetura cliente–servidor</li><li>Normalmente usa payloads JSON</li></ul>'
+      }
+    };
+
+    let activeFilter = 'all';
+    let flashMode = false;
+
+    function lang() { return document.documentElement.getAttribute('data-lang') || 'en'; }
+    function t(key) { return translations[lang()]?.[key] ?? translations.en[key] ?? key; }
+
+    function renderCards() {
+      const root = document.getElementById('qa-root');
+      root.innerHTML = '';
+      sections.forEach(sec => {
+        const filtered = cards.filter(c => c.section === sec.id && (activeFilter === 'all' || activeFilter === sec.id));
+        if (!filtered.length) return;
+        const section = document.createElement('section');
+        section.className = 'qa-section';
+        section.id = 'sec-' + sec.id;
+        section.innerHTML = `<div class="qa-section-label">${t(sec.labelKey)}</div><div class="qa-grid"></div>`;
+        const grid = section.querySelector('.qa-grid');
+        filtered.forEach(card => {
+          const el = document.createElement('article');
+          el.className = `qa-card qa-card--${card.color}`;
+          el.dataset.card = card.n;
+          el.innerHTML = `
+            <div class="qa-num">${String(card.n).padStart(2, '0')}</div>
+            <h2 class="qa-title">${t(card.titleKey)}</h2>
+            <div class="qa-hint">${t(card.hintKey)}</div>
+            <div class="qa-body">${t(card.bodyKey)}</div>`;
+          el.addEventListener('click', () => {
+            if (!flashMode) return;
+            el.classList.toggle('is-open');
+          });
+          if (!flashMode) el.classList.add('is-open');
+          grid.appendChild(el);
+        });
+        root.appendChild(section);
+      });
+    }
+
+    function renderFilters() {
+      const filters = document.getElementById('filters');
+      filters.innerHTML = '';
+      [{ id: 'all', key: 'controls.all' }, ...sections].forEach(f => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'filter-btn' + (activeFilter === f.id ? ' active' : '');
+        btn.textContent = t(f.labelKey || f.key);
+        btn.addEventListener('click', () => {
+          activeFilter = f.id;
+          renderFilters();
+          renderCards();
+        });
+        filters.appendChild(btn);
+      });
+    }
+
+    function applyLang(l) {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[l]?.[key] !== undefined) el.innerHTML = translations[l][key];
+      });
+      document.getElementById('lang-btn').innerHTML = l === 'en' ? '🇧🇷 PT' : '🇬🇧 EN';
+      renderFilters();
+      renderCards();
+    }
+
+    function toggleLang() {
+      const next = lang() === 'en' ? 'pt' : 'en';
+      document.documentElement.setAttribute('data-lang', next);
+      localStorage.setItem('lang', next);
+      applyLang(next);
+    }
+
+    document.getElementById('flash-toggle').addEventListener('click', function () {
+      flashMode = !flashMode;
+      this.setAttribute('aria-pressed', flashMode ? 'true' : 'false');
+      document.body.setAttribute('data-flash', flashMode ? 'true' : 'false');
+      renderCards();
+    });
+
+    (function init() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('lang');
+      if (savedLang && savedLang !== 'en') {
+        document.documentElement.setAttribute('data-lang', savedLang);
+        applyLang(savedLang);
+      } else {
+        renderFilters();
+        renderCards();
+      }
+    })();
+  </script>
+</body>
+</html>

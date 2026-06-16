@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ISTQB CTFL v4.0 — Commented Answer Key</title>
+  <meta name="description" content="40 CTFL v4.0 questions mapped to the official syllabus — 6 chapters, learning objectives, answers and links to BSTQB sample exams." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root { --radius: 12px; --radius-sm: 8px; --font: 'Inter', system-ui, sans-serif; --mono: 'JetBrains Mono', monospace; --transition: 0.2s ease; }
+    [data-theme="dark"] {
+      --bg: #080b12; --bg2: #0e1320; --surface: #111827; --surface2: #1a2235;
+      --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.12);
+      --text: #f0f4ff; --text-2: #8b9fc0; --text-3: #4d6080;
+      --accent: #6c8cff; --accent2: #a78bfa; --green: #34d399; --yellow: #fbbf24; --glow: rgba(108,140,255,0.15);
+    }
+    [data-theme="light"] {
+      --bg: #f6f8ff; --bg2: #edf0fa; --surface: #ffffff; --surface2: #f0f2fc;
+      --border: rgba(0,0,0,0.07); --border2: rgba(0,0,0,0.12);
+      --text: #0f172a; --text-2: #475569; --text-3: #94a3b8;
+      --accent: #4f72ff; --accent2: #7c3aed; --green: #059669; --yellow: #d97706; --glow: rgba(79,114,255,0.10);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.6; }
+    a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--accent2); }
+
+    nav {
+      position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px; height: 60px; background: var(--bg); border-bottom: 1px solid var(--border); backdrop-filter: blur(20px);
+    }
+    .nav-logo { font-weight: 700; font-size: 0.95rem; color: var(--text); }
+    .nav-logo span { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .nav-back, .theme-toggle, .lang-btn, .flash-toggle, .filter-btn, .search-input {
+      border: 1px solid var(--border2); background: var(--surface); font-family: var(--font); transition: all var(--transition);
+    }
+    .nav-back {
+      display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 500; color: var(--text-2);
+      padding: 6px 12px; border-radius: 6px;
+    }
+    .nav-back:hover { color: var(--text); background: var(--surface2); }
+    .theme-toggle, .lang-btn { height: 36px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .theme-toggle { width: 36px; font-size: 1rem; }
+    .lang-btn { padding: 0 12px; font-size: 0.78rem; font-weight: 600; color: var(--text-2); }
+    [data-theme="dark"] .icon-sun { display: none; }
+    [data-theme="light"] .icon-moon { display: none; }
+
+    .page-hero { max-width: 860px; margin: 0 auto; padding: 72px 24px 32px; }
+    .page-label {
+      display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
+      color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;
+    }
+    .page-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+    .page-hero h1 {
+      font-size: clamp(1.5rem, 3.2vw, 2.2rem); font-weight: 800; letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--text) 0%, var(--text-2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 16px;
+    }
+    .page-hero p { color: var(--text-2); font-size: 0.94rem; max-width: 680px; line-height: 1.75; }
+    .page-hero p strong { color: var(--text); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .hero-chip {
+      display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--surface); font-family: var(--mono); font-size: 0.72rem; color: var(--text-2);
+    }
+    .hero-chip:hover { border-color: rgba(108,140,255,0.45); color: var(--accent); background: rgba(108,140,255,0.08); }
+    .hero-chip svg { width: 14px; height: 14px; }
+
+    main { max-width: 860px; margin: 0 auto; padding: 0 24px 100px; }
+    .controls {
+      display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 24px;
+      padding: 14px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    }
+    .controls-left { display: flex; flex-wrap: wrap; gap: 8px; flex: 1; }
+    .filter-btn {
+      font-family: var(--mono); font-size: 0.68rem; font-weight: 600; padding: 5px 11px; border-radius: 20px;
+      color: var(--text-3); cursor: pointer;
+    }
+    .filter-btn.active { color: var(--accent); border-color: rgba(108,140,255,0.45); background: rgba(108,140,255,0.10); }
+    .search-input {
+      flex: 1; min-width: 160px; padding: 8px 12px; border-radius: 8px; font-size: 0.82rem; color: var(--text);
+    }
+    .search-input:focus { outline: none; border-color: rgba(108,140,255,0.5); }
+    .flash-toggle {
+      font-family: var(--mono); font-size: 0.68rem; font-weight: 600; padding: 6px 12px; border-radius: 8px;
+      color: var(--text-2); cursor: pointer;
+    }
+    .flash-toggle[aria-pressed="true"] { color: var(--green); border-color: rgba(52,211,153,0.4); background: rgba(52,211,153,0.08); }
+
+    .q-list { display: flex; flex-direction: column; gap: 12px; }
+    .q-item {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 18px 20px; scroll-margin-top: 80px; cursor: pointer; transition: border-color var(--transition);
+    }
+    .q-item:hover { border-color: var(--border2); }
+    .q-item.is-open { cursor: default; border-left: 3px solid var(--accent); }
+    .q-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+    .q-num {
+      flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; background: var(--accent);
+      color: #fff; font-family: var(--mono); font-size: 0.72rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .q-meta { flex: 1; min-width: 0; }
+    .q-tag {
+      display: inline-block; font-family: var(--mono); font-size: 0.62rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent2);
+      margin-bottom: 4px;
+    }
+    .q-text { font-size: 0.88rem; font-weight: 600; color: var(--text); line-height: 1.5; }
+    .q-hint { font-size: 0.68rem; font-family: var(--mono); color: var(--text-3); margin-top: 8px; }
+    .q-answer { display: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+    .q-item.is-open .q-answer { display: block; }
+    .q-correct {
+      font-size: 0.82rem; font-weight: 600; color: var(--green); margin-bottom: 10px;
+      padding: 10px 12px; border-radius: var(--radius-sm); background: rgba(52,211,153,0.08);
+      border: 1px solid rgba(52,211,153,0.25);
+    }
+    .q-correct span { font-family: var(--mono); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; display: block; margin-bottom: 4px; opacity: 0.85; }
+    .q-expl { font-size: 0.82rem; color: var(--text-2); line-height: 1.65; }
+    [data-flash="true"] .q-answer { display: none; }
+    [data-flash="true"] .q-item.is-open .q-answer { display: block; }
+    [data-flash="true"] .q-item:not(.is-open) .q-hint { display: block; }
+    [data-flash="false"] .q-hint { display: none; }
+    [data-flash="true"] .q-hint { display: block; }
+
+    .page-note {
+      margin-top: 32px; padding: 16px 18px; border-radius: var(--radius-sm);
+      background: var(--glow); border: 1px solid rgba(108,140,255,0.2);
+      font-size: 0.78rem; color: var(--text-2); line-height: 1.55;
+    }
+    .section-block {
+      margin-bottom: 32px; padding: 20px 22px; background: var(--surface);
+      border: 1px solid var(--border); border-radius: var(--radius);
+    }
+    .section-block h2 {
+      font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: -0.02em;
+    }
+    .section-block > p { font-size: 0.82rem; color: var(--text-2); line-height: 1.6; margin-bottom: 16px; }
+    .resource-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    @media (max-width: 640px) { .resource-grid { grid-template-columns: 1fr; } }
+    .resource-link {
+      display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+      border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface2);
+      font-size: 0.78rem; font-weight: 500; color: var(--text-2); transition: all var(--transition);
+    }
+    .resource-link:hover { border-color: rgba(108,140,255,0.45); color: var(--accent); background: rgba(108,140,255,0.06); }
+    .resource-link svg { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.7; }
+    .resource-link .res-sub { display: block; font-family: var(--mono); font-size: 0.62rem; color: var(--text-3); margin-top: 2px; font-weight: 400; }
+    .syllabus-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+    .syllabus-table th, .syllabus-table td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); }
+    .syllabus-table th { font-family: var(--mono); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3); }
+    .syllabus-table td { color: var(--text-2); }
+    .syllabus-table tr:last-child td { border-bottom: none; }
+    .syllabus-table .ch-name { color: var(--text); font-weight: 600; }
+    .syllabus-table .count-here { font-family: var(--mono); font-weight: 700; color: var(--accent); }
+    .q-ref {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;
+    }
+    .q-lo, .q-sy {
+      font-family: var(--mono); font-size: 0.6rem; font-weight: 600;
+      padding: 3px 8px; border-radius: 4px; letter-spacing: 0.03em;
+    }
+    .q-lo { color: var(--accent); background: rgba(108,140,255,0.10); border: 1px solid rgba(108,140,255,0.25); }
+    .q-sy { color: var(--text-3); background: var(--surface2); border: 1px solid var(--border); max-width: 100%; line-height: 1.4; }
+    .q-extra { color: var(--yellow); background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.3); font-family: var(--mono); font-size: 0.58rem; font-weight: 600; padding: 2px 7px; border-radius: 4px; text-transform: uppercase; }
+    footer { text-align: center; padding: 32px 24px; font-size: 0.75rem; font-family: var(--mono); color: var(--text-3); border-top: 1px solid var(--border); }
+    @media (max-width: 640px) { nav, .page-hero, main { padding-left: 16px; padding-right: 16px; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">Lucas<span>.</span>dev</div>
+    <div class="nav-right">
+      <a class="nav-back" href="index.html#skills" data-i18n="nav.back">← Back to portfolio</a>
+      <button id="lang-btn" class="lang-btn" onclick="toggleLang()">🇧🇷 PT</button>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-label" data-i18n="hero.label">ISTQB CTFL v4.0 · Certification prep</div>
+    <h1 data-i18n="hero.h1">Commented answer key — CTFL v4.0</h1>
+    <p data-i18n="hero.desc"><strong>40 questions</strong> mapped to the official syllabus (6 chapters) with correct answers, learning objectives (LO) and explanations. Official exam: 40 questions, 60 min, pass ≥ 26 points. Toggle <strong>quiz mode</strong> to hide answers until you click.</p>
+    <div class="hero-actions">
+      <a href="assets/certificacao-teste-software-gabarito.pdf" download class="hero-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <span data-i18n="hero.pdf">Original study PDF</span>
+      </a>
+      <a href="https://bstqb.online/files/syllabus_ctfl_4.0br.pdf" target="_blank" rel="noopener" class="hero-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <span>Syllabus v4.0</span>
+      </a>
+      <a href="qa-interview.html" class="hero-chip"><span data-i18n="hero.interview">QA interview questions →</span></a>
+    </div>
+  </div>
+
+  <main>
+    <section class="section-block" id="resources">
+      <h2 data-i18n="resources.title">Official CTFL v4.0 resources</h2>
+      <p data-i18n="resources.desc">Use these alongside this page. Sample exams A &amp; B (BSTQB) mirror the real exam format — 40 questions each with official answer keys.</p>
+      <div class="resource-grid" id="resource-grid"></div>
+    </section>
+
+    <section class="section-block" id="syllabus-map">
+      <h2 data-i18n="syllabus.title">Syllabus coverage map</h2>
+      <p data-i18n="syllabus.desc">Questions in this page vs. official exam distribution (BSTQB / ISTQB Exam Structure Tables v1.15). For full LO coverage, complete with Sample Exams A &amp; B.</p>
+      <table class="syllabus-table" id="syllabus-table">
+        <thead>
+          <tr>
+            <th data-i18n="syllabus.col.chapter">Chapter</th>
+            <th data-i18n="syllabus.col.exam">Exam Qs</th>
+            <th data-i18n="syllabus.col.here">Here</th>
+          </tr>
+        </thead>
+        <tbody id="syllabus-body"></tbody>
+      </table>
+    </section>
+
+    <div class="controls">
+      <div class="controls-left">
+        <input type="search" class="search-input" id="search" data-i18n-placeholder="controls.search" placeholder="Search questions…" />
+        <div id="filters"></div>
+      </div>
+      <button type="button" class="flash-toggle" id="flash-toggle" aria-pressed="false" data-i18n="controls.quiz">Quiz mode</button>
+    </div>
+    <div class="q-list" id="q-root"></div>
+    <p class="page-note" data-i18n="page.note"><strong>Scope:</strong> Aligned with ISTQB CTFL Syllabus v4.0. Each question cites its chapter and learning objective. Complete prep with BSTQB Sample Exams A &amp; B and the <a href="qa-interview.html">interview topics</a> page.</p>
+  </main>
+
+  <footer><span data-i18n="footer.text">Lucas Ferreira · Senior QA Engineer · Certification Study</span></footer>
+
+  <script src="certification-data.js"></script>
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+
+    let activeFilter = 'all';
+    let flashMode = false;
+    let searchQuery = '';
+
+    function lang() { return document.documentElement.getAttribute('data-lang') || 'en'; }
+    function t(key) { return window.CERT_I18N[lang()]?.[key] ?? window.CERT_I18N.en[key] ?? key; }
+
+    function chapterCount(cat) {
+      return window.CERT_QUESTIONS.filter(q => q.cat === cat).length;
+    }
+
+    function renderResources() {
+      const grid = document.getElementById('resource-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      window.CERT_RESOURCES.forEach(res => {
+        const a = document.createElement('a');
+        a.className = 'resource-link';
+        a.target = '_blank';
+        a.rel = 'noopener';
+        const url = window.CERT_LINKS[res.urlKey];
+        const url2 = res.urlKey2 ? window.CERT_LINKS[res.urlKey2] : null;
+        a.href = url;
+        const sub = url2
+          ? `<span class="res-sub">${url.replace(/^https?:\/\//, '')} · ${url2.replace(/^https?:\/\//, '')}</span>`
+          : `<span class="res-sub">${url.replace(/^https?:\/\//, '')}</span>`;
+        a.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg><span>${t(res.key)}${sub}</span>`;
+        grid.appendChild(a);
+      });
+    }
+
+    function renderSyllabusMap() {
+      const body = document.getElementById('syllabus-body');
+      if (!body) return;
+      body.innerHTML = '';
+      window.CERT_SYLLABUS.forEach(ch => {
+        const here = chapterCount(ch.id);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td class="ch-name">${t(ch.key)}</td><td>${ch.examQ}</td><td class="count-here">${here}</td>`;
+        body.appendChild(tr);
+      });
+    }
+
+    function renderQuestions() {
+      const root = document.getElementById('q-root');
+      root.innerHTML = '';
+      const q = searchQuery.toLowerCase();
+      window.CERT_QUESTIONS.filter(item => {
+        if (activeFilter !== 'all' && item.cat !== activeFilter) return false;
+        if (!q) return true;
+        const text = (t(item.tagKey) + ' ' + t(item.qKey) + ' ' + t(item.aKey) + ' ' + (item.lo || '') + ' ' + t(item.syKey)).toLowerCase();
+        return text.includes(q);
+      }).forEach(item => {
+        const el = document.createElement('article');
+        el.className = 'q-item' + (flashMode ? '' : ' is-open');
+        el.id = 'q-' + item.n;
+        const extraBadge = item.extra ? `<span class="q-extra">${t('label.extra')}</span>` : '';
+        el.innerHTML = `
+          <div class="q-top">
+            <div class="q-num">${String(item.n).padStart(2, '0')}</div>
+            <div class="q-meta">
+              <div class="q-tag">${t(item.tagKey)} ${extraBadge}</div>
+              <div class="q-ref">
+                <span class="q-lo">${t('label.lo')}: ${item.lo}</span>
+              </div>
+              <div class="q-sy">${t('label.syllabus')}: ${t(item.syKey)}</div>
+              <div class="q-text">${t(item.qKey)}</div>
+            </div>
+          </div>
+          <div class="q-hint">${t('hint.tap')}</div>
+          <div class="q-answer">
+            <div class="q-correct"><span>${t('label.answer')}</span>${t(item.aKey)}</div>
+            <div class="q-expl">${t(item.eKey)}</div>
+          </div>`;
+        el.addEventListener('click', () => { if (flashMode) el.classList.toggle('is-open'); });
+        root.appendChild(el);
+      });
+    }
+
+    function renderFilters() {
+      const filters = document.getElementById('filters');
+      filters.innerHTML = '';
+      window.CERT_FILTERS.forEach(f => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'filter-btn' + (activeFilter === f.id ? ' active' : '');
+        btn.textContent = t(f.key);
+        btn.addEventListener('click', () => { activeFilter = f.id; renderFilters(); renderQuestions(); });
+        filters.appendChild(btn);
+      });
+    }
+
+    function applyLang(l) {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (window.CERT_I18N[l]?.[key]) el.innerHTML = window.CERT_I18N[l][key];
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (window.CERT_I18N[l]?.[key]) el.placeholder = window.CERT_I18N[l][key];
+      });
+      document.getElementById('lang-btn').innerHTML = l === 'en' ? '🇧🇷 PT' : '🇬🇧 EN';
+      renderFilters();
+      renderResources();
+      renderSyllabusMap();
+      renderQuestions();
+    }
+
+    function toggleLang() {
+      const next = lang() === 'en' ? 'pt' : 'en';
+      document.documentElement.setAttribute('data-lang', next);
+      localStorage.setItem('lang', next);
+      applyLang(next);
+    }
+
+    document.getElementById('flash-toggle').addEventListener('click', function () {
+      flashMode = !flashMode;
+      this.setAttribute('aria-pressed', flashMode ? 'true' : 'false');
+      document.body.setAttribute('data-flash', flashMode ? 'true' : 'false');
+      renderQuestions();
+    });
+
+    document.getElementById('search').addEventListener('input', function () {
+      searchQuery = this.value;
+      renderQuestions();
+    });
+
+    (function init() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('lang');
+      if (savedLang && savedLang !== 'en') {
+        document.documentElement.setAttribute('data-lang', savedLang);
+        applyLang(savedLang);
+      } else {
+        document.body.setAttribute('data-flash', 'false');
+        renderFilters();
+        renderResources();
+        renderSyllabusMap();
+        renderQuestions();
+      }
+    })();
+  </script>
+</body>
+</html>

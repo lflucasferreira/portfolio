@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 248" role="img" aria-labelledby="title desc">
+  <title id="title">Bug severity levels</title>
+  <desc id="desc">Blocker, Critical, Major, Minor, Low  transparent background</desc>
+
+  <!-- Blocker -->
+  <rect x="8" y="18" width="148" height="68" rx="10" fill="#2a3348" stroke="#3d4f6f" stroke-width="1.5"/>
+  <circle cx="82" cy="18" r="24" fill="#111827" stroke="#3d4f6f" stroke-width="1.5"/>
+  <circle cx="82" cy="18" r="14" fill="none" stroke="#dc2626" stroke-width="3"/>
+  <line x1="72" y1="28" x2="92" y2="8" stroke="#dc2626" stroke-width="3" stroke-linecap="round"/>
+  <text x="82" y="62" text-anchor="middle" fill="#f0f4ff" font-family="ui-monospace, monospace" font-size="15" font-weight="700">Blocker</text>
+
+  <!-- Critical -->
+  <rect x="168" y="60" width="148" height="68" rx="10" fill="#2a3348" stroke="#3d4f6f" stroke-width="1.5"/>
+  <circle cx="242" cy="60" r="24" fill="#111827" stroke="#3d4f6f" stroke-width="1.5"/>
+  <path d="M242 48 L242 68 M236 54 L242 48 L248 54" fill="none" stroke="#ef4444" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="242" cy="70" r="2.5" fill="#ef4444"/>
+  <text x="242" y="104" text-anchor="middle" fill="#f0f4ff" font-family="ui-monospace, monospace" font-size="15" font-weight="700">Critical</text>
+
+  <!-- Major -->
+  <rect x="328" y="102" width="148" height="68" rx="10" fill="#2a3348" stroke="#3d4f6f" stroke-width="1.5"/>
+  <circle cx="402" cy="102" r="24" fill="#111827" stroke="#3d4f6f" stroke-width="1.5"/>
+  <path d="M394 96 L402 86 L410 96 M394 106 L402 96 L410 106" fill="none" stroke="#f97316" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="402" y="146" text-anchor="middle" fill="#f0f4ff" font-family="ui-monospace, monospace" font-size="15" font-weight="700">Major</text>
+
+  <!-- Minor -->
+  <rect x="488" y="144" width="148" height="68" rx="10" fill="#2a3348" stroke="#3d4f6f" stroke-width="1.5"/>
+  <circle cx="562" cy="144" r="24" fill="#111827" stroke="#3d4f6f" stroke-width="1.5"/>
+  <path d="M554 150 L562 160 L570 150 M554 140 L562 150 L570 140" fill="none" stroke="#16a34a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="562" y="188" text-anchor="middle" fill="#f0f4ff" font-family="ui-monospace, monospace" font-size="15" font-weight="700">Minor</text>
+
+  <!-- Low -->
+  <rect x="648" y="186" width="148" height="68" rx="10" fill="#2a3348" stroke="#3d4f6f" stroke-width="1.5"/>
+  <circle cx="722" cy="186" r="24" fill="#111827" stroke="#3d4f6f" stroke-width="1.5"/>
+  <path d="M722 176 L722 194 M716 188 L722 194 L728 188" fill="none" stroke="#15803d" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="722" y="230" text-anchor="middle" fill="#f0f4ff" font-family="ui-monospace, monospace" font-size="15" font-weight="700">Low</text>
+</svg>

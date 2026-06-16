@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prioritization Frameworks — Lucas Ferreira</title>
+  <meta name="description" content="Nine decision-making and prioritization frameworks — Eisenhower, ICE, 40/70, OODA, Pareto, RAPID, 10/10/10, 5 Whys and SWOT — with interactive tools." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --radius: 12px;
+      --radius-sm: 8px;
+      --font: 'Inter', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+      --transition: 0.2s ease;
+    }
+
+    [data-theme="dark"] {
+      --bg: #080b12; --bg2: #0e1320; --surface: #111827; --surface2: #1a2235; --surface3: #1f2a40;
+      --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.12);
+      --text: #f0f4ff; --text-2: #8b9fc0; --text-3: #4d6080;
+      --accent: #6c8cff; --accent2: #a78bfa; --green: #34d399; --yellow: #fbbf24; --red: #f87171;
+      --glow: rgba(108,140,255,0.15);
+    }
+
+    [data-theme="light"] {
+      --bg: #f6f8ff; --bg2: #edf0fa; --surface: #ffffff; --surface2: #f0f2fc; --surface3: #e8ebf7;
+      --border: rgba(0,0,0,0.07); --border2: rgba(0,0,0,0.12);
+      --text: #0f172a; --text-2: #475569; --text-3: #94a3b8;
+      --accent: #4f72ff; --accent2: #7c3aed; --green: #059669; --yellow: #d97706; --red: #dc2626;
+      --glow: rgba(79,114,255,0.10);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.6; transition: background var(--transition), color var(--transition); }
+    a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--accent2); }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px; height: 60px;
+      background: var(--bg); border-bottom: 1px solid var(--border); backdrop-filter: blur(20px);
+    }
+    .nav-logo { font-weight: 700; font-size: 0.95rem; color: var(--text); letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .nav-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.82rem; font-weight: 500; color: var(--text-2);
+      padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border);
+      background: var(--surface); transition: all var(--transition);
+    }
+    .nav-back:hover { color: var(--text); border-color: var(--border2); background: var(--surface2); }
+    .theme-toggle, .lang-btn {
+      height: 36px; border-radius: 8px; border: 1px solid var(--border2); background: var(--surface);
+      cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background var(--transition);
+    }
+    .theme-toggle { width: 36px; font-size: 1rem; }
+    .lang-btn { padding: 0 12px; gap: 5px; font-size: 0.78rem; font-weight: 600; color: var(--text-2); font-family: var(--font); }
+    .theme-toggle:hover, .lang-btn:hover { background: var(--surface2); color: var(--text); }
+    [data-theme="dark"] .icon-sun { display: none; }
+    [data-theme="light"] .icon-moon { display: none; }
+
+    .page-hero { max-width: 960px; margin: 0 auto; padding: 72px 24px 40px; }
+    .page-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
+      color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;
+    }
+    .page-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+    .page-hero h1 {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--text) 0%, var(--text-2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 16px; max-width: 720px;
+    }
+    .page-hero p { color: var(--text-2); font-size: 0.95rem; max-width: 680px; line-height: 1.75; }
+    .page-hero p strong { color: var(--text); }
+
+    main { max-width: 960px; margin: 0 auto; padding: 0 24px 100px; }
+
+    .toc {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px;
+      padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    }
+    .toc a {
+      font-family: var(--mono); font-size: 0.68rem; font-weight: 600;
+      padding: 5px 10px; border-radius: 20px;
+      border: 1px solid var(--border); background: var(--surface2); color: var(--text-2);
+      transition: all var(--transition);
+    }
+    .toc a:hover { border-color: rgba(108,140,255,0.45); color: var(--accent); background: rgba(108,140,255,0.08); }
+
+    .fw-grid { display: flex; flex-direction: column; gap: 28px; }
+
+    .fw-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; scroll-margin-top: 80px;
+      transition: border-color var(--transition);
+    }
+    .fw-card:hover { border-color: var(--border2); }
+
+    .fw-head {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 22px 24px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .fw-num {
+      flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 0.85rem; font-weight: 700; color: #fff;
+    }
+    .fw-head-text h2 { font-size: 1.05rem; font-weight: 800; color: var(--text); margin-bottom: 4px; letter-spacing: -0.02em; }
+    .fw-author { font-size: 0.72rem; font-family: var(--mono); color: var(--text-3); margin-bottom: 6px; }
+    .fw-purpose { font-size: 0.84rem; color: var(--text-2); line-height: 1.55; }
+
+    .fw-body { padding: 20px 24px 24px; }
+
+    .fw-visual {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 18px; margin-bottom: 16px;
+    }
+
+    .fw-tool label {
+      display: block; font-size: 0.72rem; font-family: var(--mono); font-weight: 600;
+      color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;
+    }
+    .fw-tool input[type="text"], .fw-tool textarea, .fw-tool select {
+      width: 100%; padding: 10px 12px; border-radius: var(--radius-sm);
+      border: 1px solid var(--border); background: var(--bg2); color: var(--text);
+      font-family: var(--font); font-size: 0.84rem; line-height: 1.5;
+      transition: border-color var(--transition);
+    }
+    .fw-tool input:focus, .fw-tool textarea:focus, .fw-tool select:focus {
+      outline: none; border-color: rgba(108,140,255,0.5);
+    }
+    .fw-tool textarea { min-height: 64px; resize: vertical; }
+    .fw-tool + .fw-tool { margin-top: 12px; }
+
+    .fw-result {
+      margin-top: 14px; padding: 12px 14px; border-radius: var(--radius-sm);
+      font-size: 0.84rem; font-family: var(--mono); font-weight: 600;
+      border: 1px solid; line-height: 1.5;
+    }
+
+    /* Eisenhower */
+    .fw-card--1 .fw-num { background: #1a5c3a; }
+    .eisenhower {
+      display: grid;
+      grid-template-columns: 72px 1fr 1fr;
+      grid-template-rows: 28px 1fr 1fr;
+      gap: 4px;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    .e-corner { grid-column: 1; grid-row: 1; }
+    .e-col-h {
+      font-size: 9px; font-weight: 700; font-family: var(--mono);
+      text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3);
+      display: flex; align-items: center; justify-content: center; text-align: center;
+    }
+    .e-row-h {
+      font-size: 9px; font-weight: 700; font-family: var(--mono);
+      text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3);
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      padding: 0 4px; line-height: 1.2;
+    }
+    .e-cell {
+      padding: 14px 10px; border-radius: 6px; text-align: center;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em;
+      border: 2px solid transparent; transition: border-color var(--transition), transform var(--transition);
+    }
+    .e-cell small { display: block; font-weight: 500; font-size: 0.62rem; margin-top: 4px; opacity: 0.85; }
+    .e-cell--do { background: rgba(52,211,153,0.18); color: var(--green); }
+    .e-cell--schedule { background: rgba(52,211,153,0.10); color: var(--green); }
+    .e-cell--delegate { background: rgba(251,191,36,0.12); color: var(--yellow); }
+    .e-cell--delete { background: rgba(248,113,113,0.10); color: var(--red); }
+    .e-cell.active { border-color: currentColor; transform: scale(1.02); }
+
+    .e-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+
+    /* ICE */
+    .fw-card--2 .fw-num { background: #1e3a5f; }
+    .ice-sliders { display: flex; flex-direction: column; gap: 14px; }
+    .ice-row { display: grid; grid-template-columns: 90px 1fr 36px; gap: 10px; align-items: center; }
+    .ice-row span:first-child { font-size: 0.78rem; font-weight: 600; color: var(--text-2); }
+    .ice-row input[type="range"] { width: 100%; accent-color: var(--accent); }
+    .ice-val { font-family: var(--mono); font-size: 0.85rem; font-weight: 700; color: var(--accent); text-align: right; }
+    .ice-formula {
+      text-align: center; margin-top: 16px; padding: 14px;
+      background: var(--surface); border-radius: var(--radius-sm); border: 1px solid var(--border);
+      font-family: var(--mono); font-size: 0.78rem; color: var(--text-2);
+    }
+    .ice-formula strong { font-size: 1.4rem; color: var(--accent); }
+
+    /* 40/70 */
+    .fw-card--3 .fw-num { background: #c45c00; }
+    .rule4070-track {
+      position: relative; height: 36px; border-radius: 18px; overflow: hidden;
+      background: var(--surface); border: 1px solid var(--border); margin: 12px 0 8px;
+    }
+    .rule4070-zone {
+      position: absolute; top: 0; bottom: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.62rem; font-weight: 700; font-family: var(--mono); letter-spacing: 0.04em;
+    }
+    .rule4070-zone--low { left: 0; width: 40%; background: rgba(248,113,113,0.15); color: var(--red); }
+    .rule4070-zone--sweet { left: 40%; width: 30%; background: rgba(167,139,250,0.25); color: var(--accent2); }
+    .rule4070-zone--high { left: 70%; width: 30%; background: rgba(148,163,184,0.15); color: var(--text-3); }
+    .rule4070-marker {
+      position: absolute; top: -4px; width: 4px; height: 44px; background: var(--accent);
+      border-radius: 2px; transform: translateX(-50%); transition: left 0.15s ease;
+      box-shadow: 0 0 8px var(--accent);
+    }
+    .rule4070-labels { display: flex; justify-content: space-between; font-size: 0.68rem; font-family: var(--mono); color: var(--text-3); }
+
+    /* OODA */
+    .fw-card--4 .fw-num { background: #2d6a4f; }
+    .ooda-loop {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+    }
+    @media (max-width: 560px) { .ooda-loop { grid-template-columns: repeat(2, 1fr); } }
+    .ooda-step {
+      padding: 14px 10px; border-radius: var(--radius-sm); text-align: center;
+      border: 2px solid var(--border); background: var(--surface); cursor: pointer;
+      transition: all var(--transition);
+    }
+    .ooda-step:hover { border-color: var(--border2); }
+    .ooda-step.active { border-color: var(--green); background: rgba(52,211,153,0.08); }
+    .ooda-letter { font-size: 1.2rem; font-weight: 800; color: var(--green); font-family: var(--mono); }
+    .ooda-name { font-size: 0.72rem; font-weight: 700; color: var(--text); margin: 4px 0 2px; }
+    .ooda-desc { font-size: 0.65rem; color: var(--text-3); line-height: 1.4; }
+    .ooda-detail {
+      margin-top: 14px; padding: 12px 14px; border-radius: var(--radius-sm);
+      background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.25);
+      font-size: 0.82rem; color: var(--text-2); min-height: 48px;
+    }
+
+    /* 80/20 */
+    .fw-card--5 .fw-num { background: #5b21b6; }
+    .pareto-chart { display: flex; align-items: flex-end; gap: 6px; height: 100px; padding-top: 8px; }
+    .pareto-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; justify-content: flex-end; }
+    .pareto-bar {
+      width: 100%; border-radius: 4px 4px 0 0; background: var(--surface3);
+      transition: height var(--transition);
+    }
+    .pareto-bar--top { background: linear-gradient(to top, var(--accent2), var(--accent)); }
+    .pareto-bar-label { font-size: 0.6rem; font-family: var(--mono); color: var(--text-3); }
+    .pareto-note { text-align: center; margin-top: 12px; font-size: 0.78rem; color: var(--text-2); }
+    .pareto-note strong { color: var(--accent2); }
+
+    /* RAPID */
+    .fw-card--6 .fw-num { background: #4c1d95; }
+    .rapid-cross {
+      display: grid; grid-template-columns: 1fr 1.2fr 1fr; grid-template-rows: 1fr 1.2fr 1fr;
+      gap: 6px; max-width: 340px; margin: 0 auto;
+    }
+    .rapid-cell {
+      padding: 10px 8px; border-radius: var(--radius-sm); text-align: center;
+      border: 1px solid var(--border); background: var(--surface);
+      font-size: 0.68rem; line-height: 1.35;
+    }
+    .rapid-cell strong { display: block; font-size: 0.85rem; color: var(--accent2); margin-bottom: 2px; }
+    .rapid-cell--center {
+      grid-column: 2; grid-row: 2;
+      background: rgba(167,139,250,0.12); border-color: rgba(167,139,250,0.35);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .rapid-cell--center strong { font-size: 1.1rem; }
+    .rapid-empty { visibility: hidden; }
+
+    /* 10/10/10 */
+    .fw-card--7 .fw-num { background: #0f766e; }
+    .t101010-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    @media (max-width: 640px) { .t101010-grid { grid-template-columns: 1fr; } }
+    .t101010-col { text-align: center; }
+    .t101010-icon { font-size: 1.6rem; margin-bottom: 6px; }
+    .t101010-time { font-size: 0.72rem; font-weight: 700; font-family: var(--mono); color: var(--green); margin-bottom: 8px; }
+
+    /* 5 Whys */
+    .fw-card--8 .fw-num { background: #14532d; }
+    .whys-chain { display: flex; flex-direction: column; gap: 0; align-items: center; }
+    .whys-node {
+      width: 100%; padding: 10px 12px; border-radius: var(--radius-sm);
+      border: 1px solid var(--border); background: var(--surface); text-align: center;
+    }
+    .whys-node--root {
+      background: rgba(52,211,153,0.10); border-color: rgba(52,211,153,0.35);
+      font-weight: 600; color: var(--green);
+    }
+    .whys-arrow { color: var(--text-3); font-size: 0.9rem; padding: 2px 0; }
+
+    /* SWOT */
+    .fw-card--9 .fw-num { background: #b45309; }
+    .swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    @media (max-width: 520px) { .swot-grid { grid-template-columns: 1fr; } }
+    .swot-quad { padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border); }
+    .swot-quad h3 { font-size: 0.78rem; font-weight: 800; margin-bottom: 8px; font-family: var(--mono); }
+    .swot-quad--s { background: rgba(52,211,153,0.06); border-color: rgba(52,211,153,0.25); }
+    .swot-quad--s h3 { color: var(--green); }
+    .swot-quad--w { background: rgba(248,113,113,0.06); border-color: rgba(248,113,113,0.25); }
+    .swot-quad--w h3 { color: var(--red); }
+    .swot-quad--o { background: rgba(108,140,255,0.06); border-color: rgba(108,140,255,0.25); }
+    .swot-quad--o h3 { color: var(--accent); }
+    .swot-quad--t { background: rgba(251,191,36,0.06); border-color: rgba(251,191,36,0.25); }
+    .swot-quad--t h3 { color: var(--yellow); }
+    .swot-axis {
+      display: flex; justify-content: space-between; margin-bottom: 8px;
+      font-size: 0.62rem; font-weight: 700; font-family: var(--mono);
+      text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3);
+    }
+
+    .page-note {
+      margin-top: 40px; padding: 16px 18px; border-radius: var(--radius-sm);
+      background: var(--glow); border: 1px solid rgba(108,140,255,0.2);
+      font-size: 0.78rem; color: var(--text-2); line-height: 1.55;
+    }
+    .page-note strong { color: var(--text); }
+
+    footer {
+      text-align: center; padding: 32px 24px;
+      font-size: 0.75rem; font-family: var(--mono); color: var(--text-3);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 16px; }
+      .page-hero { padding: 56px 16px 32px; }
+      main { padding: 0 16px 80px; }
+      .e-controls { grid-template-columns: 1fr; }
+      .fw-head { padding: 18px 16px 14px; }
+      .fw-body { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">Lucas<span>.</span>dev</div>
+    <div class="nav-right">
+      <a class="nav-back" href="index.html#priority" data-i18n="nav.back">← Back to portfolio</a>
+      <button id="lang-btn" class="lang-btn" onclick="toggleLang()" aria-label="Toggle language">🇧🇷 PT</button>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-label" data-i18n="hero.label">Decision-making · QA &amp; delivery</div>
+    <h1 data-i18n="hero.h1">How to define priorities even when everything feels urgent</h1>
+    <p data-i18n="hero.desc">Nine complementary frameworks for separating urgency from strategy, ranking competing work, and making faster decisions under pressure. Each section includes a <strong>visual model</strong> and a <strong>mini interactive tool</strong> you can use in triage, planning, or retros.</p>
+  </div>
+
+  <main>
+    <nav class="toc" aria-label="Frameworks">
+      <a href="#fw-1">1 · Eisenhower</a>
+      <a href="#fw-2">2 · ICE</a>
+      <a href="#fw-3">3 · 40/70</a>
+      <a href="#fw-4">4 · OODA</a>
+      <a href="#fw-5">5 · 80/20</a>
+      <a href="#fw-6">6 · RAPID</a>
+      <a href="#fw-7">7 · 10/10/10</a>
+      <a href="#fw-8">8 · 5 Whys</a>
+      <a href="#fw-9">9 · SWOT</a>
+    </nav>
+
+    <div class="fw-grid">
+
+      <!-- 1 Eisenhower -->
+      <article class="fw-card fw-card--1" id="fw-1">
+        <header class="fw-head">
+          <div class="fw-num">1</div>
+          <div class="fw-head-text">
+            <h2 data-i18n="fw1.title">Eisenhower Matrix</h2>
+            <p class="fw-author" data-i18n="fw1.author">Dwight D. Eisenhower</p>
+            <p class="fw-purpose" data-i18n="fw1.purpose">Separate what is urgent from what is truly strategic.</p>
+          </div>
+        </header>
+        <div class="fw-body">
+          <div class="fw-visual">
+            <div class="eisenhower" aria-hidden="true">
+              <div class="e-corner"></div>
+              <div class="e-col-h" data-i18n="fw1.urgent">Urgent</div>
+              <div class="e-col-h" data-i18n="fw1.notUrgent">Not urgent</div>
+              <div class="e-row-h" data-i18n="fw1.important">Important</div>
+              <div class="e-cell e-cell--do" id="e-do" data-quadrant="do"><span data-i18n="fw1.do">DO</span><small data-i18n="fw1.doDesc">Important &amp; urgent</small></div>
+              <div class="e-cell e-cell--schedule" id="e-schedule" data-quadrant="schedule"><span data-i18n="fw1.schedule">SCHEDULE</span><small data-i18n="fw1.scheduleDesc">Important, not urgent</small></div>
+              <div class="e-row-h" data-i18n="fw1.notImportant">Not important</div>
+              <div class="e-cell e-cell--delegate" id="e-delegate" data-quadrant="delegate"><span data-i18n="fw1.delegate">DELEGATE</span><small data-i18n="fw1.delegateDesc">Urgent, not important</small></div>
+              <div class="e-cell e-cell--delete" id="e-delete" data-quadrant="delete"><span data-i18n="fw1.delete">DELETE</span><small data-i18n="fw1.deleteDesc">Neither</small></div>
+            </div>
+          </div>
+          <div class="fw-tool e-controls">
+            <div>
+              <label for="e-importance" data-i18n="fw1.lblImp">Importance</label>
+              <select id="e-importance">
+                <option value="important" data-i18n="fw1.optImp">Important</option>
+                <option value="not" data-i18n="fw1.optNotImp">Not important</option>
+              </select>
+            </div>
+            <div>
+              <label for="e-urgency" data-i18n="fw1.lblUrg">Urgency</label>
+              <select id="e-urgency">
+                <option value="urgent" data-i18n="fw1.optUrg">Urgent</option>
+                <option value="not" data-i18n="fw1.optNotUrg">Not urgent</option>
+              </select>
+            </div>
+          </div>
+          <div class="fw-tool">
+            <label for="e-task" data-i18n="fw1.lblTask">Task or defect</label>
+            <input type="text" id="e-task" placeholder="e.g. P1 login blocker before release" data-i18n-placeholder="fw1.phTask" />
+          </div>
+          <div class="fw-result e-cell--do" id="e-result" role="status"></div>
+        </div>
+      </article>
+
+      <!-- 2 ICE -->
+      <article class="fw-card fw-card--2" id="fw-2">
+        <header class="fw-head">
+          <div class="fw-num">2</div>
+          <div class="fw-head-text">
+            <h2 data-i18n="fw2.title">ICE Scoring Model</h2>
+            <p class="fw-author" data-i18n="fw2.author">Sean Ellis</p>
+            <p class="fw-purpose" data-i18n="fw2.purpose">Quickly evaluate several competing initiatives.</p>
+          </div>
+        </header>
+        <div class="fw-body">
+          <div class="fw-visual ice-sliders">
+            <div class="ice-row">
+              <span data-i18n="fw2.impact">Impact</span>
+              <input type="range" id="ice-impact" min="1" max="10" value="7" />
+              <span class="ice-val" id="ice-impact-v">7</span>
+            </div>
+            <div class="ice-row">
+              <span data-i18n="fw2.confidence">Confidence</span>
+              <input type="range" id="ice-confidence" min="1" max="10" value="6" />
+              <span class="ice-val" id="ice-confidence-v">6</span>
+            </div>
+            <div class="ice-row">
+              <span data-i18n="fw2.ease">Ease</span>
+              <input type="range" id="ice-ease" min="1" max="10" value="5" />
+              <span class="ice-val" id="ice-ease-v">5</span>
+            </div>
+          </div>
+          <div class="ice-formula">
+            <span data-i18n="fw2.formula">Impact × Confidence × Ease =</span>
+            <strong id="ice-score">210</strong>
+          </div>
+          <div class="fw-tool" style="margin-top:14px;">
+            <label for="ice-name" data-i18n="fw2.lblInit">Initiative</label>
+            <input type="text" id="ice-name" placeholder="e.g. Add component tests for checkout modal" data-i18n-placeholder="fw2.phInit" />
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 40/70 -->
+      <article class="fw-card fw-card--3" id="fw-3">
+        <header class="fw-head">
+          <div class="fw-num">3</div>
+          <div class="fw-head-text">
+            <h2 data-i18n="fw3.title">40/70 Rule</h2>
+            <p class="fw-author" data-i18n="fw3.author">Colin Powell</p>
+            <p class="fw-purpose" data-i18n="fw3.purpose">Prioritize speed over perfection when quick decisions are required.</p>
+          </div>
+        </header>
+        <div class="fw-body">
+          <div class="fw-visual">
+            <div class="rule4070-track">
+              <div class="rule4070-zone rule4070-zone--low" data-i18n="fw3.zoneLow">Too little info</div>
+              <div class="rule4070-zone rule4070-zone--sweet" data-i18n="fw3.zoneSweet">Decision zone</div>
+              <div class="rule4070-zone rule4070-zone--high" data-i18n="fw3.zoneHigh">Analysis paralysis</div>
+              <div class="rule4070-marker" id="rule4070-marker" style="left:55%"></div>
+            </div>
+            <div class="rule4070-labels"><span>0</span><span>40</span><span>70</span><span>100</span></div>
+          </div>
+          <div class="fw-tool">
+            <label for="rule4070-range" data-i18n="fw3.lblInfo">Information gathered (%)</label>
+            <input type="range" id="rule4070-range" min="0" max="100" value="55" style="width:100%;accent-color:var(--accent);" />
+          </div>
+          <div class="fw-result" id="rule4070-result" style="border-color:rgba(167,139,250,0.4);background:rgba(167,139,250,0.08);color:var(--accent2);"></div>
+        </div>
+      </article>
+
+      <!-- 4 OODA -->
+      <article class="fw-card fw-card--4" id="fw-4">
+        <header class="fw-head">
+          <div class="fw-num">4</div>
+          <div class="fw-head-text">
+            <h2 data-i18n="fw4.title">OODA Loop</h2>
+            <p class="fw-author" data-i18n="fw4.author">John Boyd</p>
+            <p class="fw-purpose" data-i18n="fw4.purpose">Reprioritize quickly when the scenario changes.</p>
+          </div>
+        </header>
+        <div class="fw-body">
+          <div class="ooda-loop" id="ooda-loop">
+            <button type="button" class="ooda-step active" data-step="0">
+              <div class="ooda-letter">O</div>
+              <div class="ooda-name" data-i18n="fw4.observe">Observe</div>
+              <div class="ooda-desc" data-i18n="fw4.observeDesc">Gather current data</div>
+            </button>
+            <button type="button" class="ooda-step" data-step="1">
+              <div class="ooda-letter">O</div>
+              <div class="ooda-name" data-i18n="fw4.orient">Orient</div>
+              <div class="ooda-desc" data-i18n="fw4.orientDesc">Analyze &amp; synthesize</div>
+            </button>
+            <button type="button" class="ooda-step" data-step="2">
+              <div class="ooda-letter">D</div>
+              <div class="ooda-name" data-i18n="fw4.decide">Decide</div>
+              <div class="ooda-desc" data-i18n="fw4.decideDesc">Choose course of action</div>
+            </button>
+            <button type="button" class="ooda-step" data-step="3">
+              <div class="ooda-letter">A</div>
+              <div class="ooda-name" data-i18n="fw4.act">Act</div>
+              <div class="ooda-desc" data-i18n="fw4.actDesc">Execute &amp; monitor</div>
+            </button>
+          </div>
+          <div class="ooda-detail" id="ooda-detail" data-i18n="fw4.detail0">Collect facts first: logs, repro steps, severity, who is blocked, and what changed since last deploy.</div>
+        </div>
+      </article>
+
+      <!-- 5 80/20 -->
+      <article class="fw-card fw-card--5" id="fw-5">
+        <header class="fw-head">
+          <div class="fw-num">5</div>
+          <div class="fw-head-text">
+            <h2 data-i18n="fw5.title">80/20 Rule (Pareto)</h2>
+            <p class="fw-author" data-i18n="fw5.author">Vilfredo Pareto</p>
+            <p class="fw-purpose" data-i18n="fw5.purpose">Identify the few vital factors that generate most of the results.</p>
+          </div>
+        </header>
+        <div class="fw-body">
+          <div class="fw-visual">
+            <div class="pareto-chart" aria-hidden="true">
+              <div class="pareto-bar-wrap"><div class="pareto-bar pareto-bar--top" style="height:92%"></div><span class="pareto-bar-label">A</span></div>
+              <div class="pareto-bar-wrap"><div class="pareto-bar pareto-bar--top" style="height:78%"></div><span class="pareto-bar-label">B</span></div>
+              <div class="pareto-bar-wrap"><div class="pareto-bar" style="height:35%"></div><span class="pareto-bar-label">C</span></div>
+              <div class="pareto-bar-wrap"><div class="pareto-bar" style="height:22%"></div><span class="pareto-bar-label">D</span></div>
+              <div class="pareto-bar-wrap"><div class="pareto-bar" style="height:15%"></div><span class="pareto-bar-label">E</span></div>
+              <div class="pareto-bar-wrap"><div class="pareto-bar" style="height:10%"></div><span class="pareto-bar-label">F</span></div>
+              <div class="pareto-bar-wrap"><div class="pareto-bar" style="height:8%"></div><span class="pareto-bar-label">G</span></div>
+              <div class="pareto-bar-wrap"><div class="pareto-bar" style="height:6%"></div><span class="pareto-bar-label">H</span></div>
+              <div class="pareto-bar-wrap"><div class="pareto-bar" style="height:5%"></div><span class="pareto-bar-label">I</span></div>
+              <div class="pareto-bar-wrap"><div class="pareto-bar" style="height:4%"></div><span class="pareto-bar-label">J</span></div>
+            </div>
+            <p class="pareto-note" data-i18n="fw5.note"><strong>~20%</strong> of highest-impact actions drive <strong>~80%</strong> of desired outcomes.</p>
+          </div>
+          <div class="fw-tool">
+            <label for="pareto-list" data-i18n="fw5.lblList">List initiatives (one per line) — top 2–3 are usually your vital few</label>
+            <textarea id="pareto-list" rows="4" placeholder="Smoke suite&#10;API contract tests&#10;Visual regression&#10;..." data-i18n-placeholder="fw5.phList"></textarea>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6 RAPID -->
+      <article class="fw-card fw-card--6" id="fw-6">
+        <header class="fw-head">
+          <div class="fw-num">6</div>
+          <div class="fw-head-text">
+            <h2 data-i18n="fw6.title">RAPID® Model</h2>
+            <p class="fw-author" data-i18n="fw6.author">Bain &amp; Company</p>
+            <p class="fw-purpose" data-i18n="fw6.purpose">Define team roles in complex decisions.</p>
+          </div>
+        </header>
+        <div class="fw-body">
+          <div class="fw-visual">
+            <div class="rapid-cross" aria-hidden="true">
+              <div class="rapid-cell rapid-empty"></div>
+              <div class="rapid-cell"><strong>A</strong><span data-i18n="fw6.a">Agree</span><br/><span data-i18n="fw6.aDesc">Validates proposal</span></div>
+              <div class="rapid-cell rapid-empty"></div>
+              <div class="rapid-cell"><strong>R</strong><span data-i18n="fw6.r">Recommend</span><br/><span data-i18n="fw6.rDesc">Proposes decision</span></div>
+              <div class="rapid-cell rapid-cell--center"><strong>D</strong><span data-i18n="fw6.d">Decide</span><br/><span data-i18n="fw6.dDesc">Sets direction</span></div>
+              <div class="rapid-cell"><strong>P</strong><span data-i18n="fw6.p">Perform</span><br/><span data-i18n="fw6.pDesc">Executes decision</span></div>
+              <div class="rapid-cell rapid-empty"></div>
+              <div class="rapid-cell"><strong>I</strong><span data-i18n="fw6.i">Input</span><br/><span data-i18n="fw6.iDesc">Technical guidance</span></div>
+              <div class="rapid-cell rapid-empty"></div>
+            </div>
+          </div>
+          <div class="fw-tool">
+            <label for="rapid-decision" data-i18n="fw6.lblDecision">Decision in progress</label>
+            <input type="text" id="rapid-decision" placeholder="e.g. Ship hotfix vs wait for full regression" data-i18n-placeholder="fw6.phDecision" />
+          </div>
+          <div class="fw-tool">
+            <label for="rapid-roles" data-i18n="fw6.lblRoles">Assign R · A · P · I · D (names or roles)</label>
+            <textarea id="rapid-roles" rows="3" placeholder="R: QA lead proposes test scope&#10;D: EM decides go/no-go&#10;..." data-i18n-placeholder="fw6.phRoles"></textarea>
+          </div>
+        </div>
+      </article>
+
+      <!-- 7 10/10/10 -->
+      <article class="fw-card fw-card--7" id="fw-7">
+        <header class="fw-head">
+          <div class="fw-num">7</div>
+          <div class="fw-head-text">
+            <h2 data-i18n="fw7.title">10/10/10 Rule</h2>
+            <p class="fw-author" data-i18n="fw7.author">Suzy Welch</p>
+            <p class="fw-purpose" data-i18n="fw7.purpose">Balance short-term urgencies with long-term priorities.</p>
+          </div>
+        </header>
+        <div class="fw-body">
+          <div class="t101010-grid">
+            <div class="t101010-col">
+              <div class="t101010-icon">⏱</div>
+              <div class="t101010-time" data-i18n="fw7.t10m">10 minutes</div>
+              <div class="fw-tool">
+                <label for="t10m" data-i18n="fw7.lbl10m">Immediate impact</label>
+                <textarea id="t10m" rows="3" data-i18n-placeholder="fw7.ph10m" placeholder="What happens right now if I choose A vs B?"></textarea>
+              </div>
+            </div>
+            <div class="t101010-col">
+              <div class="t101010-icon">📅</div>
+              <div class="t101010-time" data-i18n="fw7.t10mo">10 months</div>
+              <div class="fw-tool">
+                <label for="t10mo" data-i18n="fw7.lbl10mo">Medium-term effects</label>
+                <textarea id="t10mo" rows="3" data-i18n-placeholder="fw7.ph10mo" placeholder="How does this affect the next few sprints or releases?"></textarea>
+              </div>
+            </div>
+            <div class="t101010-col">
+              <div class="t101010-icon">🔭</div>
+              <div class="t101010-time" data-i18n="fw7.t10y">10 years</div>
+              <div class="fw-tool">
+                <label for="t10y" data-i18n="fw7.lbl10y">Long-term consequences</label>
+                <textarea id="t10y" rows="3" data-i18n-placeholder="fw7.ph10y" placeholder="Career, team culture, technical debt legacy?"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 8 5 Whys -->
+      <article class="fw-card fw-card--8" id="fw-8">
+        <header class="fw-head">
+          <div class="fw-num">8</div>
+          <div class="fw-head-text">
+            <h2 data-i18n="fw8.title">5 Whys Method</h2>
+            <p class="fw-author" data-i18n="fw8.author">Sakichi Toyoda</p>
+            <p class="fw-purpose" data-i18n="fw8.purpose">Prioritize root causes instead of symptoms.</p>
+          </div>
+        </header>
+        <div class="fw-body">
+          <div class="whys-chain">
+            <div class="fw-tool" style="width:100%;">
+              <label for="why-problem" data-i18n="fw8.lblProblem">Define the problem</label>
+              <input type="text" id="why-problem" placeholder="e.g. Payment failed in production" data-i18n-placeholder="fw8.phProblem" />
+            </div>
+            <div class="whys-arrow">↓</div>
+            <div class="fw-tool" style="width:100%;"><label data-i18n="fw8.why1">Why 1?</label><input type="text" class="why-input" data-level="1" /></div>
+            <div class="whys-arrow">↓</div>
+            <div class="fw-tool" style="width:100%;"><label data-i18n="fw8.why2">Why 2?</label><input type="text" class="why-input" data-level="2" /></div>
+            <div class="whys-arrow">↓</div>
+            <div class="fw-tool" style="width:100%;"><label data-i18n="fw8.why3">Why 3?</label><input type="text" class="why-input" data-level="3" /></div>
+            <div class="whys-arrow">↓</div>
+            <div class="fw-tool" style="width:100%;"><label data-i18n="fw8.why4">Why 4?</label><input type="text" class="why-input" data-level="4" /></div>
+            <div class="whys-arrow">↓</div>
+            <div class="fw-tool" style="width:100%;"><label data-i18n="fw8.why5">Why 5?</label><input type="text" class="why-input" data-level="5" /></div>
+            <div class="whys-arrow">↓</div>
+            <div class="whys-node whys-node--root" id="why-root" data-i18n="fw8.root">Root cause → prioritize fix here</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 9 SWOT -->
+      <article class="fw-card fw-card--9" id="fw-9">
+        <header class="fw-head">
+          <div class="fw-num">9</div>
+          <div class="fw-head-text">
+            <h2 data-i18n="fw9.title">SWOT Analysis</h2>
+            <p class="fw-author" data-i18n="fw9.author">Albert Humphrey</p>
+            <p class="fw-purpose" data-i18n="fw9.purpose">Prioritize initiatives based on strategic position.</p>
+          </div>
+        </header>
+        <div class="fw-body">
+          <div class="swot-axis"><span data-i18n="fw9.internal">Internal</span><span data-i18n="fw9.external">External</span></div>
+          <div class="swot-grid">
+            <div class="swot-quad swot-quad--s">
+              <h3 data-i18n="fw9.s">S · Strengths</h3>
+              <textarea rows="3" placeholder="What advantages do we have?" data-i18n-placeholder="fw9.phS"></textarea>
+            </div>
+            <div class="swot-quad swot-quad--w">
+              <h3 data-i18n="fw9.w">W · Weaknesses</h3>
+              <textarea rows="3" placeholder="What gaps or constraints?" data-i18n-placeholder="fw9.phW"></textarea>
+            </div>
+            <div class="swot-quad swot-quad--o">
+              <h3 data-i18n="fw9.o">O · Opportunities</h3>
+              <textarea rows="3" placeholder="What trends or openings?" data-i18n-placeholder="fw9.phO"></textarea>
+            </div>
+            <div class="swot-quad swot-quad--t">
+              <h3 data-i18n="fw9.t">T · Threats</h3>
+              <textarea rows="3" placeholder="What risks or blockers?" data-i18n-placeholder="fw9.phT"></textarea>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <p class="page-note" data-i18n="page.note"><strong>Related:</strong> On the main portfolio, <a href="index.html#priority">Bug priority</a> covers <em>when</em> to fix defects in Jira; these frameworks help decide <em>what</em> to work on when everything competes for attention. Visual reference inspired by Thiago Trindade · Koncepto Gestão Corporativa.</p>
+  </main>
+
+  <footer>
+    <span data-i18n="footer.text">Lucas Ferreira · Senior QA Engineer · Prioritization Frameworks</span>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+
+    const translations = {
+      en: {
+        'nav.back': '← Back to portfolio',
+        'hero.label': 'Decision-making · QA & delivery',
+        'hero.h1': 'How to define priorities even when everything feels urgent',
+        'hero.desc': 'Nine complementary frameworks for separating urgency from strategy, ranking competing work, and making faster decisions under pressure. Each section includes a <strong>visual model</strong> and a <strong>mini interactive tool</strong> you can use in triage, planning, or retros.',
+        'fw1.title': 'Eisenhower Matrix', 'fw1.author': 'Dwight D. Eisenhower',
+        'fw1.purpose': 'Separate what is urgent from what is truly strategic.',
+        'fw1.urgent': 'Urgent', 'fw1.notUrgent': 'Not urgent', 'fw1.important': 'Important', 'fw1.notImportant': 'Not important',
+        'fw1.do': 'DO', 'fw1.doDesc': 'Important & urgent', 'fw1.schedule': 'SCHEDULE', 'fw1.scheduleDesc': 'Important, not urgent',
+        'fw1.delegate': 'DELEGATE', 'fw1.delegateDesc': 'Urgent, not important', 'fw1.delete': 'DELETE', 'fw1.deleteDesc': 'Neither',
+        'fw1.lblImp': 'Importance', 'fw1.lblUrg': 'Urgency', 'fw1.optImp': 'Important', 'fw1.optNotImp': 'Not important',
+        'fw1.optUrg': 'Urgent', 'fw1.optNotUrg': 'Not urgent', 'fw1.lblTask': 'Task or defect', 'fw1.phTask': 'e.g. P1 login blocker before release',
+        'fw2.title': 'ICE Scoring Model', 'fw2.author': 'Sean Ellis', 'fw2.purpose': 'Quickly evaluate several competing initiatives.',
+        'fw2.impact': 'Impact', 'fw2.confidence': 'Confidence', 'fw2.ease': 'Ease', 'fw2.formula': 'Impact × Confidence × Ease =',
+        'fw2.lblInit': 'Initiative', 'fw2.phInit': 'e.g. Add component tests for checkout modal',
+        'fw3.title': '40/70 Rule', 'fw3.author': 'Colin Powell', 'fw3.purpose': 'Prioritize speed over perfection when quick decisions are required.',
+        'fw3.zoneLow': 'Too little info', 'fw3.zoneSweet': 'Decision zone', 'fw3.zoneHigh': 'Analysis paralysis',
+        'fw3.lblInfo': 'Information gathered (%)',
+        'fw3.resLow': 'Wait — gather more data before committing.',
+        'fw3.resSweet': 'Sweet spot — decide now with available evidence.',
+        'fw3.resHigh': 'Stop researching — decide or you lose momentum.',
+        'fw4.title': 'OODA Loop', 'fw4.author': 'John Boyd', 'fw4.purpose': 'Reprioritize quickly when the scenario changes.',
+        'fw4.observe': 'Observe', 'fw4.observeDesc': 'Gather current data', 'fw4.orient': 'Orient', 'fw4.orientDesc': 'Analyze & synthesize',
+        'fw4.decide': 'Decide', 'fw4.decideDesc': 'Choose course of action', 'fw4.act': 'Act', 'fw4.actDesc': 'Execute & monitor',
+        'fw4.detail0': 'Collect facts first: logs, repro steps, severity, who is blocked, and what changed since last deploy.',
+        'fw4.detail1': 'Map context: business impact, blast radius, known workarounds, and assumptions vs verified facts.',
+        'fw4.detail2': 'Pick the smallest action that reduces risk — hotfix, rollback, feature flag, or defer with explicit owner.',
+        'fw4.detail3': 'Ship the decision, monitor signals, and loop back if reality diverges from the plan.',
+        'fw5.title': '80/20 Rule (Pareto)', 'fw5.author': 'Vilfredo Pareto',
+        'fw5.purpose': 'Identify the few vital factors that generate most of the results.',
+        'fw5.note': '<strong>~20%</strong> of highest-impact actions drive <strong>~80%</strong> of desired outcomes.',
+        'fw5.lblList': 'List initiatives (one per line) — top 2–3 are usually your vital few', 'fw5.phList': 'Smoke suite\nAPI contract tests\nVisual regression\n...',
+        'fw6.title': 'RAPID® Model', 'fw6.author': 'Bain & Company', 'fw6.purpose': 'Define team roles in complex decisions.',
+        'fw6.a': 'Agree', 'fw6.aDesc': 'Validates proposal', 'fw6.r': 'Recommend', 'fw6.rDesc': 'Proposes decision',
+        'fw6.d': 'Decide', 'fw6.dDesc': 'Sets direction', 'fw6.p': 'Perform', 'fw6.pDesc': 'Executes decision',
+        'fw6.i': 'Input', 'fw6.iDesc': 'Technical guidance',
+        'fw6.lblDecision': 'Decision in progress', 'fw6.phDecision': 'e.g. Ship hotfix vs wait for full regression',
+        'fw6.lblRoles': 'Assign R · A · P · I · D (names or roles)', 'fw6.phRoles': 'R: QA lead proposes test scope\nD: EM decides go/no-go\n...',
+        'fw7.title': '10/10/10 Rule', 'fw7.author': 'Suzy Welch', 'fw7.purpose': 'Balance short-term urgencies with long-term priorities.',
+        'fw7.t10m': '10 minutes', 'fw7.t10mo': '10 months', 'fw7.t10y': '10 years',
+        'fw7.lbl10m': 'Immediate impact', 'fw7.ph10m': 'What happens right now if I choose A vs B?',
+        'fw7.lbl10mo': 'Medium-term effects', 'fw7.ph10mo': 'How does this affect the next few sprints or releases?',
+        'fw7.lbl10y': 'Long-term consequences', 'fw7.ph10y': 'Career, team culture, technical debt legacy?',
+        'fw8.title': '5 Whys Method', 'fw8.author': 'Sakichi Toyoda', 'fw8.purpose': 'Prioritize root causes instead of symptoms.',
+        'fw8.lblProblem': 'Define the problem', 'fw8.phProblem': 'e.g. Payment failed in production',
+        'fw8.why1': 'Why 1?', 'fw8.why2': 'Why 2?', 'fw8.why3': 'Why 3?', 'fw8.why4': 'Why 4?', 'fw8.why5': 'Why 5?',
+        'fw8.root': 'Root cause → prioritize fix here',
+        'fw9.title': 'SWOT Analysis', 'fw9.author': 'Albert Humphrey', 'fw9.purpose': 'Prioritize initiatives based on strategic position.',
+        'fw9.internal': 'Internal', 'fw9.external': 'External',
+        'fw9.s': 'S · Strengths', 'fw9.w': 'W · Weaknesses', 'fw9.o': 'O · Opportunities', 'fw9.t': 'T · Threats',
+        'fw9.phS': 'What advantages do we have?', 'fw9.phW': 'What gaps or constraints?',
+        'fw9.phO': 'What trends or openings?', 'fw9.phT': 'What risks or blockers?',
+        'page.note': '<strong>Related:</strong> On the main portfolio, <a href="index.html#priority">Bug priority</a> covers <em>when</em> to fix defects in Jira; these frameworks help decide <em>what</em> to work on when everything competes for attention. Visual reference inspired by Thiago Trindade · Koncepto Gestão Corporativa.',
+        'footer.text': 'Lucas Ferreira · Senior QA Engineer · Prioritization Frameworks',
+        'e.do': '→ DO now', 'e.schedule': '→ SCHEDULE (protect time)', 'e.delegate': '→ DELEGATE', 'e.delete': '→ DELETE / drop'
+      },
+      pt: {
+        'nav.back': '← Voltar ao portfolio',
+        'hero.label': 'Tomada de decisão · QA & entrega',
+        'hero.h1': 'Como definir prioridades mesmo quando tudo parece urgente',
+        'hero.desc': 'Nove frameworks complementares para separar urgência de estratégia, ranquear trabalhos concorrentes e decidir mais rápido sob pressão. Cada seção traz um <strong>modelo visual</strong> e uma <strong>ferramenta interativa</strong> para triage, planning ou retrospectivas.',
+        'fw1.title': 'Matriz de Eisenhower', 'fw1.author': 'Dwight D. Eisenhower',
+        'fw1.purpose': 'Separe o que é urgente do que é realmente estratégico.',
+        'fw1.urgent': 'Urgente', 'fw1.notUrgent': 'Não urgente', 'fw1.important': 'Importante', 'fw1.notImportant': 'Não importante',
+        'fw1.do': 'FAÇA', 'fw1.doDesc': 'Importante e urgente', 'fw1.schedule': 'AGENDE', 'fw1.scheduleDesc': 'Importante, não urgente',
+        'fw1.delegate': 'DELEGUE', 'fw1.delegateDesc': 'Urgente, não importante', 'fw1.delete': 'DELETE', 'fw1.deleteDesc': 'Nenhum dos dois',
+        'fw1.lblImp': 'Importância', 'fw1.lblUrg': 'Urgência', 'fw1.optImp': 'Importante', 'fw1.optNotImp': 'Não importante',
+        'fw1.optUrg': 'Urgente', 'fw1.optNotUrg': 'Não urgente', 'fw1.lblTask': 'Tarefa ou defeito', 'fw1.phTask': 'ex.: blocker de login P1 antes do release',
+        'fw2.title': 'Modelo ICE Scoring', 'fw2.author': 'Sean Ellis', 'fw2.purpose': 'Avalie rapidamente várias iniciativas concorrentes.',
+        'fw2.impact': 'Impacto', 'fw2.confidence': 'Confiança', 'fw2.ease': 'Facilidade', 'fw2.formula': 'Impacto × Confiança × Facilidade =',
+        'fw2.lblInit': 'Iniciativa', 'fw2.phInit': 'ex.: Adicionar component tests no modal de checkout',
+        'fw3.title': 'Regra 40/70', 'fw3.author': 'Colin Powell', 'fw3.purpose': 'Priorize velocidade em vez de perfeição quando há pressão por decisões rápidas.',
+        'fw3.zoneLow': 'Pouca informação', 'fw3.zoneSweet': 'Zona de decisão', 'fw3.zoneHigh': 'Paralisado por análise',
+        'fw3.lblInfo': 'Informação reunida (%)',
+        'fw3.resLow': 'Espere — reúna mais dados antes de se comprometer.',
+        'fw3.resSweet': 'Zona ideal — decida agora com a evidência disponível.',
+        'fw3.resHigh': 'Pare de pesquisar — decida ou perca momentum.',
+        'fw4.title': 'Ciclo OODA', 'fw4.author': 'John Boyd', 'fw4.purpose': 'Repriorize rapidamente quando o cenário muda.',
+        'fw4.observe': 'Observar', 'fw4.observeDesc': 'Reunir dados atuais', 'fw4.orient': 'Orientar', 'fw4.orientDesc': 'Analisar e sintetizar',
+        'fw4.decide': 'Decidir', 'fw4.decideDesc': 'Escolher curso de ação', 'fw4.act': 'Agir', 'fw4.actDesc': 'Executar e monitorar',
+        'fw4.detail0': 'Colete fatos primeiro: logs, passos de repro, severidade, quem está bloqueado e o que mudou desde o último deploy.',
+        'fw4.detail1': 'Mapeie contexto: impacto no negócio, raio de explosão, workarounds conhecidos e suposições vs fatos verificados.',
+        'fw4.detail2': 'Escolha a menor ação que reduz risco — hotfix, rollback, feature flag ou adiar com owner explícito.',
+        'fw4.detail3': 'Execute a decisão, monitore sinais e volte ao loop se a realidade divergir do plano.',
+        'fw5.title': 'Regra 80/20 (Pareto)', 'fw5.author': 'Vilfredo Pareto',
+        'fw5.purpose': 'Identifique os poucos fatores vitais que geram a maior parte dos resultados.',
+        'fw5.note': '<strong>~20%</strong> das ações de maior impacto geram <strong>~80%</strong> dos resultados desejados.',
+        'fw5.lblList': 'Liste iniciativas (uma por linha) — as 2–3 primeiras costumam ser o vital few', 'fw5.phList': 'Smoke suite\nTestes de contrato API\nRegressão visual\n...',
+        'fw6.title': 'Modelo RAPID®', 'fw6.author': 'Bain & Company', 'fw6.purpose': 'Defina funções da equipe em decisões complexas.',
+        'fw6.a': 'Aprova', 'fw6.aDesc': 'Valida a proposta', 'fw6.r': 'Recomenda', 'fw6.rDesc': 'Propõe a decisão',
+        'fw6.d': 'Decide', 'fw6.dDesc': 'Define o rumo', 'fw6.p': 'Prepara', 'fw6.pDesc': 'Executa a decisão',
+        'fw6.i': 'Indica', 'fw6.iDesc': 'Orienta tecnicamente',
+        'fw6.lblDecision': 'Decisão em andamento', 'fw6.phDecision': 'ex.: Enviar hotfix vs esperar regressão completa',
+        'fw6.lblRoles': 'Atribua R · A · P · I · D (nomes ou papéis)', 'fw6.phRoles': 'R: QA lead propõe escopo de teste\nD: EM decide go/no-go\n...',
+        'fw7.title': 'Regra 10/10/10', 'fw7.author': 'Suzy Welch', 'fw7.purpose': 'Equilibre urgências de curto prazo com prioridades de longo prazo.',
+        'fw7.t10m': '10 minutos', 'fw7.t10mo': '10 meses', 'fw7.t10y': '10 anos',
+        'fw7.lbl10m': 'Impacto imediato', 'fw7.ph10m': 'O que acontece agora se escolher A vs B?',
+        'fw7.lbl10mo': 'Efeitos de médio prazo', 'fw7.ph10mo': 'Como isso afeta os próximos sprints ou releases?',
+        'fw7.lbl10y': 'Consequências de longo prazo', 'fw7.ph10y': 'Carreira, cultura do time, legado de dívida técnica?',
+        'fw8.title': 'Método dos 5 Porquês', 'fw8.author': 'Sakichi Toyoda', 'fw8.purpose': 'Priorize causas raízes em vez de sintomas.',
+        'fw8.lblProblem': 'Defina o problema', 'fw8.phProblem': 'ex.: Pagamento falhou em produção',
+        'fw8.why1': 'Por quê 1?', 'fw8.why2': 'Por quê 2?', 'fw8.why3': 'Por quê 3?', 'fw8.why4': 'Por quê 4?', 'fw8.why5': 'Por quê 5?',
+        'fw8.root': 'Causa raiz → priorize a correção aqui',
+        'fw9.title': 'Análise SWOT', 'fw9.author': 'Albert Humphrey', 'fw9.purpose': 'Priorize iniciativas com base na posição estratégica.',
+        'fw9.internal': 'Interno', 'fw9.external': 'Externo',
+        'fw9.s': 'S · Forças', 'fw9.w': 'W · Fraquezas', 'fw9.o': 'O · Oportunidades', 'fw9.t': 'T · Ameaças',
+        'fw9.phS': 'Quais vantagens temos?', 'fw9.phW': 'Quais gaps ou restrições?',
+        'fw9.phO': 'Quais tendências ou aberturas?', 'fw9.phT': 'Quais riscos ou bloqueios?',
+        'page.note': '<strong>Relacionado:</strong> No portfolio principal, <a href="index.html#priority">Prioridade de bugs</a> cobre <em>quando</em> corrigir defeitos no Jira; estes frameworks ajudam a decidir <em>o quê</em> fazer quando tudo compete por atenção. Referência visual inspirada em Thiago Trindade · Koncepto Gestão Corporativa.',
+        'footer.text': 'Lucas Ferreira · Senior QA Engineer · Frameworks de Priorização',
+        'e.do': '→ FAÇA agora', 'e.schedule': '→ AGENDE (proteja tempo)', 'e.delegate': '→ DELEGUE', 'e.delete': '→ DELETE / descarte'
+      }
+    };
+
+    function lang() {
+      return document.documentElement.getAttribute('data-lang') || 'en';
+    }
+
+    function t(key) {
+      return translations[lang()]?.[key] ?? translations.en[key] ?? key;
+    }
+
+    function applyLang(l) {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[l]?.[key] !== undefined) el.innerHTML = translations[l][key];
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (translations[l]?.[key] !== undefined) el.placeholder = translations[l][key];
+      });
+      document.querySelectorAll('#e-importance option, #e-urgency option').forEach(opt => {
+        const key = opt.getAttribute('data-i18n');
+        if (key && translations[l]?.[key]) opt.textContent = translations[l][key];
+      });
+      const btn = document.getElementById('lang-btn');
+      if (btn) btn.innerHTML = l === 'en' ? '🇧🇷 PT' : '🇬🇧 EN';
+      updateEisenhower();
+      update4070();
+      setOodaStep(document.querySelector('.ooda-step.active')?.dataset.step || 0);
+    }
+
+    function toggleLang() {
+      const next = lang() === 'en' ? 'pt' : 'en';
+      document.documentElement.setAttribute('data-lang', next);
+      localStorage.setItem('lang', next);
+      applyLang(next);
+    }
+
+    /* Eisenhower */
+    const eCells = { do: 'e-do', schedule: 'e-schedule', delegate: 'e-delegate', delete: 'e-delete' };
+    function updateEisenhower() {
+      const imp = document.getElementById('e-importance').value;
+      const urg = document.getElementById('e-urgency').value;
+      const task = document.getElementById('e-task').value.trim();
+      let quadrant, key, cls;
+      if (imp === 'important' && urg === 'urgent') { quadrant = 'do'; key = 'e.do'; cls = 'e-cell--do'; }
+      else if (imp === 'important') { quadrant = 'schedule'; key = 'e.schedule'; cls = 'e-cell--schedule'; }
+      else if (urg === 'urgent') { quadrant = 'delegate'; key = 'e.delegate'; cls = 'e-cell--delegate'; }
+      else { quadrant = 'delete'; key = 'e.delete'; cls = 'e-cell--delete'; }
+      Object.values(eCells).forEach(id => document.getElementById(id)?.classList.remove('active'));
+      document.getElementById(eCells[quadrant])?.classList.add('active');
+      const result = document.getElementById('e-result');
+      result.className = 'fw-result ' + cls;
+      result.textContent = (task ? `"${task}" — ` : '') + t(key);
+    }
+    ['e-importance', 'e-urgency', 'e-task'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updateEisenhower);
+      document.getElementById(id)?.addEventListener('change', updateEisenhower);
+    });
+
+    /* ICE */
+    function updateIce() {
+      const i = +document.getElementById('ice-impact').value;
+      const c = +document.getElementById('ice-confidence').value;
+      const e = +document.getElementById('ice-ease').value;
+      document.getElementById('ice-impact-v').textContent = i;
+      document.getElementById('ice-confidence-v').textContent = c;
+      document.getElementById('ice-ease-v').textContent = e;
+      document.getElementById('ice-score').textContent = i * c * e;
+    }
+    ['ice-impact', 'ice-confidence', 'ice-ease'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updateIce);
+    });
+
+    /* 40/70 */
+    function update4070() {
+      const v = +document.getElementById('rule4070-range').value;
+      document.getElementById('rule4070-marker').style.left = v + '%';
+      const res = document.getElementById('rule4070-result');
+      if (v < 40) {
+        res.textContent = t('fw3.resLow');
+        res.style.borderColor = 'rgba(248,113,113,0.4)';
+        res.style.background = 'rgba(248,113,113,0.08)';
+        res.style.color = 'var(--red)';
+      } else if (v <= 70) {
+        res.textContent = t('fw3.resSweet');
+        res.style.borderColor = 'rgba(167,139,250,0.4)';
+        res.style.background = 'rgba(167,139,250,0.08)';
+        res.style.color = 'var(--accent2)';
+      } else {
+        res.textContent = t('fw3.resHigh');
+        res.style.borderColor = 'rgba(148,163,184,0.4)';
+        res.style.background = 'rgba(148,163,184,0.08)';
+        res.style.color = 'var(--text-3)';
+      }
+    }
+    document.getElementById('rule4070-range')?.addEventListener('input', update4070);
+
+    /* OODA */
+    function setOodaStep(step) {
+      const steps = document.querySelectorAll('.ooda-step');
+      steps.forEach((s, i) => s.classList.toggle('active', i === +step));
+      document.getElementById('ooda-detail').textContent = t('fw4.detail' + step);
+    }
+    document.querySelectorAll('.ooda-step').forEach(btn => {
+      btn.addEventListener('click', () => setOodaStep(btn.dataset.step));
+    });
+
+    /* 5 Whys */
+    document.querySelectorAll('.why-input').forEach(input => {
+      input.addEventListener('input', () => {
+        const last = [...document.querySelectorAll('.why-input')].reverse().find(i => i.value.trim());
+        const root = document.getElementById('why-root');
+        if (last) {
+          root.textContent = (lang() === 'pt' ? 'Causa raiz provável: ' : 'Likely root cause: ') + last.value.trim();
+        } else {
+          root.textContent = t('fw8.root');
+        }
+      });
+    });
+
+    (function init() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+      const savedLang = localStorage.getItem('lang');
+      if (savedLang && savedLang !== 'en') {
+        document.documentElement.setAttribute('data-lang', savedLang);
+        applyLang(savedLang);
+      } else {
+        updateEisenhower();
+        update4070();
+      }
+    })();
+  </script>
+</body>
+</html>

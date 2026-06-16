@@ -1,0 +1,540 @@
+window.CERT_LINKS = {
+  bstqb: 'https://bstqb.qa/ctfl',
+  syllabusEn: 'https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf',
+  syllabusPt: 'https://bstqb.online/files/syllabus_ctfl_4.0br.pdf',
+  examStructure: 'https://www.bstqb.qa/files/ISTQB_Exam-Structure-Tables_v1.15.pdf',
+  sampleAQuestions: 'https://bstqb.qa/files/ISTQB_CTFL_v4.0_Sample-Exam-A-Questions_v1.7BR.pdf',
+  sampleAAnswers: 'https://bstqb.qa/files/ISTQB_CTFL_v4.0_Sample-Exam-A-Answers_v1.7BR.pdf',
+  sampleBQuestions: 'https://bstqb.qa/files/ISTQB_CTFL_v4.0_Sample-Exam-B-Questions_v1.7BR.pdf',
+  sampleBAnswers: 'https://bstqb.qa/files/ISTQB_CTFL_v4.0_Sample-Exam-B-Answers_v1.7BR.pdf',
+  istqbCtfl: 'https://istqb.org/certifications/certified-tester-foundation-level/',
+  simulator: 'https://matteusbonotto.github.io/simulador-ctfl/'
+};
+
+window.CERT_FILTERS = [
+  { id: 'all', key: 'filter.all' },
+  { id: 'ch1', key: 'filter.ch1' },
+  { id: 'ch2', key: 'filter.ch2' },
+  { id: 'ch3', key: 'filter.ch3' },
+  { id: 'ch4', key: 'filter.ch4' },
+  { id: 'ch5', key: 'filter.ch5' },
+  { id: 'ch6', key: 'filter.ch6' }
+];
+
+window.CERT_SYLLABUS = [
+  { id: 'ch1', loCount: 8, examQ: 8, key: 'syllabus.ch1' },
+  { id: 'ch2', loCount: 6, examQ: 6, key: 'syllabus.ch2' },
+  { id: 'ch3', loCount: 4, examQ: 4, key: 'syllabus.ch3' },
+  { id: 'ch4', loCount: 11, examQ: 11, key: 'syllabus.ch4' },
+  { id: 'ch5', loCount: 9, examQ: 9, key: 'syllabus.ch5' },
+  { id: 'ch6', loCount: 2, examQ: 2, key: 'syllabus.ch6' }
+];
+
+window.CERT_RESOURCES = [
+  { key: 'res.syllabusPt', urlKey: 'syllabusPt', icon: 'doc' },
+  { key: 'res.syllabusEn', urlKey: 'syllabusEn', icon: 'doc' },
+  { key: 'res.bstqb', urlKey: 'bstqb', icon: 'link' },
+  { key: 'res.sampleA', urlKey: 'sampleAQuestions', urlKey2: 'sampleAAnswers', icon: 'exam' },
+  { key: 'res.sampleB', urlKey: 'sampleBQuestions', urlKey2: 'sampleBAnswers', icon: 'exam' },
+  { key: 'res.examStructure', urlKey: 'examStructure', icon: 'doc' },
+  { key: 'res.simulator', urlKey: 'simulator', icon: 'link' },
+  { key: 'res.istqb', urlKey: 'istqbCtfl', icon: 'link' }
+];
+
+window.CERT_QUESTIONS = [
+  { n: 1, cat: 'ch4', lo: 'FL-4.1.1', tagKey: 'q01.tag', qKey: 'q01.q', aKey: 'q01.a', eKey: 'q01.e', syKey: 'q01.sy' },
+  { n: 2, cat: 'ch4', lo: 'FL-4.2.1', tagKey: 'q02.tag', qKey: 'q02.q', aKey: 'q02.a', eKey: 'q02.e', syKey: 'q02.sy' },
+  { n: 3, cat: 'ch4', lo: 'FL-4.3.2', tagKey: 'q03.tag', qKey: 'q03.q', aKey: 'q03.a', eKey: 'q03.e', syKey: 'q03.sy' },
+  { n: 4, cat: 'ch4', lo: 'FL-4.2.2', tagKey: 'q04.tag', qKey: 'q04.q', aKey: 'q04.a', eKey: 'q04.e', syKey: 'q04.sy' },
+  { n: 5, cat: 'ch5', lo: 'FL-5.1.5', tagKey: 'q05.tag', qKey: 'q05.q', aKey: 'q05.a', eKey: 'q05.e', syKey: 'q05.sy' },
+  { n: 6, cat: 'ch4', lo: 'FL-4.2.3', tagKey: 'q06.tag', qKey: 'q06.q', aKey: 'q06.a', eKey: 'q06.e', syKey: 'q06.sy' },
+  { n: 7, cat: 'ch4', lo: 'FL-4.2.4', tagKey: 'q07.tag', qKey: 'q07.q', aKey: 'q07.a', eKey: 'q07.e', syKey: 'q07.sy' },
+  { n: 8, cat: 'ch4', lo: 'FL-4.2.4', tagKey: 'q08.tag', qKey: 'q08.q', aKey: 'q08.a', eKey: 'q08.e', syKey: 'q08.sy' },
+  { n: 9, cat: 'ch4', lo: 'FL-4.2.1', tagKey: 'q09.tag', qKey: 'q09.q', aKey: 'q09.a', eKey: 'q09.e', syKey: 'q09.sy' },
+  { n: 10, cat: 'ch4', lo: 'FL-4.2.2', tagKey: 'q10.tag', qKey: 'q10.q', aKey: 'q10.a', eKey: 'q10.e', syKey: 'q10.sy' },
+  { n: 11, cat: 'ch4', lo: 'FL-4.1.1', tagKey: 'q11.tag', qKey: 'q11.q', aKey: 'q11.a', eKey: 'q11.e', syKey: 'q11.sy', extra: true },
+  { n: 12, cat: 'ch4', lo: 'FL-4.4.2', tagKey: 'q12.tag', qKey: 'q12.q', aKey: 'q12.a', eKey: 'q12.e', syKey: 'q12.sy' },
+  { n: 13, cat: 'ch4', lo: 'FL-4.1.1', tagKey: 'q13.tag', qKey: 'q13.q', aKey: 'q13.a', eKey: 'q13.e', syKey: 'q13.sy' },
+  { n: 14, cat: 'ch4', lo: 'FL-4.2.2', tagKey: 'q14.tag', qKey: 'q14.q', aKey: 'q14.a', eKey: 'q14.e', syKey: 'q14.sy' },
+  { n: 15, cat: 'ch5', lo: 'FL-5.3.1', tagKey: 'q15.tag', qKey: 'q15.q', aKey: 'q15.a', eKey: 'q15.e', syKey: 'q15.sy' },
+  { n: 16, cat: 'ch5', lo: 'FL-5.2.4', tagKey: 'q16.tag', qKey: 'q16.q', aKey: 'q16.a', eKey: 'q16.e', syKey: 'q16.sy' },
+  { n: 17, cat: 'ch3', lo: 'FL-3.1.2', tagKey: 'q17.tag', qKey: 'q17.q', aKey: 'q17.a', eKey: 'q17.e', syKey: 'q17.sy' },
+  { n: 18, cat: 'ch4', lo: 'FL-4.3.1', tagKey: 'q18.tag', qKey: 'q18.q', aKey: 'q18.a', eKey: 'q18.e', syKey: 'q18.sy' },
+  { n: 19, cat: 'ch4', lo: 'FL-4.3.1', tagKey: 'q19.tag', qKey: 'q19.q', aKey: 'q19.a', eKey: 'q19.e', syKey: 'q19.sy', extra: true },
+  { n: 20, cat: 'ch4', lo: 'FL-4.3.1', tagKey: 'q20.tag', qKey: 'q20.q', aKey: 'q20.a', eKey: 'q20.e', syKey: 'q20.sy' },
+  { n: 21, cat: 'ch4', lo: 'FL-4.2.3', tagKey: 'q21.tag', qKey: 'q21.q', aKey: 'q21.a', eKey: 'q21.e', syKey: 'q21.sy' },
+  { n: 22, cat: 'ch5', lo: 'FL-5.2.3', tagKey: 'q22.tag', qKey: 'q22.q', aKey: 'q22.a', eKey: 'q22.e', syKey: 'q22.sy' },
+  { n: 23, cat: 'ch3', lo: 'FL-3.2.2', tagKey: 'q23.tag', qKey: 'q23.q', aKey: 'q23.a', eKey: 'q23.e', syKey: 'q23.sy' },
+  { n: 24, cat: 'ch4', lo: 'FL-4.1.1', tagKey: 'q24.tag', qKey: 'q24.q', aKey: 'q24.a', eKey: 'q24.e', syKey: 'q24.sy' },
+  { n: 25, cat: 'ch1', lo: 'FL-1.2.1', tagKey: 'q25.tag', qKey: 'q25.q', aKey: 'q25.a', eKey: 'q25.e', syKey: 'q25.sy' },
+  { n: 26, cat: 'ch1', lo: 'FL-1.1.2', tagKey: 'q26.tag', qKey: 'q26.q', aKey: 'q26.a', eKey: 'q26.e', syKey: 'q26.sy' },
+  { n: 27, cat: 'ch1', lo: 'FL-1.3.1', tagKey: 'q27.tag', qKey: 'q27.q', aKey: 'q27.a', eKey: 'q27.e', syKey: 'q27.sy' },
+  { n: 28, cat: 'ch1', lo: 'FL-1.2.3', tagKey: 'q28.tag', qKey: 'q28.q', aKey: 'q28.a', eKey: 'q28.e', syKey: 'q28.sy' },
+  { n: 29, cat: 'ch2', lo: 'FL-2.2.3', tagKey: 'q29.tag', qKey: 'q29.q', aKey: 'q29.a', eKey: 'q29.e', syKey: 'q29.sy' },
+  { n: 30, cat: 'ch2', lo: 'FL-2.1.5', tagKey: 'q30.tag', qKey: 'q30.q', aKey: 'q30.a', eKey: 'q30.e', syKey: 'q30.sy' },
+  { n: 31, cat: 'ch2', lo: 'FL-2.2.1', tagKey: 'q31.tag', qKey: 'q31.q', aKey: 'q31.a', eKey: 'q31.e', syKey: 'q31.sy' },
+  { n: 32, cat: 'ch2', lo: 'FL-2.3.1', tagKey: 'q32.tag', qKey: 'q32.q', aKey: 'q32.a', eKey: 'q32.e', syKey: 'q32.sy' },
+  { n: 33, cat: 'ch3', lo: 'FL-3.1.3', tagKey: 'q33.tag', qKey: 'q33.q', aKey: 'q33.a', eKey: 'q33.e', syKey: 'q33.sy' },
+  { n: 34, cat: 'ch3', lo: 'FL-3.2.4', tagKey: 'q34.tag', qKey: 'q34.q', aKey: 'q34.a', eKey: 'q34.e', syKey: 'q34.sy' },
+  { n: 35, cat: 'ch5', lo: 'FL-5.1.3', tagKey: 'q35.tag', qKey: 'q35.q', aKey: 'q35.a', eKey: 'q35.e', syKey: 'q35.sy' },
+  { n: 36, cat: 'ch5', lo: 'FL-5.1.6', tagKey: 'q36.tag', qKey: 'q36.q', aKey: 'q36.a', eKey: 'q36.e', syKey: 'q36.sy' },
+  { n: 37, cat: 'ch5', lo: 'FL-5.2.2', tagKey: 'q37.tag', qKey: 'q37.q', aKey: 'q37.a', eKey: 'q37.e', syKey: 'q37.sy' },
+  { n: 38, cat: 'ch5', lo: 'FL-5.5.1', tagKey: 'q38.tag', qKey: 'q38.q', aKey: 'q38.a', eKey: 'q38.e', syKey: 'q38.sy' },
+  { n: 39, cat: 'ch6', lo: 'FL-6.1.1', tagKey: 'q39.tag', qKey: 'q39.q', aKey: 'q39.a', eKey: 'q39.e', syKey: 'q39.sy' },
+  { n: 40, cat: 'ch6', lo: 'FL-6.2.1', tagKey: 'q40.tag', qKey: 'q40.q', aKey: 'q40.a', eKey: 'q40.e', syKey: 'q40.sy' }
+];
+
+window.CERT_I18N = {
+  en: {
+    'nav.back': '← Back to portfolio',
+    'hero.label': 'ISTQB CTFL v4.0 · Certification prep',
+    'hero.h1': 'Commented answer key — CTFL v4.0',
+    'hero.desc': '<strong>40 questions</strong> mapped to the official syllabus (6 chapters) with correct answers, learning objectives (LO) and explanations. Official exam: 40 questions, 60 min, pass ≥ 26 points. Toggle <strong>quiz mode</strong> to hide answers until you click.',
+    'hero.pdf': 'Original study PDF', 'hero.interview': 'QA interview questions →',
+    'controls.search': 'Search questions…', 'controls.quiz': 'Quiz mode',
+    'filter.all': 'All chapters', 'filter.ch1': 'Ch.1 Fundamentals', 'filter.ch2': 'Ch.2 SDLC',
+    'filter.ch3': 'Ch.3 Static testing', 'filter.ch4': 'Ch.4 Techniques', 'filter.ch5': 'Ch.5 Test management', 'filter.ch6': 'Ch.6 Tools',
+    'hint.tap': 'Click to reveal answer & explanation', 'label.answer': 'Correct answer', 'label.syllabus': 'Syllabus', 'label.lo': 'LO',
+    'label.extra': 'Supplementary',
+    'resources.title': 'Official CTFL v4.0 resources',
+    'resources.desc': 'Use these alongside this page. Sample exams A & B (BSTQB) mirror the real exam format — 40 questions each with official answer keys.',
+    'syllabus.title': 'Syllabus coverage map',
+    'syllabus.desc': 'Questions in this page vs. official exam distribution (BSTQB / ISTQB Exam Structure Tables v1.15). For full LO coverage, complete with Sample Exams A & B.',
+    'syllabus.col.chapter': 'Chapter', 'syllabus.col.exam': 'Exam Qs', 'syllabus.col.here': 'Here', 'syllabus.col.lo': 'LO ref',
+    'syllabus.ch1': 'Fundamentals of Testing', 'syllabus.ch2': 'Testing throughout the SDLC',
+    'syllabus.ch3': 'Static Testing', 'syllabus.ch4': 'Test Analysis & Design',
+    'syllabus.ch5': 'Managing Test Activities', 'syllabus.ch6': 'Test Tools',
+    'res.syllabusPt': 'Syllabus v4.0 (PT-BR)', 'res.syllabusEn': 'Syllabus v4.0.1 (EN)',
+    'res.bstqb': 'BSTQB — CTFL portal', 'res.sampleA': 'Sample Exam A (Q + Answers)',
+    'res.sampleB': 'Sample Exam B (Q + Answers)', 'res.examStructure': 'Exam Structure Tables',
+    'res.simulator': 'CTFL v4.0 simulator (BSTQB sets)', 'res.istqb': 'ISTQB — CTFL page',
+    'page.note': '<strong>Scope:</strong> Aligned with <a href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf" target="_blank" rel="noopener">ISTQB CTFL Syllabus v4.0</a>. Each question cites its chapter and learning objective. Pairwise (Q11) and mutation testing (Q19) are supplementary — not core v4.0 LOs. Complete prep with <a href="https://bstqb.qa/ctfl" target="_blank" rel="noopener">BSTQB Sample Exams A &amp; B</a> and the <a href="qa-interview.html">interview topics</a> page.',
+    'footer.text': 'Lucas Ferreira · Senior QA Engineer · CTFL v4.0 Study',
+
+    'q01.tag': 'Test modeling', 'q01.q': 'A test modeling technique is…',
+    'q01.a': 'a) A process to create test cases that cover system requirements efficiently.',
+    'q01.e': 'Modeling techniques (equivalence partitioning, decision tables, etc.) are standardized methods. Their goal is not just to “test”, but to select a subset of tests with high probability of finding defects while covering requirements without infinite combinations.',
+    'q01.sy': 'Ch.4 §4.1 — Overview of test techniques (black-box, white-box, experience-based)',
+
+    'q02.tag': 'Equivalence partitioning', 'q02.q': 'Which typical defect would equivalence partitioning identify?',
+    'q02.a': 'd) Inadequate handling of input equivalence classes.',
+    'q02.e': 'Data is divided into equivalence classes. If the system fails to process any value from a class (e.g. rejects negatives when it should accept them), that is a failure to handle that entire input class.',
+    'q02.sy': 'Ch.4 §4.2.1 — Equivalence partitioning (FL-4.2.1 K3)',
+
+    'q03.tag': 'Branch coverage', 'q03.q': 'Which technique covers all code branches (decisions)?',
+    'q03.a': 'b) Branch coverage.',
+    'q03.e': 'In CTFL v4.0, “branch coverage” replaces the older “decision coverage” term. Branches are decision points (IF, WHILE, CASE). Branch coverage ensures both True and False outcomes of each decision are exercised. Statement coverage only checks line execution.',
+    'q03.sy': 'Ch.4 §4.3.2 — Branch testing (FL-4.3.2 K2)',
+
+    'q04.tag': 'Boundary value analysis', 'q04.q': 'Which typical defect would boundary value analysis identify?',
+    'q04.a': 'c) Inadequate handling of large and small boundary values.',
+    'q04.e': 'Most defects cluster at domain edges (e.g. using > instead of >=). BVA focuses on extremes and immediate neighbors — maximum, minimum, and values just inside/outside.',
+    'q04.sy': 'Ch.4 §4.2.2 — Boundary value analysis (FL-4.2.2 K3)',
+
+    'q05.tag': 'Test case design', 'q05.q': 'Which is NOT a characteristic of good test cases?',
+    'q05.a': 'c) Dependent.',
+    'q05.e': 'Test cases should be independent (atomic). You should run “Test 5” without requiring “Test 1” immediately before. Dependencies create cascade failures and obscure diagnosis.',
+    'q05.sy': 'Ch.5 §5.1.5 — Test case prioritization & design quality (FL-5.1.5 K3)',
+
+    'q06.tag': 'Decision table', 'q06.q': 'Which typical defect would a decision table identify?',
+    'q06.a': 'b) Inadequate handling of business rules and conditions.',
+    'q06.e': 'Decision tables suit complex logic where output depends on input combinations (e.g. VIP AND balance&lt;0 AND holiday). Wrong rule processing is best caught with this technique.',
+    'q06.sy': 'Ch.4 §4.2.3 — Decision table testing (FL-4.2.3 K3)',
+
+    'q07.tag': 'State transition', 'q07.q': 'Given a state diagram, which test case covers all states and transitions?',
+    'q07.a': 'c) S1 – S2 – S1 – S2 – S2 – S2 – S3 – S2 – S3 – S4.',
+    'q07.e': '100% transition coverage requires traversing every arrow. From S2 there are two distinct self-loops (“add item” and “remove item”). Option C is the only path long enough to exercise both loops before continuing to S3 and S4.',
+    'q07.sy': 'Ch.4 §4.2.4 — State transition testing (FL-4.2.4 K3)',
+
+    'q08.tag': 'State transition', 'q08.q': 'Which typical defect would state transition testing identify?',
+    'q08.a': 'a) Inadequate handling of event sequences.',
+    'q08.e': 'This technique validates entity lifecycle over time (e.g. Order: Open → Paid). Skipping steps or getting stuck in a status indicates a sequence-of-events defect.',
+    'q08.sy': 'Ch.4 §4.2.4 — State transition testing (FL-4.2.4 K3)',
+
+    'q09.tag': 'Equivalence partitioning', 'q09.q': 'Values: &lt;10 (rejected), 10–21 (accepted), ≥22 (rejected). Which set covers all partitions?',
+    'q09.a': 'c) 3, 10, 22.',
+    'q09.e': 'Pick one representative per class: invalid lower (&lt;10) → 3; valid (10–21) → 10; invalid upper (≥22) → 22.',
+    'q09.sy': 'Ch.4 §4.2.1 — Equivalence partitioning (FL-4.2.1 K3)',
+
+    'q10.tag': 'Boundary values', 'q10.q': 'Valid range 10–21. Which values cover the boundaries?',
+    'q10.a': 'b) 9, 10, 21, 22.',
+    'q10.e': 'BVA tests exact boundaries and immediate neighbors: lower boundary 10 (valid) and 9 (invalid); upper boundary 21 (valid) and 22 (invalid).',
+    'q10.sy': 'Ch.4 §4.2.2 — Boundary value analysis (FL-4.2.2 K3)',
+
+    'q11.tag': 'Pairwise', 'q11.q': 'Typical defect that pairwise testing would identify:',
+    'q11.a': 'c) Inadequate handling of input value combinations.',
+    'q11.e': 'Pairwise assumes most defects come from interactions between two variables (e.g. browser × OS). It optimizes tests so every pair of values appears together at least once. Note: combinatorial methods like pairwise are supplementary in CTFL v4.0 — not a separate LO.',
+    'q11.sy': 'Ch.4 §4.1 — Combinatorial testing (supplementary to v4.0 LOs)',
+
+    'q12.tag': 'Experience-based testing', 'q12.q': 'Why perform exploratory testing and error guessing?',
+    'q12.a': 'a) They can find defects not identified by specification- and structure-based techniques.',
+    'q12.e': 'Formal techniques follow rigid scripts. Human intuition and experience find non-obvious bugs and scenarios that escape strict requirement logic.',
+    'q12.sy': 'Ch.4 §4.4.2 — Exploratory testing (FL-4.4.2 K2)',
+
+    'q13.tag': 'Specification-based', 'q13.q': 'Main characteristic of specification-based techniques?',
+    'q13.a': 'b) Tests are defined by selecting conditions and cases from requirements documentation analysis.',
+    'q13.e': 'Also called black-box techniques — ignore internal code. The tester uses documentation (what the system should do) to define inputs and expected outputs.',
+    'q13.sy': 'Ch.4 §4.1.1 — Black-box vs white-box vs experience-based (FL-4.1.1 K2)',
+
+    'q14.tag': 'Boundary values', 'q14.q': 'Coffee sale: min 1 kg, max 20 kg. Boundary values:',
+    'q14.a': 'a) 0.9; 1.0; 20.0; 20.1.',
+    'q14.e': 'Lower: 1.0 (valid minimum) and 0.9 (invalid, just below). Upper: 20.0 (valid maximum) and 20.1 (invalid, just above).',
+    'q14.sy': 'Ch.4 §4.2.2 — Boundary value analysis (FL-4.2.2 K3)',
+
+    'q15.tag': 'Test metrics', 'q15.q': 'Which is a test process metric?',
+    'q15.a': 'Estimated test time vs actual test time used.',
+    'q15.e': 'Metrics split into product (software quality) and process (work efficiency). Comparing estimated vs actual time measures planning accuracy and team efficiency. Defect density measures product quality.',
+    'q15.sy': 'Ch.5 §5.3.1 — Test metrics (FL-5.3.1 K1)',
+
+    'q16.tag': 'Risk techniques', 'q16.q': 'Technique to define worst-case system failure scenarios:',
+    'q16.a': 'd) Disaster games (catastrophe brainstorming).',
+    'q16.e': 'Team brainstorming asks “What is the worst that could happen?” (server fire, connection loss mid-transaction). Goal: anticipate disasters and define contingency plans — a risk response measure (FL-5.2.4).',
+    'q16.sy': 'Ch.5 §5.2.4 — Risk response measures (FL-5.2.4 K2)',
+
+    'q17.tag': 'Test case evaluation', 'q17.q': 'Technique to evaluate test cases, EXCEPT:',
+    'q17.a': 'b) Static analysis.',
+    'q17.e': 'In ISTQB context, static analysis typically means automated source review without execution. Review, inspection and mutation testing are valid ways to assess test case quality; static analysis of source code is not used to evaluate test cases themselves.',
+    'q17.sy': 'Ch.3 §3.1.2 — Static vs dynamic testing (FL-3.1.2 K2)',
+
+    'q18.tag': 'Statement coverage', 'q18.q': 'How many tests for 100% statement coverage of the given pseudocode?',
+    'q18.a': '3 tests.',
+    'q18.e': 'Three exclusive paths: (1) x=3, y=2 — both IFs true; (2) x=3, y=0 — first IF true, second ELSE; (3) x=0 — first ELSE.',
+    'q18.sy': 'Ch.4 §4.3.1 — Statement testing (FL-4.3.1 K2)',
+
+    'q19.tag': 'Mutation testing', 'q19.q': 'Mutation type where control statements must be altered:',
+    'q19.a': 'Decision mutation.',
+    'q19.e': 'Mutation testing injects deliberate faults (mutants) to test test quality. Decision mutation changes flow-control operators (AND→OR, &gt;→&lt;). Note: mutation testing is not a CTFL v4.0 learning objective — included as advanced white-box context.',
+    'q19.sy': 'Ch.4 §4.3 — White-box techniques (supplementary — not in v4.0 LOs)',
+
+    'q20.tag': 'Code analysis', 'q20.q': 'Identify the defect in: while i &lt; valor (i starts at 0, increments each loop):',
+    'q20.a': 'd) None of the above.',
+    'q20.e': 'With i=0, check i&lt;10, print and increment — prints 0–9 and exits correctly. No infinite loop, syntax error, or memory overflow for valor=10.',
+    'q20.sy': 'Ch.4 §4.3.1 — Statement testing & code reading (FL-4.3.1 K2)',
+
+    'q21.tag': 'Decision table', 'q21.q': 'In a decision table, columns usually represent:',
+    'q21.a': 'Test cases (or rules).',
+    'q21.e': 'Conditions are rows; rules are columns. Each column is a unique True/False combination and expected action — directly mapping to an executable test case.',
+    'q21.sy': 'Ch.4 §4.2.3 — Decision table testing (FL-4.2.3 K3)',
+
+    'q22.tag': 'Risk-based testing', 'q22.q': 'TRUE statement about risk-based test case design:',
+    'q22.a': 'c) Risk-based cases prioritize features whose failure would cause the greatest system impact.',
+    'q22.e': 'Risk = probability × impact. Even rarely used functions need priority if failure has huge financial or safety impact.',
+    'q22.sy': 'Ch.5 §5.2.3 — Product risk influence on test scope (FL-5.2.3 K2)',
+
+    'q23.tag': 'Peer review', 'q23.q': 'Importance of peer review of test cases:',
+    'q23.a': 'd) All of the above.',
+    'q23.e': 'Peer review: (a) checks clarity and completeness, (b) finds logical flaws before execution, (c) increases confidence that tests cover requirements.',
+    'q23.sy': 'Ch.3 §3.2.2 — Review process activities (FL-3.2.2 K2)',
+
+    'q24.tag': 'Black vs white box', 'q24.q': 'Main difference between white-box and black-box testing:',
+    'q24.a': 'a) White-box uses internal structure; black-box uses functional specification and user requirements.',
+    'q24.e': 'White-box: tester sees code — loops, line coverage, variables. Black-box: no code access — given input X, output must be Y per documentation.',
+    'q24.sy': 'Ch.4 §4.1.1 — Technique categories (FL-4.1.1 K2)',
+
+    'q25.tag': 'Value of test cases', 'q25.q': 'Best describes importance of test cases considering risk and benefit:',
+    'q25.a': 'c) Test cases reproduce usage scenarios to find defects before users are affected — reducing risk and increasing customer satisfaction.',
+    'q25.e': 'Economic value of testing is risk reduction. Fixing in test is far cheaper than in production; preventing user-facing bugs protects reputation and satisfaction.',
+    'q25.sy': 'Ch.1 §1.2.1 — Why testing is necessary (FL-1.2.1 K2)',
+
+    'q26.tag': 'Testing vs debugging', 'q26.q': 'Which statement best distinguishes testing from debugging?',
+    'q26.a': 'a) Testing finds defects; debugging locates, analyzes and removes the causes of defects.',
+    'q26.e': 'Testing includes planning, design, execution and reporting. Debugging is a development activity that follows test execution when a failure is found — it identifies root cause and applies fixes.',
+    'q26.sy': 'Ch.1 §1.1.2 — Testing vs debugging (FL-1.1.2 K2)',
+
+    'q27.tag': 'Seven principles', 'q27.q': 'Which testing principle states that testing everything is not feasible except in trivial cases?',
+    'q27.a': 'a) Exhaustive testing is impossible.',
+    'q27.e': 'One of the seven ISTQB principles. Instead of testing all combinations, use risk and techniques (EP, BVA, etc.) to select a representative subset.',
+    'q27.sy': 'Ch.1 §1.3.1 — Seven testing principles (FL-1.3.1 K2)',
+
+    'q28.tag': 'Error, defect, failure', 'q28.q': 'A developer mistypes a variable name. The program crashes when that line runs. What is the failure?',
+    'q28.a': 'c) The program crash observed when executing the line.',
+    'q28.e': 'Error = human mistake (typo). Defect/bug = fault in code (wrong variable). Failure = observable deviation at runtime (crash). Root cause is the error; failure is what the user/tester sees.',
+    'q28.sy': 'Ch.1 §1.2.3 — Root cause, error, defect, failure (FL-1.2.3 K2)',
+
+    'q29.tag': 'Confirmation vs regression', 'q29.q': 'After a defect fix, tests are re-run on the fixed feature AND on related unchanged areas. Tests on related areas are primarily:',
+    'q29.a': 'b) Regression testing.',
+    'q29.e': 'Confirmation (re-testing) verifies the fix on the affected feature. Regression testing checks that the fix did not introduce side effects elsewhere.',
+    'q29.sy': 'Ch.2 §2.2.3 — Confirmation vs regression testing (FL-2.2.3 K2)',
+
+    'q30.tag': 'Shift-left', 'q30.q': 'Shift-left testing means:',
+    'q30.a': 'a) Performing testing activities earlier in the SDLC.',
+    'q30.e': 'Shift-left integrates test planning, static testing and automation early — catching defects when they are cheaper to fix. Common in Agile and DevOps contexts (Ch.2 §2.1).',
+    'q30.sy': 'Ch.2 §2.1.5 — Shift-left approach (FL-2.1.5 K2)',
+
+    'q31.tag': 'Test levels', 'q31.q': 'Which test level focuses on interactions between components and is often performed by testers?',
+    'q31.a': 'b) Integration testing.',
+    'q31.e': 'Component testing checks units in isolation (often by developers). Integration testing verifies interfaces and data flow between components or systems.',
+    'q31.sy': 'Ch.2 §2.2.1 — Test levels (FL-2.2.1 K2)',
+
+    'q32.tag': 'Maintenance testing', 'q32.q': 'Which is a trigger for maintenance testing?',
+    'q32.a': 'a) Planned enhancements to an existing system.',
+    'q32.e': 'Maintenance testing is triggered by changes: enhancements, migration, retirement, or environment changes — not only defect fixes.',
+    'q32.sy': 'Ch.2 §2.3.1 — Maintenance testing triggers (FL-2.3.1 K2)',
+
+    'q33.tag': 'Static vs dynamic', 'q33.q': 'What is a key difference between static and dynamic testing?',
+    'q33.a': 'a) Static testing does not require executing the software.',
+    'q33.e': 'Static testing (reviews, static analysis) finds defects in work products before execution. Dynamic testing requires running the software and comparing actual vs expected behavior.',
+    'q33.sy': 'Ch.3 §3.1.3 — Static vs dynamic testing (FL-3.1.3 K2)',
+
+    'q34.tag': 'Review types', 'q34.q': 'Which review type is typically informal, led by the author, with the main objective of learning and understanding?',
+    'q34.a': 'a) Walkthrough.',
+    'q34.e': 'Walkthroughs are informal; the author leads. Inspections are formal with defined roles (moderator, author, scribe, reviewer) and metrics. Technical review focuses on technical content.',
+    'q34.sy': 'Ch.3 §3.2.4 — Review types (FL-3.2.4 K1)',
+
+    'q35.tag': 'Entry/exit criteria', 'q35.q': 'Exit criteria for testing define:',
+    'q35.a': 'a) Conditions that must be met to declare a test level complete.',
+    'q35.e': 'Entry criteria must be satisfied to start testing (e.g. build available, test environment ready). Exit criteria define when to stop (e.g. coverage target met, critical defects resolved).',
+    'q35.sy': 'Ch.5 §5.1.3 — Entry and exit criteria (FL-5.1.3 K2)',
+
+    'q36.tag': 'Test pyramid', 'q36.q': 'In the test automation pyramid, which layer typically has the largest number of automated tests?',
+    'q36.a': 'a) Unit/component tests at the base.',
+    'q36.e': 'The pyramid recommends many fast, cheap unit tests at the base; fewer integration tests; even fewer UI/end-to-end tests at the top — balancing speed, cost and feedback.',
+    'q36.sy': 'Ch.5 §5.1.6 — Test pyramid (FL-5.1.6 K1)',
+
+    'q37.tag': 'Project vs product risk', 'q37.q': 'A risk that the testing schedule will be cut due to late delivery is an example of:',
+    'q37.a': 'a) Project risk.',
+    'q37.e': 'Project risks affect project success (schedule, budget, resources). Product risks affect quality in use (failures, security, poor UX). Both influence test scope and rigor.',
+    'q37.sy': 'Ch.5 §5.2.2 — Project vs product risk (FL-5.2.2 K2)',
+
+    'q38.tag': 'Defect report', 'q38.q': 'Which item is essential in a defect report?',
+    'q38.a': 'a) Steps to reproduce the defect.',
+    'q38.e': 'A good defect report includes title, severity/priority, environment, steps to reproduce, expected vs actual result, and attachments/logs — enabling developers to replicate and fix quickly.',
+    'q38.sy': 'Ch.5 §5.5.1 — Defect reporting (FL-5.5.1 K3)',
+
+    'q39.tag': 'Test tools', 'q39.q': 'A tool that executes test scripts and compares actual vs expected results is primarily a:',
+    'q39.a': 'a) Test execution tool.',
+    'q39.e': 'CTFL v4.0 groups tools by purpose: management, static, specification/design, execution, performance, etc. Execution tools run tests and capture pass/fail outcomes.',
+    'q39.sy': 'Ch.6 §6.1.1 — Tool support for testing (FL-6.1.1 K2)',
+
+    'q40.tag': 'Automation risks', 'q40.q': 'Which is a risk of test automation?',
+    'q40.a': 'a) Unrealistic expectations about what automation can achieve.',
+    'q40.e': 'Other risks: maintenance cost of scripts, tool lock-in, neglecting manual/exploratory testing, and automating unstable features too early. Automation supports testing — it does not replace it.',
+    'q40.sy': 'Ch.6 §6.2.1 — Benefits and risks of automation (FL-6.2.1 K1)'
+  },
+  pt: {
+    'nav.back': '← Voltar ao portfolio',
+    'hero.label': 'ISTQB CTFL v4.0 · Preparação certificação',
+    'hero.h1': 'Gabarito comentado — CTFL v4.0',
+    'hero.desc': '<strong>40 questões</strong> mapeadas ao syllabus oficial (6 capítulos) com respostas corretas, objetivos de aprendizagem (LO) e explicações. Prova oficial: 40 questões, 60 min, aprovação ≥ 26 pontos. Ative o <strong>modo quiz</strong> para ocultar respostas até clicar.',
+    'hero.pdf': 'PDF de estudo original', 'hero.interview': 'Perguntas de entrevista QA →',
+    'controls.search': 'Buscar questões…', 'controls.quiz': 'Modo quiz',
+    'filter.all': 'Todos os capítulos', 'filter.ch1': 'Cap.1 Fundamentos', 'filter.ch2': 'Cap.2 SDLC',
+    'filter.ch3': 'Cap.3 Teste estático', 'filter.ch4': 'Cap.4 Técnicas', 'filter.ch5': 'Cap.5 Gestão', 'filter.ch6': 'Cap.6 Ferramentas',
+    'hint.tap': 'Clique para revelar resposta e explicação', 'label.answer': 'Resposta correta', 'label.syllabus': 'Syllabus', 'label.lo': 'LO',
+    'label.extra': 'Complementar',
+    'resources.title': 'Recursos oficiais CTFL v4.0',
+    'resources.desc': 'Use junto com esta página. Os exemplos de exame A e B (BSTQB) espelham o formato real — 40 questões cada, com gabaritos oficiais.',
+    'syllabus.title': 'Mapa de cobertura do syllabus',
+    'syllabus.desc': 'Questões desta página vs. distribuição oficial (BSTQB / ISTQB Exam Structure Tables v1.15). Para cobertura completa dos LOs, complete com os Sample Exams A e B.',
+    'syllabus.col.chapter': 'Capítulo', 'syllabus.col.exam': 'Questões prova', 'syllabus.col.here': 'Aqui', 'syllabus.col.lo': 'Ref. LO',
+    'syllabus.ch1': 'Fundamentos de Teste', 'syllabus.ch2': 'Testes ao longo do SDLC',
+    'syllabus.ch3': 'Teste Estático', 'syllabus.ch4': 'Análise e Modelagem de Teste',
+    'syllabus.ch5': 'Gerenciamento das Atividades de Teste', 'syllabus.ch6': 'Ferramentas de Teste',
+    'res.syllabusPt': 'Syllabus v4.0 (PT-BR)', 'res.syllabusEn': 'Syllabus v4.0.1 (EN)',
+    'res.bstqb': 'BSTQB — Portal CTFL', 'res.sampleA': 'Exemplo de Exame A (Perguntas + Respostas)',
+    'res.sampleB': 'Exemplo de Exame B (Perguntas + Respostas)', 'res.examStructure': 'Tabelas de Estrutura do Exame',
+    'res.simulator': 'Simulador CTFL v4.0 (sets BSTQB)', 'res.istqb': 'ISTQB — Página CTFL',
+    'page.note': '<strong>Escopo:</strong> Alinhado ao <a href="https://bstqb.online/files/syllabus_ctfl_4.0br.pdf" target="_blank" rel="noopener">Syllabus ISTQB CTFL v4.0</a>. Cada questão cita capítulo e objetivo de aprendizagem. Pairwise (Q11) e teste de mutação (Q19) são complementares — não são LOs centrais do v4.0. Complete a preparação com os <a href="https://bstqb.qa/ctfl" target="_blank" rel="noopener">Exemplos de Exame A e B do BSTQB</a> e a página de <a href="qa-interview.html">tópicos de entrevista</a>.',
+    'footer.text': 'Lucas Ferreira · Senior QA Engineer · Estudo CTFL v4.0',
+
+    'q01.tag': 'Modelagem de teste', 'q01.q': 'Uma técnica de modelagem de teste é…',
+    'q01.a': 'a) Um processo para criar casos de teste para cobrir requisitos do sistema de forma eficiente.',
+    'q01.e': 'Técnicas de modelagem (partição de equivalência, tabela de decisão, etc.) são métodos padronizados. O objetivo não é apenas “testar”, mas selecionar um subconjunto de testes com alta probabilidade de encontrar erros, cobrindo requisitos sem combinações infinitas.',
+    'q01.sy': 'Cap.4 §4.1 — Visão geral das técnicas (caixa-preta, caixa-branca, experiência)',
+
+    'q02.tag': 'Partição de equivalência', 'q02.q': 'Qual defeito típico a partição de equivalência identificaria?',
+    'q02.a': 'd) Manipulação inadequada de classes de entrada.',
+    'q02.e': 'A técnica divide os dados em classes de equivalência. Se o sistema falha ao processar qualquer dado de um grupo (ex.: não aceita negativos quando deveria), isso é falha na manipulação daquela classe inteira.',
+    'q02.sy': 'Cap.4 §4.2.1 — Particionamento de equivalência (FL-4.2.1 K3)',
+
+    'q03.tag': 'Cobertura de ramificação', 'q03.q': 'Qual técnica cobre todos os desvios (ramificações) do código?',
+    'q03.a': 'b) Cobertura de ramificação (Branch Coverage).',
+    'q03.e': 'No CTFL v4.0, “cobertura de ramificação” substitui o termo antigo “cobertura de decisão”. Ramificações são pontos de decisão (IF, WHILE, CASE). Garante percorrer caminhos Verdadeiro e Falso. Cobertura de instrução só verifica execução da linha.',
+    'q03.sy': 'Cap.4 §4.3.2 — Teste de ramificação (FL-4.3.2 K2)',
+
+    'q04.tag': 'Análise de valor limite', 'q04.q': 'Qual defeito típico a análise de valor limite identificaria?',
+    'q04.a': 'c) Manipulação inadequada de valores fronteira grandes e pequenos.',
+    'q04.e': 'A maior densidade de bugs ocorre nas bordas dos domínios (ex.: programador usa &gt; em vez de &gt;=). A técnica verifica extremos e vizinhos imediatos.',
+    'q04.sy': 'Cap.4 §4.2.2 — Análise de valor limite (FL-4.2.2 K3)',
+
+    'q05.tag': 'Casos de teste', 'q05.q': 'É característica de casos de teste, EXCETO:',
+    'q05.a': 'c) Dependente.',
+    'q05.e': 'Boas práticas exigem casos independentes (atômicos). Deve ser possível rodar o “Teste 5” sem ter rodado o “Teste 1” antes. Dependência gera efeito cascata e dificulta diagnóstico.',
+    'q05.sy': 'Cap.5 §5.1.5 — Priorização e qualidade de casos de teste (FL-5.1.5 K3)',
+
+    'q06.tag': 'Tabela de decisão', 'q06.q': 'Qual defeito típico a tabela de decisão identificaria?',
+    'q06.a': 'b) Manipulação inadequada de regras e condições de negócio.',
+    'q06.e': 'Ideal para lógicas onde o resultado depende da combinação de entradas (ex.: Cliente=VIP E Saldo&lt;0 E Data=Feriado). Erros em regras combinadas são melhor detectados com esta técnica.',
+    'q06.sy': 'Cap.4 §4.2.3 — Teste de tabela de decisão (FL-4.2.3 K3)',
+
+    'q07.tag': 'Transição de estados', 'q07.q': 'Dado o diagrama, qual caso de teste cobre todos os estados e transições?',
+    'q07.a': 'c) S1 – S2 – S1 – S2 – S2 – S2 – S3 – S2 – S3 – S4.',
+    'q07.e': 'Para 100% das transições, o teste precisa percorrer todas as setas. Em S2 existem dois loops distintos (“add item” e “remove item”). A alternativa C é a única longa o suficiente para ambos os loops antes de seguir para S3 e S4.',
+    'q07.sy': 'Cap.4 §4.2.4 — Teste de transição de estado (FL-4.2.4 K3)',
+
+    'q08.tag': 'Transição de estados', 'q08.q': 'Qual defeito típico o teste de transição de estados identificaria?',
+    'q08.a': 'a) Manipulação inadequada de sequências de eventos.',
+    'q08.e': 'Valida ciclo de vida e comportamento ao longo do tempo (ex.: Pedido de “Aberto” para “Pago”). Pular etapas ou travar em status indica defeito na sequência de eventos.',
+    'q08.sy': 'Cap.4 §4.2.4 — Teste de transição de estado (FL-4.2.4 K3)',
+
+    'q09.tag': 'Partição de equivalência', 'q09.q': 'Valores: &lt;10 (rejeitado), 10–21 (aceito), ≥22 (rejeitado). Cobertura das partições:',
+    'q09.a': 'c) 3, 10, 22.',
+    'q09.e': 'Um representante de cada grupo: inválido inferior (&lt;10) → 3; válido (10–21) → 10; inválido superior (≥22) → 22.',
+    'q09.sy': 'Cap.4 §4.2.1 — Particionamento de equivalência (FL-4.2.1 K3)',
+
+    'q10.tag': 'Valor limite', 'q10.q': 'Intervalo válido 10 a 21. Quais valores cobrem os limites?',
+    'q10.a': 'b) 9, 10, 21, 22.',
+    'q10.e': 'Fronteira inicial: 10 (válido) e 9 (inválido imediato). Fronteira final: 21 (válido) e 22 (inválido imediato).',
+    'q10.sy': 'Cap.4 §4.2.2 — Análise de valor limite (FL-4.2.2 K3)',
+
+    'q11.tag': 'Pairwise', 'q11.q': 'Defeito típico que testes pairwise identificariam:',
+    'q11.a': 'c) Manipulação inadequada das combinações de valores de entrada.',
+    'q11.e': 'Pairwise baseia-se no princípio de que a maioria dos erros vem da interação entre duas variáveis (ex.: Navegador × SO). Nota: métodos combinatórios como pairwise são complementares no CTFL v4.0 — não há LO separado.',
+    'q11.sy': 'Cap.4 §4.1 — Testes combinatórios (complementar aos LOs v4.0)',
+
+    'q12.tag': 'Teste exploratório', 'q12.q': 'Por que realizar teste exploratório e suposição de erro?',
+    'q12.a': 'a) Podem achar defeitos não identificados nas técnicas baseadas em especificação e estrutura.',
+    'q12.e': 'Técnicas formais seguem scripts rígidos. Intuição e experiência humana encontram bugs não óbvios ou cenários que escapam da lógica estrita dos requisitos.',
+    'q12.sy': 'Cap.4 §4.4.2 — Teste exploratório (FL-4.4.2 K2)',
+
+    'q13.tag': 'Baseado em especificação', 'q13.q': 'Característica principal das técnicas baseadas em especificação?',
+    'q13.a': 'b) Os testes são especificados selecionando condições e casos baseados na análise da documentação de requisitos.',
+    'q13.e': 'Técnicas de caixa-preta ignoram código interno. O testador usa documentação (o que o sistema deve fazer) para definir entradas e saídas esperadas.',
+    'q13.sy': 'Cap.4 §4.1.1 — Categorias de técnicas (FL-4.1.1 K2)',
+
+    'q14.tag': 'Valor limite', 'q14.q': 'Venda de café: mínimo 1 kg, máximo 20 kg. Valores limites:',
+    'q14.a': 'a) 0,9; 1,0; 20,0; 20,1.',
+    'q14.e': 'Limite inferior: 1,0 (válido/mínimo) e 0,9 (inválido/logo abaixo). Limite superior: 20,0 (válido/máximo) e 20,1 (inválido/logo acima).',
+    'q14.sy': 'Cap.4 §4.2.2 — Análise de valor limite (FL-4.2.2 K3)',
+
+    'q15.tag': 'Métricas de teste', 'q15.q': 'É uma métrica de processo de teste:',
+    'q15.a': 'Tempo de teste estimado × tempo de teste utilizado.',
+    'q15.e': 'Métricas dividem-se em Produto (qualidade do software) e Processo (eficiência). Comparar estimado vs realizado mede precisão do planejamento. Densidade de defeitos mede qualidade do código (Produto).',
+    'q15.sy': 'Cap.5 §5.3.1 — Métricas de teste (FL-5.3.1 K1)',
+
+    'q16.tag': 'Risco', 'q16.q': 'Técnica para definir as piores situações de falha de um sistema:',
+    'q16.a': 'd) Jogos de Catástrofes.',
+    'q16.e': 'Brainstorming onde a equipe pergunta “O que de pior pode acontecer?” (servidor pegar fogo, perda de conexão na transação). Objetivo: prever desastres e planos de contingência — medida de resposta a risco (FL-5.2.4).',
+    'q16.sy': 'Cap.5 §5.2.4 — Medidas de resposta a riscos (FL-5.2.4 K2)',
+
+    'q17.tag': 'Avaliação de casos', 'q17.q': 'É técnica para avaliação de casos de teste, EXCETO:',
+    'q17.a': 'b) Análise Estática.',
+    'q17.e': 'No contexto ISTQB, análise estática tipicamente usa ferramentas para ler código-fonte sem executar. Revisão, inspeção e teste de mutação avaliam qualidade dos casos de teste; análise estática de código-fonte não é usada para avaliar os próprios casos de teste.',
+    'q17.sy': 'Cap.3 §3.1.2 — Teste estático vs dinâmico (FL-3.1.2 K2)',
+
+    'q18.tag': 'Cobertura de instrução', 'q18.q': 'Quantos testes para 100% de cobertura de instrução no pseudocódigo?',
+    'q18.a': '3 testes.',
+    'q18.e': 'Três caminhos distintos: (1) x=3, y=2 — entra nos dois IFs; (2) x=3, y=0 — primeiro IF e ELSE do segundo; (3) x=0 — ELSE do primeiro IF.',
+    'q18.sy': 'Cap.4 §4.3.1 — Teste de instrução (FL-4.3.1 K2)',
+
+    'q19.tag': 'Teste de mutação', 'q19.q': 'Tipo de mutação em que declarações de controle devem ser alteradas:',
+    'q19.a': 'Mutação de Decisão.',
+    'q19.e': 'Insere erros propositais (mutantes) para testar qualidade dos testes. Mutação de Decisão altera operadores lógicos de fluxo (AND→OR, &gt;→&lt;). Nota: teste de mutação não é LO do CTFL v4.0 — incluído como contexto avançado.',
+    'q19.sy': 'Cap.4 §4.3 — Técnicas caixa-branca (complementar — fora dos LOs v4.0)',
+
+    'q20.tag': 'Análise de código', 'q20.q': 'Identifique o defeito: while i &lt; valor (i=0, incrementa no loop):',
+    'q20.a': 'd) Nenhuma das alternativas acima.',
+    'q20.e': 'Com i=0, verifica i&lt;10, imprime e incrementa — funciona corretamente de 0 a 9. Sem loop infinito, erro de sintaxe ou estouro para valor=10.',
+    'q20.sy': 'Cap.4 §4.3.1 — Teste de instrução e leitura de código (FL-4.3.1 K2)',
+
+    'q21.tag': 'Tabela de decisão', 'q21.q': 'Em uma tabela de decisão, as colunas geralmente representam:',
+    'q21.a': 'Os casos de teste (ou Regras).',
+    'q21.e': 'Condições nas linhas, regras nas colunas. Cada coluna define combinação única V/F e ação esperada — traduzindo-se diretamente em caso de teste.',
+    'q21.sy': 'Cap.4 §4.2.3 — Teste de tabela de decisão (FL-4.2.3 K3)',
+
+    'q22.tag': 'Teste baseado em risco', 'q22.q': 'Afirmação VERDADEIRA sobre casos de teste baseados em riscos:',
+    'q22.a': 'c) Priorizam funcionalidades que, se falharem, podem causar o maior impacto no sistema.',
+    'q22.e': 'Análise de risco considera Probabilidade × Impacto. Função pouco usada com falha de alto impacto financeiro ou risco à vida deve ter prioridade máxima.',
+    'q22.sy': 'Cap.5 §5.2.3 — Risco de produto e escopo de teste (FL-5.2.3 K2)',
+
+    'q23.tag': 'Revisão por pares', 'q23.q': 'Importância da revisão por pares dos casos de teste:',
+    'q23.a': 'd) Todas as alternativas acima.',
+    'q23.e': 'Benefícios: (a) verifica clareza e completude, (b) identifica falhas lógicas antes da execução, (c) aumenta confiança na cobertura dos requisitos.',
+    'q23.sy': 'Cap.3 §3.2.2 — Atividades do processo de revisão (FL-3.2.2 K2)',
+
+    'q24.tag': 'Caixa branca vs preta', 'q24.q': 'Principal diferença entre testes de caixa branca e caixa preta:',
+    'q24.a': 'a) Caixa branca se baseia na estrutura interna; caixa preta na especificação funcional e requisitos de usuário.',
+    'q24.e': 'Caixa branca: acesso ao código — loops, cobertura de linhas. Caixa preta: sem código — dado entrada X, saída Y conforme documentação.',
+    'q24.sy': 'Cap.4 §4.1.1 — Categorias de técnicas (FL-4.1.1 K2)',
+
+    'q25.tag': 'Importância dos casos de teste', 'q25.q': 'Melhor descreve a importância da criação de casos de teste considerando risco e benefício:',
+    'q25.a': 'c) Cenários de utilização reproduzidos identificam defeitos antes que causem problemas aos usuários — reduzindo riscos e aumentando satisfação do cliente.',
+    'q25.e': 'Valor econômico do teste está na redução de risco. Corrigir em teste é infinitamente mais barato que em produção; evitar bugs ao usuário protege a imagem da empresa.',
+    'q25.sy': 'Cap.1 §1.2.1 — Por que os testes são necessários (FL-1.2.1 K2)',
+
+    'q26.tag': 'Teste vs depuração', 'q26.q': 'Qual afirmação distingue melhor teste de depuração?',
+    'q26.a': 'a) Teste encontra defeitos; depuração localiza, analisa e remove as causas dos defeitos.',
+    'q26.e': 'Teste inclui planejamento, design, execução e reporte. Depuração é atividade de desenvolvimento após falha encontrada — identifica causa raiz e aplica correções.',
+    'q26.sy': 'Cap.1 §1.1.2 — Teste vs depuração (FL-1.1.2 K2)',
+
+    'q27.tag': 'Sete princípios', 'q27.q': 'Qual princípio de teste afirma que testar tudo não é viável, exceto em casos triviais?',
+    'q27.a': 'a) Teste exaustivo é impossível.',
+    'q27.e': 'Um dos sete princípios ISTQB. Em vez de testar todas as combinações, use risco e técnicas (PE, AVL, etc.) para selecionar um subconjunto representativo.',
+    'q27.sy': 'Cap.1 §1.3.1 — Sete princípios de teste (FL-1.3.1 K2)',
+
+    'q28.tag': 'Erro, defeito, falha', 'q28.q': 'Um desenvolvedor digita errado o nome de uma variável. O programa trava ao executar essa linha. O que é a falha?',
+    'q28.a': 'c) O travamento do programa observado na execução da linha.',
+    'q28.e': 'Erro = equívoco humano (typo). Defect/bug = falha no código (variável errada). Falha = desvio observável em runtime (crash). Causa raiz é o erro; falha é o que usuário/testador vê.',
+    'q28.sy': 'Cap.1 §1.2.3 — Causa raiz, erro, defeito, falha (FL-1.2.3 K2)',
+
+    'q29.tag': 'Confirmação vs regressão', 'q29.q': 'Após correção de defeito, testes são reexecutados na funcionalidade corrigida E em áreas relacionadas inalteradas. Testes nas áreas relacionadas são principalmente:',
+    'q29.a': 'b) Teste de regressão.',
+    'q29.e': 'Confirmação (re-teste) verifica a correção na funcionalidade afetada. Regressão verifica que a correção não introduziu efeitos colaterais em outras partes.',
+    'q29.sy': 'Cap.2 §2.2.3 — Confirmação vs regressão (FL-2.2.3 K2)',
+
+    'q30.tag': 'Shift-left', 'q30.q': 'Teste shift-left significa:',
+    'q30.a': 'a) Realizar atividades de teste mais cedo no SDLC.',
+    'q30.e': 'Shift-left integra planejamento, teste estático e automação cedo — detectando defeitos quando são mais baratos de corrigir. Comum em Agile e DevOps (Cap.2 §2.1).',
+    'q30.sy': 'Cap.2 §2.1.5 — Abordagem shift-left (FL-2.1.5 K2)',
+
+    'q31.tag': 'Níveis de teste', 'q31.q': 'Qual nível de teste foca interações entre componentes e é frequentemente executado por testadores?',
+    'q31.a': 'b) Teste de integração.',
+    'q31.e': 'Teste de componente verifica unidades isoladas (frequentemente por devs). Integração verifica interfaces e fluxo de dados entre componentes ou sistemas.',
+    'q31.sy': 'Cap.2 §2.2.1 — Níveis de teste (FL-2.2.1 K2)',
+
+    'q32.tag': 'Teste de manutenção', 'q32.q': 'Qual é um acionador de teste de manutenção?',
+    'q32.a': 'a) Melhorias planejadas em um sistema existente.',
+    'q32.e': 'Teste de manutenção é acionado por mudanças: melhorias, migração, descontinuação ou alterações de ambiente — não apenas correções de defeito.',
+    'q32.sy': 'Cap.2 §2.3.1 — Acionadores de teste de manutenção (FL-2.3.1 K2)',
+
+    'q33.tag': 'Estático vs dinâmico', 'q33.q': 'Qual diferença-chave entre teste estático e dinâmico?',
+    'q33.a': 'a) Teste estático não requer executar o software.',
+    'q33.e': 'Teste estático (revisões, análise estática) encontra defeitos em produtos de trabalho antes da execução. Teste dinâmico exige executar o software e comparar resultado real vs esperado.',
+    'q33.sy': 'Cap.3 §3.1.3 — Teste estático vs dinâmico (FL-3.1.3 K2)',
+
+    'q34.tag': 'Tipos de revisão', 'q34.q': 'Qual tipo de revisão é tipicamente informal, liderada pelo autor, com objetivo principal de aprendizado?',
+    'q34.a': 'a) Walkthrough.',
+    'q34.e': 'Walkthroughs são informais; o autor lidera. Inspeções são formais com papéis definidos (moderador, autor, scribe, revisor) e métricas. Revisão técnica foca conteúdo técnico.',
+    'q34.sy': 'Cap.3 §3.2.4 — Tipos de revisão (FL-3.2.4 K1)',
+
+    'q35.tag': 'Critérios entrada/saída', 'q35.q': 'Critérios de saída de teste definem:',
+    'q35.a': 'a) Condições que devem ser atendidas para declarar um nível de teste completo.',
+    'q35.e': 'Critérios de entrada devem ser satisfeitos para iniciar (ex.: build disponível, ambiente pronto). Critérios de saída definem quando parar (ex.: meta de cobertura, defeitos críticos resolvidos).',
+    'q35.sy': 'Cap.5 §5.1.3 — Critérios de entrada e saída (FL-5.1.3 K2)',
+
+    'q36.tag': 'Pirâmide de teste', 'q36.q': 'Na pirâmide de automação, qual camada tipicamente tem o maior número de testes automatizados?',
+    'q36.a': 'a) Testes de unidade/componente na base.',
+    'q36.e': 'A pirâmide recomenda muitos testes unitários rápidos e baratos na base; menos de integração; ainda menos UI/E2E no topo — equilibrando velocidade, custo e feedback.',
+    'q36.sy': 'Cap.5 §5.1.6 — Pirâmide de teste (FL-5.1.6 K1)',
+
+    'q37.tag': 'Risco projeto vs produto', 'q37.q': 'Um risco de que o cronograma de testes será cortado por atraso na entrega é exemplo de:',
+    'q37.a': 'a) Risco de projeto.',
+    'q37.e': 'Riscos de projeto afetam sucesso do projeto (cronograma, orçamento, recursos). Riscos de produto afetam qualidade em uso (falhas, segurança, UX ruim). Ambos influenciam escopo e rigor de teste.',
+    'q37.sy': 'Cap.5 §5.2.2 — Risco de projeto vs produto (FL-5.2.2 K2)',
+
+    'q38.tag': 'Relatório de defeito', 'q38.q': 'Qual item é essencial em um relatório de defeito?',
+    'q38.a': 'a) Passos para reproduzir o defeito.',
+    'q38.e': 'Bom relatório inclui título, severidade/prioridade, ambiente, passos para reproduzir, resultado esperado vs real e anexos/logs — permitindo que devs reproduzam e corrijam rapidamente.',
+    'q38.sy': 'Cap.5 §5.5.1 — Relatório de defeitos (FL-5.5.1 K3)',
+
+    'q39.tag': 'Ferramentas de teste', 'q39.q': 'Ferramenta que executa scripts de teste e compara resultado real vs esperado é principalmente:',
+    'q39.a': 'a) Ferramenta de execução de testes.',
+    'q39.e': 'CTFL v4.0 agrupa ferramentas por propósito: gestão, estática, especificação/design, execução, performance, etc. Ferramentas de execução rodam testes e capturam pass/fail.',
+    'q39.sy': 'Cap.6 §6.1.1 — Suporte de ferramentas (FL-6.1.1 K2)',
+
+    'q40.tag': 'Riscos da automação', 'q40.q': 'Qual é um risco da automação de testes?',
+    'q40.a': 'a) Expectativas irrealistas sobre o que a automação pode alcançar.',
+    'q40.e': 'Outros riscos: custo de manutenção de scripts, lock-in de ferramenta, negligenciar teste manual/exploratório e automatizar funcionalidades instáveis cedo demais. Automação apoia teste — não substitui.',
+    'q40.sy': 'Cap.6 §6.2.1 — Benefícios e riscos da automação (FL-6.2.1 K1)'
+  }
+};
