@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Must-know QA Concepts — Lucas Ferreira</title>
+  <meta name="description" content="30 essential QA concepts explained in depth — from test design techniques to defect management and automation strategy." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --radius: 12px;
+      --radius-sm: 8px;
+      --font: 'Inter', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+      --transition: 0.2s ease;
+    }
+
+    [data-theme="dark"] {
+      --bg:       #080b12;
+      --bg2:      #0e1320;
+      --surface:  #111827;
+      --surface2: #1a2235;
+      --surface3: #1f2a40;
+      --border:   rgba(255,255,255,0.07);
+      --border2:  rgba(255,255,255,0.12);
+      --text:     #f0f4ff;
+      --text-2:   #8b9fc0;
+      --text-3:   #4d6080;
+      --accent:   #6c8cff;
+      --accent2:  #a78bfa;
+      --green:    #34d399;
+      --yellow:   #fbbf24;
+      --red:      #f87171;
+      --glow:     rgba(108,140,255,0.15);
+    }
+
+    [data-theme="light"] {
+      --bg:       #f6f8ff;
+      --bg2:      #edf0fa;
+      --surface:  #ffffff;
+      --surface2: #f0f2fc;
+      --surface3: #e8ebf7;
+      --border:   rgba(0,0,0,0.07);
+      --border2:  rgba(0,0,0,0.12);
+      --text:     #0f172a;
+      --text-2:   #475569;
+      --text-3:   #94a3b8;
+      --accent:   #4f72ff;
+      --accent2:  #7c3aed;
+      --green:    #059669;
+      --yellow:   #d97706;
+      --red:      #dc2626;
+      --glow:     rgba(79,114,255,0.10);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent2); }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px; height: 56px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+    }
+    .nav-back {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 0.82rem; font-weight: 500; color: var(--text-2);
+      border-radius: 6px; padding: 5px 10px;
+      transition: color var(--transition), background var(--transition);
+    }
+    .nav-back:hover { color: var(--text); background: var(--surface2); }
+    .nav-title {
+      font-size: 0.82rem; font-weight: 600; color: var(--text-3);
+      font-family: var(--mono); letter-spacing: 0.03em;
+    }
+    .theme-toggle {
+      width: 34px; height: 34px; border-radius: 8px;
+      border: 1px solid var(--border2); background: var(--surface);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-size: 0.95rem; transition: background var(--transition);
+    }
+    .theme-toggle:hover { background: var(--surface2); }
+    [data-theme="dark"] .icon-sun  { display: none; }
+    [data-theme="light"] .icon-moon { display: none; }
+
+    /* ── Hero ── */
+    .hero {
+      max-width: 860px; margin: 0 auto;
+      padding: 64px 24px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
+      color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block; width: 20px; height: 1px; background: var(--accent);
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800;
+      letter-spacing: -0.03em; color: var(--text); margin-bottom: 14px;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-sub {
+      font-size: 0.95rem; color: var(--text-2); max-width: 580px; line-height: 1.75;
+    }
+    .hero-stats {
+      display: flex; gap: 28px; margin-top: 28px; flex-wrap: wrap;
+    }
+    .hstat { display: flex; flex-direction: column; gap: 2px; }
+    .hstat-val { font-size: 1.5rem; font-weight: 800; font-family: var(--mono); color: var(--text); letter-spacing: -0.02em; }
+    .hstat-val span { color: var(--accent); }
+    .hstat-lbl { font-size: 0.7rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* ── Filter ── */
+    .filter-bar {
+      max-width: 860px; margin: 0 auto;
+      padding: 28px 24px 0;
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .filter-btn {
+      padding: 6px 14px; border-radius: 20px;
+      border: 1px solid var(--border2); background: var(--surface);
+      font-size: 0.77rem; font-family: var(--mono); font-weight: 500;
+      color: var(--text-2); cursor: pointer;
+      transition: all var(--transition);
+    }
+    .filter-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--glow); }
+    .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    /* ── Grid ── */
+    .grid-wrap {
+      max-width: 860px; margin: 0 auto;
+      padding: 24px 24px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* ── Concept card ── */
+    .concept-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      grid-template-rows: auto auto;
+      column-gap: 32px;
+      row-gap: 0;
+      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+      cursor: default;
+    }
+    .concept-card:hover {
+      border-color: var(--border2);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.07);
+      transform: translateX(3px);
+    }
+    .concept-card.hidden { display: none; }
+
+    /* Left column: num + term + short + chip — spans both rows */
+    .card-left {
+      grid-column: 1; grid-row: 1 / 3;
+      display: flex; flex-direction: column; gap: 8px;
+      padding-right: 28px;
+      border-right: 1px solid var(--border);
+    }
+    .card-num {
+      font-family: var(--mono); font-size: 0.65rem; font-weight: 700;
+      color: var(--text-3); width: 24px; height: 24px; border-radius: 6px;
+      background: var(--surface2); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card-term {
+      font-size: 1rem; font-weight: 700; color: var(--text);
+      letter-spacing: -0.02em; line-height: 1.2;
+    }
+    .card-short {
+      font-size: 0.72rem; color: var(--accent); font-family: var(--mono);
+      font-weight: 500; line-height: 1.4;
+    }
+    .cat-chip {
+      font-size: 0.6rem; font-family: var(--mono); font-weight: 600;
+      padding: 2px 8px; border-radius: 20px; white-space: nowrap;
+      align-self: flex-start; margin-top: auto;
+    }
+    .cat-planning  { background: rgba(108,140,255,0.10); border: 1px solid rgba(108,140,255,0.25); color: var(--accent); }
+    .cat-types     { background: rgba(52,211,153,0.10); border: 1px solid rgba(52,211,153,0.25); color: var(--green); }
+    .cat-defects   { background: rgba(248,113,113,0.10); border: 1px solid rgba(248,113,113,0.25); color: var(--red); }
+    .cat-technique { background: rgba(251,191,36,0.10); border: 1px solid rgba(251,191,36,0.25); color: var(--yellow); }
+    .cat-concepts  { background: rgba(167,139,250,0.10); border: 1px solid rgba(167,139,250,0.25); color: var(--accent2); }
+    .cat-automation{ background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.20); color: var(--green); }
+
+    /* Right column: desc (row 1) + example (row 2) */
+    .card-desc {
+      grid-column: 2; grid-row: 1;
+      font-size: 0.85rem; color: var(--text-2); line-height: 1.7;
+      padding-bottom: 14px;
+    }
+    .card-example {
+      grid-column: 2; grid-row: 2;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 0.78rem; color: var(--text-2); line-height: 1.6;
+    }
+    .card-example strong { color: var(--text); font-weight: 600; }
+    .card-example code {
+      font-family: var(--mono); font-size: 0.72rem;
+      background: var(--surface3); padding: 1px 5px; border-radius: 4px;
+      color: var(--green);
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 24px;
+      text-align: center;
+      font-size: 0.75rem; color: var(--text-3);
+      font-family: var(--mono);
+    }
+    footer a { color: var(--accent); }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 16px; }
+      .nav-title { display: none; }
+      .concept-card {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+      }
+      .card-left {
+        grid-column: 1; grid-row: 1;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding-right: 0; padding-bottom: 14px;
+        flex-direction: row; flex-wrap: wrap; align-items: center; gap: 8px;
+      }
+      .card-term { flex: 1 0 100%; }
+      .card-desc { grid-column: 1; grid-row: 2; padding-top: 14px; }
+      .card-example { grid-column: 1; grid-row: 3; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-back">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Portfolio
+    </a>
+    <span class="nav-title">qa-concepts.html</span>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+      <span class="icon-sun">☀️</span>
+      <span class="icon-moon">🌙</span>
+    </button>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-eyebrow">Reference · QA Knowledge</div>
+    <h1>Must-know <span>QA Concepts</span></h1>
+    <p class="hero-sub">30 fundamental concepts every QA engineer should master — from test design techniques and defect management to automation strategy and CI/CD integration. Each entry goes beyond the one-liner definition.</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-val"><span>30</span></div><div class="hstat-lbl">Concepts</div></div>
+      <div class="hstat"><div class="hstat-val"><span>6</span></div><div class="hstat-lbl">Categories</div></div>
+      <div class="hstat"><div class="hstat-val"><span>~</span>15<span>min</span></div><div class="hstat-lbl">Read time</div></div>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" data-cat="all">All 30</button>
+    <button class="filter-btn" data-cat="planning">Planning &amp; Documentation</button>
+    <button class="filter-btn" data-cat="types">Test Types</button>
+    <button class="filter-btn" data-cat="defects">Defect Management</button>
+    <button class="filter-btn" data-cat="technique">Techniques</button>
+    <button class="filter-btn" data-cat="concepts">Core Concepts</button>
+    <button class="filter-btn" data-cat="automation">Automation &amp; Tools</button>
+  </div>
+
+  <div class="grid-wrap" id="grid">
+
+    <!-- 1 -->
+    <div class="concept-card" data-cat="planning">
+      <div class="card-left">
+        <div class="card-num">1</div>
+        <div class="card-term">Test Scenario</div>
+        <div class="card-short">High-level condition to be tested</div>
+        <span class="cat-chip cat-planning">Planning</span>
+      </div>
+      <div class="card-desc">A test scenario is a one-sentence statement of what needs to be validated, without specifying the exact steps. It answers "what" not "how." A single scenario can generate multiple test cases covering different data combinations or paths.</div>
+      <div class="card-example"><strong>Example:</strong> "Verify that a user can complete KYC with a temporary SIN." This scenario spawns test cases for valid expiry, expired date, missing date, and consentToUseSIN=false.</div>
+    </div>
+
+    <!-- 2 -->
+    <div class="concept-card" data-cat="planning">
+      <div class="card-left">
+        <div class="card-num">2</div>
+        <div class="card-term">Test Case</div>
+        <div class="card-short">Step-by-step instructions to verify functionality</div>
+        <span class="cat-chip cat-planning">Planning</span>
+      </div>
+      <div class="card-desc">The atomic unit of testing. A test case contains: preconditions, exact input data, execution steps, expected result, and postconditions. A well-written test case is self-contained, reproducible, and unambiguous — another person should get the same result running it.</div>
+      <div class="card-example"><strong>Example:</strong> TC-001: Given a user with pending agreements, when GET /v1/market-data/pending-agreements is called with a valid user JWT, then the response is 200 with hasPendingAgreements: true.</div>
+    </div>
+
+    <!-- 3 -->
+    <div class="concept-card" data-cat="planning">
+      <div class="card-left">
+        <div class="card-num">3</div>
+        <div class="card-term">Test Suite</div>
+        <div class="card-short">Group of test cases for a module</div>
+        <span class="cat-chip cat-planning">Planning</span>
+      </div>
+      <div class="card-desc">A logical grouping of related test cases, typically by feature, module, or regression scope. Suites allow selective execution (run only auth tests after an auth change), track pass/fail rates per area, and define the scope of each test cycle. In Cypress and Playwright, a spec file maps to a suite.</div>
+      <div class="card-example"><strong>Tip:</strong> Structure suites by feature, not by test type. A "KYC suite" that covers smoke + regression + edge cases is more actionable than a flat "regression suite" mixing unrelated features.</div>
+    </div>
+
+    <!-- 4 -->
+    <div class="concept-card" data-cat="planning">
+      <div class="card-left">
+        <div class="card-num">4</div>
+        <div class="card-term">Test Data</div>
+        <div class="card-short">Input values used during testing</div>
+        <span class="cat-chip cat-planning">Planning</span>
+      </div>
+      <div class="card-desc">Test data includes all inputs, preconditions, and environment state needed to execute a test. Good test data is deterministic (same run, same result), isolated (doesn't depend on other tests), and covers valid, invalid, and boundary values. In fintech, test data must also comply with data privacy rules — synthetic data and SIN generators are essential.</div>
+      <div class="card-example"><strong>Tip:</strong> Never share test users between automated tests running in parallel. Each test should own its data or reset state explicitly to avoid flakiness.</div>
+    </div>
+
+    <!-- 5 -->
+    <div class="concept-card" data-cat="planning">
+      <div class="card-left">
+        <div class="card-num">5</div>
+        <div class="card-term">Test Plan</div>
+        <div class="card-short">Strategy, scope, and schedule of testing</div>
+        <span class="cat-chip cat-planning">Planning</span>
+      </div>
+      <div class="card-desc">A living document that defines scope, objectives, approach, resources, environments, schedule, entry/exit criteria, and risk assessment for a testing effort. It is the contract between QA and stakeholders about what will and won't be tested — and the basis for all estimations. It should be updated as the project evolves.</div>
+      <div class="card-example"><strong>Key sections:</strong> Scope (in/out), Test types to be performed, Environments (SIT/UAT/Pre-prod), Entry criteria (build deployed), Exit criteria (pass rate ≥ 95%, no Critical open), Risks and mitigations.</div>
+    </div>
+
+    <!-- 6 -->
+    <div class="concept-card" data-cat="planning">
+      <div class="card-left">
+        <div class="card-num">6</div>
+        <div class="card-term">RTM</div>
+        <div class="card-short">Mapping of requirements to test cases</div>
+        <span class="cat-chip cat-planning">Planning</span>
+      </div>
+      <div class="card-desc">Requirements Traceability Matrix: a document that links each requirement to the test cases that verify it, and tracks their execution status. It ensures full coverage (every requirement has at least one test), surfaces gaps, and provides audit evidence for compliance-driven projects. Critical for regulated industries like fintech.</div>
+      <div class="card-example"><strong>Columns:</strong> Requirement ID → Requirement description → Test case IDs → Execution status → Pass/Fail. A missing test case for a requirement is a coverage gap — not a backlog item.</div>
+    </div>
+
+    <!-- 7 -->
+    <div class="concept-card" data-cat="types">
+      <div class="card-left">
+        <div class="card-num">7</div>
+        <div class="card-term">Functional Testing</div>
+        <div class="card-short">Validates expected functionality</div>
+        <span class="cat-chip cat-types">Test Types</span>
+      </div>
+      <div class="card-desc">Tests whether the system does what the requirements specify — "does it work?" regardless of how. Covers every business rule, user flow, and edge case. Functional testing is black-box by nature: the tester provides inputs and observes outputs without needing to know the internal implementation.</div>
+      <div class="card-example"><strong>Example:</strong> Verify that submitting a tax residency form with a Brazilian TIN of exactly 11 characters returns 204. Verify that 10 characters returns 400 with a specific error message.</div>
+    </div>
+
+    <!-- 8 -->
+    <div class="concept-card" data-cat="types">
+      <div class="card-left">
+        <div class="card-num">8</div>
+        <div class="card-term">Non-Functional Testing</div>
+        <div class="card-short">Checks performance, security, usability</div>
+        <span class="cat-chip cat-types">Test Types</span>
+      </div>
+      <div class="card-desc">Tests how well the system performs its functions, not whether it performs them. Includes performance (response times under load), security (auth, injection, data exposure), accessibility (screen readers, WCAG compliance), usability (UI clarity), and reliability (uptime, error recovery). Often skipped under pressure — and the source of production incidents.</div>
+      <div class="card-example"><strong>Examples:</strong> Load test: P95 response &lt; 2s under 100 concurrent users. Security: JWT with expired scope returns 401, not 200. A11y: all form fields have associated labels readable by axe-core.</div>
+    </div>
+
+    <!-- 9 -->
+    <div class="concept-card" data-cat="types">
+      <div class="card-left">
+        <div class="card-num">9</div>
+        <div class="card-term">Exploratory Testing</div>
+        <div class="card-short">Learning + testing without scripts</div>
+        <span class="cat-chip cat-types">Test Types</span>
+      </div>
+      <div class="card-desc">Simultaneous learning, test design, and execution where the tester's knowledge and intuition guide what to test next — no predefined scripts. Most effective for finding issues that scripted tests miss: edge cases not in requirements, unexpected UI interactions, and integration gaps. Quality of results depends heavily on domain expertise.</div>
+      <div class="card-example"><strong>Approach:</strong> Use charter-based sessions ("explore the tax residency flow for edge cases around dual citizenship, time-box 60 min"), log discoveries in real-time, and debrief to extract new test cases from findings.</div>
+    </div>
+
+    <!-- 10 -->
+    <div class="concept-card" data-cat="types">
+      <div class="card-left">
+        <div class="card-num">10</div>
+        <div class="card-term">Smoke Testing</div>
+        <div class="card-short">Basic build verification</div>
+        <span class="cat-chip cat-types">Test Types</span>
+      </div>
+      <div class="card-desc">A shallow, wide pass over the most critical functionality to confirm a new build is stable enough for further testing. If smoke tests fail, the build is rejected and returned to developers — there's no point running the full suite. Should be fully automated and run on every deployment, completing in minutes.</div>
+      <div class="card-example"><strong>Rule of thumb:</strong> Smoke tests should cover the 20% of features that are used 80% of the time. Login, main navigation, and the primary user action are always candidates. Target: &lt; 5 minutes total.</div>
+    </div>
+
+    <!-- 11 -->
+    <div class="concept-card" data-cat="types">
+      <div class="card-left">
+        <div class="card-num">11</div>
+        <div class="card-term">Sanity Testing</div>
+        <div class="card-short">Quick checks for specific areas</div>
+        <span class="cat-chip cat-types">Test Types</span>
+      </div>
+      <div class="card-desc">A focused, narrow check on a specific area after a bug fix or minor change, to verify the fix works and nothing immediately adjacent broke. Unlike smoke testing — which is broad and runs on every build — sanity testing is targeted and context-driven. It's often done manually by the QA who filed the bug.</div>
+      <div class="card-example"><strong>Difference from regression:</strong> Sanity = "does this specific fix work?" Regression = "does the whole system still work?" Run sanity first; if it passes, proceed to regression. If it fails, reject immediately.</div>
+    </div>
+
+    <!-- 12 -->
+    <div class="concept-card" data-cat="types">
+      <div class="card-left">
+        <div class="card-num">12</div>
+        <div class="card-term">Regression Testing</div>
+        <div class="card-short">Ensure new code doesn't break existing features</div>
+        <span class="cat-chip cat-types">Test Types</span>
+      </div>
+      <div class="card-desc">Re-running previously passing tests after code changes to ensure no existing functionality was broken. This is the primary driver for test automation — manual regression is unsustainable as codebases grow. A well-maintained automated regression suite is the safety net for continuous delivery.</div>
+      <div class="card-example"><strong>Risk-based approach:</strong> Not all tests need to run on every change. Map tests to code areas. A backend-only change to the tax service doesn't need UI regression on the personal info screen. Prioritize by change impact.</div>
+    </div>
+
+    <!-- 13 -->
+    <div class="concept-card" data-cat="types">
+      <div class="card-left">
+        <div class="card-num">13</div>
+        <div class="card-term">Retesting</div>
+        <div class="card-short">Testing failed test cases after bug fix</div>
+        <span class="cat-chip cat-types">Test Types</span>
+      </div>
+      <div class="card-desc">Executing a specific test case that previously failed, after the defect has been fixed, to confirm the fix resolves the issue. Retesting is narrowly scoped to the failing scenario — it is not regression testing. Once the retest passes, regression follows to check for side effects introduced by the fix.</div>
+      <div class="card-example"><strong>Workflow:</strong> Bug filed → Dev fixes → QA retests the exact failing case → if pass, run regression on affected area → if regression passes, close the bug. Never close a bug based on developer word alone.</div>
+    </div>
+
+    <!-- 14 -->
+    <div class="concept-card" data-cat="defects">
+      <div class="card-left">
+        <div class="card-num">14</div>
+        <div class="card-term">Defect Life Cycle</div>
+        <div class="card-short">Bug journey from open to close</div>
+        <span class="cat-chip cat-defects">Defects</span>
+      </div>
+      <div class="card-desc">The sequence of states a defect passes through: New → Assigned → Open (being fixed) → Fixed → Retesting → Verified → Closed. Side paths include Rejected (not a bug), Deferred (won't fix now), and Duplicate. Each state transition has an owner, criteria, and a required action. Skipping steps is a process failure.</div>
+      <div class="card-example"><strong>Common mistake:</strong> Closing bugs directly from "Fixed" without a Retesting step. The developer believes it's fixed; QA must verify independently before closing. Skipping this step inflates false-close rates.</div>
+    </div>
+
+    <!-- 15 -->
+    <div class="concept-card" data-cat="defects">
+      <div class="card-left">
+        <div class="card-num">15</div>
+        <div class="card-term">Severity</div>
+        <div class="card-short">Impact of a defect on the system</div>
+        <span class="cat-chip cat-defects">Defects</span>
+      </div>
+      <div class="card-desc">Measures the technical damage a defect causes to the system. Assigned by QA. Levels: Critical (system crash, data loss, security breach), Major (core feature broken, no workaround), Minor (feature works but degraded), Trivial (cosmetic, no functional impact). Severity is objective — it's about what broke, not who cares.</div>
+      <div class="card-example"><strong>Classic mismatch:</strong> A typo on the landing page is Trivial severity but could be High priority if the CEO noticed it. A data calculation error in tax reporting is Critical severity but Low priority if the feature isn't live yet.</div>
+    </div>
+
+    <!-- 16 -->
+    <div class="concept-card" data-cat="defects">
+      <div class="card-left">
+        <div class="card-num">16</div>
+        <div class="card-term">Priority</div>
+        <div class="card-short">Urgency of fixing the defect</div>
+        <span class="cat-chip cat-defects">Defects</span>
+      </div>
+      <div class="card-desc">Measures business urgency — how quickly the defect must be fixed. Assigned by the product owner or business stakeholders, not QA. High priority bugs are fixed in the current sprint regardless of severity; Low priority may be deferred to a future release. Priority reflects business impact, deadlines, and stakeholder visibility.</div>
+      <div class="card-example"><strong>Decision matrix:</strong> High Severity + High Priority = fix now, block release. High Severity + Low Priority = schedule soon, risk-accept for this release. Low Severity + High Priority = fast fix (cosmetic but visible to CEO). Low + Low = backlog.</div>
+    </div>
+
+    <!-- 17 -->
+    <div class="concept-card" data-cat="technique">
+      <div class="card-left">
+        <div class="card-num">17</div>
+        <div class="card-term">BVA</div>
+        <div class="card-short">Testing at input boundaries</div>
+        <span class="cat-chip cat-technique">Technique</span>
+      </div>
+      <div class="card-desc">Boundary Value Analysis: a black-box technique that tests input values at and around the edges of valid/invalid partitions. Most defects concentrate at boundaries — off-by-one errors in validation logic are extremely common. For a range, test: min-1, min, min+1, max-1, max, max+1.</div>
+      <div class="card-example"><strong>Example:</strong> A TIN field accepts 5–50 characters. Test: 4 chars (invalid), 5 chars (valid), 6 chars (valid), 49 chars (valid), 50 chars (valid), 51 chars (invalid). Applied to responsive design: test viewport at 519px and 520px if the layout changes at 520px.</div>
+    </div>
+
+    <!-- 18 -->
+    <div class="concept-card" data-cat="technique">
+      <div class="card-left">
+        <div class="card-num">18</div>
+        <div class="card-term">EP</div>
+        <div class="card-short">Grouping inputs into valid/invalid sets</div>
+        <span class="cat-chip cat-technique">Technique</span>
+      </div>
+      <div class="card-desc">Equivalence Partitioning: divides all possible inputs into classes where every value in a class is expected to behave identically. You test one representative value per class instead of every possible input. This dramatically reduces test count while maintaining coverage. Always combined with BVA for complete technique coverage.</div>
+      <div class="card-example"><strong>Example:</strong> For tax residency country selection — EP classes: Canada (special logic), USA (special logic), countries requiring TIN, countries not requiring TIN, countries with optional TIN. You don't need to test all 190+ countries — one from each class suffices.</div>
+    </div>
+
+    <!-- 19 -->
+    <div class="concept-card" data-cat="types">
+      <div class="card-left">
+        <div class="card-num">19</div>
+        <div class="card-term">UAT</div>
+        <div class="card-short">End-user validation of requirements</div>
+        <span class="cat-chip cat-types">Test Types</span>
+      </div>
+      <div class="card-desc">User Acceptance Testing: the final testing phase where real users or business representatives validate that the system meets business requirements and is fit for purpose. UAT success is typically the production go-live gate. It validates business value — not just technical correctness. QA enables UAT; users execute it.</div>
+      <div class="card-example"><strong>QA's role in UAT:</strong> Prepare test environments, seed test accounts, write test scripts for business users, triage defects found during UAT, and track resolution. UAT findings that weren't caught in QA are a signal of a coverage gap.</div>
+    </div>
+
+    <!-- 20 -->
+    <div class="concept-card" data-cat="concepts">
+      <div class="card-left">
+        <div class="card-num">20</div>
+        <div class="card-term">QA</div>
+        <div class="card-short">Process to prevent defects</div>
+        <span class="cat-chip cat-concepts">Concepts</span>
+      </div>
+      <div class="card-desc">Quality Assurance is a proactive, process-oriented discipline focused on preventing defects before they occur. QA is not just testing — it includes process audits, definition of standards, code review participation, shift-left practices, and continuous improvement of the development pipeline. QA improves the conditions under which software is built.</div>
+      <div class="card-example"><strong>Shift-left examples:</strong> Reviewing acceptance criteria before development starts, writing test cases from requirements (not after the build), catching design ambiguities in refinement sessions, adding linting and static analysis to CI before any QA manual step.</div>
+    </div>
+
+    <!-- 21 -->
+    <div class="concept-card" data-cat="concepts">
+      <div class="card-left">
+        <div class="card-num">21</div>
+        <div class="card-term">QC</div>
+        <div class="card-short">Finding defects in the product</div>
+        <span class="cat-chip cat-concepts">Concepts</span>
+      </div>
+      <div class="card-desc">Quality Control is a reactive, product-oriented activity focused on finding defects in an already-built artifact. Testing is a QC activity. The key distinction: QA prevents defects by improving processes; QC detects them by inspecting the product. In practice, QA teams do both — but the mental model matters for where energy is invested.</div>
+      <div class="card-example"><strong>The difference in practice:</strong> Writing test cases from requirements (before the build) is QA. Executing those test cases against the build is QC. A team that only does QC is reactive and will always be downstream of quality problems.</div>
+    </div>
+
+    <!-- 22 -->
+    <div class="concept-card" data-cat="defects">
+      <div class="card-left">
+        <div class="card-num">22</div>
+        <div class="card-term">Bug Leakage</div>
+        <div class="card-short">Bugs missed in testing, found later</div>
+        <span class="cat-chip cat-defects">Defects</span>
+      </div>
+      <div class="card-desc">A defect that escaped the testing phase and was discovered in production — by the customer, a monitoring alert, or post-release QA. High leakage rates are a signal of inadequate coverage, poor test data, missing test types, or pressure to release without completing test cycles. Tracked as the Escape Rate metric.</div>
+      <div class="card-example"><strong>Prevention:</strong> Root-cause every leaked bug — was the test case missing? Was it skipped due to time pressure? Was it a test data gap? The answer drives the remediation: add test cases, improve process, or fix test data strategy. Never just fix the bug and move on.</div>
+    </div>
+
+    <!-- 23 -->
+    <div class="concept-card" data-cat="defects">
+      <div class="card-left">
+        <div class="card-num">23</div>
+        <div class="card-term">Bug Release</div>
+        <div class="card-short">Known bugs released intentionally</div>
+        <span class="cat-chip cat-defects">Defects</span>
+      </div>
+      <div class="card-desc">A known defect intentionally shipped to production with explicit business sign-off — because the fix is too risky near a release, a workaround exists, or the business impact is acceptable. Requires formal documentation: who approved it, the workaround, the timeline for resolution, and the risk acceptance criteria.</div>
+      <div class="card-example"><strong>Process:</strong> QA documents the defect and its risk → PO/PM formally accepts → release notes include the known issue → a follow-up ticket is created for the fix → production monitoring is heightened. "We'll fix it later" without documentation is negligence, not a bug release.</div>
+    </div>
+
+    <!-- 24 -->
+    <div class="concept-card" data-cat="automation">
+      <div class="card-left">
+        <div class="card-num">24</div>
+        <div class="card-term">Automation Testing</div>
+        <div class="card-short">Using tools to auto-execute tests</div>
+        <span class="cat-chip cat-automation">Automation</span>
+      </div>
+      <div class="card-desc">Using code and tools to execute tests automatically, reducing manual effort, increasing repeatability, and enabling fast CI feedback. Automation is not a replacement for manual testing — it's best suited for regression, smoke, and data-driven scenarios. Poorly designed automation is worse than none: it creates false confidence and high maintenance cost.</div>
+      <div class="card-example"><strong>Automate when:</strong> the test is run frequently, the steps are deterministic, the area is stable (no UI churn), and failure has high impact. Don't automate: one-off exploratory sessions, UI that changes every sprint, or tests that require human judgment.</div>
+    </div>
+
+    <!-- 25 -->
+    <div class="concept-card" data-cat="automation">
+      <div class="card-left">
+        <div class="card-num">25</div>
+        <div class="card-term">CI/CD</div>
+        <div class="card-short">Automated integration and deployment</div>
+        <span class="cat-chip cat-automation">Automation</span>
+      </div>
+      <div class="card-desc">Continuous Integration (merge frequently, run automated tests on every commit) and Continuous Delivery/Deployment (automatically deploy builds that pass all gates). Tests are the quality gate: if they fail, the pipeline blocks the deploy. QA owns the test strategy inside the pipeline — not just what tests exist, but what runs at each stage and what constitutes a blocking failure.</div>
+      <div class="card-example"><strong>Pipeline stages:</strong> Commit → lint + unit tests (fast feedback, &lt;2min) → integration tests → E2E smoke suite → deploy to SIT → full regression → deploy to UAT. Each stage must have a clear pass/fail contract. Flaky tests in CI erode trust in the entire pipeline.</div>
+    </div>
+
+    <!-- 26 -->
+    <div class="concept-card" data-cat="technique">
+      <div class="card-left">
+        <div class="card-num">26</div>
+        <div class="card-term">Assertions</div>
+        <div class="card-short">Validating expected vs actual result</div>
+        <span class="cat-chip cat-technique">Technique</span>
+      </div>
+      <div class="card-desc">An assertion is a verification checkpoint in an automated test that compares the actual result against the expected value and fails the test if they don't match. A test without assertions is not a test — it's just code that runs. Good assertions are specific (check the exact value, not just "truthy"), meaningful, and produce clear failure messages that point to the root cause.</div>
+      <div class="card-example"><strong>Bad:</strong> <code>expect(response.status).to.exist</code> — passes for any status, including 500. <strong>Good:</strong> <code>expect(response.status).to.equal(204)</code> + <code>expect(response.body).to.be.empty</code> — fails precisely when the contract breaks.</div>
+    </div>
+
+    <!-- 27 -->
+    <div class="concept-card" data-cat="automation">
+      <div class="card-left">
+        <div class="card-num">27</div>
+        <div class="card-term">API Testing</div>
+        <div class="card-short">Testing backend using tools like Postman</div>
+        <span class="cat-chip cat-automation">Automation</span>
+      </div>
+      <div class="card-desc">Testing application programming interfaces directly — bypassing the UI — to validate request/response contracts, authentication, authorization scopes, error handling, data integrity, and performance. API tests are faster, more stable, and easier to maintain than UI tests. They belong at the integration layer of the test pyramid and are the best ROI for automation.</div>
+      <div class="card-example"><strong>What to assert on every API test:</strong> status code, response body schema (not just presence — validate field types and values), response time (flag slow endpoints), error message format on 4xx/5xx, and auth behavior (valid token = 200, invalid = 401, wrong scope = 403).</div>
+    </div>
+
+    <!-- 28 -->
+    <div class="concept-card" data-cat="automation">
+      <div class="card-left">
+        <div class="card-num">28</div>
+        <div class="card-term">Load Testing</div>
+        <div class="card-short">Testing under expected user load</div>
+        <span class="cat-chip cat-automation">Automation</span>
+      </div>
+      <div class="card-desc">Validates that the system meets performance SLAs (response time, throughput, error rate) under expected and peak concurrent users. Distinct from stress testing (push beyond limits to find breaking point) and spike testing (sudden traffic surge). Runs against a production-like environment with realistic data. Tools: k6, JMeter, Gatling.</div>
+      <div class="card-example"><strong>Key metrics to track:</strong> P95 and P99 response times (not averages — averages hide tail latency), error rate under load, throughput (requests/sec), and resource saturation (CPU, memory, DB connections). A passing average with a P99 of 10s is a production incident waiting to happen.</div>
+    </div>
+
+    <!-- 29 -->
+    <div class="concept-card" data-cat="types">
+      <div class="card-left">
+        <div class="card-num">29</div>
+        <div class="card-term">Integration Testing</div>
+        <div class="card-short">Checking interaction between modules</div>
+        <span class="cat-chip cat-types">Test Types</span>
+      </div>
+      <div class="card-desc">Verifies that multiple components or services work correctly together — validating the contracts and data flows at integration points. Each service may work in isolation but fail when combined due to mismatched schemas, auth handoffs, or timing issues. Critical in microservice architectures where the number of integration points grows with each service added.</div>
+      <div class="card-example"><strong>What integration tests catch that unit tests miss:</strong> A service returns a field as a string, but the consuming service expects an integer. Both pass their unit tests. Integration fails. Contract testing (Pact) and consumer-driven contracts formalize this layer.</div>
+    </div>
+
+    <!-- 30 -->
+    <div class="concept-card" data-cat="types">
+      <div class="card-left">
+        <div class="card-num">30</div>
+        <div class="card-term">E2E Testing</div>
+        <div class="card-short">Verifying complete user flow</div>
+        <span class="cat-chip cat-types">Test Types</span>
+      </div>
+      <div class="card-desc">End-to-End tests validate complete user workflows from the UI through all system layers (frontend → API → database), simulating real user behavior in a real environment. They provide the highest confidence but are the most expensive to maintain — slow, brittle to UI changes, and environment-dependent. Reserve E2E for the most critical happy paths and highest-risk flows.</div>
+      <div class="card-example"><strong>The pyramid rule:</strong> Many unit tests, fewer integration tests, even fewer E2E tests. A 1000-test E2E suite is an anti-pattern — it's slow, hard to debug, and becomes the bottleneck. Focus E2E on the flows whose failure would immediately block users: login, account creation, checkout, KYC submission.</div>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="index.html">← Lucas Ferreira · Senior QA Engineer</a>
+    &nbsp;·&nbsp; 30 concepts · source: Must-know for QA
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.cat;
+        document.querySelectorAll('.concept-card').forEach(card => {
+          card.classList.toggle('hidden', cat !== 'all' && card.dataset.cat !== cat);
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

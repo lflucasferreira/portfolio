@@ -113,7 +113,7 @@
     }
 
     /* ── Nav ── */
-    nav {
+    .site-nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
@@ -1600,12 +1600,15 @@
     }
     .metric-trend-kpi span { font-size: 0.72rem; font-weight: 500; color: var(--text-3); margin-left: 6px; }
     .metrics-pyramid-bar {
-      display: flex; height: 28px; border-radius: 6px; overflow: hidden; margin: 10px 0 12px;
+      display: flex; height: 32px; border-radius: 6px; overflow: hidden; margin: 10px 0 12px;
     }
     .metrics-pyramid-seg {
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.58rem; font-family: var(--mono); font-weight: 700; color: #fff; min-width: 0;
+      font-size: 0.62rem; font-family: var(--mono); font-weight: 700; color: #fff; min-width: 0;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      flex: 1 1 0;
     }
+    .metrics-pyramid-seg--narrow { font-size: 0.56rem; letter-spacing: -0.02em; padding: 0 3px; }
     .metrics-pyramid-legend {
       display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px;
       font-size: 0.68rem; font-family: var(--mono); color: var(--text-2);
@@ -1616,16 +1619,13 @@
     }
     [data-theme="dark"] .metrics-adv-intro { color: #94a8c8; }
     [data-theme="dark"] .metric-trend-kpi span { color: #94a8c8; }
+    .metrics-subtitle--spaced { margin-top: 28px; }
+    .metrics-adv-intro--wide { max-width: none; }
 
     .pyramid-card {
-      margin-top: 20px; padding: 22px 24px;
+      margin-top: 0; padding: 22px 24px;
       background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm);
     }
-    .pyramid-card-head { margin-bottom: 18px; }
-    .pyramid-card-head h4 {
-      font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 6px;
-    }
-    .pyramid-card-head p { font-size: 0.82rem; color: var(--text-2); line-height: 1.55; max-width: 68ch; }
     .pyramid-card-body {
       display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 240px); gap: 32px; align-items: center;
     }
@@ -1636,8 +1636,22 @@
     .pyramid-svg {
       width: 100%; max-width: 520px; min-height: 380px; height: auto; display: block; overflow: visible;
     }
-    .pyramid-face { stroke: rgba(255,255,255,0.22); stroke-width: 1.5; stroke-linejoin: round; }
+    .pyramid-face { stroke: rgba(255,255,255,0.22); stroke-width: 1.5; stroke-linejoin: round; cursor: pointer; transition: filter 0.25s ease, opacity 0.25s ease; }
     [data-theme="light"] .pyramid-face { stroke: rgba(255,255,255,0.45); }
+    .pyramid-card:has([data-tier="unit"]:hover) .pyramid-face:not([data-tier="unit"]),
+    .pyramid-card:has([data-tier="integration"]:hover) .pyramid-face:not([data-tier="integration"]),
+    .pyramid-card:has([data-tier="component"]:hover) .pyramid-face:not([data-tier="component"]),
+    .pyramid-card:has([data-tier="e2e"]:hover) .pyramid-face:not([data-tier="e2e"]) {
+      opacity: 0.42; filter: saturate(0.6);
+    }
+    .pyramid-card:has([data-tier="unit"]:hover) .pyramid-face[data-tier="unit"] { filter: brightness(1.14) drop-shadow(0 0 14px rgba(79,114,255,0.75)); }
+    .pyramid-card:has([data-tier="integration"]:hover) .pyramid-face[data-tier="integration"] { filter: brightness(1.12) drop-shadow(0 0 14px rgba(234,179,8,0.75)); }
+    .pyramid-card:has([data-tier="component"]:hover) .pyramid-face[data-tier="component"] { filter: brightness(1.12) drop-shadow(0 0 14px rgba(52,211,153,0.75)); }
+    .pyramid-card:has([data-tier="e2e"]:hover) .pyramid-face[data-tier="e2e"] { filter: brightness(1.12) drop-shadow(0 0 14px rgba(239,68,68,0.75)); }
+    .pyramid-tier-divider {
+      stroke: rgba(255,255,255,0.28); stroke-width: 1; pointer-events: none;
+    }
+    [data-theme="light"] .pyramid-tier-divider { stroke: rgba(255,255,255,0.55); }
     .pyramid-outline {
       fill: none; stroke: var(--border2); stroke-width: 1.5; stroke-linejoin: round;
     }
@@ -1647,17 +1661,34 @@
     .pyramid-tier-label {
       font-family: var(--mono); font-size: 14px; font-weight: 700; fill: #fff; pointer-events: none;
       dominant-baseline: middle;
+      text-anchor: middle;
+      transition: font-size 0.25s ease, filter 0.25s ease;
     }
-    .pyramid-tier-label--dark { fill: #422006; }
+    .pyramid-card:has([data-tier="unit"]:hover) .pyramid-tier-label[data-tier="unit"],
+    .pyramid-card:has([data-tier="integration"]:hover) .pyramid-tier-label[data-tier="integration"],
+    .pyramid-card:has([data-tier="component"]:hover) .pyramid-tier-label[data-tier="component"],
+    .pyramid-card:has([data-tier="e2e"]:hover) .pyramid-tier-label[data-tier="e2e"] {
+      font-size: 15px; filter: drop-shadow(0 0 8px rgba(255,255,255,0.55));
+    }
     .pyramid-leader {
       stroke: var(--text-3); stroke-width: 1; stroke-dasharray: 5 4; opacity: 0.65;
+      transition: stroke 0.25s ease, opacity 0.25s ease, stroke-dasharray 0.25s ease;
     }
     [data-theme="dark"] .pyramid-leader { stroke: #94a8c8; opacity: 0.5; }
+    .pyramid-card:has([data-tier="unit"]:hover) .pyramid-leader[data-tier="unit"] { stroke: #4f72ff; opacity: 1; stroke-dasharray: none; }
+    .pyramid-card:has([data-tier="integration"]:hover) .pyramid-leader[data-tier="integration"] { stroke: #eab308; opacity: 1; stroke-dasharray: none; }
+    .pyramid-card:has([data-tier="component"]:hover) .pyramid-leader[data-tier="component"] { stroke: #34d399; opacity: 1; stroke-dasharray: none; }
+    .pyramid-card:has([data-tier="e2e"]:hover) .pyramid-leader[data-tier="e2e"] { stroke: #ef4444; opacity: 1; stroke-dasharray: none; }
     .pyramid-ext-val {
       font-family: var(--mono); font-size: 12px; font-weight: 600; fill: var(--text-2);
       dominant-baseline: middle;
+      transition: fill 0.25s ease, font-size 0.25s ease;
     }
     [data-theme="dark"] .pyramid-ext-val { fill: #b8c4dc; }
+    .pyramid-card:has([data-tier="unit"]:hover) .pyramid-ext-val[data-tier="unit"] { fill: #4f72ff; font-size: 13px; font-weight: 700; }
+    .pyramid-card:has([data-tier="integration"]:hover) .pyramid-ext-val[data-tier="integration"] { fill: #eab308; font-size: 13px; font-weight: 700; }
+    .pyramid-card:has([data-tier="component"]:hover) .pyramid-ext-val[data-tier="component"] { fill: #34d399; font-size: 13px; font-weight: 700; }
+    .pyramid-card:has([data-tier="e2e"]:hover) .pyramid-ext-val[data-tier="e2e"] { fill: #ef4444; font-size: 13px; font-weight: 700; }
     .pyramid-ext-link {
       font-family: var(--mono); font-size: 11px; font-weight: 600; fill: var(--accent);
     }
@@ -1669,21 +1700,52 @@
       margin-top: 8px; font-size: 0.72rem; font-family: var(--mono); text-align: center;
     }
     .pyramid-coda-ref a { color: var(--accent); }
-    .pyramid-caption {
-      margin-top: 10px; font-size: 0.68rem; font-family: var(--mono); color: var(--text-3); text-align: center;
-    }
-    [data-theme="dark"] .pyramid-caption { color: #94a8c8; }
     .pyramid-stats { display: flex; flex-direction: column; gap: 10px; }
     .pyramid-stat {
       display: flex; align-items: center; gap: 10px;
       padding: 10px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+      cursor: pointer;
+      transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
+    }
+    .pyramid-card:has([data-tier="unit"]:hover) .pyramid-stat:not([data-tier="unit"]),
+    .pyramid-card:has([data-tier="integration"]:hover) .pyramid-stat:not([data-tier="integration"]),
+    .pyramid-card:has([data-tier="component"]:hover) .pyramid-stat:not([data-tier="component"]),
+    .pyramid-card:has([data-tier="e2e"]:hover) .pyramid-stat:not([data-tier="e2e"]) {
+      opacity: 0.55;
+    }
+    .pyramid-card:has([data-tier="unit"]:hover) .pyramid-stat[data-tier="unit"] {
+      border-color: rgba(79,114,255,0.45); background: rgba(79,114,255,0.1);
+      box-shadow: 0 0 0 1px rgba(79,114,255,0.2), 0 4px 16px rgba(79,114,255,0.12);
+      transform: translateX(4px);
+    }
+    .pyramid-card:has([data-tier="integration"]:hover) .pyramid-stat[data-tier="integration"] {
+      border-color: rgba(234,179,8,0.45); background: rgba(234,179,8,0.1);
+      box-shadow: 0 0 0 1px rgba(234,179,8,0.2), 0 4px 16px rgba(234,179,8,0.12);
+      transform: translateX(4px);
+    }
+    .pyramid-card:has([data-tier="component"]:hover) .pyramid-stat[data-tier="component"] {
+      border-color: rgba(52,211,153,0.45); background: rgba(52,211,153,0.1);
+      box-shadow: 0 0 0 1px rgba(52,211,153,0.2), 0 4px 16px rgba(52,211,153,0.12);
+      transform: translateX(4px);
+    }
+    .pyramid-card:has([data-tier="e2e"]:hover) .pyramid-stat[data-tier="e2e"] {
+      border-color: rgba(239,68,68,0.45); background: rgba(239,68,68,0.1);
+      box-shadow: 0 0 0 1px rgba(239,68,68,0.2), 0 4px 16px rgba(239,68,68,0.12);
+      transform: translateX(4px);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pyramid-face, .pyramid-tier-label, .pyramid-leader, .pyramid-ext-val, .pyramid-stat { transition: none; }
+      .pyramid-card:has([data-tier]:hover) .pyramid-stat[data-tier] { transform: none; }
     }
     .pyramid-stat-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
     .pyramid-stat-info { flex: 1; min-width: 0; }
     .pyramid-stat-name {
-      font-size: 0.72rem; font-family: var(--mono); font-weight: 600; color: var(--text); text-transform: uppercase; letter-spacing: 0.04em;
+      font-size: 0.78rem; font-family: var(--mono); font-weight: 600; color: var(--text);
     }
-    .pyramid-stat-val { font-size: 0.68rem; font-family: var(--mono); color: var(--text-3); margin-top: 2px; }
+    .pyramid-stat-tool {
+      font-size: 0.68rem; font-family: var(--mono); color: var(--text-3); margin-top: 2px;
+    }
+    [data-theme="dark"] .pyramid-stat-tool { color: #94a8c8; }
     .pyramid-stat-count {
       font-size: 0.95rem; font-weight: 700; font-family: var(--mono); color: var(--text); flex-shrink: 0;
     }
@@ -1693,8 +1755,6 @@
       font-size: 0.78rem; font-family: var(--mono); color: var(--text-2); text-align: center;
     }
     .pyramid-total strong { color: var(--accent); font-size: 1rem; }
-    [data-theme="dark"] .pyramid-card-head p { color: #94a8c8; }
-    [data-theme="dark"] .pyramid-stat-val { color: #94a8c8; }
 
     @media (max-width: 720px) {
       .pyramid-card-body { grid-template-columns: 1fr; }
@@ -1705,6 +1765,99 @@
     }
     @media (max-width: 480px) {
       .pyramid-stats { grid-template-columns: 1fr; }
+    }
+
+    /* ── Bug severity & priority ── */
+    .severity-intro, .priority-intro {
+      color: var(--text-2); font-size: 0.9rem; line-height: 1.7; max-width: none; margin-bottom: 22px;
+    }
+    .severity-intro a, .priority-intro a { color: var(--accent); text-decoration: none; }
+    .severity-intro a:hover, .priority-intro a:hover { text-decoration: underline; }
+    .severity-diagram, .priority-diagram {
+      margin-bottom: 28px; padding: 18px 12px 12px;
+      background: transparent; border: none; border-radius: 0;
+      text-align: center;
+    }
+    .severity-diagram-svg, .priority-diagram-svg {
+      display: block; width: 100%; max-width: 860px; height: auto; margin: 0 auto; overflow: visible;
+    }
+    .sev-ladder-card, .pri-ladder-card {
+      fill: var(--surface3); stroke: var(--border2); stroke-width: 1.5;
+    }
+    .sev-ladder-badge, .pri-ladder-badge {
+      fill: var(--surface); stroke: var(--border2); stroke-width: 1.5;
+    }
+    .sev-ladder-label, .pri-ladder-label {
+      fill: var(--text); font-family: var(--mono); font-size: 15px; font-weight: 700;
+    }
+    [data-theme="light"] .sev-ladder-card,
+    [data-theme="light"] .pri-ladder-card { fill: #eef1f8; stroke: #c8d0e0; }
+    [data-theme="light"] .sev-ladder-badge,
+    [data-theme="light"] .pri-ladder-badge { fill: #fff; stroke: #c8d0e0; }
+    .severity-diagram-cap, .priority-diagram-cap {
+      margin-top: 10px; font-size: 0.68rem; font-family: var(--mono); color: var(--text-3);
+    }
+    .severity-grid, .priority-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+    }
+    .severity-card, .priority-card {
+      padding: 14px 12px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      border-top: 3px solid var(--tax-color, var(--border2));
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .severity-card:hover, .priority-card:hover { transform: translateY(-2px); border-color: var(--border2); }
+    .severity-card-head, .priority-card-head {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+    }
+    .severity-icon, .priority-icon {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--surface); border: 1.5px solid var(--border2);
+      color: var(--tax-color, var(--text-3));
+    }
+    .severity-icon svg, .priority-icon svg {
+      width: 18px; height: 18px; display: block; overflow: visible;
+    }
+    .severity-icon svg [stroke], .priority-icon svg [stroke] { stroke: currentColor; }
+    .severity-icon svg [fill]:not([fill="none"]), .priority-icon svg [fill]:not([fill="none"]) { fill: currentColor; }
+    .severity-name, .priority-name {
+      font-size: 0.78rem; font-family: var(--mono); font-weight: 700;
+      color: var(--text); text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .severity-card p, .priority-card p {
+      font-size: 0.74rem; color: var(--text-2); line-height: 1.55; margin: 0;
+    }
+    .severity-card--blocker { --tax-color: #dc2626; }
+    .severity-card--critical { --tax-color: #ef4444; }
+    .severity-card--major { --tax-color: #f97316; }
+    .severity-card--minor { --tax-color: #16a34a; }
+    .severity-card--low { --tax-color: #15803d; }
+    .priority-card--highest { --tax-color: #dc2626; }
+    .priority-card--high { --tax-color: #ef4444; }
+    .priority-card--medium { --tax-color: #eab308; }
+    .priority-card--low { --tax-color: #16a34a; }
+    .priority-card--lowest { --tax-color: #15803d; }
+    .severity-note, .priority-note {
+      margin-top: 20px; padding: 14px 16px; border-radius: var(--radius-sm);
+      background: var(--glow); border: 1px solid rgba(108,140,255,0.2);
+      font-size: 0.8rem; font-family: var(--mono); color: var(--text-2); line-height: 1.55;
+    }
+    .severity-note strong, .priority-note strong { color: var(--text); }
+    [data-theme="dark"] .severity-intro,
+    [data-theme="dark"] .priority-intro,
+    [data-theme="dark"] .severity-card p,
+    [data-theme="dark"] .priority-card p { color: #94a8c8; }
+    [data-theme="dark"] .severity-note,
+    [data-theme="dark"] .priority-note { color: #94a8c8; }
+    @media (max-width: 960px) {
+      .severity-grid, .priority-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .severity-grid, .priority-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 420px) {
+      .severity-grid, .priority-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 640px) {
@@ -1889,11 +2042,30 @@
       font-family: var(--mono);
       font-size: 0.75rem;
       color: var(--text-3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
     }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 6px 10px;
+      font-family: var(--font);
+      font-size: 0.82rem;
+    }
+    .footer-links a {
+      color: var(--text-2);
+      font-weight: 500;
+    }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-sep { color: var(--text-3); user-select: none; }
 
     /* ── Responsive ── */
     @media (max-width: 768px) {
-      nav { padding: 0 16px; }
+      .site-nav { padding: 0 16px; }
       .nav-links { display: none; }
 
       .hero { padding: 90px 20px 60px; }
@@ -1913,6 +2085,256 @@
       .timeline::before { left: 15px; }
       .job { grid-template-columns: 32px 1fr; gap: 12px; }
     }
+
+    /* ── Responsive Viewport Coverage visual ── */
+    .rv-breakdown {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .rv-ruler {
+      display: flex;
+      border-radius: 6px;
+      overflow: hidden;
+      height: 26px;
+    }
+
+    .rv-zone {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    [data-theme="dark"] .rv-zone-mobile  { background: #1a3354; color: #93c5fd; flex: 239; }
+    [data-theme="dark"] .rv-zone-tablet  { background: #14372e; color: #6ee7b7; flex: 240; }
+    [data-theme="dark"] .rv-zone-desktop { background: #1e1a38; color: #c4b5fd; flex: 440; }
+    [data-theme="dark"] .rv-zone-wide    { background: #1c1710; color: #fde68a; flex: 320; }
+
+    [data-theme="light"] .rv-zone-mobile  { background: #dbeafe; color: #1d4ed8; flex: 239; }
+    [data-theme="light"] .rv-zone-tablet  { background: #d1fae5; color: #065f46; flex: 240; }
+    [data-theme="light"] .rv-zone-desktop { background: #ede9fe; color: #5b21b6; flex: 440; }
+    [data-theme="light"] .rv-zone-wide    { background: #fef3c7; color: #92400e; flex: 320; }
+
+    .rv-cols {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .rv-col-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      padding-bottom: 8px;
+      margin-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .rv-col-mobile  .rv-col-label { color: var(--accent); }
+    .rv-col-tablet  .rv-col-label { color: var(--green); }
+    .rv-col-desktop .rv-col-label { color: var(--accent2); }
+    .rv-col-wide    .rv-col-label { color: var(--yellow); }
+
+    .rv-device {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 0;
+      font-size: 11px;
+      color: var(--text-3);
+      line-height: 1.3;
+    }
+
+    .rv-device.rv-boundary { color: var(--text-2); }
+
+    .rv-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: var(--border2);
+    }
+
+    .rv-dot.rv-dot-boundary { background: var(--yellow); }
+
+    .rv-px {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-3);
+    }
+
+    .rv-boundary .rv-px { color: var(--yellow); }
+
+    .rv-pairs {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--yellow);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto;
+      column-gap: 6px;
+    }
+
+    .rv-pairs-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 10px;
+      grid-column: 1 / -1;
+    }
+
+    .rv-pair-row {
+      display: grid;
+      grid-column: 1 / -1;
+      grid-template-columns: subgrid;
+      align-items: stretch;
+      padding: 5px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .rv-pair-row:first-of-type { border-top: none; }
+
+    .rv-vp {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 6px 10px;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .rv-vp-px {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--yellow);
+    }
+
+    .rv-vp-name {
+      font-size: 10px;
+      color: var(--text-3);
+      margin-top: 1px;
+    }
+
+    .rv-diff {
+      font-size: 9px;
+      font-weight: 700;
+      font-family: var(--mono);
+      padding: 2px 6px;
+      border-radius: 10px;
+      background: rgba(251,191,36,0.10);
+      border: 1px solid rgba(251,191,36,0.30);
+      color: var(--yellow);
+      white-space: nowrap;
+      align-self: center;
+    }
+
+    .rv-behavior {
+      font-size: 10px;
+      color: var(--text-3);
+      text-align: center;
+      line-height: 1.3;
+      align-self: center;
+      min-width: 4.5rem;
+    }
+
+    .rv-bva-note {
+      margin: 0;
+      font-size: 10px;
+      line-height: 1.55;
+      color: var(--text-3);
+    }
+
+    .rv-bva-note strong { color: var(--text-2); }
+
+    .rv-artifact {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 12px 14px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+
+    .rv-artifact-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .rv-artifact-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 12px;
+    }
+
+    .rv-artifact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-2);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: border-color var(--transition), color var(--transition), background var(--transition);
+    }
+
+    .rv-artifact-link svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      opacity: 0.85;
+    }
+
+    .rv-artifact-link:hover {
+      border-color: rgba(108,140,255,0.45);
+      background: rgba(108,140,255,0.08);
+      color: var(--accent);
+    }
+
+    .rv-artifact-link:hover svg { opacity: 1; }
+
+    .rv-artifact-meta {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-3);
+    }
+
+    .rv-artifact-note {
+      margin: 0;
+      font-size: 10px;
+      line-height: 1.5;
+      color: var(--text-3);
+    }
+
+    @media (max-width: 640px) {
+      .rv-cols { grid-template-columns: repeat(2, 1fr); }
+      .rv-col-wide { display: none; }
+      .rv-pairs { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
+      .rv-behavior { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -1920,7 +2342,7 @@
   <div class="bg-mesh" aria-hidden="true"></div>
 
   <!-- ── Nav ── -->
-  <nav>
+  <nav class="site-nav">
     <div class="nav-logo">Lucas<span>.</span>dev</div>
     <ul class="nav-links">
       <li><a href="#about" data-i18n="nav.about">About</a></li>
@@ -2336,7 +2758,7 @@
             <div class="rec-author-info">
               <div class="rec-author-name-row">
                 <div class="rec-name-left">
-                  <span class="rec-author-name" data-i18n="rec.4.name">Michael Santi</span>
+                  <span class="rec-author-name" data-i18n="rec.4.name">Michael Santillan</span>
                   <a class="rec-li-icon" href="https://www.linkedin.com/in/mksanti/" target="_blank" rel="noopener" title="LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
                 </div>
                 <span class="rec-tag" data-i18n="rec.4.tag">principal track</span>
@@ -2556,6 +2978,123 @@
             <span class="project-tag">Playwright</span>
             <span class="project-tag">GitLab CI</span>
             <span class="project-tag">OAuth2/PKCE</span>
+          </div>
+        </div>
+
+        <!-- Responsive Viewport Coverage -->
+        <div class="project-card" style="grid-column: 1 / -1;">
+          <div class="project-card-hero">
+            <div class="project-logo">
+              <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="1" y="4" width="26" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M9 20v3M19 20v3M6 23h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <rect x="5" y="8" width="7" height="8" rx="1" fill="currentColor" opacity="0.25"/>
+                <rect x="14" y="8" width="9" height="4" rx="1" fill="currentColor" opacity="0.15"/>
+                <rect x="14" y="13" width="9" height="3" rx="1" fill="currentColor" opacity="0.15"/>
+              </svg>
+            </div>
+            <div>
+              <h3 data-i18n="proj.responsive.title">Responsive Viewport Coverage</h3>
+              <span class="project-context" data-i18n="proj.responsive.context">Questrade · KYC onboarding · Cross-device</span>
+            </div>
+          </div>
+          <p data-i18n="proj.responsive.desc">Viewport library built from the product's own design system breakpoints (360–599 mobile / 600–839 tablet / 840+ desktop) — not a generic device library. Key insight: three pairs of Responsive Viewer profiles at exactly 1px apart to catch boundary regressions: modal layout shift (519/520px), submenu visibility (1019/1020px), and action button swap (1279/1280px). Boundary Value Analysis applied to responsive design.</p>
+          <div class="project-impact">
+            <span class="impact-chip" data-i18n="proj.responsive.i1">18 viewports · 4 device families</span>
+            <span class="impact-chip" data-i18n="proj.responsive.i2">6 boundary pairs · BVA (Boundary Value Analysis) at 1px</span>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Responsive Viewer</span>
+            <span class="project-tag">BVA</span>
+            <span class="project-tag">Cypress</span>
+            <span class="project-tag">Design System</span>
+            <span class="project-tag">Cross-device</span>
+          </div>
+
+          <div class="rv-artifact">
+            <div class="rv-artifact-label" data-i18n="proj.responsive.artifact.label">▶ Responsive Viewer config</div>
+            <div class="rv-artifact-row">
+              <a href="assets/responsive-viewer.json" download="responsive-viewer.json" class="rv-artifact-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="12" y1="18" x2="12" y2="12"/>
+                  <polyline points="9 15 12 18 15 15"/>
+                </svg>
+                responsive-viewer.json
+              </a>
+              <span class="rv-artifact-meta" data-i18n="proj.responsive.artifact.meta">5 tabs · 22 active profiles · 52 total screens</span>
+            </div>
+            <p class="rv-artifact-note" data-i18n="proj.responsive.artifact.note">Exportable profile library with mobile, tablet, desktop and BREAKPOINTS tabs (BVA pairs at 1px). Import via Responsive Viewer extension → Load JSON.</p>
+          </div>
+
+          <!-- Visual breakdown -->
+          <div class="rv-breakdown">
+
+            <!-- Ruler -->
+            <div class="rv-ruler">
+              <div class="rv-zone rv-zone-mobile">Mobile</div>
+              <div class="rv-zone rv-zone-tablet">Tablet</div>
+              <div class="rv-zone rv-zone-desktop">Desktop</div>
+              <div class="rv-zone rv-zone-wide">Wide</div>
+            </div>
+
+            <!-- Device columns -->
+            <div class="rv-cols">
+              <div class="rv-col rv-col-mobile">
+                <div class="rv-col-label">Mobile · 360–599px</div>
+                <div class="rv-device"><span class="rv-dot"></span><span>Galaxy S9 <span class="rv-px">360px</span></span></div>
+                <div class="rv-device"><span class="rv-dot"></span><span>iPhone 12/13 <span class="rv-px">390px</span></span></div>
+                <div class="rv-device"><span class="rv-dot"></span><span>Galaxy S9+ <span class="rv-px">412px</span></span></div>
+                <div class="rv-device"><span class="rv-dot"></span><span>iPhone XR/11 <span class="rv-px">414px</span></span></div>
+                <div class="rv-device rv-boundary"><span class="rv-dot rv-dot-boundary"></span><span>Mobile Max ▶ <span class="rv-px">599px</span></span></div>
+              </div>
+              <div class="rv-col rv-col-tablet">
+                <div class="rv-col-label">Tablet · 600–839px</div>
+                <div class="rv-device"><span class="rv-dot"></span><span>Nexus 7 <span class="rv-px">600px</span></span></div>
+                <div class="rv-device"><span class="rv-dot"></span><span>iPad <span class="rv-px">768px</span></span></div>
+                <div class="rv-device"><span class="rv-dot"></span><span>iPad Pro 10.5″ <span class="rv-px">834px</span></span></div>
+                <div class="rv-device rv-boundary"><span class="rv-dot rv-dot-boundary"></span><span>Tablet Max ▶ <span class="rv-px">839px</span></span></div>
+              </div>
+              <div class="rv-col rv-col-desktop">
+                <div class="rv-col-label">Desktop · 840–1919px</div>
+                <div class="rv-device rv-boundary"><span class="rv-dot rv-dot-boundary"></span><span>Desktop Min ▶ <span class="rv-px">840px</span></span></div>
+                <div class="rv-device"><span class="rv-dot"></span><span>Laptop <span class="rv-px">1366px</span></span></div>
+                <div class="rv-device"><span class="rv-dot"></span><span>Desktop <span class="rv-px">1536px</span></span></div>
+                <div class="rv-device"><span class="rv-dot"></span><span>Desktop <span class="rv-px">1600px</span></span></div>
+              </div>
+              <div class="rv-col rv-col-wide">
+                <div class="rv-col-label">Wide · 1920px+</div>
+                <div class="rv-device rv-boundary"><span class="rv-dot rv-dot-boundary"></span><span>Desktop 1920 <span class="rv-px">1920px</span></span></div>
+                <div class="rv-device" style="margin-top:8px; font-size:10px; line-height:1.5;">User agents:<br/>iPhone · Samsung<br/>Pixel · Chrome</div>
+              </div>
+            </div>
+
+            <!-- Boundary pairs -->
+            <div class="rv-pairs">
+              <div class="rv-pairs-label">▶ Boundary viewports — behavior-driven, 1px apart</div>
+              <div class="rv-pair-row">
+                <div class="rv-vp"><div class="rv-vp-px">519px</div><div class="rv-vp-name">Modal in Full Screen</div></div>
+                <span class="rv-diff">+1px</span>
+                <div class="rv-vp"><div class="rv-vp-px">520px</div><div class="rv-vp-name">Modal Background Overlay</div></div>
+                <div class="rv-behavior">modal<br/>layout shift</div>
+              </div>
+              <div class="rv-pair-row">
+                <div class="rv-vp"><div class="rv-vp-px">1019px</div><div class="rv-vp-name">Hide Submenu</div></div>
+                <span class="rv-diff">+1px</span>
+                <div class="rv-vp"><div class="rv-vp-px">1020px</div><div class="rv-vp-name">Show Submenu</div></div>
+                <div class="rv-behavior">nav<br/>visibility</div>
+              </div>
+              <div class="rv-pair-row">
+                <div class="rv-vp"><div class="rv-vp-px">1279px</div><div class="rv-vp-name">Show Arrow Button</div></div>
+                <span class="rv-diff">+1px</span>
+                <div class="rv-vp"><div class="rv-vp-px">1280px</div><div class="rv-vp-name">Show Edit Button</div></div>
+                <div class="rv-behavior">action<br/>button swap</div>
+              </div>
+            </div>
+
+            <p class="rv-bva-note" data-i18n="proj.responsive.bva.note"><strong>BVA — Boundary Value Analysis.</strong> Classic test technique: exercise values immediately before and after a threshold where behavior changes. Pairs here differ by 1px to catch off-by-one regressions in media queries and layout rules.</p>
+
           </div>
         </div>
 
@@ -2985,7 +3524,7 @@
         <div class="ts-criterion">
           <span class="ts-points">+5 pts</span>
           <h4 data-i18n="ts.c4.h">No major bugs</h4>
-          <p data-i18n="ts.c4.p">Zero Blocker, Critical, or High severity bugs found</p>
+          <p data-i18n="ts.c4.p">Zero <a href="#severity">Blocker, Critical, or Major</a> severity bugs found</p>
         </div>
         <div class="ts-criterion">
           <span class="ts-points">+5 pts</span>
@@ -3236,97 +3775,91 @@
               <span class="metric-trend-label" data-i18n="metrics.adv.tpi.label">TPI · Test pyramid index</span>
               <span class="metric-trend-badge" data-i18n="metrics.adv.tpi.dir">↑ shift-left</span>
             </div>
-            <div class="metrics-pyramid-bar" aria-hidden="true">
-              <div class="metrics-pyramid-seg" style="width:62%;background:#4f72ff;" title="Unit 62%">62</div>
-              <div class="metrics-pyramid-seg" style="width:22%;background:var(--yellow);" title="API 22%">22</div>
-              <div class="metrics-pyramid-seg" style="width:8%;background:var(--green);" title="Component 8%">8</div>
-              <div class="metrics-pyramid-seg" style="width:8%;background:#ef4444;" title="E2E 8%">8</div>
-            </div>
+            <div class="metrics-pyramid-bar" id="tpi-pyramid-bar" role="img" aria-label="Test counts by pyramid layer"></div>
             <div class="metrics-pyramid-legend">
-              <span><i style="background:#4f72ff;"></i><span data-i18n="metrics.adv.tpi.unit">Unit 62%</span></span>
-              <span><i style="background:var(--yellow);"></i><span data-i18n="metrics.adv.tpi.int">API 22%</span></span>
-              <span><i style="background:var(--green);"></i><span data-i18n="metrics.adv.tpi.comp">Component 8%</span></span>
-              <span><i style="background:#ef4444;"></i><span data-i18n="metrics.adv.tpi.e2e">E2E 8%</span></span>
+              <span><i style="background:#4f72ff;"></i><span data-i18n="metrics.adv.tpi.unit">Unit</span></span>
+              <span><i style="background:var(--yellow);"></i><span data-i18n="metrics.adv.tpi.int">Integration</span></span>
+              <span><i style="background:var(--green);"></i><span data-i18n="metrics.adv.tpi.comp">Component</span></span>
+              <span><i style="background:#ef4444;"></i><span data-i18n="metrics.adv.tpi.e2e">E2E</span></span>
             </div>
-            <div class="metric-trend-kpi" style="margin-top:10px;">3,497<span data-i18n="metrics.adv.tpi.kpi">tests · repo scan</span></div>
+            <div class="metric-trend-kpi" style="margin-top:10px;"><span id="tpi-pyramid-total">3,498</span><span data-i18n="metrics.adv.tpi.kpi">tests · repo scan</span></div>
           </div>
 
         </div>
         <p class="metrics-trends-note" data-i18n="metrics.adv.note">Study metrics · illustrative trends for portfolio exploration</p>
 
-        <!-- Test pyramid visual · TPI data -->
-        <div class="pyramid-card" id="metrics-pyramid" data-unit="2161" data-api="774" data-component="276" data-e2e="286" data-e2e-cypress="235" data-e2e-playwright="51">
-          <div class="pyramid-card-head">
-            <h4 data-i18n="metrics.pyramid.title">Test pyramid · Questrade apps</h4>
-            <p data-i18n="metrics.pyramid.desc"><strong>Unit</strong> — xUnit in <strong>clre</strong> · <strong>clre-v2</strong> · <strong>profile</strong> CPS. <strong>API</strong> — Postman/Newman (734 + 40). <strong>Component</strong> — Cypress CT in <strong>profile</strong> (276). <strong>E2E</strong> — top layer in our stack: Cypress UI flows (235) + Playwright API/integration for <strong>clre-v2</strong> &amp; CPS (51) — OAuth2/PKCE, SIT/UAT.</p>
-          </div>
+        <h3 class="metrics-subtitle metrics-subtitle--spaced" data-i18n="metrics.pyramid.title">Test pyramid</h3>
+        <p class="metrics-adv-intro metrics-adv-intro--wide" data-i18n="metrics.pyramid.desc">The test pyramid shows how automated tests should be spread by <strong>granularity</strong>: many fast, isolated checks at the base (unit), broader contract and service checks in the middle (integration, component), and a small set of full user journeys at the top (E2E). A healthy pyramid catches most defects early — where feedback is cheapest — and keeps slow, brittle UI tests to a minimum.</p>
+        <div class="pyramid-card" id="metrics-pyramid" data-unit="2161" data-api="974" data-component="276" data-e2e="87">
           <div class="pyramid-card-body">
             <div class="pyramid-svg-wrap">
-              <svg class="pyramid-svg" viewBox="0 0 380 290" role="img" aria-labelledby="pyramid-title pyramid-desc">
-                <title id="pyramid-title">Questrade test pyramid</title>
-                <desc id="pyramid-desc">Unit 2161, API 774 Postman, Component 276 Cypress CT, E2E 286 Cypress UI plus Playwright API integration clre-v2 and profile CPS</desc>
+              <svg class="pyramid-svg" viewBox="0 0 350 290" role="img" aria-labelledby="pyramid-title pyramid-desc">
+                <title id="pyramid-title">Test pyramid</title>
+                <desc id="pyramid-desc">Four tiers: Unit, Integration, Component, E2E. Counts shown in external labels.</desc>
 
-                <ellipse class="pyramid-shadow" cx="235" cy="272" rx="118" ry="7"/>
-                <polygon class="pyramid-outline" points="235,18 353,258 117,258"/>
+                <ellipse class="pyramid-shadow" cx="220" cy="272" rx="118" ry="7"/>
+                <polygon class="pyramid-outline" points="220,18 338,258 102,258"/>
 
-                <polygon class="pyramid-face" points="117,258 353,258 294.5,198 175.5,198" fill="#4f72ff"/>
-                <polygon class="pyramid-face" points="175.5,198 294.5,198 236,138 234,138" fill="#eab308"/>
-                <polygon class="pyramid-face" points="234,138 236,138 220.5,78 219.5,78" fill="#34d399"/>
-                <polygon class="pyramid-face" points="235,18 219.5,78 220.5,78" fill="#ef4444"/>
+                <!-- Equal-height tiers · geometry fixed · counts in left labels only -->
+                <polygon class="pyramid-face" data-tier="unit" points="102,258 338,258 308.5,198 131.5,198" fill="#4f72ff"/>
+                <polygon class="pyramid-face" data-tier="integration" points="131.5,198 308.5,198 279,138 161,138" fill="#eab308"/>
+                <polygon class="pyramid-face" data-tier="component" points="161,138 279,138 249.5,78 190.5,78" fill="#34d399"/>
+                <polygon class="pyramid-face" data-tier="e2e" points="190.5,78 249.5,78 220,18" fill="#ef4444"/>
 
-                <text class="pyramid-tier-label" x="235" y="228" text-anchor="middle" dominant-baseline="middle">Unit</text>
-                <text class="pyramid-tier-label pyramid-tier-label--dark" x="235" y="168" text-anchor="middle" dominant-baseline="middle" font-size="12">API</text>
-                <text class="pyramid-tier-label" x="235" y="108" text-anchor="middle" dominant-baseline="middle" font-size="11">Component</text>
-                <text class="pyramid-tier-label" x="235" y="48" text-anchor="middle" dominant-baseline="middle" font-size="11">E2E</text>
+                <line class="pyramid-tier-divider" x1="131.5" y1="198" x2="308.5" y2="198"/>
+                <line class="pyramid-tier-divider" x1="161" y1="138" x2="279" y2="138"/>
+                <line class="pyramid-tier-divider" x1="190.5" y1="78" x2="249.5" y2="78"/>
 
-                <line class="pyramid-leader" x1="84" y1="228" x2="148" y2="228"/>
-                <line class="pyramid-leader" x1="84" y1="168" x2="188" y2="168"/>
-                <line class="pyramid-leader" x1="84" y1="108" x2="212" y2="108"/>
-                <line class="pyramid-leader" x1="84" y1="48" x2="206" y2="48"/>
+                <text class="pyramid-tier-label" data-tier="unit" x="220" y="246">Unit</text>
+                <text class="pyramid-tier-label" data-tier="integration" x="220" y="186" data-i18n="metrics.pyramid.api.name">Integration</text>
+                <text class="pyramid-tier-label" data-tier="component" x="220" y="126">Component</text>
+                <text class="pyramid-tier-label" data-tier="e2e" x="220" y="66">E2E</text>
 
-                <text class="pyramid-ext-val" x="80" y="228" text-anchor="end" dominant-baseline="middle">2,161 · 62%</text>
-                <text class="pyramid-ext-val" x="80" y="168" text-anchor="end" dominant-baseline="middle">774 · 22%</text>
-                <text class="pyramid-ext-val" x="80" y="108" text-anchor="end" dominant-baseline="middle">276 · 8%</text>
-                <text class="pyramid-ext-val" x="80" y="48" text-anchor="end" dominant-baseline="middle">286 · 8%</text>
+                <line class="pyramid-leader" data-tier="unit" x1="84" y1="228" x2="128" y2="228"/>
+                <line class="pyramid-leader" data-tier="integration" x1="84" y1="168" x2="158" y2="168"/>
+                <line class="pyramid-leader" data-tier="component" x1="84" y1="108" x2="188" y2="108"/>
+                <line class="pyramid-leader" data-tier="e2e" x1="84" y1="48" x2="203" y2="48"/>
+
+                <text class="pyramid-ext-val" data-tier="unit" x="80" y="228" text-anchor="end" dominant-baseline="middle">2,161</text>
+                <text class="pyramid-ext-val" data-tier="integration" x="80" y="168" text-anchor="end" dominant-baseline="middle">974</text>
+                <text class="pyramid-ext-val" data-tier="component" x="80" y="108" text-anchor="end" dominant-baseline="middle">276</text>
+                <text class="pyramid-ext-val" data-tier="e2e" x="80" y="48" text-anchor="end" dominant-baseline="middle">87</text>
               </svg>
-              <p class="pyramid-caption" data-i18n="metrics.pyramid.axis">Questrade · clre · clre-v2 · profile · shift-left base</p>
             </div>
             <div class="pyramid-stats">
-              <div class="pyramid-stat">
+              <div class="pyramid-stat" data-tier="unit">
                 <span class="pyramid-stat-dot" style="background:#4f72ff;"></span>
                 <div class="pyramid-stat-info">
                   <div class="pyramid-stat-name" data-i18n="metrics.pyramid.unit.name">Unit</div>
-                  <div class="pyramid-stat-val" data-i18n="metrics.pyramid.unit.val">157 + 364 + 1,640 · xUnit · clre · clre-v2 · profile CPS</div>
+                  <div class="pyramid-stat-tool" data-i18n="metrics.pyramid.unit.tool">· xUnit</div>
                 </div>
                 <span class="pyramid-stat-count">2,161</span>
               </div>
-              <div class="pyramid-stat">
+              <div class="pyramid-stat" data-tier="integration">
                 <span class="pyramid-stat-dot" style="background:var(--yellow);"></span>
                 <div class="pyramid-stat-info">
-                  <div class="pyramid-stat-name" data-i18n="metrics.pyramid.api.name">API · Postman</div>
-                  <div class="pyramid-stat-val" data-i18n="metrics.pyramid.api.val">734 profile CPS + 40 CLRE v2 · Newman in CI</div>
+                  <div class="pyramid-stat-name" data-i18n="metrics.pyramid.api.name">Integration</div>
+                  <div class="pyramid-stat-tool" data-i18n="metrics.pyramid.api.tool">· Postman/Newman</div>
                 </div>
-                <span class="pyramid-stat-count">774</span>
+                <span class="pyramid-stat-count">974</span>
               </div>
-              <div class="pyramid-stat">
+              <div class="pyramid-stat" data-tier="component">
                 <span class="pyramid-stat-dot" style="background:var(--green);"></span>
                 <div class="pyramid-stat-info">
                   <div class="pyramid-stat-name" data-i18n="metrics.pyramid.comp.name">Component</div>
-                  <div class="pyramid-stat-val" data-i18n="metrics.pyramid.comp.val">276 · profile customer-profile-components · 23 × *.component.cy.ts</div>
+                  <div class="pyramid-stat-tool" data-i18n="metrics.pyramid.comp.tool">· Cypress CT</div>
                 </div>
                 <span class="pyramid-stat-count">276</span>
               </div>
-              <div class="pyramid-stat">
+              <div class="pyramid-stat" data-tier="e2e">
                 <span class="pyramid-stat-dot" style="background:#ef4444;"></span>
                 <div class="pyramid-stat-info">
-                  <div class="pyramid-stat-name" data-i18n="metrics.pyramid.e2e.name">E2E · integration</div>
-                  <div class="pyramid-stat-val" data-i18n="metrics.pyramid.e2e.val">235 Cypress UI (137 clre + 98 profile) + 51 Playwright API (13 clre-v2 + 38 CPS)</div>
+                  <div class="pyramid-stat-name" data-i18n="metrics.pyramid.e2e.name">E2E</div>
+                  <div class="pyramid-stat-tool" data-i18n="metrics.pyramid.e2e.tool">· Cypress + Playwright</div>
                 </div>
-                <span class="pyramid-stat-count">286</span>
+                <span class="pyramid-stat-count">87</span>
               </div>
-              <div class="pyramid-total" data-i18n="metrics.pyramid.total"><strong>3,497</strong> tests · clre · clre-v2 · profile repos</div>
-              <div class="pyramid-total" style="margin-top:0;background:var(--surface2);border-color:var(--border);" data-i18n="metrics.pyramid.unitnote">Mar 2026 scan · xUnit · Postman · Cypress · Playwright API</div>
-              <div class="pyramid-total" style="margin-top:0;background:var(--glow);border-color:rgba(108,140,255,0.2);" data-i18n="metrics.pyramid.automation"><strong>1,336</strong> QA layers · Postman + Cypress + Playwright · aligns with <strong>1,300+</strong> CV</div>
+              <div class="pyramid-total" data-i18n="metrics.pyramid.foot"><strong>3,498</strong> tests</div>
             </div>
           </div>
         </div>
@@ -3334,9 +3867,202 @@
 
     </section>
 
+    <!-- ── Bug severity ── -->
+    <section class="section" id="severity">
+      <div class="section-label" data-i18n="sev.label">08 · Bug severity</div>
+      <h2 class="section-title" data-i18n="sev.title">Defect severity taxonomy</h2>
+      <p class="severity-intro" data-i18n="sev.intro">Bug severity describes the <strong>impact</strong> of a defect — on users, data integrity, and whether testing or release can continue — independent of <strong>priority</strong> (when the team schedules the fix). I classify every bug I file on a <strong>five-level scale</strong> (Blocker → Low), using the same taxonomy most teams adopt in Jira and similar tools. <strong>How I apply it in practice:</strong> I assign severity at filing time with reproducible evidence (environment, steps, affected layer); in triage I push back on inflated Blocker/Critical labels and on cosmetic issues logged too high; open Blocker, Critical, or Major defects on in-scope flows block release until resolved or explicitly accepted; in retrospectives I group reopen and escape trends by severity to expose process gaps rather than blame individuals. Severity is a shared language for risk — it keeps conversations about scope, readiness, and quality metrics grounded in impact, not urgency alone.</p>
+
+      <figure class="severity-diagram">
+        <svg class="severity-diagram-svg" viewBox="0 0 860 248" role="img" aria-labelledby="sev-diagram-title sev-diagram-desc">
+          <title id="sev-diagram-title">Bug severity levels</title>
+          <desc id="sev-diagram-desc">Stepped ladder from Blocker through Critical, Major, Minor to Low</desc>
+
+          <!-- Blocker -->
+          <rect class="sev-ladder-card" x="8" y="18" width="148" height="68" rx="10"/>
+          <circle class="sev-ladder-badge" cx="82" cy="18" r="24"/>
+          <circle cx="82" cy="18" r="14" fill="none" stroke="#dc2626" stroke-width="3"/>
+          <line x1="72" y1="28" x2="92" y2="8" stroke="#dc2626" stroke-width="3" stroke-linecap="round"/>
+          <text class="sev-ladder-label" x="82" y="62" text-anchor="middle">Blocker</text>
+
+          <!-- Critical -->
+          <rect class="sev-ladder-card" x="168" y="60" width="148" height="68" rx="10"/>
+          <circle class="sev-ladder-badge" cx="242" cy="60" r="24"/>
+          <path d="M242 48 L242 68 M236 54 L242 48 L248 54" fill="none" stroke="#ef4444" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="242" cy="70" r="2.5" fill="#ef4444"/>
+          <text class="sev-ladder-label" x="242" y="104" text-anchor="middle">Critical</text>
+
+          <!-- Major -->
+          <rect class="sev-ladder-card" x="328" y="102" width="148" height="68" rx="10"/>
+          <circle class="sev-ladder-badge" cx="402" cy="102" r="24"/>
+          <path d="M394 96 L402 86 L410 96 M394 106 L402 96 L410 106" fill="none" stroke="#f97316" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <text class="sev-ladder-label" x="402" y="146" text-anchor="middle">Major</text>
+
+          <!-- Minor -->
+          <rect class="sev-ladder-card" x="488" y="144" width="148" height="68" rx="10"/>
+          <circle class="sev-ladder-badge" cx="562" cy="144" r="24"/>
+          <path d="M554 150 L562 160 L570 150 M554 140 L562 150 L570 140" fill="none" stroke="#16a34a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <text class="sev-ladder-label" x="562" y="188" text-anchor="middle">Minor</text>
+
+          <!-- Low -->
+          <rect class="sev-ladder-card" x="648" y="186" width="148" height="68" rx="10"/>
+          <circle class="sev-ladder-badge" cx="722" cy="186" r="24"/>
+          <path d="M722 176 L722 194 M716 188 L722 194 L728 188" fill="none" stroke="#15803d" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <text class="sev-ladder-label" x="722" y="230" text-anchor="middle">Low</text>
+        </svg>
+        <figcaption class="severity-diagram-cap" data-i18n="sev.caption">Severity ladder · highest impact left → lowest right</figcaption>
+      </figure>
+
+      <div class="severity-grid">
+        <div class="severity-card severity-card--blocker">
+          <div class="severity-card-head">
+            <span class="severity-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2.4"/><line x1="7.5" y1="16.5" x2="16.5" y2="7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+            </span>
+            <span class="severity-name" data-i18n="sev.blocker.name">Blocker</span>
+          </div>
+          <p data-i18n="sev.blocker.desc">Stops all testing or release. No workaround. Production or SIT unusable for the affected flow — e.g. KYC onboarding blocked, auth down, data corruption preventing account updates.</p>
+        </div>
+        <div class="severity-card severity-card--critical">
+          <div class="severity-card-head">
+            <span class="severity-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v11M8.5 9.5L12 5l3.5 4.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="19" r="1.8" fill="currentColor" stroke="none"/></svg>
+            </span>
+            <span class="severity-name" data-i18n="sev.critical.name">Critical</span>
+          </div>
+          <p data-i18n="sev.critical.desc">Core feature failure with no acceptable workaround. System crash, data loss, or regulated path broken — MFA/IDV rejection loop, incorrect tax residency persisted, API returning 500 on mandatory steps.</p>
+        </div>
+        <div class="severity-card severity-card--major">
+          <div class="severity-card-head">
+            <span class="severity-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M7 10l5-5 5 5M7 14l5-5 5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="severity-name" data-i18n="sev.major.name">Major</span>
+          </div>
+          <p data-i18n="sev.major.desc">Significant defect in a feature; system partially usable or workaround exists. Wrong validation on a secondary field, broken edge case in Annual Review, flaky E2E on non-blocking step with manual fallback.</p>
+        </div>
+        <div class="severity-card severity-card--minor">
+          <div class="severity-card-head">
+            <span class="severity-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M7 14l5 5 5-5M7 10l5 5 5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="severity-name" data-i18n="sev.minor.name">Minor</span>
+          </div>
+          <p data-i18n="sev.minor.desc">Small issue in a non-critical area. Does not block completion of the user journey — misaligned label, incorrect helper text, minor API field mismatch with no compliance impact.</p>
+        </div>
+        <div class="severity-card severity-card--low">
+          <div class="severity-card-head">
+            <span class="severity-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 6v10M8.5 12.5L12 16l3.5-3.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="severity-name" data-i18n="sev.low.name">Low</span>
+          </div>
+          <p data-i18n="sev.low.desc">Cosmetic or copy issue. Typos, spacing, colour contrast suggestions, non-blocking UI polish — logged for backlog refinement, not release gates.</p>
+        </div>
+      </div>
+
+      <p class="severity-note" data-i18n="sev.note"><strong>Severity ≠ Priority.</strong> Severity is impact on users and release flow; priority is when the team schedules the fix. A Low-severity cosmetic bug can still be High priority before a launch — see <a href="#priority">Bug priority</a> for how I separate the two.</p>
+    </section>
+
+    <!-- ── Bug priority ── -->
+    <section class="section" id="priority">
+      <div class="section-label" data-i18n="pri.label">09 · Bug priority</div>
+      <h2 class="section-title" data-i18n="pri.title">Defect priority taxonomy</h2>
+      <p class="priority-intro" data-i18n="pri.intro">Bug priority answers <strong>when</strong> a defect should be fixed — relative to other work in the backlog and the current sprint — independent of <strong><a href="#severity">severity</a></strong> (how bad the impact is). I use a <strong>five-level scale</strong> (Highest → Lowest), aligned with common Jira priority fields. <strong>How I apply it in practice:</strong> at filing I suggest an initial priority based on sprint goals but leave final ranking to triage with PM and dev lead; I escalate to Highest when a fix must land in the current sprint or blocks another team; Medium is the default queue for defects that should ship soon but can wait for capacity; Low and Lowest go to backlog refinement unless a release date or dependency forces them up; in planning I map open Highest/High items to sprint capacity so severity-heavy bugs are not starved by urgency alone. Priority is a scheduling tool — it keeps the board honest about what ships next without confusing urgency with impact.</p>
+
+      <figure class="priority-diagram">
+        <svg class="priority-diagram-svg" viewBox="0 0 860 248" role="img" aria-labelledby="pri-diagram-title pri-diagram-desc">
+          <title id="pri-diagram-title">Bug priority levels</title>
+          <desc id="pri-diagram-desc">Stepped ladder from Highest through High, Medium, Low to Lowest</desc>
+
+          <!-- Highest -->
+          <rect class="pri-ladder-card" x="8" y="18" width="148" height="68" rx="10"/>
+          <circle class="pri-ladder-badge" cx="82" cy="18" r="24"/>
+          <path d="M74 14 L82 6 L90 14 M74 22 L82 14 L90 22" fill="none" stroke="#dc2626" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <text class="pri-ladder-label" x="82" y="62" text-anchor="middle">Highest</text>
+
+          <!-- High -->
+          <rect class="pri-ladder-card" x="168" y="60" width="148" height="68" rx="10"/>
+          <circle class="pri-ladder-badge" cx="242" cy="60" r="24"/>
+          <path d="M242 48 L242 68 M236 54 L242 48 L248 54" fill="none" stroke="#ef4444" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <text class="pri-ladder-label" x="242" y="104" text-anchor="middle">High</text>
+
+          <!-- Medium -->
+          <rect class="pri-ladder-card" x="328" y="102" width="148" height="68" rx="10"/>
+          <circle class="pri-ladder-badge" cx="402" cy="102" r="24"/>
+          <line x1="388" y1="98" x2="416" y2="98" stroke="#eab308" stroke-width="2.8" stroke-linecap="round"/>
+          <line x1="388" y1="106" x2="416" y2="106" stroke="#eab308" stroke-width="2.8" stroke-linecap="round"/>
+          <text class="pri-ladder-label" x="402" y="146" text-anchor="middle">Medium</text>
+
+          <!-- Low -->
+          <rect class="pri-ladder-card" x="488" y="144" width="148" height="68" rx="10"/>
+          <circle class="pri-ladder-badge" cx="562" cy="144" r="24"/>
+          <path d="M562 132 L562 152 M556 146 L562 152 L568 146" fill="none" stroke="#16a34a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <text class="pri-ladder-label" x="562" y="188" text-anchor="middle">Low</text>
+
+          <!-- Lowest -->
+          <rect class="pri-ladder-card" x="648" y="186" width="148" height="68" rx="10"/>
+          <circle class="pri-ladder-badge" cx="722" cy="186" r="24"/>
+          <path d="M714 190 L722 200 L730 190 M714 180 L722 190 L730 180" fill="none" stroke="#15803d" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <text class="pri-ladder-label" x="722" y="230" text-anchor="middle">Lowest</text>
+        </svg>
+        <figcaption class="priority-diagram-cap" data-i18n="pri.caption">Priority ladder · fix first left → defer right</figcaption>
+      </figure>
+
+      <div class="priority-grid">
+        <div class="priority-card priority-card--highest">
+          <div class="priority-card-head">
+            <span class="priority-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M7 10l5-5 5 5M7 14l5-5 5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="priority-name" data-i18n="pri.highest.name">Highest</span>
+          </div>
+          <p data-i18n="pri.highest.desc">Must be resolved in the current sprint or immediately — blocks release, another squad, or a hard dependency. Often paired with high severity but driven by schedule, not impact alone.</p>
+        </div>
+        <div class="priority-card priority-card--high">
+          <div class="priority-card-head">
+            <span class="priority-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v11M8.5 9.5L12 5l3.5 4.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="priority-name" data-i18n="pri.high.name">High</span>
+          </div>
+          <p data-i18n="pri.high.desc">Top of the backlog — target next sprint or hotfix window. Important for an upcoming milestone, regulatory date, or demo; team should pull before Medium items when capacity allows.</p>
+        </div>
+        <div class="priority-card priority-card--medium">
+          <div class="priority-card-head">
+            <span class="priority-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><line x1="6" y1="10" x2="18" y2="10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><line x1="6" y1="14" x2="18" y2="14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+            </span>
+            <span class="priority-name" data-i18n="pri.medium.name">Medium</span>
+          </div>
+          <p data-i18n="pri.medium.desc">Default queue — should be fixed in a reasonable timeframe but can wait for sprint planning. Most functional defects land here after triage unless urgency or impact pushes them up or down.</p>
+        </div>
+        <div class="priority-card priority-card--low">
+          <div class="priority-card-head">
+            <span class="priority-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 6v10M8.5 12.5L12 16l3.5-3.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="priority-name" data-i18n="pri.low.name">Low</span>
+          </div>
+          <p data-i18n="pri.low.desc">Fix when capacity allows — no sprint commitment. Acceptable to defer across releases if higher-priority work fills the board; revisit in backlog refinement.</p>
+        </div>
+        <div class="priority-card priority-card--lowest">
+          <div class="priority-card-head">
+            <span class="priority-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M7 14l5 5 5-5M7 10l5 5 5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="priority-name" data-i18n="pri.lowest.name">Lowest</span>
+          </div>
+          <p data-i18n="pri.lowest.desc">Nice-to-have — park until explicitly prioritized. Often cosmetic or edge-case items; may never ship unless bundled with related work or a polish sprint.</p>
+        </div>
+      </div>
+
+      <p class="priority-note" data-i18n="pri.note"><strong>Pair severity + priority.</strong> Example: a typo on a legal disclaimer can be <em>Low</em> severity but <em>High</em> priority before go-live; a Critical-severity defect in a dormant feature might stay <em>Medium</em> priority until that feature is re-enabled. I document both fields so triage stays transparent. <a href="priorities.html">Nine prioritization frameworks →</a></p>
+    </section>
+
     <!-- ── Achievements ── -->
     <section class="section" id="achievements">
-      <div class="section-label" data-i18n="ach.label">08 · Achievements</div>
+      <div class="section-label" data-i18n="ach.label">10 · Achievements</div>
       <h2 class="section-title" data-i18n="ach.title">Recognition</h2>
 
       <div class="achievements-list">
@@ -3378,7 +4104,7 @@
 
     <!-- ── Education ── -->
     <section class="section" id="education">
-      <div class="section-label" data-i18n="edu.label">09 · Education</div>
+      <div class="section-label" data-i18n="edu.label">11 · Education</div>
       <h2 class="section-title" data-i18n="edu.title">Academic background</h2>
 
       <div class="edu-grid">
@@ -3444,7 +4170,7 @@
 
     <!-- ── Contact ── -->
     <section class="section" id="contact">
-      <div class="section-label" data-i18n="contact.label">10 · Contact</div>
+      <div class="section-label" data-i18n="contact.label">12 · Contact</div>
       <h2 class="section-title" data-i18n="contact.title">Let's connect</h2>
 
       <div class="contact-wrapper">
@@ -3493,6 +4219,15 @@
 
   <footer>
     <span data-i18n="footer.text">Lucas Ferreira · Senior QA Engineer · Built with HTML &amp; CSS · Hosted on GitHub Pages</span>
+    <div class="footer-links">
+      <a href="qa-interview.html" data-i18n="skills.interview">Basic QA interview questions — 24 topics →</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="certification.html" data-i18n="skills.certification">CTFL v4.0 answer key — 40 Q&amp;A →</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="priorities.html" data-i18n="skills.priorities">Prioritization frameworks →</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="qa-concepts.html" data-i18n="skills.concepts">Must-know QA concepts — 30 topics →</a>
+    </div>
   </footer>
 
   <script>
@@ -3517,6 +4252,10 @@
         'about.c4.h': 'Award-Winning Delivery', 'about.c4.p': 'Exceeding Performance at Questrade (2024) · Team Highlight &amp; Mission Accomplished at CI&amp;T (2021)',
         'about.c5.h': 'Performance &amp; Growth →', 'about.c5.p': "4 years of peer feedback, strengths, and what I'm actively working on",
         'skills.label': '02 · Skills', 'skills.title': 'Tech stack',
+        'skills.interview': 'Basic QA interview questions — 24 topics →',
+        'skills.certification': 'CTFL v4.0 answer key — 40 Q&A →',
+        'skills.priorities': 'Prioritization frameworks →',
+        'skills.concepts': 'Must-know QA concepts — 30 topics →',
         'skills.r1': 'Test Automation', 'skills.r2': 'Programming Languages',
         'skills.r3': 'CI/CD &amp; Cloud', 'skills.r4': 'Data &amp; Observability',
         'skills.r5': 'Tools',
@@ -3553,7 +4292,7 @@
         'rec.3.text': 'Lucas exemplifies a <strong>customer-centred approach in QA</strong>, with a consistent ability to identify problems from the user\'s perspective. He demonstrates <strong>full ownership</strong> of his deliveries — automation, documentation, and quality — and consistently meets deadlines.',
         'rec.3.name': 'Paulo Fagerstrem', 'rec.3.role': 'Engineering Manager · Questrade · 2024', 'rec.3.tag': 'full ownership',
         'rec.4.text': 'Lucas <strong>stands out in automation initiatives</strong> — the Customer Profile Services and KYC Annual Review were successfully implemented and considered <strong>critical for the team</strong>. He demonstrates full ownership of his deliveries and consistently meets deadlines. He is on the right path to becoming <strong>Principal QA Engineer</strong>.',
-        'rec.4.name': 'Michael Santi', 'rec.4.role': 'Engineering Manager · Questrade · 2024', 'rec.4.tag': 'principal track',
+        'rec.4.name': 'Michael Santillan', 'rec.4.role': 'Engineering Manager · Questrade · 2024', 'rec.4.tag': 'principal track',
         'rec.peers.label': 'Peer Voice · Anonymous Reviews',
         'rec.p1.text': 'Working alongside Lucas has been highly productive and consistently pleasant. He is a <strong>true asset to the team</strong>. His dedication to quality assurance is exceptional, <strong>consistently exceeding expectations</strong>. His meticulous attention to detail ensures high-quality deliveries, and his <strong>proactive approach identifies potential problems</strong> before they escalate.',
         'rec.p1.name': 'Anonymous', 'rec.p1.role': 'Questrade · 2025', 'rec.p1.tag': 'true asset',
@@ -3583,6 +4322,15 @@
         'proj.api.title': 'API &amp; Component Test Suite',
         'proj.api.desc': 'Three-layer coverage: Postman/Newman (800+ tests) for KYC, onboarding and lifecycle flows; Cypress component testing integrated into CI/CD; Playwright for MFA with OAuth2/PKCE, TOTP and multi-tenant isolation (8+ services) in SIT/UAT.',
         'proj.api.i1': '800+ tests · 3 layers · 8+ services',
+        'proj.responsive.title': 'Responsive Viewport Coverage',
+        'proj.responsive.context': 'Questrade · KYC onboarding · Cross-device',
+        'proj.responsive.desc': 'Viewport library built from the product\'s own design system breakpoints (360–599 mobile / 600–839 tablet / 840+ desktop) — not a generic device library. Key insight: three pairs of Responsive Viewer profiles at exactly 1px apart to catch boundary regressions: modal layout shift (519/520px), submenu visibility (1019/1020px), and action button swap (1279/1280px). Boundary Value Analysis applied to responsive design.',
+        'proj.responsive.i1': '18 viewports · 4 device families',
+        'proj.responsive.i2': '6 boundary pairs · BVA (Boundary Value Analysis) at 1px',
+        'proj.responsive.bva.note': '<strong>BVA — Boundary Value Analysis.</strong> Classic test technique: exercise values immediately before and after a threshold where behavior changes. Pairs here differ by 1px to catch off-by-one regressions in media queries and layout rules.',
+        'proj.responsive.artifact.label': '▶ Responsive Viewer config',
+        'proj.responsive.artifact.meta': '5 tabs · 22 active profiles · 52 total screens',
+        'proj.responsive.artifact.note': 'Exportable profile library with mobile, tablet, desktop and BREAKPOINTS tabs (BVA pairs at 1px). Import via Responsive Viewer extension → Load JSON.',
         'oss.label': '06 · Open Source', 'oss.title': 'GitHub Projects',
         'oss.intro': 'Most public demo apps are too simple to test meaningfully. I built TestFlow to change that — a realistic web application with authentication, multi-role workflows, and API layers that mirror what you\'d find in production. Two full-coverage suites run against it: one in Cypress, one in Playwright. The app ships as a Docker image so anyone can spin it up in seconds.',
         'oss.audience': '<strong>Who it\'s for:</strong> QA engineers learning Cypress or Playwright, interview prep, workshops, and anyone who wants a production-like sandbox without building the app from scratch.',
@@ -3642,7 +4390,7 @@
         'ts.c1.h': 'Deploy in SIT', 'ts.c1.p': 'Task was deployed to the SIT environment before QA review begins',
         'ts.c2.h': 'Pipeline passed', 'ts.c2.p': 'All automated pipeline checks passed before QA handoff',
         'ts.c3.h': 'QA review performed', 'ts.c3.p': 'A formal QA review session was conducted on the task',
-        'ts.c4.h': 'No major bugs', 'ts.c4.p': 'Zero Blocker, Critical, or High severity bugs found',
+        'ts.c4.h': 'No major bugs', 'ts.c4.p': 'Zero <a href="#severity">Blocker, Critical, or Major</a> severity bugs found',
         'ts.c5.h': 'No Simple Rejection', 'ts.c5.p': 'Task not immediately rejected for not being ready to test',
         'ts.c6.h': 'Bugs reported', 'ts.c6.p': '0 bugs = +5 · ≤2 bugs = +3 · ≥3 bugs = 0',
         'ts.results.label': 'Questrade · Q4 2024 — real data',
@@ -3684,33 +4432,60 @@
         'metrics.adv.ttqr.kpi': 'median · S10',
         'metrics.adv.tpi.label': 'TPI · Test pyramid index',
         'metrics.adv.tpi.dir': '↑ shift-left',
-        'metrics.adv.tpi.unit': 'Unit 62%',
-        'metrics.adv.tpi.int': 'API 22%',
-        'metrics.adv.tpi.comp': 'Component 8%',
-        'metrics.adv.tpi.e2e': 'E2E 8%',
+        'metrics.adv.tpi.unit': 'Unit',
+        'metrics.adv.tpi.int': 'Integration',
+        'metrics.adv.tpi.comp': 'Component',
+        'metrics.adv.tpi.e2e': 'E2E',
         'metrics.adv.tpi.kpi': 'tests · repo scan',
         'metrics.adv.note': 'Study metrics · illustrative trends for portfolio exploration',
-        'metrics.pyramid.title': 'Test pyramid · Questrade apps',
-        'metrics.pyramid.desc': '<strong>Unit</strong> — xUnit in <strong>clre</strong> · <strong>clre-v2</strong> · <strong>profile</strong> CPS. <strong>API</strong> — Postman/Newman (734 + 40). <strong>Component</strong> — Cypress CT in <strong>profile</strong> (276). <strong>E2E</strong> — top layer in our stack: Cypress UI flows (235) + Playwright API/integration for <strong>clre-v2</strong> &amp; CPS (51) — OAuth2/PKCE, SIT/UAT.',
-        'metrics.pyramid.axis': 'Questrade · clre · clre-v2 · profile · shift-left base',
+        'metrics.pyramid.title': 'Test pyramid',
+        'metrics.pyramid.desc': 'The test pyramid shows how automated tests should be spread by <strong>granularity</strong>: many fast, isolated checks at the base (unit), broader contract and service checks in the middle (integration, component), and a small set of full user journeys at the top (E2E). A healthy pyramid catches most defects early — where feedback is cheapest — and keeps slow, brittle UI tests to a minimum.',
+        'metrics.pyramid.e2e.name': 'E2E',
+        'metrics.pyramid.e2e.tool': '· Cypress + Playwright',
+        'metrics.pyramid.comp.name': 'Component',
+        'metrics.pyramid.comp.tool': '· Cypress CT',
+        'metrics.pyramid.api.name': 'Integration',
+        'metrics.pyramid.api.tool': '· Postman/Newman',
         'metrics.pyramid.unit.name': 'Unit',
-        'metrics.pyramid.unit.val': '157 + 364 + 1,640 · xUnit · clre · clre-v2 · profile CPS',
-        'metrics.pyramid.api.name': 'API · Postman',
-        'metrics.pyramid.api.val': '734 profile CPS + 40 CLRE v2 · Newman in CI',
-        'metrics.pyramid.comp.name': 'Component · Cypress CT',
-        'metrics.pyramid.comp.val': '276 · profile customer-profile-components · 23 × *.component.cy.ts',
-        'metrics.pyramid.e2e.name': 'E2E · integration',
-        'metrics.pyramid.e2e.val': '235 Cypress UI (137 clre + 98 profile) + 51 Playwright API (13 clre-v2 + 38 CPS)',
-        'metrics.pyramid.total': '<strong>3,497</strong> tests · clre · clre-v2 · profile repos',
-        'metrics.pyramid.unitnote': 'Mar 2026 scan · xUnit · Postman · Cypress · Playwright API',
-        'metrics.pyramid.automation': '<strong>1,336</strong> QA layers · Postman + Cypress + Playwright · aligns with <strong>1,300+</strong> CV',
-        'ach.label': '08 · Achievements', 'ach.title': 'Recognition',
+        'metrics.pyramid.unit.tool': '· xUnit',
+        'metrics.pyramid.foot': '<strong>3,498</strong> tests',
+        'sev.label': '08 · Bug severity',
+        'sev.title': 'Defect severity taxonomy',
+        'sev.intro': 'Bug severity describes the <strong>impact</strong> of a defect — on users, data integrity, and whether testing or release can continue — independent of <strong>priority</strong> (when the team schedules the fix). I classify every bug I file on a <strong>five-level scale</strong> (Blocker → Low), using the same taxonomy most teams adopt in Jira and similar tools. <strong>How I apply it in practice:</strong> I assign severity at filing time with reproducible evidence (environment, steps, affected layer); in triage I push back on inflated Blocker/Critical labels and on cosmetic issues logged too high; open Blocker, Critical, or Major defects on in-scope flows block release until resolved or explicitly accepted; in retrospectives I group reopen and escape trends by severity to expose process gaps rather than blame individuals. Severity is a shared language for risk — it keeps conversations about scope, readiness, and quality metrics grounded in impact, not urgency alone.',
+        'sev.caption': 'Severity ladder · highest impact left → lowest right',
+        'sev.blocker.name': 'Blocker',
+        'sev.blocker.desc': 'Stops all testing or release. No workaround. Production or SIT unusable for the affected flow — e.g. KYC onboarding blocked, auth down, data corruption preventing account updates.',
+        'sev.critical.name': 'Critical',
+        'sev.critical.desc': 'Core feature failure with no acceptable workaround. System crash, data loss, or regulated path broken — MFA/IDV rejection loop, incorrect tax residency persisted, API returning 500 on mandatory steps.',
+        'sev.major.name': 'Major',
+        'sev.major.desc': 'Significant defect in a feature; system partially usable or workaround exists. Wrong validation on a secondary field, broken edge case in Annual Review, flaky E2E on non-blocking step with manual fallback.',
+        'sev.minor.name': 'Minor',
+        'sev.minor.desc': 'Small issue in a non-critical area. Does not block completion of the user journey — misaligned label, incorrect helper text, minor API field mismatch with no compliance impact.',
+        'sev.low.name': 'Low',
+        'sev.low.desc': 'Cosmetic or copy issue. Typos, spacing, colour contrast suggestions, non-blocking UI polish — logged for backlog refinement, not release gates.',
+        'sev.note': '<strong>Severity ≠ Priority.</strong> Severity is impact on users and release flow; priority is when the team schedules the fix. A Low-severity cosmetic bug can still be High priority before a launch — see <a href="#priority">Bug priority</a> for how I separate the two.',
+        'pri.label': '09 · Bug priority',
+        'pri.title': 'Defect priority taxonomy',
+        'pri.intro': 'Bug priority answers <strong>when</strong> a defect should be fixed — relative to other work in the backlog and the current sprint — independent of <strong><a href="#severity">severity</a></strong> (how bad the impact is). I use a <strong>five-level scale</strong> (Highest → Lowest), aligned with common Jira priority fields. <strong>How I apply it in practice:</strong> at filing I suggest an initial priority based on sprint goals but leave final ranking to triage with PM and dev lead; I escalate to Highest when a fix must land in the current sprint or blocks another team; Medium is the default queue for defects that should ship soon but can wait for capacity; Low and Lowest go to backlog refinement unless a release date or dependency forces them up; in planning I map open Highest/High items to sprint capacity so severity-heavy bugs are not starved by urgency alone. Priority is a scheduling tool — it keeps the board honest about what ships next without confusing urgency with impact.',
+        'pri.caption': 'Priority ladder · fix first left → defer right',
+        'pri.highest.name': 'Highest',
+        'pri.highest.desc': 'Must be resolved in the current sprint or immediately — blocks release, another squad, or a hard dependency. Often paired with high severity but driven by schedule, not impact alone.',
+        'pri.high.name': 'High',
+        'pri.high.desc': 'Top of the backlog — target next sprint or hotfix window. Important for an upcoming milestone, regulatory date, or demo; team should pull before Medium items when capacity allows.',
+        'pri.medium.name': 'Medium',
+        'pri.medium.desc': 'Default queue — should be fixed in a reasonable timeframe but can wait for sprint planning. Most functional defects land here after triage unless urgency or impact pushes them up or down.',
+        'pri.low.name': 'Low',
+        'pri.low.desc': 'Fix when capacity allows — no sprint commitment. Acceptable to defer across releases if higher-priority work fills the board; revisit in backlog refinement.',
+        'pri.lowest.name': 'Lowest',
+        'pri.lowest.desc': 'Nice-to-have — park until explicitly prioritized. Often cosmetic or edge-case items; may never ship unless bundled with related work or a polish sprint.',
+        'pri.note': '<strong>Pair severity + priority.</strong> Example: a typo on a legal disclaimer can be <em>Low</em> severity but <em>High</em> priority before go-live; a Critical-severity defect in a dormant feature might stay <em>Medium</em> priority until that feature is re-enabled. I document both fields so triage stays transparent. <a href="priorities.html">Nine prioritization frameworks →</a>',
+        'ach.label': '10 · Achievements', 'ach.title': 'Recognition',
         'ach.tcc.title': 'Undergrad Thesis Approved — UFRPE (Jun 2022)',
         'ach.tcc.desc': 'QA Metrics: Docker-based integration of Jira, SonarCloud and Test Pyramid metrics into Grafana dashboards — Company thesis modality. Open-sourced at <a href="https://github.com/lflucasferreira/qametrics" target="_blank" rel="noopener">github.com/lflucasferreira/qametrics</a>.',
-        'edu.label': '09 · Education', 'edu.title': 'Academic background',
+        'edu.label': '11 · Education', 'edu.title': 'Academic background',
         'edu.ufrpe.thesis': 'TCC: QA Metrics — Company thesis · approved Jun/2022 · ',
         'edu.ufrpe.thesis.link': 'View thesis',
-        'contact.label': '10 · Contact', 'contact.title': "Let's connect",
+        'contact.label': '12 · Contact', 'contact.title': "Let's connect",
         'contact.p1': 'I\'m open to conversations about <strong>Senior and Principal QA Engineer</strong> opportunities, consulting, or just talking shop about test automation strategy, fintech quality, or QA culture.',
         'contact.p2': 'Best way to reach me is via LinkedIn or email. I\'m based in <strong>Recife, Brazil</strong> and work fully remote.',
         'footer.text': 'Lucas Ferreira · Senior QA Engineer · Built with HTML &amp; CSS · Hosted on GitHub Pages'
@@ -3735,6 +4510,10 @@
         'about.c4.h': 'Entrega Premiada', 'about.c4.p': 'Exceeding Performance na Questrade (2024) · Team Highlight &amp; Mission Accomplished na CI&amp;T (2021)',
         'about.c5.h': 'Desempenho &amp; Crescimento →', 'about.c5.p': '4 anos de feedback de colegas, pontos fortes e no que estou trabalhando ativamente',
         'skills.label': '02 · Habilidades', 'skills.title': 'Stack tecnológico',
+        'skills.interview': 'Perguntas básicas de entrevista QA — 24 tópicos →',
+        'skills.certification': 'Gabarito CTFL v4.0 — 40 questões →',
+        'skills.priorities': 'Frameworks de priorização →',
+        'skills.concepts': 'Conceitos essenciais de QA — 30 tópicos →',
         'skills.r1': 'Automação de Testes', 'skills.r2': 'Linguagens de Programação',
         'skills.r3': 'CI/CD &amp; Cloud', 'skills.r4': 'Dados &amp; Observabilidade',
         'skills.r5': 'Ferramentas',
@@ -3771,7 +4550,7 @@
         'rec.3.text': 'Lucas exemplifica uma <strong>abordagem centrada no cliente</strong> no QA, com capacidade consistente de identificar problemas da perspectiva do usuário. Ele demonstra <strong>total ownership</strong> de suas entregas — automação, documentação e qualidade — e cumpre prazos consistentemente.',
         'rec.3.name': 'Paulo Fagerstrem', 'rec.3.role': 'Engineering Manager · Questrade · 2024', 'rec.3.tag': 'full ownership',
         'rec.4.text': 'Lucas <strong>se destaca em iniciativas de automação</strong> — o Customer Profile Services e o KYC Annual Review foram implementados com sucesso e considerados <strong>críticos para o time</strong>. Ele demonstra total ownership de suas entregas e cumpre prazos consistentemente. Está no caminho certo para se tornar <strong>Principal QA Engineer</strong>.',
-        'rec.4.name': 'Michael Santi', 'rec.4.role': 'Engineering Manager · Questrade · 2024', 'rec.4.tag': 'trilha principal',
+        'rec.4.name': 'Michael Santillan', 'rec.4.role': 'Engineering Manager · Questrade · 2024', 'rec.4.tag': 'trilha principal',
         'rec.peers.label': 'Voz dos Pares · Avaliações Anônimas',
         'rec.p1.text': 'Trabalhar ao lado do Lucas tem sido altamente produtivo. Ele é um <strong>verdadeiro ativo para o time</strong>. Sua dedicação à garantia de qualidade é excepcional, <strong>superando consistentemente as expectativas</strong>. Sua atenção meticulosa aos detalhes garante entregas de alta qualidade, e sua <strong>abordagem proativa identifica problemas potenciais</strong> antes que eles escalem.',
         'rec.p1.name': 'Anônimo', 'rec.p1.role': 'Questrade · 2025', 'rec.p1.tag': 'ativo do time',
@@ -3801,6 +4580,15 @@
         'proj.api.title': 'Suíte de Testes API &amp; Component',
         'proj.api.desc': 'Cobertura em três camadas: Postman/Newman (800+ testes) para fluxos KYC, onboarding e lifecycle; Cypress component testing integrado ao CI/CD; Playwright para MFA com OAuth2/PKCE, TOTP e isolamento multi-tenant (8+ serviços) em SIT/UAT.',
         'proj.api.i1': '800+ testes · 3 camadas · 8+ serviços',
+        'proj.responsive.title': 'Cobertura de Viewports Responsivos',
+        'proj.responsive.context': 'Questrade · KYC onboarding · Cross-device',
+        'proj.responsive.desc': 'Biblioteca de viewports construída a partir dos breakpoints do próprio design system do produto (360–599 mobile / 600–839 tablet / 840+ desktop) — não uma lista genérica de dispositivos. Destaque: três pares de perfis no Responsive Viewer com exatamente 1px de diferença para detectar regressões de boundary: mudança de layout do modal (519/520px), visibilidade do submenu (1019/1020px) e troca de botão de ação (1279/1280px). Boundary Value Analysis aplicada ao design responsivo.',
+        'proj.responsive.i1': '18 viewports · 4 famílias de dispositivos',
+        'proj.responsive.i2': '6 pares de boundary · BVA (Análise de Valores de Fronteira) em 1px',
+        'proj.responsive.bva.note': '<strong>BVA — Boundary Value Analysis (Análise de Valores de Fronteira).</strong> Técnica clássica de teste: exercitar valores imediatamente antes e depois de um limite onde o comportamento muda. Os pares aqui diferem 1px para detectar regressões off-by-one em media queries e regras de layout.',
+        'proj.responsive.artifact.label': '▶ Config Responsive Viewer',
+        'proj.responsive.artifact.meta': '5 abas · 22 perfis ativos · 52 telas no total',
+        'proj.responsive.artifact.note': 'Biblioteca de perfis exportável com abas mobile, tablet, desktop e BREAKPOINTS (pares BVA com 1px). Importar na extensão Responsive Viewer → Load JSON.',
         'oss.label': '06 · Open Source', 'oss.title': 'Projetos no GitHub',
         'oss.intro': 'A maioria dos apps de demo públicos é simples demais para testar de forma significativa. Construí o TestFlow para mudar isso — uma aplicação web realista com autenticação, fluxos multi-role e camadas de API que espelham o que você encontra em produção. Duas suítes com cobertura completa rodam contra ele: uma em Cypress e uma em Playwright. O app é distribuído como imagem Docker — qualquer pessoa sobe em segundos.',
         'oss.audience': '<strong>Para quem é:</strong> QAs aprendendo Cypress ou Playwright, preparação para entrevistas, workshops e quem quer um sandbox realista sem precisar construir o app do zero.',
@@ -3860,7 +4648,7 @@
         'ts.c1.h': 'Deploy no SIT', 'ts.c1.p': 'A tarefa foi implantada no ambiente SIT antes do review de QA',
         'ts.c2.h': 'Pipeline aprovada', 'ts.c2.p': 'Todas as verificações automáticas da pipeline passaram antes da entrega ao QA',
         'ts.c3.h': 'Review de QA realizado', 'ts.c3.p': 'Uma sessão formal de review de QA foi conduzida na tarefa',
-        'ts.c4.h': 'Sem bugs graves', 'ts.c4.p': 'Zero bugs de severidade Blocker, Critical ou High encontrados',
+        'ts.c4.h': 'Sem bugs graves', 'ts.c4.p': 'Zero bugs de severidade <a href="#severity">Blocker, Critical ou Major</a> encontrados',
         'ts.c5.h': 'Sem Simple Rejection', 'ts.c5.p': 'Tarefa não foi imediatamente rejeitada por não estar pronta para teste',
         'ts.c6.h': 'Bugs reportados', 'ts.c6.p': '0 bugs = +5 · ≤2 bugs = +3 · ≥3 bugs = 0',
         'ts.results.label': 'Questrade · Q4 2024 — dados reais',
@@ -3902,38 +4690,100 @@
         'metrics.adv.ttqr.kpi': 'mediana · S10',
         'metrics.adv.tpi.label': 'TPI · Test pyramid index',
         'metrics.adv.tpi.dir': '↑ shift-left',
-        'metrics.adv.tpi.unit': 'Unit 62%',
-        'metrics.adv.tpi.int': 'API 22%',
-        'metrics.adv.tpi.comp': 'Component 8%',
-        'metrics.adv.tpi.e2e': 'E2E 8%',
+        'metrics.adv.tpi.unit': 'Unit',
+        'metrics.adv.tpi.int': 'Integração',
+        'metrics.adv.tpi.comp': 'Component',
+        'metrics.adv.tpi.e2e': 'E2E',
         'metrics.adv.tpi.kpi': 'testes · scan repos',
         'metrics.adv.note': 'Métricas em estudo · tendências ilustrativas para exploração no portfolio',
-        'metrics.pyramid.title': 'Pirâmide de testes · apps Questrade',
-        'metrics.pyramid.desc': '<strong>Unit</strong> — xUnit em <strong>clre</strong> · <strong>clre-v2</strong> · <strong>profile</strong> CPS. <strong>API</strong> — Postman/Newman (734 + 40). <strong>Component</strong> — Cypress CT em <strong>profile</strong> (276). <strong>E2E</strong> — camada superior no stack: fluxos UI Cypress (235) + Playwright API/integração em <strong>clre-v2</strong> e CPS (51) — OAuth2/PKCE, SIT/UAT.',
-        'metrics.pyramid.axis': 'Questrade · clre · clre-v2 · profile · base shift-left',
+        'metrics.pyramid.title': 'Pirâmide de testes',
+        'metrics.pyramid.desc': 'A pirâmide de testes mostra como distribuir testes automatizados por <strong>granularidade</strong>: muitas verificações rápidas e isoladas na base (unit), checagens mais amplas de contrato e serviço no meio (integração, component) e um conjunto reduzido de jornadas completas no topo (E2E). Uma pirâmide saudável detecta a maior parte dos defeitos cedo — onde o feedback é mais barato — e mantém testes de UI lentos e frágeis ao mínimo.',
+        'metrics.pyramid.e2e.name': 'E2E',
+        'metrics.pyramid.e2e.tool': '· Cypress + Playwright',
+        'metrics.pyramid.comp.name': 'Component',
+        'metrics.pyramid.comp.tool': '· Cypress CT',
+        'metrics.pyramid.api.name': 'Integração',
+        'metrics.pyramid.api.tool': '· Postman/Newman',
         'metrics.pyramid.unit.name': 'Unit',
-        'metrics.pyramid.unit.val': '157 + 364 + 1.640 · xUnit · clre · clre-v2 · profile CPS',
-        'metrics.pyramid.api.name': 'API · Postman',
-        'metrics.pyramid.api.val': '734 profile CPS + 40 CLRE v2 · Newman no CI',
-        'metrics.pyramid.comp.name': 'Component · Cypress CT',
-        'metrics.pyramid.comp.val': '276 · profile customer-profile-components · 23 × *.component.cy.ts',
-        'metrics.pyramid.e2e.name': 'E2E · integração',
-        'metrics.pyramid.e2e.val': '235 Cypress UI (137 clre + 98 profile) + 51 Playwright API (13 clre-v2 + 38 CPS)',
-        'metrics.pyramid.total': '<strong>3.497</strong> testes · repos clre · clre-v2 · profile',
-        'metrics.pyramid.unitnote': 'Scan Mar 2026 · xUnit · Postman · Cypress · Playwright API',
-        'metrics.pyramid.automation': '<strong>1.336</strong> camadas QA · Postman + Cypress + Playwright · alinha com <strong>1.300+</strong> CV',
-        'ach.label': '08 · Conquistas', 'ach.title': 'Reconhecimentos',
+        'metrics.pyramid.unit.tool': '· xUnit',
+        'metrics.pyramid.foot': '<strong>3.498</strong> testes',
+        'sev.label': '08 · Severidade de bugs',
+        'sev.title': 'Taxonomia de severidade',
+        'sev.intro': 'Severidade de bug descreve o <strong>impacto</strong> de um defeito — sobre usuários, integridade de dados e se testes ou release podem continuar — independente da <strong>prioridade</strong> (quando o time agenda a correção). Classifico todo bug que registro em uma <strong>escala de cinco níveis</strong> (Blocker → Low), alinhada à taxonomia que a maioria dos times usa no Jira e ferramentas similares. <strong>Como aplico na prática:</strong> atribuo severidade no momento do registro com evidência reproduzível (ambiente, passos, camada afetada); no triage contesto labels Blocker/Critical inflados e issues cosméticas logadas alto demais; Blocker, Critical ou Major abertos no escopo do release bloqueiam promoção até resolução ou aceite explícito; em retrospectivas agrupo tendências de reopen e escape por severidade para expor gaps de processo, não culpar indivíduos. Severidade é linguagem compartilhada de risco — mantém conversas sobre escopo, readiness e métricas de qualidade ancoradas em impacto, não só urgência.',
+        'sev.caption': 'Escada de severidade · maior impacto à esquerda → menor à direita',
+        'sev.blocker.name': 'Blocker',
+        'sev.blocker.desc': 'Interrompe todo teste ou release. Sem workaround. Produção ou SIT inutilizável no fluxo afetado — ex.: onboarding KYC bloqueado, auth fora, corrupção de dados impedindo atualização de conta.',
+        'sev.critical.name': 'Critical',
+        'sev.critical.desc': 'Falha em feature core sem workaround aceitável. Crash, perda de dados ou fluxo regulado quebrado — loop de rejeição MFA/IDV, residência fiscal incorreta persistida, API 500 em passos obrigatórios.',
+        'sev.major.name': 'Major',
+        'sev.major.desc': 'Defeito significativo; sistema parcialmente utilizável ou com workaround. Validação errada em campo secundário, edge case quebrado no Annual Review, E2E flaky em passo não bloqueante com fallback manual.',
+        'sev.minor.name': 'Minor',
+        'sev.minor.desc': 'Problema pequeno em área não crítica. Não impede conclusão da jornada — label desalinhado, helper text incorreto, mismatch menor de campo API sem impacto de compliance.',
+        'sev.low.name': 'Low',
+        'sev.low.desc': 'Cosmético ou copy. Typos, espaçamento, sugestões de contraste — registrado para refinamento de backlog, fora de release gates.',
+        'sev.note': '<strong>Severidade ≠ Prioridade.</strong> Severidade é impacto em usuários e fluxo de release; prioridade é quando o time agenda a correção. Um bug cosmético Low pode ser High priority antes de um go-live — veja <a href="#priority">Prioridade de bugs</a> para como separo os dois.',
+        'pri.label': '09 · Prioridade de bugs',
+        'pri.title': 'Taxonomia de prioridade',
+        'pri.intro': 'Prioridade de bug responde <strong>quando</strong> um defeito deve ser corrigido — em relação a outras entregas no backlog e no sprint atual — independente da <strong><a href="#severity">severidade</a></strong> (quão grave é o impacto). Uso uma <strong>escala de cinco níveis</strong> (Highest → Lowest), alinhada aos campos de prioridade comuns no Jira. <strong>Como aplico na prática:</strong> no registro sugiro prioridade inicial com base nos objetivos do sprint, mas deixo a classificação final para triage com PM e dev lead; escalo para Highest quando a correção precisa entrar no sprint corrente ou bloqueia outro time; Medium é a fila padrão para defeitos que devem sair em breve mas podem esperar capacidade; Low e Lowest vão para refinamento de backlog, salvo data de release ou dependência que force subida; no planning mapeio itens Highest/High abertos à capacidade do sprint para que bugs de alta severidade não fiquem atrás só por urgência mal calibrada. Prioridade é ferramenta de agendamento — mantém o board honesto sobre o que sai primeiro sem confundir urgência com impacto.',
+        'pri.caption': 'Escada de prioridade · corrigir primeiro à esquerda → adiar à direita',
+        'pri.highest.name': 'Highest',
+        'pri.highest.desc': 'Deve ser resolvido no sprint atual ou imediatamente — bloqueia release, outro squad ou dependência rígida. Frequentemente vem com alta severidade, mas é guiado por cronograma, não só por impacto.',
+        'pri.high.name': 'High',
+        'pri.high.desc': 'Topo do backlog — alvo no próximo sprint ou janela de hotfix. Importante para milestone, data regulatória ou demo; o time deve puxar antes de itens Medium quando houver capacidade.',
+        'pri.medium.name': 'Medium',
+        'pri.medium.desc': 'Fila padrão — deve ser corrigido em prazo razoável mas pode esperar o planning. A maioria dos defeitos funcionais fica aqui após triage, salvo urgência ou impacto que empurre para cima ou para baixo.',
+        'pri.low.name': 'Low',
+        'pri.low.desc': 'Corrigir quando houver capacidade — sem compromisso de sprint. Aceitável adiar entre releases se trabalho de maior prioridade encher o board; revisitar no refinamento.',
+        'pri.lowest.name': 'Lowest',
+        'pri.lowest.desc': 'Nice-to-have — estacionar até priorização explícita. Muitas vezes cosmético ou edge case; pode nunca sair salvo se bundled com trabalho relacionado ou sprint de polish.',
+        'pri.note': '<strong>Combinar severidade + prioridade.</strong> Exemplo: typo em disclaimer legal pode ser severidade <em>Low</em> mas prioridade <em>High</em> antes do go-live; defeito Critical em feature dormente pode ficar prioridade <em>Medium</em> até a feature ser reativada. Documento ambos os campos para triage transparente. <a href="priorities.html">Nove frameworks de priorização →</a>',
+        'ach.label': '10 · Conquistas', 'ach.title': 'Reconhecimentos',
         'ach.tcc.title': 'TCC Aprovado — UFRPE (jun/2022)',
         'ach.tcc.desc': 'QA Metrics: integração em Docker de métricas do Jira, SonarCloud e Pirâmide de Testes em dashboards Grafana — modalidade Empresa. Open source em <a href="https://github.com/lflucasferreira/qametrics" target="_blank" rel="noopener">github.com/lflucasferreira/qametrics</a>.',
-        'edu.label': '09 · Formação', 'edu.title': 'Formação acadêmica',
+        'edu.label': '11 · Formação', 'edu.title': 'Formação acadêmica',
         'edu.ufrpe.thesis': 'TCC: QA Metrics — modalidade Empresa · aprovado jun/2022 · ',
         'edu.ufrpe.thesis.link': 'Ver TCC',
-        'contact.label': '10 · Contato', 'contact.title': 'Vamos nos conectar',
+        'contact.label': '12 · Contato', 'contact.title': 'Vamos nos conectar',
         'contact.p1': 'Estou aberto a conversas sobre oportunidades de <strong>Senior e Principal QA Engineer</strong>, consultoria, ou simplesmente trocar ideias sobre estratégia de automação, qualidade em fintech ou cultura de QA.',
         'contact.p2': 'A melhor forma de me contatar é via LinkedIn ou e-mail. Estou em <strong>Recife, Brasil</strong> e trabalho totalmente remoto.',
         'footer.text': 'Lucas Ferreira · Senior QA Engineer · Feito com HTML &amp; CSS · Hospedado no GitHub Pages'
       }
     };
+
+    function renderTpiBar() {
+      const pyramid = document.getElementById('metrics-pyramid');
+      const bar = document.getElementById('tpi-pyramid-bar');
+      const totalEl = document.getElementById('tpi-pyramid-total');
+      if (!pyramid || !bar) return;
+
+      const lang = document.documentElement.getAttribute('data-lang') || 'en';
+      const label = (key) => translations[lang]?.[key] ?? translations.en[key] ?? key;
+      const fmt = (n) => n.toLocaleString(lang === 'pt' ? 'pt-BR' : 'en-US');
+
+      const layers = [
+        { val: Number(pyramid.dataset.unit) || 0, color: '#4f72ff', titleKey: 'metrics.adv.tpi.unit' },
+        { val: Number(pyramid.dataset.api) || 0, color: 'var(--yellow)', titleKey: 'metrics.adv.tpi.int' },
+        { val: Number(pyramid.dataset.component) || 0, color: 'var(--green)', titleKey: 'metrics.adv.tpi.comp' },
+        { val: Number(pyramid.dataset.e2e) || 0, color: '#ef4444', titleKey: 'metrics.adv.tpi.e2e' }
+      ];
+      const total = layers.reduce((sum, layer) => sum + layer.val, 0);
+      const weights = layers.map((layer) => Math.sqrt(Math.max(layer.val, 0)));
+      const weightSum = weights.reduce((sum, w) => sum + w, 0) || 1;
+
+      bar.innerHTML = '';
+      layers.forEach((layer, i) => {
+        const pct = (weights[i] / weightSum) * 100;
+        const seg = document.createElement('div');
+        seg.className = 'metrics-pyramid-seg' + (pct < 12 ? ' metrics-pyramid-seg--narrow' : '');
+        seg.style.flex = weights[i] + ' 1 0';
+        seg.style.background = layer.color;
+        seg.title = label(layer.titleKey) + ' · ' + fmt(layer.val);
+        seg.textContent = fmt(layer.val);
+        bar.appendChild(seg);
+      });
+
+      if (totalEl) totalEl.textContent = fmt(total);
+    }
 
     function applyLang(lang) {
       document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -3950,6 +4800,7 @@
       });
       const btn = document.getElementById('lang-btn');
       if (btn) btn.innerHTML = lang === 'en' ? '🇧🇷 PT' : '🇬🇧 EN';
+      renderTpiBar();
     }
 
     function toggleLang() {
@@ -3974,6 +4825,8 @@
       if (savedLang && savedLang !== 'en') {
         document.documentElement.setAttribute('data-lang', savedLang);
         applyLang(savedLang);
+      } else {
+        renderTpiBar();
       }
     })();
   </script>
