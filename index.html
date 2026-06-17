@@ -955,6 +955,7 @@
     .badge-green { color: var(--green); border-color: rgba(52,211,153,0.3); background: rgba(52,211,153,0.07); }
     .badge-blue  { color: var(--accent); border-color: rgba(108,140,255,0.3); background: rgba(108,140,255,0.07); }
     .badge-purple{ color: var(--accent2); border-color: rgba(167,139,250,0.3); background: rgba(167,139,250,0.07); }
+    .badge-yellow { color: var(--yellow); border-color: rgba(251,191,36,0.35); background: rgba(251,191,36,0.08); }
 
     .project-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--text); }
 
@@ -1167,8 +1168,11 @@
       stroke-linecap: round; stroke-linejoin: round; opacity: 0.65;
     }
     .oss-eco-suites {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
       width: 100%; margin-top: 0;
+    }
+    @media (max-width: 900px) {
+      .oss-eco-suites { grid-template-columns: repeat(2, 1fr); gap: 12px; }
     }
     .oss-eco-suite-col {
       display: flex; flex-direction: column; align-items: center; min-width: 0;
@@ -3547,8 +3551,8 @@
     <section class="section" id="opensource">
       <div class="section-label" data-i18n="oss.label">06 · Open Source</div>
       <h2 class="section-title" data-i18n="oss.title">GitHub Projects</h2>
-      <p class="about-text" data-i18n="oss.intro">Most public demo apps are too simple to test meaningfully. I built TestFlow to change that — a realistic web application with authentication, multi-role workflows, and API layers that mirror what you'd find in production. Two full-coverage suites run against it: one in Cypress, one in Playwright. The app ships as a Docker image so anyone can spin it up in seconds.</p>
-      <p class="oss-audience" data-i18n="oss.audience"><strong>Who it's for:</strong> QA engineers learning Cypress or Playwright, interview prep, workshops, and anyone who wants a production-like sandbox without building the app from scratch.</p>
+      <p class="about-text" data-i18n="oss.intro">Most public demo apps are too simple to test meaningfully. I built TestFlow to change that — a realistic web application with authentication, multi-role workflows, and API layers that mirror what you'd find in production. Four automation suites run against it: Cypress, Playwright, PyTest and k6. The app ships as a Docker image so anyone can spin it up in seconds.</p>
+      <p class="oss-audience" data-i18n="oss.audience"><strong>Who it's for:</strong> QA engineers learning Cypress, Playwright, PyTest or k6, interview prep, workshops, and anyone who wants a production-like sandbox without building the app from scratch.</p>
 
       <div class="oss-ecosystem">
         <div class="oss-ecosystem-label" data-i18n="oss.ecosystem.label">TestFlow ecosystem</div>
@@ -3559,9 +3563,9 @@
               <span class="oss-eco-name">qaschoolbr / testflow</span>
               <span class="oss-eco-role" data-i18n="oss.ecosystem.app">Target app · Docker image</span>
             </div>
-            <!-- Desktop: T-junction aligned to 2-col grid (centers 133 / 427 in 560px, gap 28) -->
+            <!-- Desktop: 4-suite fan-out -->
             <svg class="oss-eco-svg oss-eco-svg--desktop" viewBox="0 0 560 48" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-              <path class="oss-eco-path" d="M280 0 V24 M133 24 H427 M133 24 V48 M427 24 V48" />
+              <path class="oss-eco-path" d="M280 0 V18 M70 18 H490 M70 18 V48 M210 18 V48 M350 18 V48 M490 18 V48" />
             </svg>
             <!-- Mobile: vertical spine app → first suite, then col connector -->
             <svg class="oss-eco-svg oss-eco-svg--mobile" viewBox="0 0 320 32" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
@@ -3578,6 +3582,18 @@
                 <div class="oss-eco-suite">
                   <span class="oss-eco-suite-name"><a href="https://github.com/lflucasferreira/testflow-playwright" target="_blank" rel="noopener">testflow-playwright</a></span>
                   <span class="oss-eco-role" data-i18n="oss.ecosystem.playwright">Playwright · 17 mirrored projects</span>
+                </div>
+              </div>
+              <div class="oss-eco-suite-col">
+                <div class="oss-eco-suite">
+                  <span class="oss-eco-suite-name"><a href="https://github.com/lflucasferreira/testflow-pytest" target="_blank" rel="noopener">testflow-pytest</a></span>
+                  <span class="oss-eco-role" data-i18n="oss.ecosystem.pytest">PyTest · Python · POM</span>
+                </div>
+              </div>
+              <div class="oss-eco-suite-col">
+                <div class="oss-eco-suite">
+                  <span class="oss-eco-suite-name"><a href="https://github.com/lflucasferreira/testflow-k6" target="_blank" rel="noopener">testflow-k6</a></span>
+                  <span class="oss-eco-role" data-i18n="oss.ecosystem.k6">k6 · SLO · load &amp; performance</span>
                 </div>
               </div>
             </div>
@@ -3605,7 +3621,7 @@
                 </div>
               </div>
             </div>
-            <p class="oss-desc" data-i18n="oss.testflow.desc">Web sandbox built for QA automation practice — the target app for both testflow-cypress and testflow-playwright suites.</p>
+            <p class="oss-desc" data-i18n="oss.testflow.desc">Web sandbox built for QA automation practice — the target app for testflow-cypress, testflow-playwright, testflow-pytest and testflow-k6.</p>
             <div class="oss-shield-row">
               <img src="https://img.shields.io/docker/pulls/qaschool/testflow?style=flat-square&color=6c8cff&logo=docker&logoColor=white&label=pulls" alt="Docker Pulls" />
               <img src="https://img.shields.io/docker/image-size/qaschool/testflow?style=flat-square&color=34d399&logo=docker&logoColor=white&label=size" alt="Image Size" />
@@ -3670,12 +3686,15 @@
           <div class="oss-repo-name">
             <a href="https://github.com/lflucasferreira/testflow-cypress" target="_blank" rel="noopener">lflucasferreira / testflow-cypress</a>
           </div>
-          <p class="oss-desc" data-i18n="oss.cypress.desc">Cypress 15 E2E + component suite: smoke, auth, dashboard, team, wizard, API, a11y, visual regression via Percy. Parallel CI matrix on GitHub Actions.</p>
+          <p class="oss-desc" data-i18n="oss.cypress.desc">Cypress 15 E2E + component suite: smoke, auth, dashboard, team, wizard, API, a11y, visual regression via Percy. Parallel CI on GitHub Actions — results recorded to Cypress Cloud with Test Replay.</p>
           <span class="oss-target-note" data-i18n="oss.runs.against">↗ runs against testflow @ :5050</span>
           <div class="oss-shield-row" style="margin-top:2px;">
             <a href="https://github.com/lflucasferreira/testflow-cypress/actions" target="_blank" rel="noopener">
               <img src="https://github.com/lflucasferreira/testflow-cypress/actions/workflows/cypress.yml/badge.svg" alt="CI Status"
                 onerror="this.src='https://img.shields.io/badge/CI-passing-34d399?style=flat-square&logo=githubactions&logoColor=white'" />
+            </a>
+            <a href="https://cloud.cypress.io/projects/jb6cfs/runs" target="_blank" rel="noopener">
+              <img src="https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/detailed/jb6cfs/main&style=flat-square" alt="Cypress Cloud" />
             </a>
             <span class="oss-shield" data-gh-repo="lflucasferreira/testflow-cypress">
               <span class="oss-shield-label" data-i18n="oss.badge.updated">updated</span>
@@ -3690,6 +3709,7 @@
             <span class="oss-tag">axe-core</span>
             <span class="oss-tag oss-tag-green" data-i18n="oss.cypress.tag.specs">22 spec files</span>
             <span class="oss-tag">GitHub Actions</span>
+            <span class="oss-tag oss-tag-accent">Cypress Cloud</span>
           </div>
         </div>
 
@@ -3725,6 +3745,76 @@
             <span class="oss-tag">TypeScript</span>
             <span class="oss-tag">axe-core</span>
             <span class="oss-tag oss-tag-green" data-i18n="oss.playwright.tag.projects">17 projects</span>
+            <span class="oss-tag">GitHub Actions</span>
+          </div>
+        </div>
+
+        <!-- testflow-pytest -->
+        <div class="oss-card">
+          <div class="oss-card-top">
+            <div class="oss-logo">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg" alt="PyTest"
+                onerror="this.src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg'" />
+            </div>
+            <div class="oss-badges">
+              <span class="badge badge-yellow" data-i18n="oss.badge.scaffold">scaffold</span>
+              <span class="oss-lang">Python</span>
+            </div>
+          </div>
+          <div class="oss-repo-name">
+            <a href="https://github.com/lflucasferreira/testflow-pytest" target="_blank" rel="noopener">lflucasferreira / testflow-pytest</a>
+          </div>
+          <p class="oss-desc" data-i18n="oss.pytest.desc">PyTest suite for TestFlow — mirror of the Cypress and Playwright coverage with Page Object Model, fixtures, factories and <code>data-testid</code> selectors. Playwright for Python or Selenium (TBD).</p>
+          <span class="oss-target-note" data-i18n="oss.runs.against">↗ runs against testflow @ :5050</span>
+          <div class="oss-shield-row" style="margin-top:2px;">
+            <span class="oss-shield" data-gh-repo="lflucasferreira/testflow-pytest">
+              <span class="oss-shield-label" data-i18n="oss.badge.updated">updated</span>
+              <span class="oss-shield-value is-loading">…</span>
+            </span>
+          </div>
+          <a href="https://github.com/lflucasferreira/testflow-pytest/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.view.commits">↗ View commit history</a>
+          <div class="oss-tags">
+            <span class="oss-tag oss-tag-accent">PyTest</span>
+            <span class="oss-tag">Python 3.11+</span>
+            <span class="oss-tag">POM</span>
+            <span class="oss-tag oss-tag-green" data-i18n="oss.pytest.tag.mirror">Cypress/Playwright mirror</span>
+          </div>
+        </div>
+
+        <!-- testflow-k6 -->
+        <div class="oss-card">
+          <div class="oss-card-top">
+            <div class="oss-logo">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/k6/k6-original.svg" alt="k6"
+                onerror="this.parentElement.innerHTML='<span style=\'font-size:1.1rem;font-weight:800;color:#7c3aed;font-family:monospace;\'>k6</span>'" />
+            </div>
+            <div class="oss-badges">
+              <span class="badge badge-green" data-i18n="oss.badge.active">active</span>
+              <span class="oss-lang">JavaScript</span>
+            </div>
+          </div>
+          <div class="oss-repo-name">
+            <a href="https://github.com/lflucasferreira/testflow-k6" target="_blank" rel="noopener">lflucasferreira / testflow-k6</a>
+          </div>
+          <p class="oss-desc" data-i18n="oss.k6.desc">k6 performance suite for TestFlow — smoke CI gate, load (auth/users/mixed), stress, spike and soak scenarios, multi-step journeys and k6 browser login. SLO thresholds for P95 latency and error rate; GitHub Actions smoke on push/PR plus manual load profiles. Mirrors functional API coverage on <code>/health</code>, <code>/api/auth/login</code> and <code>/api/users</code> @ :5050.</p>
+          <span class="oss-target-note" data-i18n="oss.runs.against">↗ runs against testflow @ :5050</span>
+          <div class="oss-shield-row" style="margin-top:2px;">
+            <a href="https://github.com/lflucasferreira/testflow-k6/actions" target="_blank" rel="noopener">
+              <img src="https://github.com/lflucasferreira/testflow-k6/actions/workflows/k6.yml/badge.svg" alt="CI Status"
+                onerror="this.src='https://img.shields.io/badge/CI-passing-34d399?style=flat-square&logo=githubactions&logoColor=white'" />
+            </a>
+            <span class="oss-shield" data-gh-repo="lflucasferreira/testflow-k6">
+              <span class="oss-shield-label" data-i18n="oss.badge.updated">updated</span>
+              <span class="oss-shield-value is-loading">…</span>
+            </span>
+          </div>
+          <a href="https://github.com/lflucasferreira/testflow-k6/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.view.commits">↗ View commit history</a>
+          <div class="oss-tags">
+            <span class="oss-tag oss-tag-accent">k6</span>
+            <span class="oss-tag">JavaScript</span>
+            <span class="oss-tag">Docker</span>
+            <span class="oss-tag oss-tag-green" data-i18n="oss.k6.tag.scenarios">9 scenarios</span>
+            <span class="oss-tag" data-i18n="oss.k6.tag.slo">SLO · P95</span>
             <span class="oss-tag">GitHub Actions</span>
           </div>
         </div>
@@ -4864,22 +4954,31 @@
         'proj.responsive.artifact.meta': '5 tabs · 22 active profiles · 52 total screens',
         'proj.responsive.artifact.note': 'Exportable profile library with mobile, tablet, desktop and BREAKPOINTS tabs (BVA pairs at 1px). Import via Responsive Viewer extension → Load JSON.',
         'oss.label': '06 · Open Source', 'oss.title': 'GitHub Projects',
-        'oss.intro': 'Most public demo apps are too simple to test meaningfully. I built TestFlow to change that — a realistic web application with authentication, multi-role workflows, and API layers that mirror what you\'d find in production. Two full-coverage suites run against it: one in Cypress, one in Playwright. The app ships as a Docker image so anyone can spin it up in seconds.',
-        'oss.audience': '<strong>Who it\'s for:</strong> QA engineers learning Cypress or Playwright, interview prep, workshops, and anyone who wants a production-like sandbox without building the app from scratch.',
+        'oss.intro': 'Most public demo apps are too simple to test meaningfully. I built TestFlow to change that — a realistic web application with authentication, multi-role workflows, and API layers that mirror what you\'d find in production. Four automation suites run against it: Cypress, Playwright, PyTest and k6. The app ships as a Docker image so anyone can spin it up in seconds.',
+        'oss.audience': '<strong>Who it\'s for:</strong> QA engineers learning Cypress, Playwright, PyTest or k6, interview prep, workshops, and anyone who wants a production-like sandbox without building the app from scratch.',
         'oss.ecosystem.label': 'TestFlow ecosystem',
         'oss.ecosystem.app': 'Target app · Docker image',
         'oss.ecosystem.cypress': 'Cypress 15 · E2E + component',
         'oss.ecosystem.playwright': 'Playwright · 17 mirrored projects',
-        'oss.testflow.desc': 'Web sandbox built for QA automation practice — the target app for both testflow-cypress and testflow-playwright suites.',
-        'oss.cypress.desc': 'Cypress 15 E2E + component suite: smoke, auth, dashboard, team, wizard, API, a11y, visual regression via Percy. Parallel CI matrix on GitHub Actions.',
+        'oss.ecosystem.pytest': 'PyTest · Python · POM',
+        'oss.ecosystem.k6': 'k6 · SLO · load & performance',
+        'oss.testflow.desc': 'Web sandbox built for QA automation practice — the target app for testflow-cypress, testflow-playwright, testflow-pytest and testflow-k6.',
+        'oss.cypress.desc': 'Cypress 15 E2E + component suite: smoke, auth, dashboard, team, wizard, API, a11y, visual regression via Percy. Parallel CI on GitHub Actions — results recorded to Cypress Cloud with Test Replay.',
         'oss.playwright.desc': 'Playwright TypeScript suite — mirror of the Cypress coverage with POM, axe-core a11y, visual regression and cross-browser projects (Chromium / Firefox / WebKit). 17 parallel CI matrix jobs across smoke, auth, API, wizard, a11y and visual.',
+        'oss.pytest.desc': 'PyTest suite for TestFlow — mirror of the Cypress and Playwright coverage with Page Object Model, fixtures, factories and <code>data-testid</code> selectors. Playwright for Python or Selenium (TBD).',
+        'oss.k6.desc': 'k6 performance suite for TestFlow — smoke CI gate, load (auth/users/mixed), stress, spike and soak scenarios, multi-step journeys and k6 browser login. SLO thresholds for P95 latency and error rate; GitHub Actions smoke on push/PR plus manual load profiles. Mirrors functional API coverage on <code>/health</code>, <code>/api/auth/login</code> and <code>/api/users</code> @ :5050.',
         'oss.badge.app': 'app',
         'oss.badge.updated': 'updated',
         'oss.badge.active': 'active',
+        'oss.badge.scaffold': 'scaffold',
+        'oss.badge.planned': 'planned',
         'oss.runs.against': '↗ runs against testflow @ :5050',
         'oss.view.commits': '↗ View commit history',
         'oss.cypress.tag.specs': '22 spec files',
         'oss.playwright.tag.projects': '17 projects',
+        'oss.pytest.tag.mirror': 'Cypress/Playwright mirror',
+        'oss.k6.tag.scenarios': '9 scenarios',
+        'oss.k6.tag.slo': 'SLO · P95',
         'oss.other.label': 'More projects',
         'oss.badge.tcc': 'TCC · UFRPE',
         'oss.qametrics.context': 'Company thesis · 2022',
@@ -5159,22 +5258,31 @@
         'proj.responsive.artifact.meta': '5 abas · 22 perfis ativos · 52 telas no total',
         'proj.responsive.artifact.note': 'Biblioteca de perfis exportável com abas mobile, tablet, desktop e BREAKPOINTS (pares BVA com 1px). Importar na extensão Responsive Viewer → Load JSON.',
         'oss.label': '06 · Open Source', 'oss.title': 'Projetos no GitHub',
-        'oss.intro': 'A maioria dos apps de demo públicos é simples demais para testar de forma significativa. Construí o TestFlow para mudar isso — uma aplicação web realista com autenticação, fluxos multi-role e camadas de API que espelham o que você encontra em produção. Duas suítes com cobertura completa rodam contra ele: uma em Cypress e uma em Playwright. O app é distribuído como imagem Docker — qualquer pessoa sobe em segundos.',
-        'oss.audience': '<strong>Para quem é:</strong> QAs aprendendo Cypress ou Playwright, preparação para entrevistas, workshops e quem quer um sandbox realista sem precisar construir o app do zero.',
+        'oss.intro': 'A maioria dos apps de demo públicos é simples demais para testar de forma significativa. Construí o TestFlow para mudar isso — uma aplicação web realista com autenticação, fluxos multi-role e camadas de API que espelham o que você encontra em produção. Quatro suítes de automação rodam contra ela: Cypress, Playwright, PyTest e k6. O app é distribuído como imagem Docker — qualquer pessoa sobe em segundos.',
+        'oss.audience': '<strong>Para quem é:</strong> QAs aprendendo Cypress, Playwright, PyTest ou k6, preparação para entrevistas, workshops e quem quer um sandbox realista sem precisar construir o app do zero.',
         'oss.ecosystem.label': 'Ecossistema TestFlow',
         'oss.ecosystem.app': 'App-alvo · imagem Docker',
         'oss.ecosystem.cypress': 'Cypress 15 · E2E + component',
         'oss.ecosystem.playwright': 'Playwright · 17 projetos espelhados',
-        'oss.testflow.desc': 'Sandbox web para prática de automação de QA — a aplicação-alvo das suítes testflow-cypress e testflow-playwright.',
-        'oss.cypress.desc': 'Suíte Cypress 15 E2E + component: smoke, auth, dashboard, team, wizard, API, a11y, regressão visual via Percy. Matrix paralelo de CI no GitHub Actions.',
+        'oss.ecosystem.pytest': 'PyTest · Python · POM',
+        'oss.ecosystem.k6': 'k6 · SLO · carga & performance',
+        'oss.testflow.desc': 'Sandbox web para prática de automação de QA — app-alvo das suítes testflow-cypress, testflow-playwright, testflow-pytest e testflow-k6.',
+        'oss.cypress.desc': 'Suíte Cypress 15 E2E + component: smoke, auth, dashboard, team, wizard, API, a11y, regressão visual via Percy. CI paralelo no GitHub Actions — resultados gravados no Cypress Cloud com Test Replay.',
         'oss.playwright.desc': 'Suíte Playwright em TypeScript — espelho da cobertura Cypress com POM, a11y com axe-core, regressão visual e projetos cross-browser (Chromium / Firefox / WebKit). 17 jobs paralelos de CI em smoke, auth, API, wizard, a11y e visual.',
+        'oss.pytest.desc': 'Suíte PyTest para o TestFlow — espelho das coberturas Cypress e Playwright com Page Object Model, fixtures, factories e seletores <code>data-testid</code>. Playwright for Python ou Selenium (a definir).',
+        'oss.k6.desc': 'Suíte k6 de performance para o TestFlow — smoke como gate de CI, load (auth/users/mixed), stress, spike e soak, jornadas multi-step e login com k6 browser. Thresholds SLO de P95 e taxa de erro; GitHub Actions com smoke em push/PR e profiles de carga manual. Espelha a cobertura funcional de API em <code>/health</code>, <code>/api/auth/login</code> e <code>/api/users</code> @ :5050.',
         'oss.badge.app': 'app',
         'oss.badge.updated': 'atualizado',
         'oss.badge.active': 'ativo',
+        'oss.badge.scaffold': 'scaffold',
+        'oss.badge.planned': 'planejado',
         'oss.runs.against': '↗ roda contra testflow @ :5050',
         'oss.view.commits': '↗ Ver histórico de commits',
         'oss.cypress.tag.specs': '22 spec files',
         'oss.playwright.tag.projects': '17 projetos',
+        'oss.pytest.tag.mirror': 'Espelho Cypress/Playwright',
+        'oss.k6.tag.scenarios': '9 cenários',
+        'oss.k6.tag.slo': 'SLO · P95',
         'oss.other.label': 'Mais projetos',
         'oss.badge.tcc': 'TCC · UFRPE',
         'oss.qametrics.context': 'TCC Empresa · 2022',
@@ -5457,9 +5565,11 @@
         'qaschoolbr/testflow',
         'lflucasferreira/testflow-cypress',
         'lflucasferreira/testflow-playwright',
+        'lflucasferreira/testflow-pytest',
+        'lflucasferreira/testflow-k6',
         'lflucasferreira/qametrics',
       ];
-      const CACHE_KEY = 'portfolio-gh-repos-v1';
+      const CACHE_KEY = 'portfolio-gh-repos-v2';
       const CACHE_TTL = 24 * 60 * 60 * 1000;
 
       function readCache() {
