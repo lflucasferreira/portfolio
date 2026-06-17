@@ -1174,7 +1174,6 @@
       min-width: 180px; text-align: center; position: relative; z-index: 1;
       align-self: center;
     }
-    .oss-eco-icon { font-size: 1.35rem; line-height: 1; }
     .oss-eco-name { font-size: 0.82rem; font-family: var(--mono); font-weight: 700; color: var(--accent); }
     .oss-eco-role { font-size: 0.68rem; font-family: var(--mono); color: var(--text-3); }
 
@@ -1190,22 +1189,30 @@
     }
     .oss-eco-suites {
       display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
-      width: 100%; margin-top: 0;
+      width: 100%; margin-top: 0; align-items: stretch;
     }
     @media (max-width: 900px) {
       .oss-eco-suites { grid-template-columns: repeat(2, 1fr); gap: 12px; }
     }
     .oss-eco-suite-col {
-      display: flex; flex-direction: column; align-items: center; min-width: 0;
+      display: flex; flex-direction: column; min-width: 0; height: 100%;
     }
     .oss-eco-suite {
-      display: flex; flex-direction: column; align-items: center; gap: 4px;
-      width: 100%; padding: 12px 16px; border-radius: var(--radius-sm);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      width: 100%; height: 100%; padding: 12px 10px; border-radius: var(--radius-sm);
       border: 1px solid var(--border); background: var(--surface2); text-align: center;
       transition: border-color var(--transition);
     }
     .oss-eco-suite:hover { border-color: rgba(108,140,255,0.35); }
-    .oss-eco-suite-name { font-size: 0.75rem; font-family: var(--mono); font-weight: 600; color: var(--text); }
+    .oss-eco-suite-logo {
+      width: 36px; height: 36px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .oss-eco-suite-logo img {
+      width: 100%; height: 100%; object-fit: contain; display: block;
+    }
+    .oss-eco-suite-name { font-size: 0.75rem; font-family: var(--mono); font-weight: 600; color: var(--text); line-height: 1.35; }
+    .oss-eco-suite .oss-eco-role { margin-top: auto; line-height: 1.45; }
     .oss-eco-suite a { color: inherit; text-decoration: none; }
     .oss-eco-suite a:hover { color: var(--accent); }
     .oss-target-note {
@@ -3580,7 +3587,9 @@
         <div class="oss-eco-flow">
           <div class="oss-eco-link-area">
             <div class="oss-eco-app">
-              <span class="oss-eco-icon">🐳</span>
+              <span class="oss-eco-suite-logo">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker" />
+              </span>
               <span class="oss-eco-name">qaschoolbr / testflow</span>
               <span class="oss-eco-role" data-i18n="oss.ecosystem.app">Target app · Docker image</span>
             </div>
@@ -3595,30 +3604,47 @@
             <div class="oss-eco-suites">
               <div class="oss-eco-suite-col">
                 <div class="oss-eco-suite">
+                  <span class="oss-eco-suite-logo">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cypressio/cypressio-original.svg" alt="Cypress" />
+                  </span>
                   <span class="oss-eco-suite-name"><a href="https://github.com/lflucasferreira/testflow-cypress" target="_blank" rel="noopener">testflow-cypress</a></span>
                   <span class="oss-eco-role" data-i18n="oss.ecosystem.cypress">Cypress 15 · E2E + component</span>
                 </div>
               </div>
               <div class="oss-eco-suite-col">
                 <div class="oss-eco-suite">
+                  <span class="oss-eco-suite-logo">
+                    <img src="https://playwright.dev/img/playwright-logo.svg" alt="Playwright" />
+                  </span>
                   <span class="oss-eco-suite-name"><a href="https://github.com/lflucasferreira/testflow-playwright" target="_blank" rel="noopener">testflow-playwright</a></span>
                   <span class="oss-eco-role" data-i18n="oss.ecosystem.playwright">Playwright · 17 mirrored projects</span>
                 </div>
               </div>
               <div class="oss-eco-suite-col">
                 <div class="oss-eco-suite">
+                  <span class="oss-eco-suite-logo">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg" alt="PyTest"
+                      onerror="this.src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg'" />
+                  </span>
                   <span class="oss-eco-suite-name"><a href="https://github.com/lflucasferreira/testflow-pytest" target="_blank" rel="noopener">testflow-pytest</a></span>
                   <span class="oss-eco-role" data-i18n="oss.ecosystem.pytest">PyTest · Playwright · Python</span>
                 </div>
               </div>
               <div class="oss-eco-suite-col">
                 <div class="oss-eco-suite">
+                  <span class="oss-eco-suite-logo">
+                    <img src="assets/appium-logo.png" alt="Appium" />
+                  </span>
                   <span class="oss-eco-suite-name"><a href="https://github.com/lflucasferreira/testflow-appium" target="_blank" rel="noopener">testflow-appium</a></span>
                   <span class="oss-eco-role" data-i18n="oss.ecosystem.appium">Appium · mobile web · WDIO</span>
                 </div>
               </div>
               <div class="oss-eco-suite-col">
                 <div class="oss-eco-suite">
+                  <span class="oss-eco-suite-logo">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/k6/k6-original.svg" alt="k6"
+                      onerror="this.parentElement.innerHTML='<span style=\'font-size:0.72rem;font-weight:800;color:#7c3aed;font-family:monospace;\'>k6</span>'" />
+                  </span>
                   <span class="oss-eco-suite-name"><a href="https://github.com/lflucasferreira/testflow-k6" target="_blank" rel="noopener">testflow-k6</a></span>
                   <span class="oss-eco-role" data-i18n="oss.ecosystem.k6">k6 · SLO · load &amp; performance</span>
                 </div>
@@ -3819,8 +3845,7 @@
         <div class="oss-card">
           <div class="oss-card-top">
             <div class="oss-logo">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/appium/appium-original.svg" alt="Appium"
-                onerror="this.parentElement.innerHTML='<span style=\'font-size:0.95rem;font-weight:800;color:#7c3aed;font-family:monospace;\'>Appium</span>'" />
+              <img src="assets/appium-logo.png" alt="Appium" />
             </div>
             <div class="oss-badges">
               <span class="badge badge-green" data-i18n="oss.badge.active">active</span>
