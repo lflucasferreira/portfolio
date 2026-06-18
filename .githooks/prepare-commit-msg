@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Cursor may append Co-authored-by trailers; strip them before commit-msg policy runs.
+file="$1"
+[ -f "$file" ] || exit 0
+
+sed -i '' '/^[Cc]o-[Aa]uthored-[Bb]y:/d' "$file" 2>/dev/null || \
+  sed -i '/^[Cc]o-[Aa]uthored-[Bb]y:/d' "$file"
