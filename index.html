@@ -1080,6 +1080,9 @@
     }
     .oss-grafana-embed-head span { display: flex; align-items: center; gap: 8px; }
     .oss-grafana-embed-head img { width: 16px; height: 16px; opacity: 0.85; }
+    .ra-logo--inline { width: 16px; height: 16px; display: inline-flex; align-items: center; justify-content: center; position: relative; isolation: isolate; flex-shrink: 0; }
+    .ra-logo--inline .ra-logo__img { width: 16px; height: 16px; object-fit: contain; opacity: 0.85; }
+    .ra-logo--inline .ra-logo__img--dark { display: none; }
     .oss-grafana-embed-links { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
     .oss-grafana-embed-frame {
       width: 100%; height: 520px; border: 0; display: block; background: #0b0c0e;
@@ -1091,6 +1094,14 @@
     /* Logo icon (regular cards) */
     .oss-logo { width: 44px; height: 44px; background: var(--surface2); border-radius: 10px; border: 1px solid var(--border); padding: 7px; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
     .oss-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .oss-logo .ra-logo { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; isolation: isolate; line-height: 0; }
+    .oss-logo .ra-logo__img { width: 100%; height: 100%; object-fit: contain; position: relative; z-index: 1; }
+    .oss-logo .ra-logo__img--dark { display: none; }
+    [data-theme='dark'] .oss-logo .ra-logo::before {
+      content: ''; position: absolute; inset: 0; margin: auto; width: 88%; height: 88%; border-radius: 50%; z-index: 0; pointer-events: none;
+      background: radial-gradient(ellipse 95% 95% at 24% 24%, rgba(255,255,255,0.62) 0%, rgba(240,248,240,0.38) 22%, rgba(200,230,200,0.18) 42%, rgba(69,186,75,0.06) 58%, transparent 72%);
+      box-shadow: -2px -2px 14px rgba(255,255,255,0.22), 0 0 20px rgba(180,220,180,0.15);
+    }
     .oss-card-top { display: flex; align-items: flex-start; justify-content: space-between; }
     .oss-badges { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
     .oss-lang { font-size: 0.68rem; font-family: var(--mono); color: var(--text-3); padding: 3px 8px; border-radius: 20px; background: var(--surface2); border: 1px solid var(--border); }
@@ -2887,7 +2898,7 @@
 
   <!-- ── Nav ── -->
   <nav class="site-nav">
-    <div class="nav-logo">Lucas<span>.</span>dev</div>
+    <div class="nav-logo">Lucas<span> Ferreira</span></div>
     <ul class="nav-links">
       <li><a href="#about" data-i18n="nav.about">About</a></li>
       <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
@@ -2895,7 +2906,6 @@
       <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
       <li><a href="#education" data-i18n="nav.education">Education</a></li>
       <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
-      <li><a href="slides/index.html" data-i18n="nav.slides">Slides</a></li>
     </ul>
     <div class="nav-right">
       <button id="lang-btn" class="lang-btn" onclick="toggleLang()" aria-label="Toggle language">🇧🇷 PT</button>
@@ -2970,10 +2980,6 @@
           <a class="btn-secondary btn-green" href="performance.html">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
             <span data-i18n="cta.perf">Performance &amp; Growth</span>
-          </a>
-          <a class="btn-secondary" href="slides/index.html">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-            <span data-i18n="cta.slides">Presentation</span>
           </a>
         </div>
       </div>
@@ -4022,10 +4028,13 @@
         </div>
 
         <!-- rest-assured — Spring Petclinic REST API -->
-        <div class="oss-card oss-card--wide">
+        <div class="oss-card">
           <div class="oss-card-top">
             <div class="oss-logo">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="Java" />
+              <span class="ra-logo">
+                <img class="ra-logo__img ra-logo__img--light" src="assets/rest-assured-logo-light.png" alt="REST Assured" />
+                <img class="ra-logo__img ra-logo__img--dark" src="assets/rest-assured-logo-dark.png" alt="" aria-hidden="true" />
+              </span>
             </div>
             <div class="oss-badges">
               <span class="badge badge-green" data-i18n="oss.badge.active">active</span>
@@ -4061,12 +4070,67 @@
           <div class="oss-grafana-embed" style="margin-top:14px;">
             <div class="oss-grafana-embed-head">
               <span>
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="" aria-hidden="true" />
+                <span class="ra-logo ra-logo--inline">
+                  <img class="ra-logo__img ra-logo__img--light" src="assets/rest-assured-logo-light.png" alt="" aria-hidden="true" />
+                  <img class="ra-logo__img ra-logo__img--dark" src="assets/rest-assured-logo-dark.png" alt="" aria-hidden="true" />
+                </span>
                 <span data-i18n="oss.restassured.report.label">Allure report · GitHub Pages</span>
               </span>
               <span class="oss-grafana-embed-links">
                 <a href="https://lflucasferreira.github.io/rest-assured/report/index.html" target="_blank" rel="noopener" class="oss-hub-link" data-i18n="oss.restassured.report.open">Open report ↗</a>
                 <a href="https://lflucasferreira.github.io/rest-assured/" target="_blank" rel="noopener" class="oss-hub-link" data-i18n="oss.restassured.docs.open">Docs hub ↗</a>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- testflow-selenium -->
+        <div class="oss-card">
+          <div class="oss-card-top">
+            <div class="oss-logo">
+              <img src="assets/selenium-logo.png" alt="Selenium" />
+            </div>
+            <div class="oss-badges">
+              <span class="badge badge-green" data-i18n="oss.badge.active">active</span>
+              <span class="oss-lang">JavaScript</span>
+            </div>
+          </div>
+          <div class="oss-repo-name">
+            <a href="https://github.com/lflucasferreira/testflow-selenium" target="_blank" rel="noopener">lflucasferreira / testflow-selenium</a>
+          </div>
+          <p class="oss-desc" data-i18n="oss.selenium.desc">Selenium WebDriver 4 E2E suite for TestFlow — pure Selenium mirror of testflow-cypress (no WebDriverIO/Nightwatch) with Page Object Model, <code>data-testid</code> selectors, Mocha + Chai, mochawesome reports and Ajv JSON Schema API checks. 11 suites (@smoke · @regression · @api) with traceable <code>[TC-xxxx]</code> ids. GitHub Actions against <code>qaschool/testflow</code> @ :5050.</p>
+          <span class="oss-target-note" data-i18n="oss.runs.against">↗ runs against testflow @ :5050</span>
+          <div class="oss-shield-row" style="margin-top:2px;">
+            <a href="https://github.com/lflucasferreira/testflow-selenium/actions" target="_blank" rel="noopener">
+              <img src="https://github.com/lflucasferreira/testflow-selenium/actions/workflows/selenium.yml/badge.svg" alt="CI Status"
+                onerror="this.src='https://img.shields.io/badge/CI-passing-34d399?style=flat-square&logo=githubactions&logoColor=white'" />
+            </a>
+            <span class="oss-shield" data-gh-repo="lflucasferreira/testflow-selenium">
+              <span class="oss-shield-label" data-i18n="oss.badge.updated">updated</span>
+              <span class="oss-shield-value is-loading">…</span>
+            </span>
+          </div>
+          <a href="https://github.com/lflucasferreira/testflow-selenium/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.view.commits">↗ View commit history</a>
+          <div class="oss-tags">
+            <span class="oss-tag oss-tag-accent">Selenium WebDriver 4</span>
+            <span class="oss-tag">JavaScript</span>
+            <span class="oss-tag">Mocha</span>
+            <span class="oss-tag">Chai</span>
+            <span class="oss-tag">mochawesome</span>
+            <span class="oss-tag">Ajv</span>
+            <span class="oss-tag">Page Object Model</span>
+            <span class="oss-tag oss-tag-green" data-i18n="oss.selenium.tag.suites">11 suites</span>
+            <span class="oss-tag">GitHub Actions</span>
+          </div>
+          <div class="oss-grafana-embed" style="margin-top:14px;">
+            <div class="oss-grafana-embed-head">
+              <span>
+                <img src="assets/selenium-logo.png" alt="" aria-hidden="true" />
+                <span data-i18n="oss.selenium.report.label">Allure report · GitHub Pages</span>
+              </span>
+              <span class="oss-grafana-embed-links">
+                <a href="https://lflucasferreira.github.io/testflow-selenium/report/" target="_blank" rel="noopener" class="oss-hub-link" data-i18n="oss.selenium.report.open">Open report ↗</a>
+                <a href="https://lflucasferreira.github.io/testflow-selenium/" target="_blank" rel="noopener" class="oss-hub-link" data-i18n="oss.selenium.docs.open">Docs hub ↗</a>
               </span>
             </div>
           </div>
@@ -5245,6 +5309,11 @@
         'oss.restassured.report.label': 'Allure report · GitHub Pages',
         'oss.restassured.report.open': 'Open report ↗',
         'oss.restassured.docs.open': 'Docs hub ↗',
+        'oss.selenium.desc': 'Selenium WebDriver 4 E2E suite for TestFlow — pure Selenium mirror of testflow-cypress (no WebDriverIO/Nightwatch) with Page Object Model, <code>data-testid</code> selectors, Mocha + Chai, mochawesome reports and Ajv JSON Schema API checks. 11 suites (@smoke · @regression · @api) with traceable <code>[TC-xxxx]</code> ids. GitHub Actions against <code>qaschool/testflow</code> @ :5050.',
+        'oss.selenium.tag.suites': '11 suites',
+        'oss.selenium.report.label': 'Allure report · GitHub Pages',
+        'oss.selenium.report.open': 'Open report ↗',
+        'oss.selenium.docs.open': 'Docs hub ↗',
         'oss.badge.tcc': 'TCC · UFRPE',
         'oss.qametrics.context': 'Company thesis · 2022',
         'oss.qametrics.desc': 'QAs spent 1–3 hours per sprint manually copying Jira, SonarCloud and Test Pyramid data into spreadsheets and Slides — and retrospectives stalled when a QA was absent. Open-source Docker stack: Newman collects APIs → InfluxDB → 3 Grafana dashboards; any team member can run it with docker-compose up.',
@@ -5565,6 +5634,11 @@
         'oss.restassured.report.label': 'Relatório Allure · GitHub Pages',
         'oss.restassured.report.open': 'Abrir relatório ↗',
         'oss.restassured.docs.open': 'Hub de docs ↗',
+        'oss.selenium.desc': 'Suíte Selenium WebDriver 4 E2E para o TestFlow — espelho puro do testflow-cypress (sem WebDriverIO/Nightwatch) com Page Object Model, seletores <code>data-testid</code>, Mocha + Chai, relatórios mochawesome e validação JSON Schema com Ajv. 11 suítes (@smoke · @regression · @api) com ids rastreáveis <code>[TC-xxxx]</code>. GitHub Actions contra <code>qaschool/testflow</code> @ :5050.',
+        'oss.selenium.tag.suites': '11 suítes',
+        'oss.selenium.report.label': 'Relatório Allure · GitHub Pages',
+        'oss.selenium.report.open': 'Abrir relatório ↗',
+        'oss.selenium.docs.open': 'Hub de docs ↗',
         'oss.badge.tcc': 'TCC · UFRPE',
         'oss.qametrics.context': 'TCC Empresa · 2022',
         'oss.qametrics.desc': 'QAs gastavam 1–3 h por sprint copiando manualmente dados do Jira, SonarCloud e Pirâmide de Testes para planilhas e Slides — e retrospectivas paravam na ausência do QA. Stack Docker open source: Newman coleta APIs → InfluxDB → 3 dashboards Grafana; qualquer membro do time roda com docker-compose up.',
@@ -5850,6 +5924,7 @@
         'lflucasferreira/testflow-appium',
         'lflucasferreira/testflow-k6',
         'lflucasferreira/rest-assured',
+        'lflucasferreira/testflow-selenium',
         'lflucasferreira/qametrics',
       ];
       const CACHE_KEY = 'portfolio-gh-repos-v2';
