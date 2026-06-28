@@ -1,2 +1,6 @@
 node_modules/
 .venv-pdf/
+
+# Versão completa em texto puro (com dados reais) — NÃO publicar.
+# A versão protegida por senha é performance_full.html.
+performance_full.source.html
