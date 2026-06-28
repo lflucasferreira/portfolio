@@ -173,7 +173,7 @@
     <div class="nav-logo">Lucas<span> Ferreira</span></div>
     <div class="nav-right">
       <a class="nav-back" href="index.html#skills" data-i18n="nav.back">← Back to portfolio</a>
-      <button id="lang-btn" class="lang-btn" onclick="toggleLang()" aria-label="Toggle language">🇧🇷 PT</button>
+      <button id="lang-btn" class="lang-btn" onclick="toggleLang()" aria-label="Toggle language"><svg viewBox="0 0 28 20" style="height:1em;width:auto;vertical-align:-0.15em;border-radius:2px" xmlns="http://www.w3.org/2000/svg"><rect width="28" height="20" fill="#009b3a"/><path d="M14 2.4 26 10 14 17.6 2 10Z" fill="#ffdf00"/><circle cx="14" cy="10" r="4.3" fill="#002776"/><path d="M10.1 9.1C12.6 8 15.4 8 17.9 10.1" stroke="#fff" stroke-width="0.8" fill="none"/></svg> PT</button>
       <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
         <span class="icon-sun">☀️</span>
         <span class="icon-moon">🌙</span>
@@ -390,7 +390,7 @@
         const key = el.getAttribute('data-i18n');
         if (translations[l]?.[key] !== undefined) el.innerHTML = translations[l][key];
       });
-      document.getElementById('lang-btn').innerHTML = l === 'en' ? '🇧🇷 PT' : '🇬🇧 EN';
+      document.getElementById('lang-btn').innerHTML = l === 'en' ? '<svg viewBox="0 0 28 20" style="height:1em;width:auto;vertical-align:-0.15em;border-radius:2px" xmlns="http://www.w3.org/2000/svg"><rect width="28" height="20" fill="#009b3a"/><path d="M14 2.4 26 10 14 17.6 2 10Z" fill="#ffdf00"/><circle cx="14" cy="10" r="4.3" fill="#002776"/><path d="M10.1 9.1C12.6 8 15.4 8 17.9 10.1" stroke="#fff" stroke-width="0.8" fill="none"/></svg> PT' : '<svg viewBox="0 0 30 20" style="height:1em;width:auto;vertical-align:-0.15em;border-radius:2px" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#012169"/><path d="M0 0 30 20M30 0 0 20" stroke="#fff" stroke-width="4"/><path d="M0 0 30 20M30 0 0 20" stroke="#C8102E" stroke-width="2"/><path d="M15 0V20M0 10H30" stroke="#fff" stroke-width="6"/><path d="M15 0V20M0 10H30" stroke="#C8102E" stroke-width="3.5"/></svg> EN';
       renderFilters();
       renderCards();
     }
