@@ -380,81 +380,6 @@
       margin-top: 8px; font-size: 0.71rem; font-family: var(--mono); color: var(--text-3);
     }
 
-    /* ── PIP / Leadership Plan ── */
-    .plan-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); overflow: hidden;
-    }
-
-    .plan-header {
-      padding: 24px 28px 20px;
-      background: linear-gradient(135deg, rgba(108,140,255,0.07) 0%, rgba(167,139,250,0.05) 100%);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .plan-header-top {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      flex-wrap: wrap; gap: 12px; margin-bottom: 10px;
-    }
-
-    .plan-header h3 { font-size: 1.05rem; font-weight: 700; color: var(--text); }
-
-    .plan-status {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 0.72rem; font-family: var(--mono); font-weight: 600;
-      padding: 4px 12px; border-radius: 20px;
-      color: var(--green); border: 1px solid rgba(52,211,153,0.4); background: rgba(52,211,153,0.08);
-    }
-
-    .plan-status .dot-pulse {
-      width: 6px; height: 6px; border-radius: 50%; background: var(--green);
-      box-shadow: 0 0 6px var(--green); animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-    .plan-header p { font-size: 0.875rem; color: var(--text-2); line-height: 1.65; }
-    .plan-header p strong { color: var(--text); }
-
-    .plan-body { padding: 24px 28px; }
-
-    .phases-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }
-
-    .phase-row {
-      display: grid; grid-template-columns: 80px 1fr auto;
-      gap: 16px; align-items: center;
-      padding: 12px 16px; border-radius: var(--radius-sm);
-      background: var(--surface2); border: 1px solid var(--border);
-      font-size: 0.83rem;
-    }
-
-    .phase-week { font-family: var(--mono); font-size: 0.72rem; color: var(--text-3); }
-    .phase-name { color: var(--text-2); }
-    .phase-name strong { color: var(--text); font-weight: 500; }
-
-    .phase-status {
-      font-size: 0.68rem; font-family: var(--mono); font-weight: 600;
-      padding: 2px 9px; border-radius: 20px; border: 1px solid; white-space: nowrap;
-    }
-    .phase-status.done { color: var(--green); border-color: rgba(52,211,153,0.4); background: rgba(52,211,153,0.08); }
-    .phase-status.progress { color: var(--yellow); border-color: rgba(251,191,36,0.4); background: rgba(251,191,36,0.08); }
-
-    .kpis-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px;
-    }
-
-    .kpi-item {
-      background: var(--bg2); border: 1px solid var(--border);
-      border-radius: var(--radius-sm); padding: 14px 16px;
-      display: flex; gap: 12px; align-items: flex-start;
-    }
-
-    .kpi-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
-
-    .kpi-body h4 { font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
-    .kpi-body span { font-size: 0.75rem; color: var(--text-2); }
-    .kpi-body .result { font-family: var(--mono); font-size: 0.72rem; color: var(--green); font-weight: 600; }
-
     /* ── Longitudinal note ── */
     .longitudinal {
       background: var(--surface); border: 1px solid var(--border);
@@ -1226,7 +1151,7 @@
             </div>
             <span class="progress-tag active" data-i18n="ga1.tag">active focus</span>
           </div>
-          <p data-i18n="ga1.body">The most persistent gap across all four years — and the one I'm most deliberately addressing. The pattern: <strong>I deliver substantial work but don't amplify it through active communication</strong>. In 2022 it was "speak up in ceremonies"; by 2025 the expectation evolved to metrics-driven storytelling and cross-team influence. The gap isn't about what I deliver — it's about making it visible before being asked. The leadership development plan running Apr–Jun 2026 is directly targeting this with weekly team chat posts, post-deploy reports, and proactive FYI messages to stakeholders.</p>
+          <p data-i18n="ga1.body">The most persistent gap across all four years — and the one I'm most deliberately addressing. The pattern: <strong>I deliver substantial work but don't amplify it through active communication</strong>. In 2022 it was "speak up in ceremonies"; by 2025 the expectation evolved to metrics-driven storytelling and cross-team influence. The gap isn't about what I deliver — it's about making it visible before being asked. I'm building this into my routine with weekly team chat posts, post-deploy reports, and proactive FYI messages to stakeholders.</p>
           <div class="first-noted" data-i18n="ga1.noted">First noted: 2022 · Present in all 4 cycles</div>
         </div>
 
@@ -1238,7 +1163,7 @@
             </div>
             <span class="progress-tag recent" data-i18n="ga2.tag">formal since 2025</span>
           </div>
-          <p data-i18n="ga2.body">Named formally by the lead in 2025, but first observed in a peer mid-review in 2024. The specific pattern: <strong>spending too much time building automation before starting manual tests</strong>, which delays task closure within the sprint. Not a quality issue — it's about sequencing and time-boxing. I'm applying a lean-first approach: run manual tests to unblock the ticket, then layer in automation. The Apr–Jun 2026 plan tracked this with zero rollbacks and 100% MRs with tests.</p>
+          <p data-i18n="ga2.body">Named formally by the lead in 2025, but first observed in a peer mid-review in 2024. The specific pattern: <strong>spending too much time building automation before starting manual tests</strong>, which delays task closure within the sprint. Not a quality issue — it's about sequencing and time-boxing. I'm applying a lean-first approach: run manual tests to unblock the ticket, then layer in automation, and the result shows: zero rollbacks and 100% of MRs shipped with tests.</p>
           <div class="first-noted" data-i18n="ga2.noted">First noted: Mid-Review 2024 · Formal gap in 2025</div>
         </div>
 
@@ -1873,19 +1798,10 @@
         'q3.text': 'Lucas is <strong>highly skilled and meticulous</strong>. It is a pleasure to work with him as he constantly pushes the team to deliver more quality. His automation capability is <strong>impressive</strong>.', 'q3.source': 'Peer — Year-End Review',
         'q4.text': 'He performs <strong>exemplary end-to-end validation</strong>: in a core domain, a CRM system and the internal service APIs — which is extremely valuable for identifying issues that could go unnoticed. He has solid knowledge of onboarding and maintenance flows across multiple systems.', 'q4.source': 'Peer — Year-End Review',
         'growth.label': 'Growth Areas', 'growth.title': "What I'm actively working on",
-        'ga1.title': 'Strategic Visibility & Proactive Communication', 'ga1.tag': 'active focus', 'ga1.body': "The most persistent gap across all four years — and the one I'm most deliberately addressing. The pattern: <strong>I deliver substantial work but don't amplify it through active communication</strong>. In 2022 it was \"speak up in ceremonies\"; by 2025 the expectation evolved to metrics-driven storytelling and cross-team influence. The gap isn't about what I deliver — it's about making it visible before being asked. The leadership development plan running Apr–Jun 2026 is directly targeting this with weekly team chat posts, post-deploy reports, and proactive FYI messages to stakeholders.", 'ga1.noted': 'First noted: 2022 · Present in all 4 cycles',
-        'ga2.title': 'Execution Speed & Sprint Sequencing', 'ga2.tag': 'formal since 2025', 'ga2.body': 'Named formally by the lead in 2025, but first observed in a peer mid-review in 2024. The specific pattern: <strong>spending too much time building automation before starting manual tests</strong>, which delays task closure within the sprint. Not a quality issue — it\'s about sequencing and time-boxing. I\'m applying a lean-first approach: run manual tests to unblock the ticket, then layer in automation. The Apr–Jun 2026 plan tracked this with zero rollbacks and 100% MRs with tests.', 'ga2.noted': 'First noted: Mid-Review 2024 · Formal gap in 2025',
+        'ga1.title': 'Strategic Visibility & Proactive Communication', 'ga1.tag': 'active focus', 'ga1.body': "The most persistent gap across all four years — and the one I'm most deliberately addressing. The pattern: <strong>I deliver substantial work but don't amplify it through active communication</strong>. In 2022 it was \"speak up in ceremonies\"; by 2025 the expectation evolved to metrics-driven storytelling and cross-team influence. The gap isn't about what I deliver — it's about making it visible before being asked. I'm building this into my routine with weekly team chat posts, post-deploy reports, and proactive FYI messages to stakeholders.", 'ga1.noted': 'First noted: 2022 · Present in all 4 cycles',
+        'ga2.title': 'Execution Speed & Sprint Sequencing', 'ga2.tag': 'formal since 2025', 'ga2.body': 'Named formally by the lead in 2025, but first observed in a peer mid-review in 2024. The specific pattern: <strong>spending too much time building automation before starting manual tests</strong>, which delays task closure within the sprint. Not a quality issue — it\'s about sequencing and time-boxing. I\'m applying a lean-first approach: run manual tests to unblock the ticket, then layer in automation, and the result shows: zero rollbacks and 100% of MRs shipped with tests.', 'ga2.noted': 'First noted: Mid-Review 2024 · Formal gap in 2025',
         'ga3.title': 'Cross-Team Influence & Strategic Protagonism', 'ga3.tag': 'active focus', 'ga3.body': 'Consistently surfacing since 2023 under different labels: being more opinionated on the backlog, proposing ideas before being asked, connecting quality insights to business impact. This is the dimension that <strong>separates Senior from Principal QA</strong>. The lead named it directly in 2024: "collaborate effectively with other teams, implement improvements, and lead innovation initiatives." I\'m working on this through Inner Sourcing contributions, proactive process proposals, and cross-team QA sync participation.', 'ga3.noted': 'First noted: 2023 · Escalating through 2025',
         'ga4.title': 'Test Scope Documentation', 'ga4.tag': 'identified 2025', 'ga4.body': 'A new, specific, and actionable gap raised in Year-End 2025: <strong>systematically distinguishing in-scope vs. out-of-scope findings</strong>, and clearly separating regressions from pre-existing bugs. This is exactly the kind of rigor expected at Principal QA level. I\'m building this into my test plan templates: every session now tags findings with scope, impact type, and whether they relate to the change under test or are pre-existing issues to track separately.', 'ga4.noted': 'First noted: Year-End 2025',
-        'pip.label': 'In Progress', 'pip.title': 'Leadership development plan', 'pip.h3': '8-Week Leadership Visibility Plan · Apr–Jun 2026', 'pip.status': '8 / 8 phases complete',
-        'pip.desc': 'A structured plan focused on <strong>leadership visibility</strong>: delivery predictability, proactive team chat communication, Inner Sourcing participation, post-deploy ownership, and cross-team collaboration. All formal KPIs are on track. The goal is to bridge the gap between what I deliver technically and how that delivery is perceived across the organization.',
-        'ph1': '<strong>Foundation</strong> · Zero rollbacks, 100% MRs with tests, core hours respected', 'ph2': '<strong>Inner Sourcing</strong> · MR approved by a maintainer + team chat visibility', 'ph3': '<strong>Post-deploy leadership</strong> · Lead smoke tests, participate in syncs', 'ph4': '<strong>Consolidation</strong> · AI-assisted review process & quality gates', 'ph5': '<strong>Closure</strong> · Sustained predictability + 8-week narrative',
-        'kpi1.h4': 'Rollbacks', 'kpi1.target': 'Target: zero', 'kpi1.result': '✓ Zero in 8 weeks',
-        'kpi2.h4': 'MRs with tests', 'kpi2.target': 'Target: 100%', 'kpi2.result': '✓ All MRs with tests + checklist',
-        'kpi3.h4': 'Inner Sourcing', 'kpi3.target': 'Target: 1 MR approved', 'kpi3.result': '✓ MR approved by a maintainer',
-        'kpi4.h4': 'Team chat visibility', 'kpi4.target': 'Target: proactive posts', 'kpi4.result': '✓ Posts in a team channel, the team-wide channel',
-        'kpi5.h4': 'Core hours', 'kpi5.target': 'Target: no unannounced gaps', 'kpi5.result': '✓ Zero unannounced absences',
-        'kpi6.h4': 'Collaboration documented', 'kpi6.target': 'Target: consistent cross-team', 'kpi6.result': '✓ 8+ colleagues, all 8 weeks',
         'peer.label': 'Peer Feedback', 'peer.title': 'All anonymous reviews — full record', 'peer.n': 'Peer',
         'fc.imp.label': 'Growth area', 'fc.advice.label': 'Advice',
         'fy2023.count': '5 reviewers',
@@ -1999,19 +1915,10 @@
         'q3.text': 'Lucas é <strong>altamente habilidoso e meticuloso</strong>. É um prazer trabalhar com ele, pois constantemente impulsiona o time a entregar mais qualidade. Sua capacidade de automação é <strong>impressionante</strong>.', 'q3.source': 'Colega — Avaliação de Fim de Ano',
         'q4.text': 'Ele realiza uma <strong>validação end-to-end exemplar</strong>: em um domínio central, um sistema de CRM e nas APIs sistemas internos — o que é extremamente valioso para identificar problemas que poderiam passar despercebidos. Tem conhecimento sólido dos fluxos de onboarding e manutenção em múltiplos sistemas.', 'q4.source': 'Colega — Avaliação de Fim de Ano',
         'growth.label': 'Áreas de Crescimento', 'growth.title': 'No que estou trabalhando ativamente',
-        'ga1.title': 'Visibilidade Estratégica & Comunicação Proativa', 'ga1.tag': 'foco ativo', 'ga1.body': 'O gap mais persistente em todos os quatro anos — e aquele que estou abordando de forma mais deliberada. O padrão: <strong>entrego trabalho substancial mas não o amplfico através de comunicação ativa</strong>. Em 2022 era "fale mais nas cerimônias"; em 2025 a expectativa evoluiu para storytelling baseado em métricas e influência cross-team. O gap não é sobre o que entrego — é sobre tornar isso visível antes de ser solicitado. O plano de desenvolvimento de liderança de abril a junho de 2026 ataca isso diretamente com posts semanais no chat do time, relatórios pós-deploy e mensagens FYI proativas para stakeholders.', 'ga1.noted': 'Primeiro registro: 2022 · Presente em todos os 4 ciclos',
-        'ga2.title': 'Velocidade de Execução & Sequenciamento de Sprint', 'ga2.tag': 'formal desde 2025', 'ga2.body': 'Formalizado pelo líder em 2025, mas observado pela primeira vez em uma mid-review de colega em 2024. O padrão específico: <strong>dedicar tempo excessivo à automação antes de iniciar os testes manuais</strong>, o que atrasa o fechamento das tarefas dentro do sprint. Não é um problema de qualidade — é sobre sequenciamento e time-boxing. Estou aplicando uma abordagem lean-first: executar testes manuais para desbloquear o ticket, depois adicionar automação. O plano de abril a junho de 2026 acompanhou isso com zero rollbacks e 100% dos MRs com testes.', 'ga2.noted': 'Primeiro registro: Mid-Review 2024 · Gap formal em 2025',
+        'ga1.title': 'Visibilidade Estratégica & Comunicação Proativa', 'ga1.tag': 'foco ativo', 'ga1.body': 'O gap mais persistente em todos os quatro anos — e aquele que estou abordando de forma mais deliberada. O padrão: <strong>entrego trabalho substancial mas não o amplifico através de comunicação ativa</strong>. Em 2022 era "fale mais nas cerimônias"; em 2025 a expectativa evoluiu para storytelling baseado em métricas e influência cross-team. O gap não é sobre o que entrego — é sobre tornar isso visível antes de ser solicitado. Estou incorporando isso à minha rotina com posts semanais no chat do time, relatórios pós-deploy e mensagens FYI proativas para stakeholders.', 'ga1.noted': 'Primeiro registro: 2022 · Presente em todos os 4 ciclos',
+        'ga2.title': 'Velocidade de Execução & Sequenciamento de Sprint', 'ga2.tag': 'formal desde 2025', 'ga2.body': 'Formalizado pelo líder em 2025, mas observado pela primeira vez em uma mid-review de colega em 2024. O padrão específico: <strong>dedicar tempo excessivo à automação antes de iniciar os testes manuais</strong>, o que atrasa o fechamento das tarefas dentro do sprint. Não é um problema de qualidade — é sobre sequenciamento e time-boxing. Estou aplicando uma abordagem lean-first: executar testes manuais para desbloquear o ticket, depois adicionar automação, e o resultado mostra: zero rollbacks e 100% dos MRs entregues com testes.', 'ga2.noted': 'Primeiro registro: Mid-Review 2024 · Gap formal em 2025',
         'ga3.title': 'Influência Cross-Team & Protagonismo Estratégico', 'ga3.tag': 'foco ativo', 'ga3.body': 'Emergindo consistentemente desde 2023 sob diferentes rótulos: ser mais opinativo sobre o backlog, propor ideias antes de ser solicitado, conectar insights de qualidade ao impacto no negócio. Esta é a dimensão que <strong>separa o QA Sênior do Principal QA</strong>. O líder nomeou diretamente em 2024: "colaborar efetivamente com outros times, implementar melhorias e liderar iniciativas de inovação." Estou trabalhando nisso através de contribuições de Inner Sourcing, propostas proativas de processos e participação em syncs de QA cross-team.', 'ga3.noted': 'Primeiro registro: 2023 · Escalando até 2025',
         'ga4.title': 'Documentação de Escopo de Teste', 'ga4.tag': 'identificado em 2025', 'ga4.body': 'Um gap novo, específico e acionável levantado no fim de 2025: <strong>distinguir sistematicamente achados in-scope vs. out-of-scope</strong> e separar claramente regressões de bugs pré-existentes. É exatamente o tipo de rigor esperado no nível de Principal QA. Estou incorporando isso nos meus templates de plano de teste: toda sessão agora classifica os achados por escopo, tipo de impacto e se estão relacionados à mudança em teste ou são problemas pré-existentes.', 'ga4.noted': 'Primeiro registro: Fim de Ano 2025',
-        'pip.label': 'Em Andamento', 'pip.title': 'Plano de desenvolvimento de liderança', 'pip.h3': 'Plano de Visibilidade de Liderança · 8 Semanas · Abr–Jun 2026', 'pip.status': '8 / 8 fases concluídas',
-        'pip.desc': 'Um plano estruturado focado em <strong>visibilidade de liderança</strong>: previsibilidade de entrega, comunicação proativa no chat do time, participação em Inner Sourcing, ownership pós-deploy e colaboração cross-team. Todos os KPIs formais estão no caminho certo. O objetivo é fechar o gap entre o que entrego tecnicamente e como essa entrega é percebida na organização.',
-        'ph1': '<strong>Fundação</strong> · Zero rollbacks, 100% dos MRs com testes, horários respeitados', 'ph2': '<strong>Inner Sourcing</strong> · MR aprovado por um mantenedor + visibilidade no chat do time', 'ph3': '<strong>Liderança pós-deploy</strong> · Liderar smoke tests, participar de syncs', 'ph4': '<strong>Consolidação</strong> · Processo de revisão com IA & quality gates', 'ph5': '<strong>Encerramento</strong> · Previsibilidade sustentada + narrativa das 8 semanas',
-        'kpi1.h4': 'Rollbacks', 'kpi1.target': 'Meta: zero', 'kpi1.result': '✓ Zero em 8 semanas',
-        'kpi2.h4': 'MRs com testes', 'kpi2.target': 'Meta: 100%', 'kpi2.result': '✓ Todos os MRs com testes + checklist',
-        'kpi3.h4': 'Inner Sourcing', 'kpi3.target': 'Meta: 1 MR aprovado', 'kpi3.result': '✓ MR aprovado por um mantenedor',
-        'kpi4.h4': 'Visibilidade no chat do time', 'kpi4.target': 'Meta: posts proativos', 'kpi4.result': '✓ Posts em um canal do time, o canal geral do time',
-        'kpi5.h4': 'Horário core', 'kpi5.target': 'Meta: sem ausências não avisadas', 'kpi5.result': '✓ Zero ausências não avisadas',
-        'kpi6.h4': 'Colaboração documentada', 'kpi6.target': 'Meta: cross-team consistente', 'kpi6.result': '✓ 8+ colegas, todas as 8 semanas',
         'peer.label': 'Feedback dos Pares', 'peer.title': 'Todas as avaliações anônimas — registro completo', 'peer.n': 'Colega',
         'fc.imp.label': 'Área de crescimento', 'fc.advice.label': 'Conselho',
         'fy2023.count': '5 avaliadores',
