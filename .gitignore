@@ -4,3 +4,7 @@ node_modules/
 # Versão completa em texto puro (com dados reais) — NÃO publicar.
 # A versão protegida por senha é performance_full.html.
 performance_full.source.html
+
+# Versão anual (com scorecard de rating por ano) em texto puro — NÃO publicar.
+# A versão protegida por senha é performance.html (mesma senha do full).
+performance_annual.source.html
