@@ -141,7 +141,7 @@ Entradas tipicamente alinhadas a issues Sonar (severidade + security hotspot) no
 
 | Campo | Valor |
 |-------|--------|
-| Status | pendente (pulado por agora; retomar depois) |
+| Status | pendente (pulado de novo 2026-09-23; sem ação até confirmação) |
 
 | Item | Status sugerido | Nota |
 |------|-----------------|------|
@@ -150,6 +150,16 @@ Entradas tipicamente alinhadas a issues Sonar (severidade + security hotspot) no
 | Meta certificação GCP (ACE / Cloud Developer) | pendente / possível descartado | Não alegar cert; opcional “estudo planejado” se ainda válido |
 | CTFL | parcialmente feito | `certification.html` já documenta prep; não listar como certificado obtido |
 | PI Planning / ownership de docs | baixa | Só se houver fato concreto além do que growth/experience já cobrem |
+
+---
+
+## 9. Vault médios descartados (2026-09-23)
+
+| Origem | Motivo |
+|--------|--------|
+| `Grafana/Variables.md` | Cheatsheet da doc oficial; Grafana já coberto |
+| `OAA/E2E.md` | Cola Filip Hric / plugins; pasta OAA sem fato de domínio |
+| `Cypress/*` (`Annual Income`, `options`, `Cypress Grep`, `Curso TAT`) | HTML interno / cola operacional / curso; Cypress Cloud já no CLP |
 
 ---
 
