@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lucas Ferreira — Senior QA Engineer</title>
-  <meta name="description" content="Senior QA Engineer with 10+ years in test automation, fintech, KYC/AML compliance, Cypress, Playwright, k6, and CI/CD." />
+  <title>Projects & Open Source — Lucas Ferreira</title>
+  <meta name="description" content="Notable projects and open-source TestFlow / qametrics work." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -1358,7 +1358,7 @@
     }
     .oss-eco-flow { display: flex; flex-direction: column; align-items: center; gap: 0; padding-top: 4px; }
     .oss-eco-link-area {
-      width: 100%; max-width: 680px; margin: 0 auto;
+      width: 100%; max-width: 820px; margin: 0 auto;
       display: flex; flex-direction: column; align-items: stretch;
     }
     .oss-eco-app {
@@ -1372,7 +1372,7 @@
     .oss-eco-name { font-size: 0.82rem; font-family: var(--mono); font-weight: 700; color: var(--accent); }
     .oss-eco-role { font-size: 0.68rem; font-family: var(--mono); color: var(--text-3); }
 
-    /* SVG tree — same 560px grid as suites (gap 28 → centers at 133 / 427) */
+    /* SVG tree — 6-suite fan-out (viewBox 720 → centers at 60/180/300/420/540/660) */
     .oss-eco-svg {
       display: block; width: 100%; height: 48px; flex-shrink: 0;
       margin: 0; overflow: visible;
@@ -1383,7 +1383,7 @@
       stroke-linecap: round; stroke-linejoin: round; opacity: 0.65;
     }
     .oss-eco-suites {
-      display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
+      display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px;
       width: 100%; margin-top: 0; align-items: stretch;
     }
     @media (max-width: 900px) {
@@ -3216,6 +3216,26 @@
     }
     .toc-rail.is-open .toc-rail-text { display: block; }
 
+    .oss-subsection {
+      margin-top: 36px;
+      scroll-margin-top: 40px;
+    }
+    .oss-subsection:first-of-type { margin-top: 8px; }
+    .oss-subsection-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin: 0 0 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .toc-rail a.toc-h3 {
+      padding-left: 18px;
+      min-height: 34px;
+    }
+    .toc-rail a.toc-h3 .toc-rail-text { font-size: 0.72rem; }
+
     .page-banner {
       max-width: 960px;
       margin: 0 auto;
@@ -3289,7 +3309,7 @@
 
   </style>
 </head>
-<body>
+<body class="has-toc">
 
   <div class="bg-mesh" aria-hidden="true"></div>
 
@@ -3297,12 +3317,12 @@
   <nav class="site-nav">
     <a class="nav-logo" href="index.html" style="text-decoration:none;color:inherit;">Lucas<span> Ferreira</span></a>
     <ul class="nav-links">
-      <li><a href="#top" data-i18n="nav.home">Home</a></li>
+      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
       <li><a href="work.html" data-i18n="nav.work">Work</a></li>
       <li><a href="projects.html" data-i18n="nav.projects">Projects</a></li>
       <li><a href="metrics.html" data-i18n="nav.metrics">Metrics</a></li>
       <li><a href="growth.html" data-i18n="nav.growth">Growth</a></li>
-      <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+      <li><a href="index.html#contact" data-i18n="nav.contact">Contact</a></li>
     </ul>
     <div class="nav-right">
       <button id="lang-btn" class="lang-btn" onclick="toggleLang()" aria-label="Toggle language"><svg viewBox="0 0 28 20" style="height:1em;width:auto;vertical-align:-0.15em;border-radius:2px" xmlns="http://www.w3.org/2000/svg"><rect width="28" height="20" fill="#009b3a"/><path d="M14 2.4 26 10 14 17.6 2 10Z" fill="#ffdf00"/><circle cx="14" cy="10" r="4.3" fill="#002776"/><path d="M10.1 9.1C12.6 8 15.4 8 17.9 10.1" stroke="#fff" stroke-width="0.8" fill="none"/></svg> PT</button>
@@ -3313,386 +3333,1219 @@
     </div>
   </nav>
 
+  <div class="page-shell">
+
+    <aside class="toc-rail" id="toc-rail" aria-label="Table of contents">
+      <button type="button" class="toc-rail-toggle" id="toc-rail-toggle" aria-expanded="false" aria-controls="page-toc-list" title="Toggle menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="4" y1="7" x2="20" y2="7"/>
+          <line x1="4" y1="12" x2="20" y2="12"/>
+          <line x1="4" y1="17" x2="20" y2="17"/>
+        </svg>
+        <span class="toc-rail-toggle-label" data-i18n="toc.label">On this page</span>
+      </button>
+      <nav class="toc-rail-nav">
+        <ul id="page-toc-list"></ul>
+      </nav>
+    </aside>
+
   <div class="wrapper">
-    <!-- ── Hero ── -->
-    <section class="hero" id="top">
-      <div class="hero-inner">
-        <div class="hero-badge">
-          <span class="dot"></span>
-          <span data-i18n="hero.badge">Available for senior &amp; principal QA roles</span>
+
+    <section class="page-banner" id="top">
+      <h1 data-i18n="page.projects.title">Projects & open source</h1>
+      <p data-i18n="page.projects.desc">Notable delivery and public GitHub work.</p>
+    </section>
+    <!-- ── Projects ── -->
+    <section class="section" id="projects">
+      <div class="section-label" data-i18n="proj.label">Projects</div>
+      <h2 class="section-title" data-i18n="proj.title">Notable work</h2>
+
+      <div class="projects-grid">
+
+        <!-- CLP Framework — featured full-width -->
+        <div class="project-card project-card-featured">
+          <div class="proj-featured-left">
+            <div class="proj-featured-hero">
+              <div class="project-logo-lg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cypressio/cypressio-original.svg" alt="Cypress" />
+              </div>
+              <div>
+                <div class="proj-featured-title" data-i18n="proj.clp.title">CLP Automation Framework</div>
+                <div style="margin-top:6px;">
+                  <span class="project-context">Questrade · Fintech · KYC/OAA</span>
+                </div>
+              </div>
+            </div>
+            <p class="project-card p" style="font-size:0.83rem; color:var(--text-2); line-height:1.6;" data-i18n="proj.clp.desc">Cypress automation framework (Page Object Model, 50+ custom commands) for the Customer Lifecycle Platform — E2E, component, API, mobile, and visual regression in a single TypeScript codebase. Test plans in Zephyr Scale, visual validation against Figma specs. Component tests run in <strong>7s vs 52s</strong> on full E2E, enabling fast feedback loops across 30+ sprints.</p>
+            <div class="project-impact">
+              <span class="impact-chip" data-i18n="proj.clp.i1">86% faster · component vs E2E</span>
+              <span class="impact-chip" data-i18n="proj.clp.i2">5 test types in 1 codebase</span>
+              <span class="impact-chip-acc" data-i18n="proj.clp.i3">30+ sprints · zero framework rewrites</span>
+            </div>
+            <div class="project-tags">
+              <span class="project-tag">Cypress</span>
+              <span class="project-tag">Playwright</span>
+              <span class="project-tag">TypeScript</span>
+              <span class="project-tag">GitLab CI</span>
+              <span class="project-tag">Cypress Cloud</span>
+              <span class="project-tag">Percy</span>
+            </div>
+          </div>
+          <div class="proj-featured-right">
+            <div class="proj-stat">
+              <span class="proj-stat-val">7s</span>
+              <span class="proj-stat-lbl" data-i18n="proj.clp.s1">component run</span>
+            </div>
+            <div class="proj-stat">
+              <span class="proj-stat-val">86%</span>
+              <span class="proj-stat-lbl" data-i18n="proj.clp.s2">faster feedback</span>
+            </div>
+            <div class="proj-stat">
+              <span class="proj-stat-val">5</span>
+              <span class="proj-stat-lbl" data-i18n="proj.clp.s3">test types</span>
+            </div>
+            <div class="proj-stat">
+              <span class="proj-stat-val">30+</span>
+              <span class="proj-stat-lbl" data-i18n="proj.clp.s4">sprints live</span>
+            </div>
+          </div>
         </div>
 
-        <h1>Lucas <span class="name-accent">Ferreira</span></h1>
-
-        <p class="hero-role" data-i18n="hero.role">
-          Senior QA Engineer · SDET · <strong>10+ years</strong> building automation at scale ·<br>
-          Fintech · KYC · OAA onboarding · Client lifecycle
-        </p>
-
-        <div class="hero-tags" aria-hidden="true">
-          <span class="hero-tag" data-i18n="hero.tag1">KYC · OAA · IDV</span>
-          <span class="hero-tag" data-i18n="hero.tag2">Cypress · Playwright</span>
-          <span class="hero-tag" data-i18n="hero.tag3">k6 · Performance</span>
-          <span class="hero-tag" data-i18n="hero.tag4">SDET · Fintech</span>
-          <span class="hero-tag hero-tag-ai" data-i18n="hero.tag5">✦ AI-Assisted QA</span>
-        </div>
-
-        <div class="hero-stats">
-          <div class="stat">
-            <div class="stat-num">10<span>+</span></div>
-            <div class="stat-label" data-i18n="hero.stat1">Years in QA</div>
+        <!-- k6 Performance Suite -->
+        <div class="project-card">
+          <div class="project-card-hero">
+            <div class="project-logo">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/k6/k6-original.svg" alt="k6"
+                onerror="this.parentElement.innerHTML='<span style=\'font-size:1.1rem;font-weight:800;color:#7c3aed;font-family:monospace;\'>k6</span>'" />
+            </div>
+            <div>
+              <h3 data-i18n="proj.k6.title">k6 Performance Suite</h3>
+              <span class="project-context">Questrade · OAA · Performance</span>
+            </div>
           </div>
-          <div class="stat">
-            <div class="stat-num">1.3<span>k+</span></div>
-            <div class="stat-label" data-i18n="hero.stat4">Automated tests</div>
+          <p data-i18n="proj.k6.desc">Load testing suite for OAA onboarding (100 VUs, 10 min sustained, P95 &lt; 2000ms, error rate &lt; 1%). Covers critical compliance endpoints: PEP checks and tax residency across 3 jurisdictions. Observability validated with Datadog on GCP during runs.</p>
+          <div class="project-impact">
+            <span class="impact-chip" data-i18n="proj.k6.i1">100 VUs · 10 min sustained</span>
+            <span class="impact-chip" data-i18n="proj.k6.i2">P95 &lt; 2 000ms</span>
           </div>
-          <div class="stat">
-            <div class="stat-num">86<span>%</span></div>
-            <div class="stat-label" data-i18n="hero.stat2">Faster feedback loop</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">99<span>%</span></div>
-            <div class="stat-label" data-i18n="hero.stat3">Metrics time saved</div>
-          </div>
-          <div class="stat stat-ai">
-            <div class="stat-num stat-num-green">~75<span>%</span></div>
-            <div class="stat-label" data-i18n="hero.stat5">Faster delivery with AI</div>
+          <div class="project-tags">
+            <span class="project-tag">k6</span>
+            <span class="project-tag">Datadog</span>
+            <span class="project-tag">GCP</span>
+            <span class="project-tag">JavaScript</span>
           </div>
         </div>
 
-        <div class="hero-cta">
-          <a class="btn-primary" href="https://linkedin.com/in/lflucasferreira" target="_blank">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            <span data-i18n="cta.linkedin">LinkedIn</span>
-          </a>
-          <a class="btn-secondary" href="https://github.com/LFLucasFerreira" target="_blank">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-            <span data-i18n="cta.github">GitHub</span>
-          </a>
-          <a class="btn-secondary" href="mailto:lucasferreira@outlook.com.br">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-            <span data-i18n="cta.email">Email</span>
-          </a>
-          <a class="btn-secondary btn-green" href="growth.html">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-            <span data-i18n="cta.perf">Performance &amp; Growth</span>
-          </a>
+        <!-- QA Observability Platform -->
+        <div class="project-card" id="proj-observability">
+          <div class="project-card-hero">
+            <div class="project-logo">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/grafana/grafana-original.svg" alt="Grafana" />
+            </div>
+            <div>
+              <h3 data-i18n="proj.metrics.title">QA Observability Platform</h3>
+              <span class="project-context" data-i18n="proj.metrics.context">Questrade · TCC evolution · Observability</span>
+            </div>
+          </div>
+          <p data-i18n="proj.metrics.desc">Evolution of the QA Metrics undergrad thesis (open source) at Questrade: Dockerized platform with GitHub Actions — Newman integrates SonarCloud, Jira and Google Sheets via API → InfluxDB → real-time Grafana dashboards, replacing manual spreadsheet extraction and giving the team, manager and PO visibility into rework hotspots and root cause analysis.</p>
+          <div class="project-impact">
+            <span class="impact-chip" data-i18n="proj.metrics.i1">real-time dashboards · root cause analysis</span>
+            <span class="impact-chip" data-i18n="proj.metrics.i2">evolved from open-source TCC · GitHub Actions</span>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Docker</span>
+            <span class="project-tag">GitHub Actions</span>
+            <span class="project-tag">InfluxDB</span>
+            <span class="project-tag">Grafana</span>
+            <span class="project-tag">Newman</span>
+            <span class="project-tag">SonarCloud</span>
+          </div>
         </div>
-      </div>
 
-      <div class="scroll-hint" aria-hidden="true">
-        <span>scroll</span>
-        <span>↓</span>
+        <!-- Mobile MFA & IDV Coverage -->
+        <div class="project-card">
+          <div class="project-card-hero">
+            <div class="project-logo">
+              <img src="assets/browserstack.png" alt="BrowserStack" />
+            </div>
+            <div>
+              <h3 data-i18n="proj.mobile.title">Mobile MFA &amp; IDV Coverage</h3>
+              <span class="project-context">Questrade · Mobile · MFA/IDV</span>
+            </div>
+          </div>
+          <p data-i18n="proj.mobile.desc">QA coverage for mobile MFA and IDV flows not covered by the existing Detox setup — inspecting payloads via Android Studio in debug mode. Cross-device regression on BrowserStack and physical devices, validating selfie and document approval/rejection via Mitek SDK; backend checks in SQL Server and MongoDB.</p>
+          <div class="project-impact">
+            <span class="impact-chip" data-i18n="proj.mobile.i1">physical devices · BrowserStack</span>
+            <span class="impact-chip" data-i18n="proj.mobile.i2">Android Studio debug · Mitek SDK</span>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Android Studio</span>
+            <span class="project-tag">BrowserStack</span>
+            <span class="project-tag">Mitek SDK</span>
+            <span class="project-tag">SQL Server</span>
+            <span class="project-tag">MongoDB</span>
+          </div>
+        </div>
+
+        <!-- API Contract Tests — full-width (CI + Newman detail) -->
+        <div class="project-card" id="proj-api-gitlab-newman-card" style="grid-column: 1 / -1;">
+          <div class="project-card-hero">
+            <div class="project-logo">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg" alt="Postman" />
+            </div>
+            <div>
+              <h3 data-i18n="proj.api.title">API &amp; Component Test Suite</h3>
+              <span class="project-context">Questrade · KYC/OAA · 8+ services</span>
+            </div>
+          </div>
+          <p data-i18n="proj.api.desc">Three-layer coverage: Postman/Newman (800+ tests) for KYC, onboarding and lifecycle flows; Cypress component testing integrated into CI/CD; Playwright for MFA with OAuth2/PKCE, TOTP and multi-tenant isolation (8+ services) in SIT/UAT.</p>
+          <div class="project-impact">
+            <span class="impact-chip" data-i18n="proj.api.i1">800+ tests · 3 layers · 8+ services</span>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Postman</span>
+            <span class="project-tag">Newman</span>
+            <span class="project-tag">Cypress</span>
+            <span class="project-tag">Playwright</span>
+            <span class="project-tag">GitLab CI</span>
+            <span class="project-tag">JSON Schema</span>
+            <span class="project-tag">Docker</span>
+            <span class="project-tag">Jenkins</span>
+            <span class="project-tag">OAuth2/PKCE</span>
+          </div>
+          <div class="proj-ci-block" id="proj-api-gitlab-newman">
+            <div class="proj-ci-label" data-i18n="proj.api.ci.label">GitLab CI · Newman smoke</div>
+            <p class="proj-ci-desc" data-i18n="proj.api.ci.desc">API collections also ran headless in GitLab CI (not only in the Postman desktop app): official Newman Alpine image, HTML artifact plus JUnit so failures surface on the merge request pipeline.</p>
+            <div class="proj-ci-stats" aria-label="GitLab CI Newman job">
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">postman/newman</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.ci.s1">CI image (Alpine)</span>
+              </div>
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">CLI · HTML · JUnit</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.ci.s2">Reporters</span>
+              </div>
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">report.html</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.ci.s3">Always-on artifact</span>
+              </div>
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">report.xml</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.ci.s4">JUnit on the MR</span>
+              </div>
+            </div>
+            <div class="proj-ci-code-wrap">
+              <div class="proj-ci-code-head">
+                <span class="proj-ci-code-fname">.gitlab-ci.yml</span>
+                <button type="button" class="oss-copy-btn" data-copy-from="proj-api-ci-yml" data-i18n="oss.copy">copy</button>
+              </div>
+              <pre id="proj-api-ci-yml"><code>stages:
+  - test
+
+postman_tests:
+  stage: test
+  image:
+    name: postman/newman_alpine33
+    entrypoint: [""]
+  script:
+    - newman --version
+    - npm install -g newman-reporter-html
+    - newman run collection.json --reporters cli,html,junit \
+        --reporter-html-export report.html \
+        --reporter-junit-export report.xml
+  artifacts:
+    when: always
+    paths:
+      - report.html
+    reports:
+      junit: report.xml</code></pre>
+            </div>
+          </div>
+          <div class="proj-ci-block" id="proj-api-schema">
+            <div class="proj-ci-label" data-i18n="proj.api.schema.label">Postman · JSON Schema validation</div>
+            <p class="proj-ci-desc" data-i18n="proj.api.schema.desc">Beyond status codes: tests assert response shape with JSON Schema (<code>pm.response.to.have.jsonSchema</code>), locking required fields and rejecting unexpected properties, aligned with Swagger/OpenAPI contracts.</p>
+            <div class="proj-ci-stats" aria-label="JSON Schema checks">
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">jsonSchema</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.schema.s1">Postman assertion</span>
+              </div>
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">required[]</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.schema.s2">Mandatory fields</span>
+              </div>
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">additionalProperties: false</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.schema.s3">No surprise keys</span>
+              </div>
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">SwaggerHub</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.schema.s4">Schema source</span>
+              </div>
+            </div>
+            <div class="proj-ci-code-wrap">
+              <div class="proj-ci-code-head">
+                <span class="proj-ci-code-fname">Tests · schema validation.js</span>
+                <button type="button" class="oss-copy-btn" data-copy-from="proj-api-schema-js" data-i18n="oss.copy">copy</button>
+              </div>
+              <pre id="proj-api-schema-js"><code>const schema = {
+  type: "object",
+  properties: {
+    code: { type: "string" },
+    error: {
+      type: "object",
+      properties: { message: { type: "string" } },
+      required: ["message"]
+    },
+    tags: {
+      type: "array",
+      minItems: 1,
+      maxItems: 3,
+      items: { type: "string" }
+    }
+  },
+  required: ["code", "error"],
+  additionalProperties: false
+};
+
+pm.test("Validate schema", () => {
+  pm.response.to.have.jsonSchema(schema);
+});</code></pre>
+            </div>
+          </div>
+          <div class="proj-ci-block" id="proj-api-docker">
+            <div class="proj-ci-label" data-i18n="proj.api.docker.label">Newman · Docker &amp; local runners</div>
+            <p class="proj-ci-desc" data-i18n="proj.api.docker.desc">Collections also ran inside the official Newman image with the working directory mounted as a volume, plus CSV <code>--iteration-data</code> for file-upload cases. For a fuller local stack, Jenkins was started in Docker with Postman/Newman support (UTF-8 JVM, persistent <code>jenkins_home</code>).</p>
+            <div class="proj-ci-stats" aria-label="Newman Docker and Jenkins">
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">-v $PWD:/etc/newman</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.docker.s1">Volume mount</span>
+              </div>
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">--iteration-data</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.docker.s2">CSV data-driven</span>
+              </div>
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">host.docker.internal</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.docker.s3">Host URL from container</span>
+              </div>
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">jenkins_home</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.docker.s4">Jenkins volume</span>
+              </div>
+            </div>
+            <div class="proj-ci-code-wrap">
+              <div class="proj-ci-code-head">
+                <span class="proj-ci-code-fname">newman · docker</span>
+                <button type="button" class="oss-copy-btn" data-copy-from="proj-api-docker-sh" data-i18n="oss.copy">copy</button>
+              </div>
+              <pre id="proj-api-docker-sh"><code># Run collection inside Newman container
+docker run -v "$PWD:/etc/newman" -t postman/newman \
+  run collection.json --iteration-data data.csv
+
+# data.csv (file upload iterations)
+# fileName,statusCode
+# file1.txt,200
+# file2.txt,400
+
+# Local Jenkins + Postman/Newman image
+docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
+  -v jenkins_home:/var/jenkins_home \
+  --env JAVA_OPTS="-Dfile.encoding=UTF8" \
+  vdespa/jenkins-postman</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Responsive Viewport Coverage -->
+        <div class="project-card" style="grid-column: 1 / -1;">
+          <div class="project-card-hero">
+            <div class="project-logo">
+              <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="1" y="4" width="26" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M9 20v3M19 20v3M6 23h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <rect x="5" y="8" width="7" height="8" rx="1" fill="currentColor" opacity="0.25"/>
+                <rect x="14" y="8" width="9" height="4" rx="1" fill="currentColor" opacity="0.15"/>
+                <rect x="14" y="13" width="9" height="3" rx="1" fill="currentColor" opacity="0.15"/>
+              </svg>
+            </div>
+            <div>
+              <h3 data-i18n="proj.responsive.title">Responsive Viewport Coverage</h3>
+              <span class="project-context" data-i18n="proj.responsive.context">Questrade · KYC onboarding · Cross-device</span>
+            </div>
+          </div>
+          <p data-i18n="proj.responsive.desc">Viewport library built from the product's own design system breakpoints (360–599 mobile / 600–839 tablet / 840+ desktop) — not a generic device library. Key insight: three pairs of Responsive Viewer profiles at exactly 1px apart to catch boundary regressions: modal layout shift (519/520px), submenu visibility (1019/1020px), and action button swap (1279/1280px). Boundary Value Analysis applied to responsive design.</p>
+          <div class="project-impact">
+            <span class="impact-chip" data-i18n="proj.responsive.i1">18 viewports · 4 device families</span>
+            <span class="impact-chip" data-i18n="proj.responsive.i2">6 boundary pairs · BVA (Boundary Value Analysis) at 1px</span>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Responsive Viewer</span>
+            <span class="project-tag">BVA</span>
+            <span class="project-tag">Cypress</span>
+            <span class="project-tag">Design System</span>
+            <span class="project-tag">Cross-device</span>
+          </div>
+
+          <div class="rv-artifact">
+            <div class="rv-artifact-label" data-i18n="proj.responsive.artifact.label">▶ Responsive Viewer config</div>
+            <div class="rv-artifact-row">
+              <a href="assets/responsive-viewer.json" download="responsive-viewer.json" class="rv-artifact-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="12" y1="18" x2="12" y2="12"/>
+                  <polyline points="9 15 12 18 15 15"/>
+                </svg>
+                responsive-viewer.json
+              </a>
+              <span class="rv-artifact-meta" data-i18n="proj.responsive.artifact.meta">5 tabs · 22 active profiles · 52 total screens</span>
+            </div>
+            <p class="rv-artifact-note" data-i18n="proj.responsive.artifact.note">Exportable profile library with mobile, tablet, desktop and BREAKPOINTS tabs (BVA pairs at 1px). Import via Responsive Viewer extension → Load JSON.</p>
+          </div>
+
+          <!-- Visual breakdown -->
+          <div class="rv-breakdown">
+
+            <!-- Ruler -->
+            <div class="rv-ruler">
+              <div class="rv-zone rv-zone-mobile">Mobile</div>
+              <div class="rv-zone rv-zone-tablet">Tablet</div>
+              <div class="rv-zone rv-zone-desktop">Desktop</div>
+              <div class="rv-zone rv-zone-wide">Wide</div>
+            </div>
+
+            <!-- Device columns -->
+            <div class="rv-cols">
+              <div class="rv-col rv-col-mobile">
+                <div class="rv-col-label">Mobile · 360–599px</div>
+                <div class="rv-device"><span class="rv-dot"></span><span>Galaxy S9 <span class="rv-px">360px</span></span></div>
+                <div class="rv-device"><span class="rv-dot"></span><span>iPhone 12/13 <span class="rv-px">390px</span></span></div>
+                <div class="rv-device"><span class="rv-dot"></span><span>Galaxy S9+ <span class="rv-px">412px</span></span></div>
+                <div class="rv-device"><span class="rv-dot"></span><span>iPhone XR/11 <span class="rv-px">414px</span></span></div>
+                <div class="rv-device rv-boundary"><span class="rv-dot rv-dot-boundary"></span><span>Mobile Max ▶ <span class="rv-px">599px</span></span></div>
+              </div>
+              <div class="rv-col rv-col-tablet">
+                <div class="rv-col-label">Tablet · 600–839px</div>
+                <div class="rv-device"><span class="rv-dot"></span><span>Nexus 7 <span class="rv-px">600px</span></span></div>
+                <div class="rv-device"><span class="rv-dot"></span><span>iPad <span class="rv-px">768px</span></span></div>
+                <div class="rv-device"><span class="rv-dot"></span><span>iPad Pro 10.5″ <span class="rv-px">834px</span></span></div>
+                <div class="rv-device rv-boundary"><span class="rv-dot rv-dot-boundary"></span><span>Tablet Max ▶ <span class="rv-px">839px</span></span></div>
+              </div>
+              <div class="rv-col rv-col-desktop">
+                <div class="rv-col-label">Desktop · 840–1919px</div>
+                <div class="rv-device rv-boundary"><span class="rv-dot rv-dot-boundary"></span><span>Desktop Min ▶ <span class="rv-px">840px</span></span></div>
+                <div class="rv-device"><span class="rv-dot"></span><span>Laptop <span class="rv-px">1366px</span></span></div>
+                <div class="rv-device"><span class="rv-dot"></span><span>Desktop <span class="rv-px">1536px</span></span></div>
+                <div class="rv-device"><span class="rv-dot"></span><span>Desktop <span class="rv-px">1600px</span></span></div>
+              </div>
+              <div class="rv-col rv-col-wide">
+                <div class="rv-col-label">Wide · 1920px+</div>
+                <div class="rv-device rv-boundary"><span class="rv-dot rv-dot-boundary"></span><span>Desktop 1920 <span class="rv-px">1920px</span></span></div>
+                <div class="rv-device" style="margin-top:8px; font-size:10px; line-height:1.5;">User agents:<br/>iPhone · Samsung<br/>Pixel · Chrome</div>
+              </div>
+            </div>
+
+            <!-- Boundary pairs -->
+            <div class="rv-pairs">
+              <div class="rv-pairs-label">▶ Boundary viewports — behavior-driven, 1px apart</div>
+              <div class="rv-pair-row">
+                <div class="rv-vp"><div class="rv-vp-px">519px</div><div class="rv-vp-name">Modal in Full Screen</div></div>
+                <span class="rv-diff">+1px</span>
+                <div class="rv-vp"><div class="rv-vp-px">520px</div><div class="rv-vp-name">Modal Background Overlay</div></div>
+                <div class="rv-behavior">modal<br/>layout shift</div>
+              </div>
+              <div class="rv-pair-row">
+                <div class="rv-vp"><div class="rv-vp-px">1019px</div><div class="rv-vp-name">Hide Submenu</div></div>
+                <span class="rv-diff">+1px</span>
+                <div class="rv-vp"><div class="rv-vp-px">1020px</div><div class="rv-vp-name">Show Submenu</div></div>
+                <div class="rv-behavior">nav<br/>visibility</div>
+              </div>
+              <div class="rv-pair-row">
+                <div class="rv-vp"><div class="rv-vp-px">1279px</div><div class="rv-vp-name">Show Arrow Button</div></div>
+                <span class="rv-diff">+1px</span>
+                <div class="rv-vp"><div class="rv-vp-px">1280px</div><div class="rv-vp-name">Show Edit Button</div></div>
+                <div class="rv-behavior">action<br/>button swap</div>
+              </div>
+            </div>
+
+            <p class="rv-bva-note" data-i18n="proj.responsive.bva.note"><strong>BVA — Boundary Value Analysis.</strong> Classic test technique: exercise values immediately before and after a threshold where behavior changes. Pairs here differ by 1px to catch off-by-one regressions in media queries and layout rules.</p>
+
+          </div>
+        </div>
+
       </div>
     </section>
 
+    <!-- ── Open Source ── -->
+    <section class="section" id="opensource">
+      <div class="section-label" data-i18n="oss.label">Open Source</div>
+      <h2 class="section-title" data-i18n="oss.title">GitHub Projects</h2>
+      <p class="about-text" data-i18n="oss.intro">Most public demo apps are too simple to test meaningfully. I built TestFlow to change that — a realistic web application with authentication, multi-role workflows, and API layers that mirror what you'd find in production. Six automation suites run against it: Cypress, Playwright, PyTest, Appium, k6 and Selenium. The app ships as a Docker image so anyone can spin it up in seconds.</p>
+      <p class="oss-audience" data-i18n="oss.audience"><strong>Who it's for:</strong> QA engineers learning Cypress, Playwright, PyTest, Appium, k6 or Selenium, interview prep, workshops, and anyone who wants a production-like sandbox without building the app from scratch.</p>
 
-    <!-- ── About ── -->
-    <section class="section" id="about">
-      <div class="section-label" data-i18n="about.label">About</div>
-      <h2 class="section-title" data-i18n="about.title">Who I am</h2>
+      <div class="oss-subsection" id="oss-testflow">
+        <h3 class="oss-subsection-title" data-i18n="oss.testflow.section">TestFlow</h3>
 
-      <div class="about-grid">
-        <div class="about-text">
-          <p data-i18n="about.p1">
-            Senior QA Engineer with <strong>10+ years of experience</strong> integrating
-            <strong>quality assurance</strong> throughout the SDLC. At <strong>Questrade</strong> —
-            one of Canada's largest online brokerages — I <strong>lead</strong> the quality strategy for
-            <strong>KYC, OAA onboarding, and client lifecycle</strong> across two regulated business contexts,
-            <strong>supported by 1,300+ automated tests</strong> (Cypress E2E/Component, Playwright API,
-            Postman/Newman) <strong>across</strong> E2E, component, API, mobile, and performance layers.
-          </p>
-          <p data-i18n="about.p2">
-            <strong>Awarded Exceeding Performance (2024)</strong> for technical leadership in KYC/OAA
-            and <strong>for a framework</strong> that reduced time per component by <strong>86%</strong>
-            (7s vs 52s E2E); implemented <strong>OAuth2/PKCE</strong> in Playwright tests.
-          </p>
-          <p data-i18n="about.p3">
-            I adopted <strong>generative AI</strong> in my daily workflow (Cursor, Claude Code, Copilot,
-            Gemini, Postbot) — ~<strong>75% faster</strong> test delivery. <strong>I hold C1 Advanced English</strong>
-            (EF SET 62/100), <strong>am based in Recife</strong>, and <strong>work fully remote</strong>.
-            Available for <strong>Senior/Principal QA</strong> roles.
-          </p>
-        </div>
-
-        <div class="about-cards">
-          <div class="about-card">
-            <div class="card-icon">🤖</div>
-            <div>
-              <h4 data-i18n="about.c1.h">Generative AI Early Adopter</h4>
-              <p data-i18n="about.c1.p">Cursor, Claude Code, Copilot, Gemini &amp; Postbot — ~75% faster test delivery</p>
+      <div class="oss-ecosystem">
+        <div class="oss-ecosystem-label" data-i18n="oss.ecosystem.label">TestFlow ecosystem</div>
+        <div class="oss-eco-flow">
+          <div class="oss-eco-link-area">
+            <div class="oss-eco-app">
+              <span class="oss-eco-suite-logo">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker" />
+              </span>
+              <span class="oss-eco-name">qaschoolbr / testflow</span>
+              <span class="oss-eco-role" data-i18n="oss.ecosystem.app">Target app · Docker image</span>
+            </div>
+            <!-- Desktop: 6-suite fan-out (centers match 6×1fr + 8px gap @ ~820px) -->
+            <svg class="oss-eco-svg oss-eco-svg--desktop" viewBox="0 0 720 48" preserveAspectRatio="none" aria-hidden="true">
+              <path class="oss-eco-path" d="M360 0 V18 M57 18 H663 M57 18 V48 M178 18 V48 M299 18 V48 M421 18 V48 M542 18 V48 M663 18 V48" />
+            </svg>
+            <!-- Mobile: vertical spine app → first suite, then col connector -->
+            <svg class="oss-eco-svg oss-eco-svg--mobile" viewBox="0 0 320 32" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <path class="oss-eco-path" d="M160 0 V32" />
+            </svg>
+            <div class="oss-eco-suites">
+              <div class="oss-eco-suite-col">
+                <div class="oss-eco-suite">
+                  <span class="oss-eco-suite-logo">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cypressio/cypressio-original.svg" alt="Cypress" />
+                  </span>
+                  <span class="oss-eco-suite-name"><a href="https://github.com/lflucasferreira/testflow-cypress" target="_blank" rel="noopener">testflow-cypress</a></span>
+                  <span class="oss-eco-role" data-i18n="oss.ecosystem.cypress">Cypress 15 · E2E + component</span>
+                </div>
+              </div>
+              <div class="oss-eco-suite-col">
+                <div class="oss-eco-suite">
+                  <span class="oss-eco-suite-logo">
+                    <img src="https://playwright.dev/img/playwright-logo.svg" alt="Playwright" />
+                  </span>
+                  <span class="oss-eco-suite-name"><a href="https://github.com/lflucasferreira/testflow-playwright" target="_blank" rel="noopener">testflow-playwright</a></span>
+                  <span class="oss-eco-role" data-i18n="oss.ecosystem.playwright">Playwright · 17 mirrored projects</span>
+                </div>
+              </div>
+              <div class="oss-eco-suite-col">
+                <div class="oss-eco-suite">
+                  <span class="oss-eco-suite-logo">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg" alt="PyTest"
+                      onerror="this.src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg'" />
+                  </span>
+                  <span class="oss-eco-suite-name"><a href="https://github.com/lflucasferreira/testflow-pytest" target="_blank" rel="noopener">testflow-pytest</a></span>
+                  <span class="oss-eco-role" data-i18n="oss.ecosystem.pytest">PyTest · Playwright · Python</span>
+                </div>
+              </div>
+              <div class="oss-eco-suite-col">
+                <div class="oss-eco-suite">
+                  <span class="oss-eco-suite-logo">
+                    <img src="assets/appium-logo.png" alt="Appium" />
+                  </span>
+                  <span class="oss-eco-suite-name"><a href="https://github.com/lflucasferreira/testflow-appium" target="_blank" rel="noopener">testflow-appium</a></span>
+                  <span class="oss-eco-role" data-i18n="oss.ecosystem.appium">Appium · mobile web · WDIO</span>
+                </div>
+              </div>
+              <div class="oss-eco-suite-col">
+                <div class="oss-eco-suite">
+                  <span class="oss-eco-suite-logo">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/k6/k6-original.svg" alt="k6"
+                      onerror="this.parentElement.innerHTML='<span style=\'font-size:0.72rem;font-weight:800;color:#7c3aed;font-family:monospace;\'>k6</span>'" />
+                  </span>
+                  <span class="oss-eco-suite-name"><a href="https://github.com/lflucasferreira/testflow-k6" target="_blank" rel="noopener">testflow-k6</a></span>
+                  <span class="oss-eco-role" data-i18n="oss.ecosystem.k6">k6 · SLO · load &amp; performance</span>
+                </div>
+              </div>
+              <div class="oss-eco-suite-col">
+                <div class="oss-eco-suite">
+                  <span class="oss-eco-suite-logo">
+                    <img src="assets/selenium-logo.png" alt="Selenium" />
+                  </span>
+                  <span class="oss-eco-suite-name"><a href="https://github.com/lflucasferreira/testflow-selenium" target="_blank" rel="noopener">testflow-selenium</a></span>
+                  <span class="oss-eco-role" data-i18n="oss.ecosystem.selenium">Selenium 4 · Mocha · POM</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="about-card">
-            <div class="card-icon">🧪</div>
-            <div>
-              <h4 data-i18n="about.c2.h">1,300+ Automated Tests</h4>
-              <p data-i18n="about.c2.p">Cypress E2E/Component · Playwright API · Postman/Newman — KYC, OAA &amp; lifecycle</p>
-            </div>
-          </div>
-          <div class="about-card">
-            <div class="card-icon">🌍</div>
-            <div>
-              <h4 data-i18n="about.c3.h">International Experience</h4>
-              <p data-i18n="about.c3.p">Co-op at Dalhousie University, Canada · C1 English (EF SET 62/100) · Remote · Recife</p>
-            </div>
-          </div>
-          <div class="about-card">
-            <div class="card-icon">🏆</div>
-            <div>
-              <h4 data-i18n="about.c4.h">Award-Winning Delivery</h4>
-              <p data-i18n="about.c4.p">Exceeding Performance at Questrade (2024) · Team Highlight &amp; Mission Accomplished at CI&amp;T (2021)</p>
-            </div>
-          </div>
-          <a href="growth.html" class="about-card" style="text-decoration:none; border-color: rgba(108,140,255,0.3); background: linear-gradient(135deg, rgba(108,140,255,0.06) 0%, rgba(167,139,250,0.04) 100%);">
-            <div class="card-icon">📈</div>
-            <div>
-              <h4 style="color: var(--accent);" data-i18n="about.c5.h">Performance &amp; Growth →</h4>
-              <p data-i18n="about.c5.p">4 years of peer feedback, strengths, and what I'm actively working on</p>
-            </div>
-          </a>
         </div>
       </div>
+
+      <div class="oss-grid">
+
+        <!-- TestFlow app — full-width featured card -->
+        <div class="oss-card oss-card-featured">
+          <div class="oss-featured-left">
+            <div class="oss-featured-hero">
+              <div class="oss-logo-lg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker" />
+              </div>
+              <div>
+                <div class="oss-featured-title">
+                  <a href="https://github.com/qaschoolbr/testflow" target="_blank" rel="noopener">qaschoolbr / testflow</a>
+                </div>
+                <div class="oss-badges" style="margin-top: 6px;">
+                  <span class="badge badge-blue" data-i18n="oss.badge.app">app</span>
+                  <span class="oss-lang">Node.js</span>
+                  <span class="oss-lang">Express</span>
+                </div>
+              </div>
+            </div>
+            <p class="oss-desc" data-i18n="oss.testflow.desc">Web sandbox built for QA automation practice — the target app for testflow-cypress, testflow-playwright, testflow-pytest, testflow-appium, testflow-k6 and testflow-selenium.</p>
+            <div class="oss-shield-row">
+              <img src="https://img.shields.io/docker/pulls/qaschool/testflow?style=flat-square&color=6c8cff&logo=docker&logoColor=white&label=pulls" alt="Docker Pulls" />
+              <img src="https://img.shields.io/docker/image-size/qaschool/testflow?style=flat-square&color=34d399&logo=docker&logoColor=white&label=size" alt="Image Size" />
+              <span class="oss-shield" data-gh-repo="qaschoolbr/testflow">
+                <span class="oss-shield-label" data-i18n="oss.badge.updated">updated</span>
+                <span class="oss-shield-value is-loading">…</span>
+              </span>
+            </div>
+            <div class="project-tags">
+              <span class="project-tag">Docker</span>
+              <span class="project-tag">Node.js</span>
+              <span class="project-tag">Express</span>
+              <span class="project-tag">SQLite</span>
+            </div>
+          </div>
+          <div class="oss-featured-right">
+            <div class="oss-cmd-label" data-i18n="oss.docker.quickstart">Quick start</div>
+            <div class="oss-cmd-block">
+              <div class="oss-cmd-block-head">
+                <span class="oss-cmd-block-step">1</span>
+                <button type="button" class="oss-copy-btn" data-copy="docker pull qaschool/testflow:latest" data-i18n="oss.copy">copy</button>
+              </div>
+              <code>docker pull qaschool/testflow:latest</code>
+            </div>
+            <div class="oss-cmd-block">
+              <div class="oss-cmd-block-head">
+                <span class="oss-cmd-block-step">2</span>
+                <button type="button" class="oss-copy-btn" data-copy="docker run -p 5050:5050 qaschool/testflow:latest" data-i18n="oss.copy">copy</button>
+              </div>
+              <code>docker run -p 5050:5050 qaschool/testflow:latest</code>
+            </div>
+            <div class="oss-demo-label" data-i18n="oss.demo.label">Then open</div>
+            <div class="oss-demo-row">
+              <a href="http://localhost:5050/" target="_blank" rel="noopener" class="oss-hub-link">localhost:5050</a>
+              <span class="oss-demo-sep">·</span>
+              <a href="http://localhost:5050/web/" target="_blank" rel="noopener" class="oss-hub-link" data-i18n="oss.demo.e2e">E2E app</a>
+            </div>
+            <div class="oss-link-bar">
+              <a href="https://hub.docker.com/r/qaschool/testflow" target="_blank" rel="noopener" class="oss-link-chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+                <span data-i18n="oss.docker.hublink">Docker Hub</span>
+              </a>
+              <a href="https://github.com/qaschoolbr/testflow" target="_blank" rel="noopener" class="oss-link-chip">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                <span data-i18n="oss.qametrics.github">GitHub</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- testflow-cypress -->
+        <div class="oss-card">
+          <div class="oss-card-top">
+            <div class="oss-logo">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cypressio/cypressio-original.svg" alt="Cypress" />
+            </div>
+            <div class="oss-badges">
+              <span class="badge badge-green" data-i18n="oss.badge.active">active</span>
+              <span class="oss-lang">JavaScript</span>
+            </div>
+          </div>
+          <div class="oss-repo-name">
+            <a href="https://github.com/lflucasferreira/testflow-cypress" target="_blank" rel="noopener">lflucasferreira / testflow-cypress</a>
+          </div>
+          <p class="oss-desc" data-i18n="oss.cypress.desc">Cypress 15 E2E + component suite: smoke, auth, dashboard, team, wizard, API, a11y, visual regression via Percy. Parallel CI on GitHub Actions — results recorded to Cypress Cloud with Test Replay.</p>
+          <span class="oss-target-note" data-i18n="oss.runs.against">↗ runs against testflow @ :5050</span>
+          <div class="oss-shield-row" style="margin-top:2px;">
+            <a href="https://github.com/lflucasferreira/testflow-cypress/actions" target="_blank" rel="noopener">
+              <img src="https://github.com/lflucasferreira/testflow-cypress/actions/workflows/cypress.yml/badge.svg" alt="CI Status"
+                onerror="this.src='https://img.shields.io/badge/CI-passing-34d399?style=flat-square&logo=githubactions&logoColor=white'" />
+            </a>
+            <a href="https://cloud.cypress.io/projects/jb6cfs/runs" target="_blank" rel="noopener">
+              <img src="https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/detailed/jb6cfs&style=flat&logo=cypress" alt="Cypress Cloud" />
+            </a>
+            <span class="oss-shield" data-gh-repo="lflucasferreira/testflow-cypress">
+              <span class="oss-shield-label" data-i18n="oss.badge.updated">updated</span>
+              <span class="oss-shield-value is-loading">…</span>
+            </span>
+          </div>
+          <a href="https://github.com/lflucasferreira/testflow-cypress/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.view.commits">↗ View commit history</a>
+          <div class="oss-tags">
+            <span class="oss-tag oss-tag-accent">Cypress 15</span>
+            <span class="oss-tag">JavaScript</span>
+            <span class="oss-tag">Percy</span>
+            <span class="oss-tag">axe-core</span>
+            <span class="oss-tag oss-tag-green" data-i18n="oss.cypress.tag.specs">22 spec files</span>
+            <span class="oss-tag">GitHub Actions</span>
+            <span class="oss-tag oss-tag-accent">Cypress Cloud</span>
+          </div>
+        </div>
+
+        <!-- testflow-playwright -->
+        <div class="oss-card">
+          <div class="oss-card-top">
+            <div class="oss-logo">
+              <img src="https://playwright.dev/img/playwright-logo.svg" alt="Playwright" />
+            </div>
+            <div class="oss-badges">
+              <span class="badge badge-green" data-i18n="oss.badge.active">active</span>
+              <span class="oss-lang">TypeScript</span>
+            </div>
+          </div>
+          <div class="oss-repo-name">
+            <a href="https://github.com/lflucasferreira/testflow-playwright" target="_blank" rel="noopener">lflucasferreira / testflow-playwright</a>
+          </div>
+          <p class="oss-desc" data-i18n="oss.playwright.desc">Playwright TypeScript suite — mirror of the Cypress coverage with POM, axe-core a11y, visual regression and cross-browser projects (Chromium / Firefox / WebKit). 17 parallel CI matrix jobs across smoke, auth, API, wizard, a11y and visual.</p>
+          <span class="oss-target-note" data-i18n="oss.runs.against">↗ runs against testflow @ :5050</span>
+          <div class="oss-shield-row" style="margin-top:2px;">
+            <a href="https://github.com/lflucasferreira/testflow-playwright/actions" target="_blank" rel="noopener">
+              <img src="https://github.com/lflucasferreira/testflow-playwright/actions/workflows/playwright.yml/badge.svg" alt="CI Status"
+                onerror="this.src='https://img.shields.io/badge/CI-passing-34d399?style=flat-square&logo=githubactions&logoColor=white'" />
+            </a>
+            <span class="oss-shield" data-gh-repo="lflucasferreira/testflow-playwright">
+              <span class="oss-shield-label" data-i18n="oss.badge.updated">updated</span>
+              <span class="oss-shield-value is-loading">…</span>
+            </span>
+          </div>
+          <a href="https://github.com/lflucasferreira/testflow-playwright/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.view.commits">↗ View commit history</a>
+          <div class="oss-tags">
+            <span class="oss-tag oss-tag-accent">Playwright</span>
+            <span class="oss-tag">TypeScript</span>
+            <span class="oss-tag">axe-core</span>
+            <span class="oss-tag oss-tag-green" data-i18n="oss.playwright.tag.projects">17 projects</span>
+            <span class="oss-tag">GitHub Actions</span>
+          </div>
+        </div>
+
+        <!-- testflow-pytest -->
+        <div class="oss-card">
+          <div class="oss-card-top">
+            <div class="oss-logo">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg" alt="PyTest"
+                onerror="this.src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg'" />
+            </div>
+            <div class="oss-badges">
+              <span class="badge badge-green" data-i18n="oss.badge.active">active</span>
+              <span class="oss-lang">Python</span>
+            </div>
+          </div>
+          <div class="oss-repo-name">
+            <a href="https://github.com/lflucasferreira/testflow-pytest" target="_blank" rel="noopener">lflucasferreira / testflow-pytest</a>
+          </div>
+          <p class="oss-desc" data-i18n="oss.pytest.desc">PyTest + Playwright for Python suite for TestFlow — mirror of the Cypress and Playwright coverage with Page Object Model, fixtures, factories and <code>data-testid</code> selectors. 12 suites: smoke, auth, dashboard, team, settings, components, wizard, activity, advanced, states, API and visual regression. axe-playwright a11y, pytest markers (<code>@smoke</code>, <code>@critical</code>, <code>@a11y</code>) and traceable <code>[TC-xxxx]</code> ids. GitHub Actions parallel matrix against <code>qaschool/testflow</code> @ :5050.</p>
+          <span class="oss-target-note" data-i18n="oss.runs.against">↗ runs against testflow @ :5050</span>
+          <div class="oss-shield-row" style="margin-top:2px;">
+            <a href="https://github.com/lflucasferreira/testflow-pytest/actions" target="_blank" rel="noopener">
+              <img src="https://github.com/lflucasferreira/testflow-pytest/actions/workflows/pytest.yml/badge.svg" alt="CI Status"
+                onerror="this.src='https://img.shields.io/badge/CI-passing-34d399?style=flat-square&logo=githubactions&logoColor=white'" />
+            </a>
+            <span class="oss-shield" data-gh-repo="lflucasferreira/testflow-pytest">
+              <span class="oss-shield-label" data-i18n="oss.badge.updated">updated</span>
+              <span class="oss-shield-value is-loading">…</span>
+            </span>
+          </div>
+          <a href="https://github.com/lflucasferreira/testflow-pytest/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.view.commits">↗ View commit history</a>
+          <div class="oss-tags">
+            <span class="oss-tag oss-tag-accent">PyTest</span>
+            <span class="oss-tag">Python 3.11+</span>
+            <span class="oss-tag">Playwright</span>
+            <span class="oss-tag">POM</span>
+            <span class="oss-tag">axe-core</span>
+            <span class="oss-tag oss-tag-green" data-i18n="oss.pytest.tag.suites">12 suites</span>
+            <span class="oss-tag">GitHub Actions</span>
+          </div>
+        </div>
+
+        <!-- testflow-appium -->
+        <div class="oss-card">
+          <div class="oss-card-top">
+            <div class="oss-logo">
+              <img src="assets/appium-logo.png" alt="Appium" />
+            </div>
+            <div class="oss-badges">
+              <span class="badge badge-green" data-i18n="oss.badge.active">active</span>
+              <span class="oss-lang">TypeScript</span>
+            </div>
+          </div>
+          <div class="oss-repo-name">
+            <a href="https://github.com/lflucasferreira/testflow-appium" target="_blank" rel="noopener">lflucasferreira / testflow-appium</a>
+          </div>
+          <p class="oss-desc" data-i18n="oss.appium.desc">Appium 2 + WebdriverIO 9 mobile web suite for TestFlow — mirror of the Cypress, Playwright and PyTest coverage through Chrome on Android and Safari on iOS, plus REST API checks without a device. 17 specs including gestures, device orientation, WEBVIEW contexts and locator strategies. POM with <code>data-testid</code>, Allure reports and traceable <code>[TC-xxxx]</code> ids. CI: API smoke + Android emulator on GitHub Actions; Allure published to <a href="https://lflucasferreira.github.io/testflow-appium/report/" target="_blank" rel="noopener">GitHub Pages</a>.</p>
+          <span class="oss-target-note" data-i18n="oss.runs.against">↗ runs against testflow @ :5050</span>
+          <div class="oss-shield-row" style="margin-top:2px;">
+            <a href="https://github.com/lflucasferreira/testflow-appium/actions" target="_blank" rel="noopener">
+              <img src="https://github.com/lflucasferreira/testflow-appium/actions/workflows/appium.yml/badge.svg" alt="CI Status"
+                onerror="this.src='https://img.shields.io/badge/CI-passing-34d399?style=flat-square&logo=githubactions&logoColor=white'" />
+            </a>
+            <span class="oss-shield" data-gh-repo="lflucasferreira/testflow-appium">
+              <span class="oss-shield-label" data-i18n="oss.badge.updated">updated</span>
+              <span class="oss-shield-value is-loading">…</span>
+            </span>
+          </div>
+          <a href="https://github.com/lflucasferreira/testflow-appium/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.view.commits">↗ View commit history</a>
+          <div class="oss-tags">
+            <span class="oss-tag oss-tag-accent">Appium 2</span>
+            <span class="oss-tag">WebdriverIO</span>
+            <span class="oss-tag">TypeScript</span>
+            <span class="oss-tag">Allure</span>
+            <span class="oss-tag oss-tag-green" data-i18n="oss.appium.tag.specs">17 specs</span>
+            <span class="oss-tag" data-i18n="oss.appium.tag.mobile">Android · iOS</span>
+            <span class="oss-tag">GitHub Actions</span>
+          </div>
+        </div>
+
+        <!-- testflow-k6 -->
+        <div class="oss-card oss-card--wide">
+          <div class="oss-card-top">
+            <div class="oss-logo">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/k6/k6-original.svg" alt="k6"
+                onerror="this.parentElement.innerHTML='<span style=\'font-size:1.1rem;font-weight:800;color:#7c3aed;font-family:monospace;\'>k6</span>'" />
+            </div>
+            <div class="oss-badges">
+              <span class="badge badge-green" data-i18n="oss.badge.active">active</span>
+              <span class="oss-lang">JavaScript</span>
+            </div>
+          </div>
+          <div class="oss-repo-name">
+            <a href="https://github.com/lflucasferreira/testflow-k6" target="_blank" rel="noopener">lflucasferreira / testflow-k6</a>
+          </div>
+          <p class="oss-desc" data-i18n="oss.k6.desc">k6 performance suite for TestFlow — smoke CI gate, load (auth/users/mixed), stress, spike and soak scenarios, multi-step journeys and k6 browser login. SLO thresholds for P95 latency and error rate; GitHub Actions smoke on push/PR plus manual load profiles. Mirrors functional API coverage on <code>/health</code>, <code>/api/auth/login</code> and <code>/api/users</code> @ :5050.</p>
+          <span class="oss-target-note" data-i18n="oss.runs.against">↗ runs against testflow @ :5050</span>
+          <div class="oss-shield-row" style="margin-top:2px;">
+            <a href="https://github.com/lflucasferreira/testflow-k6/actions" target="_blank" rel="noopener">
+              <img src="https://github.com/lflucasferreira/testflow-k6/actions/workflows/k6.yml/badge.svg" alt="CI Status"
+                onerror="this.src='https://img.shields.io/badge/CI-passing-34d399?style=flat-square&logo=githubactions&logoColor=white'" />
+            </a>
+            <span class="oss-shield" data-gh-repo="lflucasferreira/testflow-k6">
+              <span class="oss-shield-label" data-i18n="oss.badge.updated">updated</span>
+              <span class="oss-shield-value is-loading">…</span>
+            </span>
+          </div>
+          <a href="https://github.com/lflucasferreira/testflow-k6/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.view.commits">↗ View commit history</a>
+          <div class="oss-tags">
+            <span class="oss-tag oss-tag-accent">k6</span>
+            <span class="oss-tag">JavaScript</span>
+            <span class="oss-tag">Docker</span>
+            <span class="oss-tag">Grafana</span>
+            <span class="oss-tag oss-tag-green" data-i18n="oss.k6.tag.scenarios">9 scenarios</span>
+            <span class="oss-tag" data-i18n="oss.k6.tag.slo">SLO · P95</span>
+            <span class="oss-tag">GitHub Actions</span>
+          </div>
+          <div class="oss-grafana-embed">
+            <div class="oss-grafana-embed-head">
+              <span>
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/k6/k6-original.svg" alt="" aria-hidden="true" />
+                <span data-i18n="oss.k6.report.label">CI performance report · 7 scenarios</span>
+              </span>
+              <span class="oss-grafana-embed-links">
+                <a href="https://lflucasferreira.github.io/testflow-k6/report/" target="_blank" rel="noopener" class="oss-hub-link" data-i18n="oss.k6.report.open">Open report ↗</a>
+                <a href="https://cheerfulcow2391.grafana.net/public-dashboards/a957e6d951ce49d9917d087f3b737553" target="_blank" rel="noopener" class="oss-hub-link" style="opacity:0.65" data-i18n="oss.k6.grafana.open">Grafana ↗</a>
+              </span>
+            </div>
+            <iframe
+              class="oss-grafana-embed-frame"
+              src="https://lflucasferreira.github.io/testflow-k6/report/"
+              title="testflow-k6 Performance Report"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="oss-grid-sep">
+          <div class="oss-other-label" data-i18n="oss.other.label">More projects</div>
+        </div>
+
+        <!-- rest-assured — Spring Petclinic REST API -->
+        <div class="oss-card">
+          <div class="oss-card-top">
+            <div class="oss-logo">
+              <span class="ra-logo">
+                <img class="ra-logo__img ra-logo__img--light" src="assets/rest-assured-logo-light.png" alt="REST Assured" />
+                <img class="ra-logo__img ra-logo__img--dark" src="assets/rest-assured-logo-dark.png" alt="" aria-hidden="true" />
+              </span>
+            </div>
+            <div class="oss-badges">
+              <span class="badge badge-green" data-i18n="oss.badge.active">active</span>
+              <span class="oss-lang">Java 17</span>
+            </div>
+          </div>
+          <div class="oss-repo-name">
+            <a href="https://github.com/lflucasferreira/rest-assured" target="_blank" rel="noopener">lflucasferreira / rest-assured</a>
+          </div>
+          <p class="oss-desc" data-i18n="oss.restassured.desc">Production-quality Rest Assured suite for Spring Petclinic REST — reusable API clients, dynamic test data, JSON schema validation, WireMock stubs, parameterized negatives and multi-step E2E flows. Java 17 · JUnit 5 · Maven · Allure · Docker Compose for local and CI.</p>
+          <span class="oss-target-note" data-i18n="oss.restassured.runs.against">↗ runs against spring-petclinic-rest @ :9966</span>
+          <div class="oss-shield-row" style="margin-top:2px;">
+            <a href="https://github.com/lflucasferreira/rest-assured/actions" target="_blank" rel="noopener">
+              <img src="https://github.com/lflucasferreira/rest-assured/actions/workflows/api-tests.yml/badge.svg" alt="CI Status"
+                onerror="this.src='https://img.shields.io/badge/CI-passing-34d399?style=flat-square&logo=githubactions&logoColor=white'" />
+            </a>
+            <span class="oss-shield" data-gh-repo="lflucasferreira/rest-assured">
+              <span class="oss-shield-label" data-i18n="oss.badge.updated">updated</span>
+              <span class="oss-shield-value is-loading">…</span>
+            </span>
+          </div>
+          <a href="https://github.com/lflucasferreira/rest-assured/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.view.commits">↗ View commit history</a>
+          <div class="oss-tags">
+            <span class="oss-tag oss-tag-accent">Rest Assured 5</span>
+            <span class="oss-tag">JUnit 5</span>
+            <span class="oss-tag">Maven</span>
+            <span class="oss-tag">Allure</span>
+            <span class="oss-tag">WireMock</span>
+            <span class="oss-tag oss-tag-green" data-i18n="oss.restassured.tag.coverage">owners + pets API</span>
+            <span class="oss-tag">Docker Compose</span>
+            <span class="oss-tag">GitHub Actions</span>
+          </div>
+          <div class="oss-grafana-embed" style="margin-top:14px;">
+            <div class="oss-grafana-embed-head">
+              <span>
+                <span class="ra-logo ra-logo--inline">
+                  <img class="ra-logo__img ra-logo__img--light" src="assets/rest-assured-logo-light.png" alt="" aria-hidden="true" />
+                  <img class="ra-logo__img ra-logo__img--dark" src="assets/rest-assured-logo-dark.png" alt="" aria-hidden="true" />
+                </span>
+                <span data-i18n="oss.restassured.report.label">Allure report · GitHub Pages</span>
+              </span>
+              <span class="oss-grafana-embed-links">
+                <a href="https://lflucasferreira.github.io/rest-assured/report/index.html" target="_blank" rel="noopener" class="oss-hub-link" data-i18n="oss.restassured.report.open">Open report ↗</a>
+                <a href="https://lflucasferreira.github.io/rest-assured/" target="_blank" rel="noopener" class="oss-hub-link" data-i18n="oss.restassured.docs.open">Docs hub ↗</a>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- testflow-selenium -->
+        <div class="oss-card">
+          <div class="oss-card-top">
+            <div class="oss-logo">
+              <img src="assets/selenium-logo.png" alt="Selenium" />
+            </div>
+            <div class="oss-badges">
+              <span class="badge badge-green" data-i18n="oss.badge.active">active</span>
+              <span class="oss-lang">JavaScript</span>
+            </div>
+          </div>
+          <div class="oss-repo-name">
+            <a href="https://github.com/lflucasferreira/testflow-selenium" target="_blank" rel="noopener">lflucasferreira / testflow-selenium</a>
+          </div>
+          <p class="oss-desc" data-i18n="oss.selenium.desc">Selenium WebDriver 4 E2E suite for TestFlow — pure Selenium mirror of testflow-cypress (no WebDriverIO/Nightwatch) with Page Object Model, <code>data-testid</code> selectors, Mocha + Chai, mochawesome reports and Ajv JSON Schema API checks. 11 suites (@smoke · @regression · @api) with traceable <code>[TC-xxxx]</code> ids. GitHub Actions against <code>qaschool/testflow</code> @ :5050.</p>
+          <span class="oss-target-note" data-i18n="oss.runs.against">↗ runs against testflow @ :5050</span>
+          <div class="oss-shield-row" style="margin-top:2px;">
+            <a href="https://github.com/lflucasferreira/testflow-selenium/actions" target="_blank" rel="noopener">
+              <img src="https://github.com/lflucasferreira/testflow-selenium/actions/workflows/selenium.yml/badge.svg" alt="CI Status"
+                onerror="this.src='https://img.shields.io/badge/CI-passing-34d399?style=flat-square&logo=githubactions&logoColor=white'" />
+            </a>
+            <span class="oss-shield" data-gh-repo="lflucasferreira/testflow-selenium">
+              <span class="oss-shield-label" data-i18n="oss.badge.updated">updated</span>
+              <span class="oss-shield-value is-loading">…</span>
+            </span>
+          </div>
+          <a href="https://github.com/lflucasferreira/testflow-selenium/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.view.commits">↗ View commit history</a>
+          <div class="oss-tags">
+            <span class="oss-tag oss-tag-accent">Selenium WebDriver 4</span>
+            <span class="oss-tag">JavaScript</span>
+            <span class="oss-tag">Mocha</span>
+            <span class="oss-tag">Chai</span>
+            <span class="oss-tag">mochawesome</span>
+            <span class="oss-tag">Ajv</span>
+            <span class="oss-tag">Page Object Model</span>
+            <span class="oss-tag oss-tag-green" data-i18n="oss.selenium.tag.suites">11 suites</span>
+            <span class="oss-tag">GitHub Actions</span>
+          </div>
+          <div class="oss-grafana-embed" style="margin-top:14px;">
+            <div class="oss-grafana-embed-head">
+              <span>
+                <img src="assets/selenium-logo.png" alt="" aria-hidden="true" />
+                <span data-i18n="oss.selenium.report.label">Allure report · GitHub Pages</span>
+              </span>
+              <span class="oss-grafana-embed-links">
+                <a href="https://lflucasferreira.github.io/testflow-selenium/report/" target="_blank" rel="noopener" class="oss-hub-link" data-i18n="oss.selenium.report.open">Open report ↗</a>
+                <a href="https://lflucasferreira.github.io/testflow-selenium/" target="_blank" rel="noopener" class="oss-hub-link" data-i18n="oss.selenium.docs.open">Docs hub ↗</a>
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /oss-grid testflow -->
+
+      </div><!-- /oss-testflow -->
+
+      <div class="oss-subsection" id="oss-qametrics">
+        <h3 class="oss-subsection-title" data-i18n="oss.qametrics.section">QA Metrics · TCC</h3>
+
+        <!-- qametrics — UFRPE undergrad thesis -->
+        <div class="oss-card oss-card-featured oss-card-featured--qametrics">
+          <div class="oss-featured-top">
+          <div class="oss-featured-left">
+            <div class="oss-featured-hero">
+              <div class="oss-logo-lg">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/grafana/grafana-original.svg" alt="Grafana" />
+              </div>
+              <div>
+                <div class="oss-featured-title">
+                  <a href="https://github.com/lflucasferreira/qametrics" target="_blank" rel="noopener">lflucasferreira / qametrics</a>
+                </div>
+                <div class="oss-badges" style="margin-top: 6px;">
+                  <span class="badge badge-purple" data-i18n="oss.badge.tcc">TCC · UFRPE</span>
+                  <span class="oss-lang" data-i18n="oss.qametrics.context">Company thesis · 2022</span>
+                </div>
+              </div>
+            </div>
+            <p class="oss-desc" data-i18n="oss.qametrics.desc">QAs spent 1–3 hours per sprint manually copying Jira, SonarCloud and Test Pyramid data into spreadsheets and Slides — and retrospectives stalled when a QA was absent. Open-source Docker stack: Newman collects APIs → InfluxDB → 3 Grafana dashboards; any team member can run it with docker-compose up.</p>
+            <div class="project-impact">
+              <span class="impact-chip" data-i18n="oss.qametrics.i1">99.86% time saved · 10h → 4 min</span>
+              <span class="impact-chip" data-i18n="oss.qametrics.i2">3 dashboards · Jira · Sonar · Pyramid</span>
+              <span class="impact-chip" data-i18n="oss.qametrics.i3">30–60s startup · 4 pods</span>
+            </div>
+            <div class="oss-shield-row">
+              <img src="https://img.shields.io/badge/license-MIT-34d399?style=flat-square" alt="MIT License" />
+              <span class="oss-shield" data-gh-repo="lflucasferreira/qametrics">
+                <span class="oss-shield-label" data-i18n="oss.badge.updated">updated</span>
+                <span class="oss-shield-value is-loading">…</span>
+              </span>
+            </div>
+            <div class="project-tags">
+              <span class="project-tag">Docker</span>
+              <span class="project-tag">Grafana</span>
+              <span class="project-tag">InfluxDB</span>
+              <span class="project-tag">Newman</span>
+              <span class="project-tag">Postman</span>
+              <span class="project-tag">Jira</span>
+              <span class="project-tag">SonarCloud</span>
+              <span class="project-tag">Google Sheets</span>
+            </div>
+            <div class="oss-dash-block">
+              <div class="oss-arch-label" data-i18n="oss.qametrics.dash.label">Dashboards</div>
+              <div class="oss-dash-gallery" aria-label="Grafana dashboards">
+                <div class="oss-dash-item">
+                  <button type="button" class="oss-dash-thumb" data-dash-open="assets/qametrics/dashboard-jira.png" data-dash-title="oss.qametrics.dash.jira">
+                    <img src="assets/qametrics/dashboard-jira.png" alt="Jira dashboard preview" loading="lazy" />
+                  </button>
+                  <div class="oss-dash-caption" data-i18n="oss.qametrics.dash.jira">Jira</div>
+                </div>
+                <div class="oss-dash-item">
+                  <button type="button" class="oss-dash-thumb" data-dash-open="assets/qametrics/dashboard-pyramid.png" data-dash-title="oss.qametrics.dash.pyramid">
+                    <img src="assets/qametrics/dashboard-pyramid.png" alt="Pyramid dashboard preview" loading="lazy" />
+                  </button>
+                  <div class="oss-dash-caption" data-i18n="oss.qametrics.dash.pyramid">Pyramid</div>
+                </div>
+                <div class="oss-dash-item">
+                  <button type="button" class="oss-dash-thumb" data-dash-open="assets/qametrics/dashboard-sonar.png" data-dash-title="oss.qametrics.dash.sonar">
+                    <img src="assets/qametrics/dashboard-sonar.png" alt="Sonar dashboard preview" loading="lazy" />
+                  </button>
+                  <div class="oss-dash-caption" data-i18n="oss.qametrics.dash.sonar">Sonar</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="oss-featured-right">
+            <div class="oss-cmd-label" data-i18n="oss.docker.quickstart">Quick start</div>
+            <div class="oss-cmd-block">
+              <div class="oss-cmd-block-head">
+                <span class="oss-cmd-block-step">1</span>
+                <button type="button" class="oss-copy-btn" data-copy="git clone https://github.com/lflucasferreira/qametrics.git" data-i18n="oss.copy">copy</button>
+              </div>
+              <code>git clone https://github.com/lflucasferreira/qametrics.git</code>
+            </div>
+            <div class="oss-cmd-block">
+              <div class="oss-cmd-block-head">
+                <span class="oss-cmd-block-step">2</span>
+                <button type="button" class="oss-copy-btn" data-copy="docker-compose up" data-i18n="oss.copy">copy</button>
+              </div>
+              <code>docker-compose up</code>
+            </div>
+            <div class="oss-demo-label" data-i18n="oss.demo.label">Then open</div>
+            <div class="oss-demo-row">
+              <a href="http://localhost:3000/" target="_blank" rel="noopener" class="oss-hub-link">localhost:3000</a>
+              <span class="oss-demo-sep">·</span>
+              <span class="oss-hub-link" style="opacity:0.75; cursor:default;" data-i18n="oss.qametrics.grafana">Jira · Pyramid · Sonar dashboards</span>
+            </div>
+            <div class="oss-link-bar">
+                <a href="https://github.com/lflucasferreira/qametrics" target="_blank" rel="noopener" class="oss-link-chip">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                  <span data-i18n="oss.qametrics.github">GitHub</span>
+                </a>
+                <a href="https://arandu.ufrpe.br/items/cbdbc033-9b21-41bf-bba4-402ac689dd13" target="_blank" rel="noopener" class="oss-link-chip">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  <span data-i18n="oss.qametrics.ufrpe">UFRPE</span>
+                </a>
+                <button type="button" class="oss-link-chip oss-link-chip--primary" data-pdf-open>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                  </svg>
+                  <span data-i18n="oss.qametrics.view">View thesis</span>
+                </button>
+            </div>
+          </div>
+          </div>
+          <div class="oss-featured-arch">
+            <div class="oss-arch-label" data-i18n="oss.qametrics.arch.label">Architecture</div>
+            <div class="oss-arch-frame">
+              <svg class="oss-arch-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 120" role="img" aria-labelledby="oss-arch-title">
+                <title id="oss-arch-title">QA Metrics architecture</title>
+                <defs>
+                  <marker id="arch-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+                    <path d="M0 0 L7 3.5 L0 7 Z" fill="currentColor"/>
+                  </marker>
+                </defs>
+                <g color="#6c8cff">
+                  <!-- Sources -->
+                  <rect class="arch-box" x="8" y="10" width="112" height="40" rx="8"/>
+                  <text class="arch-text" x="64" y="28" text-anchor="middle">Jira API</text>
+                  <text class="arch-text" x="64" y="40" text-anchor="middle">SonarCloud</text>
+                  <rect class="arch-box-dashed" x="8" y="58" width="112" height="40" rx="8"/>
+                  <text class="arch-text" x="64" y="76" text-anchor="middle">Test Reader</text>
+                  <text class="arch-text-muted" x="64" y="88" text-anchor="middle">semi-manual</text>
+                  <!-- Merge bus → Newman -->
+                  <path class="arch-line" d="M120 30 H142"/>
+                  <path class="arch-line-muted" d="M120 78 H142"/>
+                  <path class="arch-line" d="M142 30 V78"/>
+                  <path class="arch-line" d="M142 58 H162" marker-end="url(#arch-arrow)"/>
+                  <!-- Newman -->
+                  <rect class="arch-box" x="162" y="34" width="96" height="48" rx="8"/>
+                  <text class="arch-text-strong" x="210" y="54" text-anchor="middle">Newman</text>
+                  <text class="arch-text-muted" x="210" y="68" text-anchor="middle">Postman</text>
+                  <path class="arch-line" d="M258 58 H303" marker-end="url(#arch-arrow)"/>
+                  <!-- InfluxDB -->
+                  <rect class="arch-box" x="303" y="34" width="96" height="48" rx="8"/>
+                  <text class="arch-text-strong" x="351" y="54" text-anchor="middle">InfluxDB</text>
+                  <text class="arch-text-muted" x="351" y="68" text-anchor="middle">time series</text>
+                  <path class="arch-line" d="M399 58 H444" marker-end="url(#arch-arrow)"/>
+                  <!-- Grafana -->
+                  <rect class="arch-box-green" x="444" y="8" width="128" height="88" rx="8"/>
+                  <text class="arch-text-strong" x="508" y="30" text-anchor="middle">Grafana</text>
+                  <text class="arch-text-dash" x="508" y="46" text-anchor="middle">Jira</text>
+                  <text class="arch-text-dash" x="508" y="58" text-anchor="middle">Pyramid</text>
+                  <text class="arch-text-dash" x="508" y="70" text-anchor="middle">Sonar</text>
+                  <text class="arch-text-muted" x="508" y="86" text-anchor="middle">localhost:3000</text>
+                  <path class="arch-line" d="M572 58 H616" marker-end="url(#arch-arrow)"/>
+                  <!-- Docker Compose -->
+                  <rect class="arch-box-accent" x="616" y="34" width="96" height="48" rx="8"/>
+                  <text class="arch-text-accent" x="664" y="54" text-anchor="middle">Docker</text>
+                  <text class="arch-text-accent" x="664" y="68" text-anchor="middle">Compose</text>
+                </g>
+              </svg>
+            </div>
+            <div class="oss-influx-block" id="qametrics-influx-fields">
+              <div class="oss-arch-label" data-i18n="oss.qametrics.influx.label">InfluxDB · Jira metric fields</div>
+              <p class="oss-influx-desc" data-i18n="oss.qametrics.influx.desc">Newman writes Jira bug metrics into InfluxDB as a time series. Fields such as <code>pingPongIndex</code> feed the Grafana Jira dashboard and the PPI formula in <a href="metrics.html#metrics">Metrics</a>.</p>
+              <div class="oss-influx-fields" aria-label="InfluxDB field keys">
+                <div class="oss-influx-field"><code>pingPongIndex</code><span data-i18n="oss.qametrics.influx.f1">PPI source</span></div>
+                <div class="oss-influx-field"><code>severity</code><span data-i18n="oss.qametrics.influx.f2">Bug impact</span></div>
+                <div class="oss-influx-field"><code>sprint</code><span data-i18n="oss.qametrics.influx.f3">Cadence slice</span></div>
+                <div class="oss-influx-field"><code>rootCause</code><span data-i18n="oss.qametrics.influx.f4">Rework taxonomy</span></div>
+                <div class="oss-influx-field"><code>environment</code><span data-i18n="oss.qametrics.influx.f5">SIT / UAT / PROD</span></div>
+                <div class="oss-influx-field"><code>teamName</code><span data-i18n="oss.qametrics.influx.f6">Squad filter</span></div>
+                <div class="oss-influx-field"><code>timeSpent</code><span data-i18n="oss.qametrics.influx.f7">Effort</span></div>
+                <div class="oss-influx-field"><code>bugType</code><span data-i18n="oss.qametrics.influx.f8">Bug class</span></div>
+              </div>
+            </div>
+            <div class="oss-influx-block" id="qametrics-influx-sonar">
+              <div class="oss-arch-label" data-i18n="oss.qametrics.sonar.label">InfluxDB · Sonar schema explorer</div>
+              <p class="oss-influx-desc" data-i18n="oss.qametrics.sonar.desc">Besides Jira bugs, Newman also writes SonarCloud metrics into the same InfluxDB. Measurements tree + metric tags power the Grafana <strong>Sonar</strong> dashboard (project keys omitted).</p>
+              <div class="oss-alt-layout">
+                <div class="oss-alt-tree" aria-label="InfluxDB measurements">
+                  <div class="oss-alt-tree-title" data-i18n="oss.qametrics.sonarAlt.tree">show measurements</div>
+                  <ul>
+                    <li>metrics</li>
+                    <li>settings</li>
+                    <li class="is-active">sonarqube
+                      <div class="oss-alt-indent">
+                        <span class="oss-alt-leaf">fields: value, name, domain…</span>
+                        <span class="oss-alt-leaf">tags: metric, key, type…</span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="oss-alt-table-wrap">
+                  <table class="oss-alt-table">
+                    <thead>
+                      <tr>
+                        <th data-i18n="oss.qametrics.sonarAlt.th1">metric tag</th>
+                        <th data-i18n="oss.qametrics.sonarAlt.th2">means</th>
+                        <th data-i18n="oss.qametrics.sonarAlt.th3">feeds</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>coverage</code></td>
+                        <td data-i18n="oss.qametrics.sonar.f1">Test coverage</td>
+                        <td>Sonar dashboard</td>
+                      </tr>
+                      <tr>
+                        <td><code>ncloc</code></td>
+                        <td data-i18n="oss.qametrics.sonar.f2">Lines of code</td>
+                        <td>Sonar dashboard</td>
+                      </tr>
+                      <tr>
+                        <td><code>security_hotspots</code></td>
+                        <td data-i18n="oss.qametrics.sonar.f3">Security review</td>
+                        <td>Sonar dashboard</td>
+                      </tr>
+                      <tr>
+                        <td><code>vulnerabilities</code></td>
+                        <td data-i18n="oss.qametrics.sonar.f4">Security</td>
+                        <td>Sonar dashboard</td>
+                      </tr>
+                      <tr>
+                        <td><code>code_smells</code></td>
+                        <td data-i18n="oss.qametrics.sonar.f5">Maintainability</td>
+                        <td>Sonar dashboard</td>
+                      </tr>
+                      <tr>
+                        <td><code>critical_violations</code></td>
+                        <td data-i18n="oss.qametrics.sonar.f6">Severity</td>
+                        <td>Sonar dashboard</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="oss-alt-protocol" aria-label="Sanitized Influx line protocol">
+                <strong>line protocol (sanitized)</strong>
+                <code>sonarqube,metric=coverage,type=PERCENT value=72.4</code>
+                <code>sonarqube,metric=security_hotspots,type=INT value=12</code>
+              </div>
+            </div>
+            <div class="oss-reader-block">
+              <div class="oss-arch-label" data-i18n="oss.qametrics.reader.label">Test Reader · Pyramid metrics</div>
+              <p class="oss-reader-desc" data-i18n="oss.qametrics.reader.desc">Semi-manual step <strong>outside</strong> <code>docker-compose up</code>: the open-source Python tool <a href="https://github.com/amandaquaglio/test-reader" target="_blank" rel="noopener">test-reader</a> scans service repos using YAML RegEx rules (<code>@Test</code>, file paths, descriptions), classifies automated tests by pyramid layer (Unit · Integration · Component · E2E) and exports counts to a Google Sheets metrics tab. Newman then reads that sheet via Google Sheets API into InfluxDB — powering the Pyramid Grafana dashboard alongside Jira and SonarCloud.</p>
+              <div class="oss-reader-flow" aria-hidden="true">
+                <span data-i18n="oss.qametrics.reader.s1">test-reader-start</span>
+                <span class="oss-reader-arrow">→</span>
+                <span data-i18n="oss.qametrics.reader.s2">RegEx scan</span>
+                <span class="oss-reader-arrow">→</span>
+                <span>Google Sheets</span>
+                <span class="oss-reader-arrow">→</span>
+                <span>Newman</span>
+                <span class="oss-reader-arrow">→</span>
+                <span>InfluxDB</span>
+                <span class="oss-reader-arrow">→</span>
+                <span data-i18n="oss.qametrics.reader.s3">Pyramid dashboard</span>
+              </div>
+              <p class="oss-reader-note" data-i18n="oss.qametrics.reader.note">Configured per repo in YAML (TCC §3.2.8). Not wired into the Docker pipeline — run once per sprint before refreshing metrics.</p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /oss-qametrics -->
+
+      <!-- GitHub widgets -->
+      <div class="oss-widgets">
+
+        <div class="oss-widget-block">
+          <div class="oss-widget-label" data-i18n="oss.contrib.label">Contribution activity</div>
+          <div class="oss-widget-card">
+            <img src="https://ghchart.rshah.org/6c8cff/lflucasferreira" alt="GitHub contribution chart" class="oss-contrib-img" loading="lazy" />
+          </div>
+        </div>
+
+      </div>
+
     </section>
 
-
-    <!-- ── Skills ── -->
-    <section class="section" id="skills">
-      <div class="section-label" data-i18n="skills.label">Skills</div>
-      <h2 class="section-title" data-i18n="skills.title">Tech stack</h2>
-
-      <div class="skills-container">
-        <div class="skill-row">
-          <div class="skill-row-label" data-i18n="skills.r1">Test Automation</div>
-          <div class="skill-chips">
-            <span class="chip primary">Cypress</span>
-            <span class="chip primary">Playwright</span>
-            <span class="chip">Appium</span>
-            <span class="chip">Selenium</span>
-            <span class="chip">Postman/Newman</span>
-            <span class="chip">k6</span>
-            <span class="chip">REST Assured</span>
-          </div>
-        </div>
-
-        <div class="skill-row">
-          <div class="skill-row-label" data-i18n="skills.r2">Programming Languages</div>
-          <div class="skill-chips">
-            <span class="chip primary">JavaScript</span>
-            <span class="chip primary">TypeScript</span>
-            <span class="chip">Java</span>
-            <span class="chip">Ruby</span>
-            <span class="chip">SQL</span>
-          </div>
-        </div>
-
-        <div class="skill-row">
-          <div class="skill-row-label" data-i18n="skills.r3">CI/CD &amp; Cloud</div>
-          <div class="skill-chips">
-            <span class="chip primary">GitLab CI</span>
-            <span class="chip">Jenkins</span>
-            <span class="chip">Docker</span>
-            <span class="chip">GCP</span>
-            <span class="chip">GitHub Actions</span>
-            <span class="chip">SonarCloud</span>
-          </div>
-        </div>
-
-        <div class="skill-row">
-          <div class="skill-row-label" data-i18n="skills.r4">Data &amp; Observability</div>
-          <div class="skill-chips">
-            <span class="chip">MongoDB</span>
-            <span class="chip">SQL Server</span>
-            <span class="chip">MySQL</span>
-            <span class="chip">PostgreSQL</span>
-            <span class="chip">InfluxDB</span>
-            <span class="chip">Datadog</span>
-            <span class="chip">Grafana</span>
-          </div>
-        </div>
-
-        <div class="skill-row">
-          <div class="skill-row-label" data-i18n="skills.r5">Tools</div>
-          <div class="skill-chips">
-            <span class="chip">Jira</span>
-            <span class="chip">Confluence</span>
-            <span class="chip">Zephyr Scale</span>
-            <span class="chip">Figma</span>
-            <span class="chip">Agile/Scrum</span>
-            <span class="chip">Claude Code</span>
-            <span class="chip">Cursor</span>
-            <span class="chip">Copilot</span>
-            <span class="chip">Gemini</span>
-            <span class="chip">Postbot</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-
-    <!-- ── Hub destinations ── -->
-    <section class="section" id="explore">
-      <div class="section-label" data-i18n="hub.label">Explore</div>
-      <h2 class="section-title" data-i18n="hub.title">Where to dig deeper</h2>
-      <div class="hub-grid">
-        <a class="hub-card" href="work.html">
-          <span class="hub-card-kicker" data-i18n="hub.work.k">Career</span>
-          <h3 data-i18n="hub.work.h">Work &amp; recommendations</h3>
-          <p data-i18n="hub.work.p">Questrade · CI&amp;T · full experience bullets, peer recommendations, and recognitions.</p>
-          <span class="hub-card-cta" data-i18n="hub.work.cta">Open work →</span>
-        </a>
-        <a class="hub-card" href="projects.html">
-          <span class="hub-card-kicker" data-i18n="hub.proj.k">Delivery</span>
-          <h3 data-i18n="hub.proj.h">Projects &amp; open source</h3>
-          <p data-i18n="hub.proj.p">CLP framework, API/Newman CI, k6, TestFlow ecosystem, and qametrics architecture.</p>
-          <span class="hub-card-cta" data-i18n="hub.proj.cta">Open projects →</span>
-        </a>
-        <a class="hub-card" href="metrics.html">
-          <span class="hub-card-kicker" data-i18n="hub.met.k">Quality</span>
-          <h3 data-i18n="hub.met.h">QA metrics &amp; taxonomies</h3>
-          <p data-i18n="hub.met.p">Looker Quality Reports, PPI/SRM/RBD/Task Score, pyramid, severity and priority.</p>
-          <span class="hub-card-cta" data-i18n="hub.met.cta">Open metrics →</span>
-        </a>
-        <a class="hub-card" href="growth.html">
-          <span class="hub-card-kicker" data-i18n="hub.grow.k">Growth</span>
-          <h3 data-i18n="hub.grow.h">Performance &amp; growth</h3>
-          <p data-i18n="hub.grow.p">Four-year ratings, peer feedback, strengths, and active development areas.</p>
-          <span class="hub-card-cta" data-i18n="hub.grow.cta">Open growth →</span>
-        </a>
-      </div>
-    </section>
-
-    <!-- ── Education ── -->
-    <section class="section" id="education">
-      <div class="section-label" data-i18n="edu.label">Education</div>
-      <h2 class="section-title" data-i18n="edu.title">Academic background</h2>
-      <p class="edu-intro" data-i18n="edu.intro">Continuous learning across formal degrees, international exchange, and professional certifications — aligned with QA engineering, DevOps, and agile delivery.</p>
-
-      <h3 class="edu-subtitle" data-i18n="edu.academic">Academic degrees</h3>
-      <div class="edu-grid">
-
-        <article class="edu-card edu-card--bachelor">
-          <div class="edu-card-top">
-            <span class="edu-tag" data-i18n="edu.bs.tag">Bachelor</span>
-            <span class="edu-period" data-i18n="edu.bs.period">2011 — 2022</span>
-          </div>
-          <div class="edu-card-head">
-            <div class="edu-icon" aria-hidden="true">🎓</div>
-            <div>
-              <h3 class="edu-degree" data-i18n="edu.bs.degree">Information Systems</h3>
-              <p class="edu-institution" data-i18n="edu.bs.inst">UFRPE — Federal Rural University of Pernambuco</p>
-            </div>
-          </div>
-          <div class="edu-kpis">
-            <span class="edu-kpi" data-i18n="edu.bs.kpi1">Company thesis · QA Metrics</span>
-            <span class="edu-kpi" data-i18n="edu.bs.kpi2">approved Jun/2022</span>
-          </div>
-          <p class="edu-thesis">
-            <button type="button" class="edu-link-btn" data-pdf-open data-i18n="edu.ufrpe.thesis.link">View thesis PDF</button>
-            <span class="edu-thesis-sep"> · </span>
-            <a class="edu-card-link edu-card-link--inline" href="projects.html#proj-observability" data-i18n="edu.bs.project">QA Metrics project →</a>
-          </p>
-        </article>
-
-        <article class="edu-card edu-card--exchange">
-          <div class="edu-card-top">
-            <span class="edu-tag" data-i18n="edu.ex.tag">Exchange</span>
-            <span class="edu-period" data-i18n="edu.ex.period">2013 — 2014</span>
-          </div>
-          <div class="edu-card-head">
-            <div class="edu-icon" aria-hidden="true">🌎</div>
-            <div>
-              <h3 class="edu-degree" data-i18n="edu.ex.degree">Computer Science</h3>
-              <p class="edu-institution" data-i18n="edu.ex.inst">Dalhousie University · Halifax, Canada</p>
-            </div>
-          </div>
-          <span class="edu-kpi" data-i18n="edu.ex.kpi">Science Without Borders · Ciência sem Fronteiras</span>
-        </article>
-
-      </div>
-
-      <h3 class="edu-subtitle edu-subtitle--certs" data-i18n="edu.certs">Certifications</h3>
-      <div class="certs-grid">
-        <article class="cert-card cert-card--lang">
-          <span class="cert-tag" data-i18n="edu.cert1.tag">Language</span>
-          <h4 data-i18n="edu.cert1.name">EF SET English — C1 Advanced</h4>
-          <span data-i18n="edu.cert1.meta">EF SET · 62/100</span>
-        </article>
-        <article class="cert-card cert-card--cloud">
-          <span class="cert-tag" data-i18n="edu.cert2.tag">Cloud</span>
-          <h4 data-i18n="edu.cert2.name">GCP Core Infrastructure</h4>
-          <span data-i18n="edu.cert2.meta">Google Cloud</span>
-        </article>
-        <article class="cert-card cert-card--devops">
-          <span class="cert-tag" data-i18n="edu.cert3.tag">DevOps</span>
-          <h4 data-i18n="edu.cert3.name">DevOps Essentials (DEPC)</h4>
-          <span data-i18n="edu.cert3.meta">CertiProf</span>
-        </article>
-        <article class="cert-card cert-card--agile">
-          <span class="cert-tag" data-i18n="edu.cert4.tag">Agile</span>
-          <h4 data-i18n="edu.cert4.name">Scrum Foundation (SFPC)</h4>
-          <span data-i18n="edu.cert4.meta">CertiProf</span>
-        </article>
-      </div>
-    </section>
-
-
-    <!-- ── Contact ── -->
-    <section class="section" id="contact">
-      <div class="section-label" data-i18n="contact.label">Contact</div>
-      <h2 class="section-title" data-i18n="contact.title">Let's connect</h2>
-      <p class="contact-intro" data-i18n="contact.intro">Open to senior and principal QA roles, consulting, and conversations about test automation, fintech quality, and QA culture.</p>
-
-      <div class="contact-layout">
-        <aside class="contact-panel">
-          <span class="contact-status" data-i18n="contact.status">Available for senior &amp; principal QA roles</span>
-          <p data-i18n="contact.p1">I'm open to conversations about <strong>Senior and Principal QA Engineer</strong> opportunities, consulting, or just talking shop about test automation strategy, fintech quality, or QA culture.</p>
-          <p data-i18n="contact.p2">Best way to reach me is via LinkedIn or email. I'm based in <strong>Recife, Brazil</strong> and work fully remote.</p>
-          <div class="contact-chips">
-            <span class="contact-chip" data-i18n="contact.chip1">📍 Recife, Brazil</span>
-            <span class="contact-chip" data-i18n="contact.chip2">🌐 Remote · BRT (UTC−3)</span>
-            <span class="contact-chip" data-i18n="contact.chip3"><svg viewBox="0 0 28 20" style="height:1em;width:auto;vertical-align:-0.15em;border-radius:2px" xmlns="http://www.w3.org/2000/svg"><rect width="28" height="20" fill="#009b3a"/><path d="M14 2.4 26 10 14 17.6 2 10Z" fill="#ffdf00"/><circle cx="14" cy="10" r="4.3" fill="#002776"/><path d="M10.1 9.1C12.6 8 15.4 8 17.9 10.1" stroke="#fff" stroke-width="0.8" fill="none"/></svg> PT · <svg viewBox="0 0 40 20" style="height:1em;width:auto;vertical-align:-0.15em;border-radius:2px" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="20" fill="#fff"/><rect width="10" height="20" fill="#d52b1e"/><rect x="30" width="10" height="20" fill="#d52b1e"/><g transform="translate(20,10) scale(0.0273) translate(-256,-256)"><path d="M256,0 l-23.4,43.7 c-2.6,4.7 -7.3,4.3 -12.1,1.6 l-16.9,-8.8 12.6,67 c2.7,12.2 -5.9,12.2 -10,6.9 l-29.5,-33.1 -4.8,16.8 c-0.6,2.2 -3,4.5 -6.7,3.9 l-37.3,-7.8 9.8,35.6 c2.1,7.9 3.7,11.2 -2.1,13.3 l-13.2,6.2 63.8,51.8 c2.5,2 3.8,5.5 2.9,8.7 l-5.6,18.3 c21.9,-2.5 41.6,-6.3 63.5,-8.7 1.9,-0.2 5.2,3 5.2,5.2 l-2.9,67.5 h10.7 l-1.7,-67.4 c0,-2.2 3.2,-5.4 5.2,-5.2 21.9,2.4 41.6,6.2 63.5,8.7 l-5.6,-18.3 c-0.9,-3.2 0.4,-6.7 2.9,-8.7 l63.8,-51.8 -13.2,-6.2 c-5.8,-2.1 -4.2,-5.4 -2.1,-13.3 l9.8,-35.6 -37.3,7.8 c-3.7,0.6 -6.1,-1.7 -6.7,-3.9 l-4.8,-16.8 -29.5,33.1 c-4.1,5.3 -12.7,5.3 -10,-6.9 l12.6,-67 -16.9,8.8 c-4.8,2.7 -9.5,3.1 -12.1,-1.6 z" fill="#d52b1e"/></g></svg> EN</span>
-          </div>
-        </aside>
-
-        <div class="contact-links">
-          <a class="contact-link contact-link--email" href="mailto:lucasferreira@outlook.com.br">
-            <div class="contact-link-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-            </div>
-            <div class="contact-link-body">
-              <div class="c-label" data-i18n="contact.email.label">Email</div>
-              <div class="c-value">lucasferreira@outlook.com.br</div>
-            </div>
-            <span class="contact-link-arrow" aria-hidden="true">→</span>
-          </a>
-          <a class="contact-link contact-link--linkedin" href="https://linkedin.com/in/lflucasferreira" target="_blank" rel="noopener noreferrer">
-            <div class="contact-link-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            </div>
-            <div class="contact-link-body">
-              <div class="c-label" data-i18n="contact.linkedin.label">LinkedIn</div>
-              <div class="c-value">linkedin.com/in/lflucasferreira</div>
-            </div>
-            <span class="contact-link-arrow" aria-hidden="true">→</span>
-          </a>
-          <a class="contact-link contact-link--github" href="https://github.com/LFLucasFerreira" target="_blank" rel="noopener noreferrer">
-            <div class="contact-link-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-            </div>
-            <div class="contact-link-body">
-              <div class="c-label" data-i18n="contact.github.label">GitHub</div>
-              <div class="c-value">github.com/LFLucasFerreira</div>
-            </div>
-            <span class="contact-link-arrow" aria-hidden="true">→</span>
-          </a>
-        </div>
-      </div>
-
-      <p class="contact-note" data-i18n="contact.note"><strong>Preferred channel:</strong><br> LinkedIn for opportunities · email for direct outreach. I usually reply within 48 hours on business days.</p>
-    </section>
   </div><!-- /wrapper -->
+  </div><!-- /page-shell -->
 
 <footer>
     <span data-i18n="footer.text">Lucas Ferreira · Senior QA Engineer · Built with HTML &amp; CSS · Hosted on GitHub Pages</span>
@@ -3706,34 +4559,6 @@
       <a href="qa-concepts.html" data-i18n="skills.concepts">Must-know QA concepts — 30 topics →</a>
     </div>
   </footer>
-
-  <script>
-    // Legacy hash redirects from the old single-page layout
-    (function () {
-      const map = {
-        experience: 'work.html#experience',
-        recommendations: 'work.html#recommendations',
-        achievements: 'work.html#achievements',
-        'job-questrade': 'work.html#job-questrade',
-        'job-cit': 'work.html#job-cit',
-        projects: 'projects.html#projects',
-        opensource: 'projects.html#opensource',
-        'proj-observability': 'projects.html#proj-observability',
-        'qametrics-influx-fields': 'projects.html#qametrics-influx-fields',
-        'qametrics-influx-sonar': 'projects.html#qametrics-influx-sonar',
-        metrics: 'metrics.html#metrics',
-        'metrics-extended': 'metrics.html#metrics-extended',
-        'metrics-pyramid': 'metrics.html#metrics-pyramid',
-        'looker-quality-reports': 'metrics.html#looker-quality-reports',
-        severity: 'metrics.html#severity',
-        priority: 'metrics.html#priority',
-      };
-      const hash = (location.hash || '').replace(/^#/, '');
-      if (hash && map[hash]) {
-        location.replace(map[hash]);
-      }
-    })();
-  </script>
 
   <script>
     const translations = {
@@ -3874,8 +4699,10 @@
         'proj.responsive.artifact.meta': '5 tabs · 22 active profiles · 52 total screens',
         'proj.responsive.artifact.note': 'Exportable profile library with mobile, tablet, desktop and BREAKPOINTS tabs (BVA pairs at 1px). Import via Responsive Viewer extension → Load JSON.',
         'oss.label': 'Open Source', 'oss.title': 'GitHub Projects',
-        'oss.intro': 'Most public demo apps are too simple to test meaningfully. I built TestFlow to change that — a realistic web application with authentication, multi-role workflows, and API layers that mirror what you\'d find in production. Five automation suites run against it: Cypress, Playwright, PyTest, Appium and k6. The app ships as a Docker image so anyone can spin it up in seconds.',
-        'oss.audience': '<strong>Who it\'s for:</strong> QA engineers learning Cypress, Playwright, PyTest, Appium or k6, interview prep, workshops, and anyone who wants a production-like sandbox without building the app from scratch.',
+        'oss.testflow.section': 'TestFlow',
+        'oss.qametrics.section': 'QA Metrics · TCC',
+        'oss.intro': 'Most public demo apps are too simple to test meaningfully. I built TestFlow to change that — a realistic web application with authentication, multi-role workflows, and API layers that mirror what you\'d find in production. Six automation suites run against it: Cypress, Playwright, PyTest, Appium, k6 and Selenium. The app ships as a Docker image so anyone can spin it up in seconds.',
+        'oss.audience': '<strong>Who it\'s for:</strong> QA engineers learning Cypress, Playwright, PyTest, Appium, k6 or Selenium, interview prep, workshops, and anyone who wants a production-like sandbox without building the app from scratch.',
         'oss.ecosystem.label': 'TestFlow ecosystem',
         'oss.ecosystem.app': 'Target app · Docker image',
         'oss.ecosystem.cypress': 'Cypress 15 · E2E + component',
@@ -3883,7 +4710,8 @@
         'oss.ecosystem.pytest': 'PyTest · Playwright · Python',
         'oss.ecosystem.appium': 'Appium · mobile web · WDIO',
         'oss.ecosystem.k6': 'k6 · SLO · load & performance',
-        'oss.testflow.desc': 'Web sandbox built for QA automation practice — the target app for testflow-cypress, testflow-playwright, testflow-pytest, testflow-appium and testflow-k6.',
+        'oss.ecosystem.selenium': 'Selenium 4 · Mocha · POM',
+        'oss.testflow.desc': 'Web sandbox built for QA automation practice — the target app for testflow-cypress, testflow-playwright, testflow-pytest, testflow-appium, testflow-k6 and testflow-selenium.',
         'oss.cypress.desc': 'Cypress 15 E2E + component suite: smoke, auth, dashboard, team, wizard, API, a11y, visual regression via Percy. Parallel CI on GitHub Actions — results recorded to Cypress Cloud with Test Replay.',
         'oss.playwright.desc': 'Playwright TypeScript suite — mirror of the Cypress coverage with POM, axe-core a11y, visual regression and cross-browser projects (Chromium / Firefox / WebKit). 17 parallel CI matrix jobs across smoke, auth, API, wizard, a11y and visual.',
         'oss.pytest.desc': 'PyTest + Playwright for Python suite for TestFlow — mirror of the Cypress and Playwright coverage with Page Object Model, fixtures, factories and <code>data-testid</code> selectors. 12 suites: smoke, auth, dashboard, team, settings, components, wizard, activity, advanced, states, API and visual regression. axe-playwright a11y, pytest markers (<code>@smoke</code>, <code>@critical</code>, <code>@a11y</code>) and traceable <code>[TC-xxxx]</code> ids. GitHub Actions parallel matrix against <code>qaschool/testflow</code> @ :5050.',
@@ -4263,8 +5091,10 @@
         'proj.responsive.artifact.meta': '5 abas · 22 perfis ativos · 52 telas no total',
         'proj.responsive.artifact.note': 'Biblioteca de perfis exportável com abas mobile, tablet, desktop e BREAKPOINTS (pares BVA com 1px). Importar na extensão Responsive Viewer → Load JSON.',
         'oss.label': 'Open Source', 'oss.title': 'Projetos no GitHub',
-        'oss.intro': 'A maioria dos apps de demo públicos é simples demais para testar de forma significativa. Construí o TestFlow para mudar isso — uma aplicação web realista com autenticação, fluxos multi-role e camadas de API que espelham o que você encontra em produção. Cinco suítes de automação rodam contra ela: Cypress, Playwright, PyTest, Appium e k6. O app é distribuído como imagem Docker — qualquer pessoa sobe em segundos.',
-        'oss.audience': '<strong>Para quem é:</strong> QAs aprendendo Cypress, Playwright, PyTest, Appium ou k6, preparação para entrevistas, workshops e quem quer um sandbox realista sem precisar construir o app do zero.',
+        'oss.testflow.section': 'TestFlow',
+        'oss.qametrics.section': 'QA Metrics · TCC',
+        'oss.intro': 'A maioria dos apps de demo públicos é simples demais para testar de forma significativa. Construí o TestFlow para mudar isso — uma aplicação web realista com autenticação, fluxos multi-role e camadas de API que espelham o que você encontra em produção. Seis suítes de automação rodam contra ela: Cypress, Playwright, PyTest, Appium, k6 e Selenium. O app é distribuído como imagem Docker — qualquer pessoa sobe em segundos.',
+        'oss.audience': '<strong>Para quem é:</strong> QAs aprendendo Cypress, Playwright, PyTest, Appium, k6 ou Selenium, preparação para entrevistas, workshops e quem quer um sandbox realista sem precisar construir o app do zero.',
         'oss.ecosystem.label': 'Ecossistema TestFlow',
         'oss.ecosystem.app': 'App-alvo · imagem Docker',
         'oss.ecosystem.cypress': 'Cypress 15 · E2E + component',
@@ -4272,7 +5102,8 @@
         'oss.ecosystem.pytest': 'PyTest · Playwright · Python',
         'oss.ecosystem.appium': 'Appium · mobile web · WDIO',
         'oss.ecosystem.k6': 'k6 · SLO · carga & performance',
-        'oss.testflow.desc': 'Sandbox web para prática de automação de QA — app-alvo das suítes testflow-cypress, testflow-playwright, testflow-pytest, testflow-appium e testflow-k6.',
+        'oss.ecosystem.selenium': 'Selenium 4 · Mocha · POM',
+        'oss.testflow.desc': 'Sandbox web para prática de automação de QA — app-alvo das suítes testflow-cypress, testflow-playwright, testflow-pytest, testflow-appium, testflow-k6 e testflow-selenium.',
         'oss.cypress.desc': 'Suíte Cypress 15 E2E + component: smoke, auth, dashboard, team, wizard, API, a11y, regressão visual via Percy. CI paralelo no GitHub Actions — resultados gravados no Cypress Cloud com Test Replay.',
         'oss.playwright.desc': 'Suíte Playwright em TypeScript — espelho da cobertura Cypress com POM, a11y com axe-core, regressão visual e projetos cross-browser (Chromium / Firefox / WebKit). 17 jobs paralelos de CI em smoke, auth, API, wizard, a11y e visual.',
         'oss.pytest.desc': 'Suíte PyTest + Playwright for Python para o TestFlow — espelho das coberturas Cypress e Playwright com Page Object Model, fixtures, factories e seletores <code>data-testid</code>. 12 suítes: smoke, auth, dashboard, team, settings, components, wizard, activity, advanced, states, API e regressão visual. a11y com axe-playwright, markers pytest (<code>@smoke</code>, <code>@critical</code>, <code>@a11y</code>) e ids rastreáveis <code>[TC-xxxx]</code>. Matrix paralela no GitHub Actions contra <code>qaschool/testflow</code> @ :5050.',
@@ -4693,5 +5524,273 @@
     })();
   </script>
 
-  </body>
+  <!-- TCC PDF reader modal -->
+  <div id="pdf-modal" class="pdf-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pdf-modal-title">
+    <div class="pdf-modal-panel">
+      <header class="pdf-modal-header">
+        <h3 id="pdf-modal-title" class="pdf-modal-title" data-i18n="oss.qametrics.modal.title">QA Metrics — TCC · UFRPE · 2022</h3>
+        <div class="pdf-modal-actions">
+          <a href="https://arandu.ufrpe.br/server/api/core/bitstreams/ace4ffc3-25b9-49ae-a67b-2bb3256e49c9/content" target="_blank" rel="noopener" class="oss-hub-link" data-i18n="oss.qametrics.modal.external">Open PDF ↗</a>
+          <button type="button" class="pdf-modal-close" data-pdf-close>
+            <span class="sr-only" data-i18n="oss.qametrics.modal.close">Close</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+      <iframe id="pdf-modal-frame" class="pdf-modal-frame" title="TCC PDF" loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <!-- Dashboard preview modal -->
+  <div id="dash-modal" class="dash-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="dash-modal-title">
+    <div class="dash-modal-panel">
+      <header class="dash-modal-header">
+        <div class="dash-modal-heading">
+          <h3 id="dash-modal-title" class="dash-modal-title">Jira dashboard</h3>
+          <span id="dash-modal-counter" class="dash-modal-counter">1 / 3</span>
+        </div>
+        <div class="dash-modal-actions">
+          <button type="button" class="dash-modal-nav" data-dash-prev aria-label="Previous dashboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button type="button" class="dash-modal-nav" data-dash-next aria-label="Next dashboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+          <button type="button" class="dash-modal-close" data-dash-close aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+      <div class="dash-modal-body">
+        <button type="button" class="dash-modal-nav dash-modal-nav--side" data-dash-prev aria-label="Previous dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <img id="dash-modal-img" class="dash-modal-img" src="" alt="" />
+        <button type="button" class="dash-modal-nav dash-modal-nav--side" data-dash-next aria-label="Next dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const PDF_SRC = 'assets/tcc-qametrics.pdf';
+      const pdfModal = document.getElementById('pdf-modal');
+      const frame = document.getElementById('pdf-modal-frame');
+      const dashModal = document.getElementById('dash-modal');
+      const dashImg = document.getElementById('dash-modal-img');
+      const dashTitle = document.getElementById('dash-modal-title');
+
+      function lockScroll() { document.body.style.overflow = 'hidden'; }
+      function unlockScroll() {
+        if (!pdfModal?.classList.contains('is-open') && !dashModal?.classList.contains('is-open')) {
+          document.body.style.overflow = '';
+        }
+      }
+
+      if (pdfModal && frame) {
+        function openPdfModal() {
+          if (!frame.dataset.loaded) {
+            frame.src = PDF_SRC;
+            frame.dataset.loaded = 'true';
+          }
+          pdfModal.classList.add('is-open');
+          pdfModal.setAttribute('aria-hidden', 'false');
+          lockScroll();
+        }
+
+        function closePdfModal() {
+          pdfModal.classList.remove('is-open');
+          pdfModal.setAttribute('aria-hidden', 'true');
+          unlockScroll();
+        }
+
+        document.querySelectorAll('[data-pdf-open]').forEach((btn) => {
+          btn.addEventListener('click', openPdfModal);
+        });
+
+        document.querySelectorAll('[data-pdf-close]').forEach((el) => {
+          el.addEventListener('click', closePdfModal);
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && pdfModal.classList.contains('is-open')) {
+            closePdfModal();
+          }
+        });
+      }
+
+      if (dashModal && dashImg && dashTitle) {
+        const dashCounter = document.getElementById('dash-modal-counter');
+        const dashSlides = Array.from(document.querySelectorAll('[data-dash-open]')).map((btn) => ({
+          src: btn.getAttribute('data-dash-open'),
+          titleKey: btn.getAttribute('data-dash-title'),
+        }));
+        let dashIndex = 0;
+
+        function getDashTitle(titleKey) {
+          const lang = document.documentElement.getAttribute('data-lang') || 'en';
+          return (titleKey && translations[lang]?.[titleKey]) || titleKey || '';
+        }
+
+        function showDashSlide(index) {
+          if (!dashSlides.length) return;
+          dashIndex = (index + dashSlides.length) % dashSlides.length;
+          const slide = dashSlides[dashIndex];
+          dashImg.src = slide.src;
+          const title = getDashTitle(slide.titleKey);
+          dashImg.alt = title;
+          dashTitle.textContent = title;
+          if (dashCounter) dashCounter.textContent = `${dashIndex + 1} / ${dashSlides.length}`;
+        }
+
+        function openDashModal(src) {
+          const idx = dashSlides.findIndex((slide) => slide.src === src);
+          showDashSlide(idx >= 0 ? idx : 0);
+          dashModal.classList.add('is-open');
+          dashModal.setAttribute('aria-hidden', 'false');
+          lockScroll();
+        }
+
+        function closeDashModal() {
+          dashModal.classList.remove('is-open');
+          dashModal.setAttribute('aria-hidden', 'true');
+          dashImg.src = '';
+          unlockScroll();
+        }
+
+        function stepDashSlide(delta) {
+          showDashSlide(dashIndex + delta);
+        }
+
+        document.querySelectorAll('[data-dash-open]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            openDashModal(btn.getAttribute('data-dash-open'));
+          });
+        });
+
+        document.querySelectorAll('[data-dash-close]').forEach((el) => {
+          el.addEventListener('click', closeDashModal);
+        });
+
+        document.querySelectorAll('[data-dash-prev]').forEach((el) => {
+          el.addEventListener('click', (e) => {
+            e.stopPropagation();
+            stepDashSlide(-1);
+          });
+        });
+
+        document.querySelectorAll('[data-dash-next]').forEach((el) => {
+          el.addEventListener('click', (e) => {
+            e.stopPropagation();
+            stepDashSlide(1);
+          });
+        });
+
+        dashModal.addEventListener('click', (e) => {
+          if (e.target === dashModal) closeDashModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (!dashModal.classList.contains('is-open')) return;
+          if (e.key === 'Escape') {
+            closeDashModal();
+            return;
+          }
+          if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            stepDashSlide(-1);
+            return;
+          }
+          if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            stepDashSlide(1);
+          }
+        });
+      }
+    })();
+  </script>
+
+
+  <script>
+    (function initPageToc() {
+      const root = document.querySelector('.wrapper');
+      const tocList = document.getElementById('page-toc-list');
+      const rail = document.getElementById('toc-rail');
+      const toggle = document.getElementById('toc-rail-toggle');
+      if (!root || !tocList || !rail) return;
+
+      const ICONS = {
+        top: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>',
+        experience: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>',
+        recommendations: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>',
+        achievements: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M17 6h2a3 3 0 0 1 0 6h-2"/><path d="M7 6H5a3 3 0 0 0 0 6h2"/></svg>',
+        projects: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
+        opensource: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.23c-3.34.73-4.03-1.42-4.03-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.82.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/></svg>',
+        metrics: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 17V9"/><path d="M12 17v-5"/><path d="M16 17V7"/></svg>',
+        severity: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3L12 3z"/><path d="M12 9v5"/><path d="M12 17h.01"/></svg>',
+        priority: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v18"/><path d="M5 5h11l-2 3 2 3H5"/></svg>',
+      };
+      const FALLBACK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/></svg>';
+
+      ICONS['oss-testflow'] = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>';
+      ICONS['oss-qametrics'] = ICONS.metrics;
+
+      const sectionItems = [];
+      root.querySelectorAll('section.section[id]').forEach((sec) => {
+        const label = sec.querySelector(':scope > .section-label, :scope > .section-title');
+        const text = (label?.textContent || sec.id).trim().replace(/\s+/g, ' ');
+        sectionItems.push({ id: sec.id, text, level: 2 });
+        sec.querySelectorAll('.oss-subsection[id]').forEach((sub) => {
+          const subLabel = sub.querySelector('.oss-subsection-title, h3');
+          const subText = (subLabel?.textContent || sub.id).trim().replace(/\s+/g, ' ');
+          sectionItems.push({ id: sub.id, text: subText, level: 3 });
+        });
+      });
+
+      tocList.innerHTML = sectionItems.map(({ id, text, level }) => {
+        const icon = ICONS[id] || FALLBACK;
+        const cls = level === 3 ? ' class="toc-h3"' : '';
+        return `<li><a${cls} href="#${id}" title="${text.replace(/"/g, '&quot;')}"><span class="toc-rail-icon" aria-hidden="true">${icon}</span><span class="toc-rail-text">${text}</span></a></li>`;
+      }).join('');
+
+      const links = [...tocList.querySelectorAll('a')];
+      const map = new Map(sectionItems.map((it) => [it.id, document.getElementById(it.id)]).filter(([, el]) => el));
+
+      function setActive(id) {
+        links.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === '#' + id));
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]?.target?.id) setActive(visible[0].target.id);
+      }, { rootMargin: '-20% 0px -60% 0px', threshold: [0, 0.25, 0.5, 1] });
+      map.forEach((el) => observer.observe(el));
+
+      const KEY = 'portfolio-toc-open';
+      function applyOpen(open) {
+        rail.classList.toggle('is-open', open);
+        document.body.classList.toggle('toc-open', open);
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        try { localStorage.setItem(KEY, open ? '1' : '0'); } catch (_) {}
+      }
+
+      const saved = (() => { try { return localStorage.getItem(KEY); } catch (_) { return null; } })();
+      applyOpen(saved === '1');
+
+      toggle.addEventListener('click', () => applyOpen(!rail.classList.contains('is-open')));
+
+      // On small screens, auto-collapse after navigating
+      links.forEach((a) => a.addEventListener('click', () => {
+        if (window.matchMedia('(max-width: 720px)').matches) applyOpen(false);
+      }));
+    })();
+  </script>
+
+</body>
 </html>
