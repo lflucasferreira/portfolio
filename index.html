@@ -889,7 +889,7 @@
     /* ── Projects ── */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 16px;
     }
 
@@ -927,11 +927,54 @@
     .proj-featured-hero { display: flex; align-items: center; gap: 16px; }
     .project-card-hero { display: flex; align-items: center; gap: 12px; }
     .project-card-hero h3 { font-size: 0.95rem; font-weight: 700; color: var(--text); margin: 0; }
-    @media (max-width: 640px) { .projects-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
     .proj-featured-title { font-size: 1.05rem; font-weight: 700; color: var(--text); }
     .proj-stat { display: flex; flex-direction: column; gap: 2px; }
     .proj-stat-val { font-size: 1.1rem; font-weight: 700; color: var(--accent); font-family: var(--mono); }
     .proj-stat-lbl { font-size: 0.65rem; color: var(--text-3); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.04em; }
+
+    /* Looker Quality Reports (Metrics section) */
+    .looker-block { margin: 28px 0 36px; }
+    .looker-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 16px 0 14px;
+    }
+    @media (max-width: 720px) {
+      .looker-stats { grid-template-columns: repeat(2, 1fr); }
+    }
+    .looker-stat {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .looker-stat-val {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: var(--mono);
+    }
+    .looker-stat-lbl {
+      font-size: 0.68rem;
+      color: var(--text-3);
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 1.35;
+    }
+    .looker-note {
+      font-size: 0.85rem;
+      color: var(--text-2);
+      line-height: 1.55;
+      margin: 0;
+    }
 
     /* Logo inside project card (same as oss-logo) */
     .project-logo {
@@ -979,6 +1022,65 @@
       font-size: 0.65rem; font-family: var(--mono);
       color: var(--text-3); letter-spacing: 0.03em;
     }
+
+    /* GitLab CI · Newman (API project card) */
+    .proj-ci-block {
+      margin-top: 14px; padding: 12px 14px;
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--surface2);
+    }
+    .proj-ci-label {
+      font-size: 0.7rem; font-family: var(--mono); color: var(--text-3);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;
+    }
+    .proj-ci-desc {
+      margin: 0 0 12px; font-size: 0.78rem; color: var(--text-2); line-height: 1.55;
+    }
+    .proj-ci-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      width: 100%;
+    }
+    @media (max-width: 640px) {
+      .proj-ci-stats { grid-template-columns: repeat(2, 1fr); }
+    }
+    .proj-ci-stat {
+      display: flex; flex-direction: column; gap: 2px;
+      padding: 8px 10px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--surface);
+      min-width: 0; box-sizing: border-box;
+    }
+    .proj-ci-stat-val {
+      font-family: var(--mono); font-size: 0.72rem; color: var(--accent); font-weight: 600;
+      word-break: break-word;
+    }
+    .proj-ci-stat-lbl {
+      font-size: 0.65rem; color: var(--text-3); line-height: 1.35;
+    }
+    .proj-ci-code-wrap {
+      margin-top: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      overflow: hidden;
+    }
+    .proj-ci-code-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 8px; padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(108,140,255,0.06);
+    }
+    .proj-ci-code-fname {
+      font-size: 0.68rem; font-family: var(--mono); color: var(--text-3);
+    }
+    .proj-ci-code-wrap pre {
+      margin: 0; padding: 12px 14px;
+      overflow-x: auto;
+      font-family: var(--mono); font-size: 0.72rem; line-height: 1.55;
+      color: var(--text-2); white-space: pre;
+    }
+    .proj-ci-code-wrap code { font-family: inherit; color: inherit; }
 
     @media (max-width: 860px) {
       .project-card-featured { flex-direction: column !important; }
@@ -1364,6 +1466,118 @@
       margin-top: 14px; padding: 12px 14px;
       border: 1px dashed rgba(167,139,250,0.4); border-radius: var(--radius-sm);
       background: rgba(167,139,250,0.05);
+    }
+    .oss-influx-block {
+      margin-top: 14px; padding: 12px 14px;
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--surface2);
+    }
+    .oss-influx-desc {
+      margin: 8px 0 12px; font-size: 0.78rem; color: var(--text-2); line-height: 1.55;
+    }
+    .oss-influx-desc code {
+      font-family: var(--mono); font-size: 0.92em;
+      padding: 1px 5px; border-radius: 4px;
+      background: var(--surface3); border: 1px solid var(--border);
+      color: var(--accent);
+    }
+    .oss-influx-fields {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      width: 100%;
+    }
+    @media (max-width: 720px) {
+      .oss-influx-fields { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Sonar/Influx schema explorer (inside qametrics) */
+    .oss-alt-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 16px;
+      margin-top: 12px;
+      width: 100%;
+    }
+    @media (max-width: 720px) {
+      .oss-alt-layout { grid-template-columns: 1fr; }
+    }
+    .oss-alt-tree {
+      border: 1px solid var(--border); border-radius: 10px;
+      background: var(--surface2); padding: 12px 14px;
+      font-family: var(--mono); font-size: 0.72rem;
+    }
+    .oss-alt-tree-title {
+      color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em;
+      font-size: 0.65rem; margin-bottom: 10px;
+    }
+    .oss-alt-tree ul {
+      list-style: none; margin: 0; padding: 0;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .oss-alt-tree li {
+      padding: 6px 8px; border-radius: 6px;
+      border: 1px solid var(--border); color: var(--text-2);
+    }
+    .oss-alt-tree li.is-active {
+      border-color: rgba(108,140,255,0.45);
+      background: rgba(108,140,255,0.1);
+      color: var(--accent); font-weight: 600;
+    }
+    .oss-alt-tree .oss-alt-indent {
+      margin-left: 12px; border-left: 1px solid var(--border);
+      padding-left: 10px; display: flex; flex-direction: column; gap: 4px;
+    }
+    .oss-alt-tree .oss-alt-leaf {
+      color: var(--text-3); font-size: 0.68rem; padding: 2px 0;
+    }
+    .oss-alt-table-wrap {
+      border: 1px solid var(--border); border-radius: 10px;
+      background: var(--surface2); overflow: hidden;
+    }
+    .oss-alt-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 0.75rem; font-family: var(--mono);
+    }
+    .oss-alt-table th {
+      text-align: left; padding: 10px 12px;
+      color: var(--text-3); font-weight: 600; font-size: 0.65rem;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+      background: rgba(0,0,0,0.12);
+    }
+    [data-theme="light"] .oss-alt-table th { background: rgba(108,140,255,0.06); }
+    .oss-alt-table td {
+      padding: 9px 12px; color: var(--text-2);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .oss-alt-table tr:last-child td { border-bottom: none; }
+    .oss-alt-table code { color: var(--accent); font-weight: 600; }
+    .oss-alt-protocol {
+      margin-top: 12px; padding: 10px 12px;
+      border-radius: 8px; border: 1px solid var(--border);
+      background: var(--surface); font-family: var(--mono);
+      font-size: 0.68rem; color: var(--text-3); line-height: 1.55;
+      display: flex; flex-direction: column; gap: 4px;
+      min-width: 0; overflow: hidden;
+    }
+    .oss-alt-protocol strong { color: var(--text-2); font-weight: 600; }
+    .oss-alt-protocol code {
+      display: block; font-family: inherit; font-size: inherit;
+      color: inherit; word-break: break-all; white-space: normal;
+    }
+    .oss-influx-field {
+      display: flex; flex-direction: column; gap: 2px;
+      padding: 8px 10px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--surface);
+      min-width: 0; width: 100%; box-sizing: border-box;
+    }
+    .oss-influx-field code {
+      font-family: var(--mono); font-size: 0.72rem; color: var(--accent); font-weight: 600;
+    }
+    .oss-influx-field span {
+      font-size: 0.65rem; color: var(--text-3); line-height: 1.35;
     }
     .oss-reader-desc {
       margin: 8px 0 0; font-size: 0.78rem; color: var(--text-2); line-height: 1.55;
@@ -3595,8 +3809,8 @@
           </div>
         </div>
 
-        <!-- API Contract Tests -->
-        <div class="project-card">
+        <!-- API Contract Tests — full-width (CI + Newman detail) -->
+        <div class="project-card" id="proj-api-gitlab-newman-card" style="grid-column: 1 / -1;">
           <div class="project-card-hero">
             <div class="project-logo">
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg" alt="Postman" />
@@ -3616,7 +3830,151 @@
             <span class="project-tag">Cypress</span>
             <span class="project-tag">Playwright</span>
             <span class="project-tag">GitLab CI</span>
+            <span class="project-tag">JSON Schema</span>
+            <span class="project-tag">Docker</span>
+            <span class="project-tag">Jenkins</span>
             <span class="project-tag">OAuth2/PKCE</span>
+          </div>
+          <div class="proj-ci-block" id="proj-api-gitlab-newman">
+            <div class="proj-ci-label" data-i18n="proj.api.ci.label">GitLab CI · Newman smoke</div>
+            <p class="proj-ci-desc" data-i18n="proj.api.ci.desc">API collections also ran headless in GitLab CI (not only in the Postman desktop app): official Newman Alpine image, HTML artifact plus JUnit so failures surface on the merge request pipeline.</p>
+            <div class="proj-ci-stats" aria-label="GitLab CI Newman job">
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">postman/newman</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.ci.s1">CI image (Alpine)</span>
+              </div>
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">CLI · HTML · JUnit</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.ci.s2">Reporters</span>
+              </div>
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">report.html</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.ci.s3">Always-on artifact</span>
+              </div>
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">report.xml</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.ci.s4">JUnit on the MR</span>
+              </div>
+            </div>
+            <div class="proj-ci-code-wrap">
+              <div class="proj-ci-code-head">
+                <span class="proj-ci-code-fname">.gitlab-ci.yml</span>
+                <button type="button" class="oss-copy-btn" data-copy-from="proj-api-ci-yml" data-i18n="oss.copy">copy</button>
+              </div>
+              <pre id="proj-api-ci-yml"><code>stages:
+  - test
+
+postman_tests:
+  stage: test
+  image:
+    name: postman/newman_alpine33
+    entrypoint: [""]
+  script:
+    - newman --version
+    - npm install -g newman-reporter-html
+    - newman run collection.json --reporters cli,html,junit \
+        --reporter-html-export report.html \
+        --reporter-junit-export report.xml
+  artifacts:
+    when: always
+    paths:
+      - report.html
+    reports:
+      junit: report.xml</code></pre>
+            </div>
+          </div>
+          <div class="proj-ci-block" id="proj-api-schema">
+            <div class="proj-ci-label" data-i18n="proj.api.schema.label">Postman · JSON Schema validation</div>
+            <p class="proj-ci-desc" data-i18n="proj.api.schema.desc">Beyond status codes: tests assert response shape with JSON Schema (<code>pm.response.to.have.jsonSchema</code>), locking required fields and rejecting unexpected properties, aligned with Swagger/OpenAPI contracts.</p>
+            <div class="proj-ci-stats" aria-label="JSON Schema checks">
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">jsonSchema</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.schema.s1">Postman assertion</span>
+              </div>
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">required[]</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.schema.s2">Mandatory fields</span>
+              </div>
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">additionalProperties: false</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.schema.s3">No surprise keys</span>
+              </div>
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">SwaggerHub</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.schema.s4">Schema source</span>
+              </div>
+            </div>
+            <div class="proj-ci-code-wrap">
+              <div class="proj-ci-code-head">
+                <span class="proj-ci-code-fname">Tests · schema validation.js</span>
+                <button type="button" class="oss-copy-btn" data-copy-from="proj-api-schema-js" data-i18n="oss.copy">copy</button>
+              </div>
+              <pre id="proj-api-schema-js"><code>const schema = {
+  type: "object",
+  properties: {
+    code: { type: "string" },
+    error: {
+      type: "object",
+      properties: { message: { type: "string" } },
+      required: ["message"]
+    },
+    tags: {
+      type: "array",
+      minItems: 1,
+      maxItems: 3,
+      items: { type: "string" }
+    }
+  },
+  required: ["code", "error"],
+  additionalProperties: false
+};
+
+pm.test("Validate schema", () => {
+  pm.response.to.have.jsonSchema(schema);
+});</code></pre>
+            </div>
+          </div>
+          <div class="proj-ci-block" id="proj-api-docker">
+            <div class="proj-ci-label" data-i18n="proj.api.docker.label">Newman · Docker &amp; local runners</div>
+            <p class="proj-ci-desc" data-i18n="proj.api.docker.desc">Collections also ran inside the official Newman image with the working directory mounted as a volume, plus CSV <code>--iteration-data</code> for file-upload cases. For a fuller local stack, Jenkins was started in Docker with Postman/Newman support (UTF-8 JVM, persistent <code>jenkins_home</code>).</p>
+            <div class="proj-ci-stats" aria-label="Newman Docker and Jenkins">
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">-v $PWD:/etc/newman</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.docker.s1">Volume mount</span>
+              </div>
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">--iteration-data</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.docker.s2">CSV data-driven</span>
+              </div>
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">host.docker.internal</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.docker.s3">Host URL from container</span>
+              </div>
+              <div class="proj-ci-stat">
+                <span class="proj-ci-stat-val">jenkins_home</span>
+                <span class="proj-ci-stat-lbl" data-i18n="proj.api.docker.s4">Jenkins volume</span>
+              </div>
+            </div>
+            <div class="proj-ci-code-wrap">
+              <div class="proj-ci-code-head">
+                <span class="proj-ci-code-fname">newman · docker</span>
+                <button type="button" class="oss-copy-btn" data-copy-from="proj-api-docker-sh" data-i18n="oss.copy">copy</button>
+              </div>
+              <pre id="proj-api-docker-sh"><code># Run collection inside Newman container
+docker run -v "$PWD:/etc/newman" -t postman/newman \
+  run collection.json --iteration-data data.csv
+
+# data.csv (file upload iterations)
+# fileName,statusCode
+# file1.txt,200
+# file2.txt,400
+
+# Local Jenkins + Postman/Newman image
+docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
+  -v jenkins_home:/var/jenkins_home \
+  --env JAVA_OPTS="-Dfile.encoding=UTF8" \
+  vdespa/jenkins-postman</code></pre>
+            </div>
           </div>
         </div>
 
@@ -4371,6 +4729,87 @@
                 </g>
               </svg>
             </div>
+            <div class="oss-influx-block" id="qametrics-influx-fields">
+              <div class="oss-arch-label" data-i18n="oss.qametrics.influx.label">InfluxDB · Jira metric fields</div>
+              <p class="oss-influx-desc" data-i18n="oss.qametrics.influx.desc">Newman writes Jira bug metrics into InfluxDB as a time series. Fields such as <code>pingPongIndex</code> feed the Grafana Jira dashboard and the PPI formula in <a href="#metrics">Metrics</a>.</p>
+              <div class="oss-influx-fields" aria-label="InfluxDB field keys">
+                <div class="oss-influx-field"><code>pingPongIndex</code><span data-i18n="oss.qametrics.influx.f1">PPI source</span></div>
+                <div class="oss-influx-field"><code>severity</code><span data-i18n="oss.qametrics.influx.f2">Bug impact</span></div>
+                <div class="oss-influx-field"><code>sprint</code><span data-i18n="oss.qametrics.influx.f3">Cadence slice</span></div>
+                <div class="oss-influx-field"><code>rootCause</code><span data-i18n="oss.qametrics.influx.f4">Rework taxonomy</span></div>
+                <div class="oss-influx-field"><code>environment</code><span data-i18n="oss.qametrics.influx.f5">SIT / UAT / PROD</span></div>
+                <div class="oss-influx-field"><code>teamName</code><span data-i18n="oss.qametrics.influx.f6">Squad filter</span></div>
+                <div class="oss-influx-field"><code>timeSpent</code><span data-i18n="oss.qametrics.influx.f7">Effort</span></div>
+                <div class="oss-influx-field"><code>bugType</code><span data-i18n="oss.qametrics.influx.f8">Bug class</span></div>
+              </div>
+            </div>
+            <div class="oss-influx-block" id="qametrics-influx-sonar">
+              <div class="oss-arch-label" data-i18n="oss.qametrics.sonar.label">InfluxDB · Sonar schema explorer</div>
+              <p class="oss-influx-desc" data-i18n="oss.qametrics.sonar.desc">Besides Jira bugs, Newman also writes SonarCloud metrics into the same InfluxDB. Measurements tree + metric tags power the Grafana <strong>Sonar</strong> dashboard (project keys omitted).</p>
+              <div class="oss-alt-layout">
+                <div class="oss-alt-tree" aria-label="InfluxDB measurements">
+                  <div class="oss-alt-tree-title" data-i18n="oss.qametrics.sonarAlt.tree">show measurements</div>
+                  <ul>
+                    <li>metrics</li>
+                    <li>settings</li>
+                    <li class="is-active">sonarqube
+                      <div class="oss-alt-indent">
+                        <span class="oss-alt-leaf">fields: value, name, domain…</span>
+                        <span class="oss-alt-leaf">tags: metric, key, type…</span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="oss-alt-table-wrap">
+                  <table class="oss-alt-table">
+                    <thead>
+                      <tr>
+                        <th data-i18n="oss.qametrics.sonarAlt.th1">metric tag</th>
+                        <th data-i18n="oss.qametrics.sonarAlt.th2">means</th>
+                        <th data-i18n="oss.qametrics.sonarAlt.th3">feeds</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>coverage</code></td>
+                        <td data-i18n="oss.qametrics.sonar.f1">Test coverage</td>
+                        <td>Sonar dashboard</td>
+                      </tr>
+                      <tr>
+                        <td><code>ncloc</code></td>
+                        <td data-i18n="oss.qametrics.sonar.f2">Lines of code</td>
+                        <td>Sonar dashboard</td>
+                      </tr>
+                      <tr>
+                        <td><code>security_hotspots</code></td>
+                        <td data-i18n="oss.qametrics.sonar.f3">Security review</td>
+                        <td>Sonar dashboard</td>
+                      </tr>
+                      <tr>
+                        <td><code>vulnerabilities</code></td>
+                        <td data-i18n="oss.qametrics.sonar.f4">Security</td>
+                        <td>Sonar dashboard</td>
+                      </tr>
+                      <tr>
+                        <td><code>code_smells</code></td>
+                        <td data-i18n="oss.qametrics.sonar.f5">Maintainability</td>
+                        <td>Sonar dashboard</td>
+                      </tr>
+                      <tr>
+                        <td><code>critical_violations</code></td>
+                        <td data-i18n="oss.qametrics.sonar.f6">Severity</td>
+                        <td>Sonar dashboard</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="oss-alt-protocol" aria-label="Sanitized Influx line protocol">
+                <strong>line protocol (sanitized)</strong>
+                <code>sonarqube,metric=coverage,type=PERCENT value=72.4</code>
+                <code>sonarqube,metric=security_hotspots,type=INT value=12</code>
+              </div>
+            </div>
             <div class="oss-reader-block">
               <div class="oss-arch-label" data-i18n="oss.qametrics.reader.label">Test Reader · Pyramid metrics</div>
               <p class="oss-reader-desc" data-i18n="oss.qametrics.reader.desc">Semi-manual step <strong>outside</strong> <code>docker-compose up</code>: the open-source Python tool <a href="https://github.com/amandaquaglio/test-reader" target="_blank" rel="noopener">test-reader</a> scans service repos using YAML RegEx rules (<code>@Test</code>, file paths, descriptions), classifies automated tests by pyramid layer (Unit · Integration · Component · E2E) and exports counts to a Google Sheets metrics tab. Newman then reads that sheet via Google Sheets API into InfluxDB — powering the Pyramid Grafana dashboard alongside Jira and SonarCloud.</p>
@@ -4415,8 +4854,32 @@
 
       <div class="metrics-meta">
         <p class="metrics-context" data-i18n="metrics.context">Custom metrics tracked across <strong>30+ sprints</strong> at Questrade (2022–2024).</p>
-        <p class="metrics-collection" data-i18n="metrics.collection">Tracked in <strong>Google Sheets</strong> + <strong>Jira</strong>; visualized via Grafana / Looker Studio</p>
+        <p class="metrics-collection" data-i18n="metrics.collection">Tracked in <strong>Google Sheets</strong> + <strong>Jira</strong>; visualized via <strong>Grafana</strong> (ops dashboards) and <strong>Looker Studio</strong> (Quality Reports for stakeholders)</p>
         <a href="#proj-observability" class="metrics-viz-link" data-i18n="metrics.vizlink">How metrics were visualized → QA Observability Platform</a>
+      </div>
+
+      <div class="looker-block" id="looker-quality-reports">
+        <h3 class="metrics-subtitle" data-i18n="looker.subtitle">Quality Reports · Looker Studio</h3>
+        <p class="ts-intro" data-i18n="looker.intro">After the Grafana/Influx pipeline, I published sprint <strong>Quality Reports</strong> in <strong>Google Looker Studio</strong> for stakeholders: test inventory, automation share, pyramid coverage, bug ratio per ticket, PPI and sprint achievement.</p>
+        <div class="looker-stats" aria-label="Looker Quality Report metrics">
+          <div class="looker-stat">
+            <span class="looker-stat-val">373</span>
+            <span class="looker-stat-lbl" data-i18n="looker.s1">Test cases tracked</span>
+          </div>
+          <div class="looker-stat">
+            <span class="looker-stat-val">27.9%</span>
+            <span class="looker-stat-lbl" data-i18n="looker.s2">Automated</span>
+          </div>
+          <div class="looker-stat">
+            <span class="looker-stat-val">5</span>
+            <span class="looker-stat-lbl" data-i18n="looker.s3">Projects in pyramid view</span>
+          </div>
+          <div class="looker-stat">
+            <span class="looker-stat-val">5+</span>
+            <span class="looker-stat-lbl" data-i18n="looker.s4">Consecutive sprint reports</span>
+          </div>
+        </div>
+        <p class="looker-note" data-i18n="looker.note">Same lineage as the observability platform: spreadsheet → Grafana/InfluxDB → Looker executive reports. A related <strong>Customer Lifecycle</strong> Looker dashboard sat alongside the sprint report.</p>
       </div>
 
       <h3 class="metrics-subtitle" data-i18n="ts.subtitle">Task Score</h3>
@@ -5345,6 +5808,24 @@
         'proj.api.title': 'API &amp; Component Test Suite',
         'proj.api.desc': 'Three-layer coverage: Postman/Newman (800+ tests) for KYC, onboarding and lifecycle flows; Cypress component testing integrated into CI/CD; Playwright for MFA with OAuth2/PKCE, TOTP and multi-tenant isolation (8+ services) in SIT/UAT.',
         'proj.api.i1': '800+ tests · 3 layers · 8+ services',
+        'proj.api.ci.label': 'GitLab CI · Newman smoke',
+        'proj.api.ci.desc': 'API collections also ran headless in GitLab CI (not only in the Postman desktop app): official Newman Alpine image, HTML artifact plus JUnit so failures surface on the merge request pipeline.',
+        'proj.api.ci.s1': 'CI image (Alpine)',
+        'proj.api.ci.s2': 'Reporters',
+        'proj.api.ci.s3': 'Always-on artifact',
+        'proj.api.ci.s4': 'JUnit on the MR',
+        'proj.api.schema.label': 'Postman · JSON Schema validation',
+        'proj.api.schema.desc': 'Beyond status codes: tests assert response shape with JSON Schema (<code>pm.response.to.have.jsonSchema</code>), locking required fields and rejecting unexpected properties, aligned with Swagger/OpenAPI contracts.',
+        'proj.api.schema.s1': 'Postman assertion',
+        'proj.api.schema.s2': 'Mandatory fields',
+        'proj.api.schema.s3': 'No surprise keys',
+        'proj.api.schema.s4': 'Schema source',
+        'proj.api.docker.label': 'Newman · Docker &amp; local runners',
+        'proj.api.docker.desc': 'Collections also ran inside the official Newman image with the working directory mounted as a volume, plus CSV <code>--iteration-data</code> for file-upload cases. For a fuller local stack, Jenkins was started in Docker with Postman/Newman support (UTF-8 JVM, persistent <code>jenkins_home</code>).',
+        'proj.api.docker.s1': 'Volume mount',
+        'proj.api.docker.s2': 'CSV data-driven',
+        'proj.api.docker.s3': 'Host URL from container',
+        'proj.api.docker.s4': 'Jenkins volume',
         'proj.responsive.title': 'Responsive Viewport Coverage',
         'proj.responsive.context': 'Questrade · KYC onboarding · Cross-device',
         'proj.responsive.desc': 'Viewport library built from the product\'s own design system breakpoints (360–599 mobile / 600–839 tablet / 840+ desktop) — not a generic device library. Key insight: three pairs of Responsive Viewer profiles at exactly 1px apart to catch boundary regressions: modal layout shift (519/520px), submenu visibility (1019/1020px), and action button swap (1279/1280px). Boundary Value Analysis applied to responsive design.',
@@ -5407,6 +5888,28 @@
         'oss.qametrics.i2': '3 dashboards · Jira · Sonar · Pyramid',
         'oss.qametrics.i3': '30–60s startup · 4 pods',
         'oss.qametrics.arch.label': 'Architecture',
+        'oss.qametrics.influx.label': 'InfluxDB · Jira metric fields',
+        'oss.qametrics.influx.desc': 'Newman writes Jira bug metrics into InfluxDB as a time series. Fields such as <code>pingPongIndex</code> feed the Grafana Jira dashboard and the PPI formula in <a href="#metrics">Metrics</a>.',
+        'oss.qametrics.influx.f1': 'PPI source',
+        'oss.qametrics.influx.f2': 'Bug impact',
+        'oss.qametrics.influx.f3': 'Cadence slice',
+        'oss.qametrics.influx.f4': 'Rework taxonomy',
+        'oss.qametrics.influx.f5': 'SIT / UAT / PROD',
+        'oss.qametrics.influx.f6': 'Squad filter',
+        'oss.qametrics.influx.f7': 'Effort',
+        'oss.qametrics.influx.f8': 'Bug class',
+        'oss.qametrics.sonar.label': 'InfluxDB · Sonar schema explorer',
+        'oss.qametrics.sonar.desc': 'Besides Jira bugs, Newman also writes SonarCloud metrics into the same InfluxDB. Measurements tree + metric tags power the Grafana <strong>Sonar</strong> dashboard (project keys omitted).',
+        'oss.qametrics.sonar.f1': 'Test coverage',
+        'oss.qametrics.sonar.f2': 'Lines of code',
+        'oss.qametrics.sonar.f3': 'Security review',
+        'oss.qametrics.sonar.f4': 'Security',
+        'oss.qametrics.sonar.f5': 'Maintainability',
+        'oss.qametrics.sonar.f6': 'Severity',
+        'oss.qametrics.sonarAlt.tree': 'show measurements',
+        'oss.qametrics.sonarAlt.th1': 'metric tag',
+        'oss.qametrics.sonarAlt.th2': 'means',
+        'oss.qametrics.sonarAlt.th3': 'feeds',
         'oss.qametrics.reader.label': 'Test Reader · Pyramid metrics',
         'oss.qametrics.reader.desc': 'Semi-manual step <strong>outside</strong> <code>docker-compose up</code>: the open-source Python tool <a href="https://github.com/amandaquaglio/test-reader" target="_blank" rel="noopener">test-reader</a> scans service repos using YAML RegEx rules (<code>@Test</code>, file paths, descriptions), classifies automated tests by pyramid layer (Unit · Integration · Component · E2E) and exports counts to a Google Sheets metrics tab. Newman then reads that sheet via Google Sheets API into InfluxDB — powering the Pyramid Grafana dashboard alongside Jira and SonarCloud.',
         'oss.qametrics.reader.s1': 'test-reader-start',
@@ -5434,8 +5937,15 @@
         'ts.label': '07 · Metrics',
         'metrics.title': 'Custom QA Metrics',
         'metrics.context': 'Custom metrics tracked across <strong>30+ sprints</strong> at Questrade (2022–2024).',
-        'metrics.collection': 'Tracked in <strong>Google Sheets</strong> + <strong>Jira</strong>; visualized via Grafana / Looker Studio',
+        'metrics.collection': 'Tracked in <strong>Google Sheets</strong> + <strong>Jira</strong>; visualized via <strong>Grafana</strong> (ops dashboards) and <strong>Looker Studio</strong> (Quality Reports for stakeholders)',
         'metrics.vizlink': 'How metrics were visualized → QA Observability Platform',
+        'looker.subtitle': 'Quality Reports · Looker Studio',
+        'looker.intro': 'After the Grafana/Influx pipeline, I published sprint <strong>Quality Reports</strong> in <strong>Google Looker Studio</strong> for stakeholders: test inventory, automation share, pyramid coverage, bug ratio per ticket, PPI and sprint achievement.',
+        'looker.s1': 'Test cases tracked',
+        'looker.s2': 'Automated',
+        'looker.s3': 'Projects in pyramid view',
+        'looker.s4': 'Consecutive sprint reports',
+        'looker.note': 'Same lineage as the observability platform: spreadsheet → Grafana/InfluxDB → Looker executive reports. A related <strong>Customer Lifecycle</strong> Looker dashboard sat alongside the sprint report.',
         'ts.subtitle': 'Task Score',
         'ts.intro': 'In Q4 2024 at Questrade I applied <strong>Task Score</strong> — a delivery quality metric that evaluates, per task, whether the team followed quality gates before reaching production. The premise: pass/fail rates alone don\'t show how consistently processes are followed sprint to sprint. Task Score makes the invisible visible — and turns retrospectives from feelings into data.',
         'ts.c1.h': 'Deploy in SIT', 'ts.c1.p': 'Task was deployed to the SIT environment before QA review begins',
@@ -5677,6 +6187,24 @@
         'proj.api.title': 'Suíte de Testes API &amp; Component',
         'proj.api.desc': 'Cobertura em três camadas: Postman/Newman (800+ testes) para fluxos KYC, onboarding e lifecycle; Cypress component testing integrado ao CI/CD; Playwright para MFA com OAuth2/PKCE, TOTP e isolamento multi-tenant (8+ serviços) em SIT/UAT.',
         'proj.api.i1': '800+ testes · 3 camadas · 8+ serviços',
+        'proj.api.ci.label': 'GitLab CI · Newman smoke',
+        'proj.api.ci.desc': 'As collections de API também rodavam headless no GitLab CI (não só no Postman desktop): imagem oficial Newman Alpine, artifact HTML e JUnit para as falhas aparecerem no pipeline do merge request.',
+        'proj.api.ci.s1': 'imagem CI (Alpine)',
+        'proj.api.ci.s2': 'Reporters',
+        'proj.api.ci.s3': 'Artifact sempre publicado',
+        'proj.api.ci.s4': 'JUnit no MR',
+        'proj.api.schema.label': 'Postman · validação JSON Schema',
+        'proj.api.schema.desc': 'Além do status code: os testes validam o formato da response com JSON Schema (<code>pm.response.to.have.jsonSchema</code>), travando campos obrigatórios e rejeitando propriedades inesperadas, alinhado a contratos Swagger/OpenAPI.',
+        'proj.api.schema.s1': 'assertion no Postman',
+        'proj.api.schema.s2': 'campos obrigatórios',
+        'proj.api.schema.s3': 'sem chaves surpresa',
+        'proj.api.schema.s4': 'fonte do schema',
+        'proj.api.docker.label': 'Newman · Docker e runners locais',
+        'proj.api.docker.desc': 'As collections também rodavam na imagem oficial do Newman com o diretório de trabalho montado em volume, além de CSV <code>--iteration-data</code> para casos de upload. Para um stack local completo, o Jenkins subia em Docker com suporte a Postman/Newman (JVM UTF-8, <code>jenkins_home</code> persistente).',
+        'proj.api.docker.s1': 'volume mount',
+        'proj.api.docker.s2': 'CSV data-driven',
+        'proj.api.docker.s3': 'URL do host no container',
+        'proj.api.docker.s4': 'volume do Jenkins',
         'proj.responsive.title': 'Cobertura de Viewports Responsivos',
         'proj.responsive.context': 'Questrade · KYC onboarding · Cross-device',
         'proj.responsive.desc': 'Biblioteca de viewports construída a partir dos breakpoints do próprio design system do produto (360–599 mobile / 600–839 tablet / 840+ desktop) — não uma lista genérica de dispositivos. Destaque: três pares de perfis no Responsive Viewer com exatamente 1px de diferença para detectar regressões de boundary: mudança de layout do modal (519/520px), visibilidade do submenu (1019/1020px) e troca de botão de ação (1279/1280px). Boundary Value Analysis aplicada ao design responsivo.',
@@ -5739,6 +6267,28 @@
         'oss.qametrics.i2': '3 dashboards · Jira · Sonar · Pyramid',
         'oss.qametrics.i3': '30–60s de startup · 4 pods',
         'oss.qametrics.arch.label': 'Arquitetura',
+        'oss.qametrics.influx.label': 'InfluxDB · campos de métricas Jira',
+        'oss.qametrics.influx.desc': 'O Newman grava métricas de bugs do Jira no InfluxDB como série temporal. Campos como <code>pingPongIndex</code> alimentam o dashboard Jira no Grafana e a fórmula do PPI em <a href="#metrics">Métricas</a>.',
+        'oss.qametrics.influx.f1': 'fonte do PPI',
+        'oss.qametrics.influx.f2': 'impacto do bug',
+        'oss.qametrics.influx.f3': 'recorte por sprint',
+        'oss.qametrics.influx.f4': 'taxonomia de retrabalho',
+        'oss.qametrics.influx.f5': 'SIT / UAT / PROD',
+        'oss.qametrics.influx.f6': 'filtro por squad',
+        'oss.qametrics.influx.f7': 'esforço',
+        'oss.qametrics.influx.f8': 'classe do bug',
+        'oss.qametrics.sonar.label': 'InfluxDB · Sonar schema explorer',
+        'oss.qametrics.sonar.desc': 'Além dos bugs do Jira, o Newman também grava métricas do SonarCloud no mesmo InfluxDB. Árvore de measurements + tags de métrica alimentam o dashboard <strong>Sonar</strong> no Grafana (chaves de projeto omitidas).',
+        'oss.qametrics.sonar.f1': 'cobertura de testes',
+        'oss.qametrics.sonar.f2': 'linhas de código',
+        'oss.qametrics.sonar.f3': 'revisão de segurança',
+        'oss.qametrics.sonar.f4': 'segurança',
+        'oss.qametrics.sonar.f5': 'manutenibilidade',
+        'oss.qametrics.sonar.f6': 'severidade',
+        'oss.qametrics.sonarAlt.tree': 'show measurements',
+        'oss.qametrics.sonarAlt.th1': 'tag metric',
+        'oss.qametrics.sonarAlt.th2': 'significa',
+        'oss.qametrics.sonarAlt.th3': 'alimenta',
         'oss.qametrics.reader.label': 'Test Reader · métricas da Pirâmide',
         'oss.qametrics.reader.desc': 'Passo <strong>semi-manual</strong>, <strong>fora</strong> do <code>docker-compose up</code>: a ferramenta open source em Python <a href="https://github.com/amandaquaglio/test-reader" target="_blank" rel="noopener">test-reader</a> varre repositórios dos serviços com regras RegEx em YAML (<code>@Test</code>, caminhos de arquivo, descrições), classifica testes automatizados por camada da pirâmide (Unit · Integration · Component · E2E) e exporta contagens para uma aba de métricas no Google Sheets. O Newman lê essa planilha via Google Sheets API no InfluxDB — alimentando o dashboard Pyramid no Grafana junto com Jira e SonarCloud.',
         'oss.qametrics.reader.s1': 'test-reader-start',
@@ -5766,8 +6316,15 @@
         'ts.label': '07 · Métricas',
         'metrics.title': 'Métricas QA customizadas',
         'metrics.context': 'Métricas customizadas acompanhadas em <strong>30+ sprints</strong> na Questrade (2022–2024).',
-        'metrics.collection': 'Coletadas em <strong>Google Sheets</strong> + <strong>Jira</strong>; visualizadas via Grafana / Looker Studio',
+        'metrics.collection': 'Coletadas em <strong>Google Sheets</strong> + <strong>Jira</strong>; visualizadas via <strong>Grafana</strong> (dashboards operacionais) e <strong>Looker Studio</strong> (Quality Reports para stakeholders)',
         'metrics.vizlink': 'Como as métricas foram visualizadas → Plataforma de Observabilidade QA',
+        'looker.subtitle': 'Quality Reports · Looker Studio',
+        'looker.intro': 'Depois da pipeline Grafana/Influx, publiquei <strong>Quality Reports</strong> por sprint no <strong>Google Looker Studio</strong> para stakeholders: inventário de testes, percentual de automação, cobertura da pirâmide, bug ratio por ticket, PPI e sprint achievement.',
+        'looker.s1': 'Casos de teste rastreados',
+        'looker.s2': 'Automatizados',
+        'looker.s3': 'Projetos na visão de pirâmide',
+        'looker.s4': 'Reports consecutivos',
+        'looker.note': 'Mesma linhagem da plataforma de observabilidade: planilha → Grafana/InfluxDB → reports executivos no Looker. Havia também um dashboard Looker de <strong>Customer Lifecycle</strong> ao lado do report por sprint.',
         'ts.subtitle': 'Task Score',
         'ts.intro': 'No Q4 2024 na Questrade, apliquei o <strong>Task Score</strong> — uma métrica de qualidade de entrega que avalia, por tarefa, se o time seguiu os quality gates antes de chegar à produção. A premissa: taxas de aprovação/reprovação isoladas não mostram a consistência dos processos sprint a sprint. O Task Score torna o invisível visível — e transforma retrospectivas de sentimentos em dados.',
         'ts.c1.h': 'Deploy no SIT', 'ts.c1.p': 'A tarefa foi implantada no ambiente SIT antes do review de QA',
@@ -6001,6 +6558,18 @@
         const lang = document.documentElement.getAttribute('data-lang') || 'en';
         const label = translations[lang]?.['oss.copy'] || 'copy';
         navigator.clipboard.writeText(text).then(() => {
+          this.textContent = '✓';
+          setTimeout(() => { this.textContent = label; }, 1500);
+        });
+      });
+    });
+    document.querySelectorAll('.oss-copy-btn[data-copy-from]').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const el = document.getElementById(this.getAttribute('data-copy-from'));
+        if (!el) return;
+        const lang = document.documentElement.getAttribute('data-lang') || 'en';
+        const label = translations[lang]?.['oss.copy'] || 'copy';
+        navigator.clipboard.writeText(el.textContent).then(() => {
           this.textContent = '✓';
           setTimeout(() => { this.textContent = label; }, 1500);
         });
