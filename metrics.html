@@ -1771,19 +1771,64 @@
     .ts-intro { color: var(--text-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 36px; }
     .ts-intro strong { color: var(--text); }
 
+    .ts-scale-wrap { margin-bottom: 28px; }
+    .ts-scale-meta {
+      display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+      gap: 10px 16px; margin-bottom: 12px;
+    }
+    .ts-sim-hint { font-size: 0.78rem; color: var(--text-3); font-family: var(--mono); }
+    .ts-live-score {
+      font-size: 0.95rem; font-family: var(--mono); font-weight: 700; color: var(--text);
+      letter-spacing: -0.02em;
+    }
+    .ts-live-score .ts-live-max { font-weight: 400; color: var(--text-3); font-size: 0.78rem; }
+    .ts-live-tier {
+      display: inline-block; margin-left: 6px; padding: 2px 9px; border-radius: 20px;
+      font-size: 0.68rem; font-weight: 600; border: 1px solid transparent;
+    }
+    .ts-live-tier.is-poor { background: rgba(239,68,68,0.1); color: #ef4444; border-color: rgba(239,68,68,0.25); }
+    .ts-live-tier.is-fair { background: rgba(251,191,36,0.1); color: var(--yellow); border-color: rgba(251,191,36,0.25); }
+    .ts-live-tier.is-good { background: rgba(79,114,255,0.1); color: var(--accent); border-color: rgba(79,114,255,0.25); }
+    .ts-live-tier.is-excellent { background: rgba(52,211,153,0.1); color: var(--green); border-color: rgba(52,211,153,0.25); }
+
+    .ts-scale-track { position: relative; padding-top: 28px; }
+    .ts-scale-arrow {
+      position: absolute; top: 0; left: 100%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center;
+      pointer-events: none; z-index: 2;
+      transition: left 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .ts-scale-arrow-label {
+      font-size: 0.7rem; font-family: var(--mono); font-weight: 800;
+      color: var(--text); line-height: 1; margin-bottom: 2px;
+    }
+    .ts-scale-arrow-head {
+      width: 0; height: 0;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 10px solid #111;
+    }
+
     .ts-scale {
-      display: flex; gap: 0; margin-bottom: 40px; border-radius: var(--radius-sm);
+      display: flex; gap: 0; border-radius: var(--radius-sm);
       overflow: hidden; border: 1px solid var(--border);
     }
     .ts-scale-tier {
-      flex: 1; text-align: center; padding: 11px 8px;
+      text-align: center; padding: 11px 8px;
       font-size: 0.76rem; font-family: var(--mono); font-weight: 700;
+      opacity: 0.45; transition: opacity 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+    }
+    .ts-scale-tier.is-active {
+      opacity: 1;
+      box-shadow: inset 0 0 0 2px currentColor;
+      filter: saturate(1.15);
     }
     .ts-scale-tier .ts-range { display: block; font-size: 0.64rem; font-weight: 400; opacity: 0.75; margin-top: 2px; }
-    .ts-tier-poor    { background: rgba(239,68,68,0.09); color: #ef4444; border-right: 1px solid var(--border); }
-    .ts-tier-fair    { background: rgba(251,191,36,0.09); color: var(--yellow); border-right: 1px solid var(--border); }
-    .ts-tier-good    { background: rgba(79,114,255,0.09); color: var(--accent); border-right: 1px solid var(--border); }
-    .ts-tier-excellent { background: rgba(52,211,153,0.09); color: var(--green); }
+    .ts-tier-poor    { flex: 16 1 0%; background: rgba(239,68,68,0.09); color: #ef4444; border-right: 1px solid var(--border); }
+    .ts-tier-fair    { flex: 5 1 0%; background: rgba(251,191,36,0.09); color: var(--yellow); border-right: 1px solid var(--border); }
+    .ts-tier-good    { flex: 5 1 0%; background: rgba(79,114,255,0.09); color: var(--accent); border-right: 1px solid var(--border); }
+    .ts-tier-excellent { flex: 4 1 0%; background: rgba(52,211,153,0.09); color: var(--green); }
 
     .ts-criteria {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 48px;
@@ -1791,16 +1836,94 @@
     .ts-criterion {
       background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
       padding: 16px 18px; display: flex; flex-direction: column; gap: 6px;
-      transition: border-color var(--transition);
+      transition: border-color var(--transition), opacity var(--transition), background var(--transition);
+      cursor: pointer; text-align: left; font: inherit; color: inherit; width: 100%;
+      position: relative;
     }
     .ts-criterion:hover { border-color: var(--border2); }
+    .ts-criterion:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .ts-criterion.is-on {
+      border-color: rgba(52,211,153,0.45);
+      background: linear-gradient(180deg, rgba(52,211,153,0.06) 0%, var(--surface) 48%);
+    }
+    .ts-criterion.is-off {
+      opacity: 0.48;
+      border-style: dashed;
+    }
+    .ts-criterion.is-off .ts-points {
+      color: var(--text-3);
+      background: var(--surface2);
+      border-color: var(--border);
+    }
+    .ts-criterion-check {
+      position: absolute; top: 12px; right: 12px;
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 1.5px solid var(--border2);
+      display: grid; place-items: center;
+      font-size: 0.65rem; line-height: 1; color: transparent;
+      transition: background var(--transition), border-color var(--transition), color var(--transition);
+    }
+    .ts-criterion.is-on .ts-criterion-check {
+      background: var(--green); border-color: var(--green); color: #0b0f19;
+    }
     .ts-points {
       font-size: 0.7rem; font-family: var(--mono); font-weight: 700; color: var(--green);
       background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2);
       border-radius: 20px; padding: 2px 10px; align-self: flex-start;
     }
-    .ts-criterion h4 { font-size: 0.875rem; font-weight: 600; color: var(--text); }
+    .ts-bugs-phase {
+      font-size: 0.68rem; font-family: var(--mono); font-weight: 600;
+      align-self: flex-start; margin-top: -2px;
+    }
+    .ts-criterion[data-key="bugs"] {
+      opacity: 1;
+      border-style: solid;
+    }
+    .ts-criterion[data-key="bugs"].is-bugs-none {
+      border-color: rgba(52,211,153,0.55);
+      background: linear-gradient(180deg, rgba(52,211,153,0.12) 0%, var(--surface) 55%);
+    }
+    .ts-criterion[data-key="bugs"].is-bugs-none .ts-points {
+      color: var(--green);
+      background: rgba(52,211,153,0.12);
+      border-color: rgba(52,211,153,0.3);
+    }
+    .ts-criterion[data-key="bugs"].is-bugs-none .ts-bugs-phase { color: var(--green); }
+    .ts-criterion[data-key="bugs"].is-bugs-none .ts-criterion-check {
+      background: var(--green); border-color: var(--green); color: #0b0f19;
+    }
+    .ts-criterion[data-key="bugs"].is-bugs-few {
+      border-color: rgba(251,191,36,0.6);
+      background: linear-gradient(180deg, rgba(251,191,36,0.14) 0%, var(--surface) 55%);
+    }
+    .ts-criterion[data-key="bugs"].is-bugs-few .ts-points {
+      color: var(--yellow);
+      background: rgba(251,191,36,0.14);
+      border-color: rgba(251,191,36,0.35);
+    }
+    .ts-criterion[data-key="bugs"].is-bugs-few .ts-bugs-phase { color: var(--yellow); }
+    .ts-criterion[data-key="bugs"].is-bugs-few .ts-criterion-check {
+      background: var(--yellow); border-color: var(--yellow); color: #0b0f19;
+    }
+    .ts-criterion[data-key="bugs"].is-bugs-many {
+      border-color: rgba(239,68,68,0.55);
+      background: linear-gradient(180deg, rgba(239,68,68,0.12) 0%, var(--surface) 55%);
+      opacity: 1;
+    }
+    .ts-criterion[data-key="bugs"].is-bugs-many .ts-points {
+      color: #ef4444;
+      background: rgba(239,68,68,0.12);
+      border-color: rgba(239,68,68,0.3);
+    }
+    .ts-criterion[data-key="bugs"].is-bugs-many .ts-bugs-phase { color: #ef4444; }
+    .ts-criterion[data-key="bugs"].is-bugs-many .ts-criterion-check {
+      background: #ef4444; border-color: #ef4444; color: #fff;
+    }
+    .ts-criterion h4 { font-size: 0.875rem; font-weight: 600; color: var(--text); padding-right: 22px; }
     .ts-criterion p  { font-size: 0.78rem; color: var(--text-2); line-height: 1.5; }
+    .ts-inline-link {
+      color: var(--accent); text-decoration: underline; text-underline-offset: 2px; cursor: pointer;
+    }
 
     .ts-results-label {
       font-size: 0.72rem; font-family: var(--mono); font-weight: 500;
@@ -1869,6 +1992,149 @@
       font-size: 0.67rem; font-family: var(--mono); font-weight: 600;
     }
     .metric-scale-item span { display: block; font-size: 0.59rem; font-weight: 400; opacity: 0.8; margin-top: 1px; }
+
+    .ppi-sim { display: flex; flex-direction: column; gap: 12px; }
+    .ppi-sim-controls {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    }
+    .ppi-ctrl {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+      padding: 10px 12px; display: flex; flex-direction: column; gap: 8px;
+    }
+    .ppi-ctrl-label {
+      font-size: 0.68rem; font-family: var(--mono); color: var(--text-3);
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .ppi-ctrl-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .ppi-ctrl-val {
+      font-size: 1.25rem; font-weight: 800; font-family: var(--mono); color: var(--text);
+      letter-spacing: -0.02em; min-width: 2ch; text-align: center;
+    }
+    .ppi-btn {
+      width: 32px; height: 32px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--surface); color: var(--text);
+      font-size: 1.1rem; font-weight: 700; line-height: 1; cursor: pointer;
+      display: grid; place-items: center;
+      transition: border-color var(--transition), background var(--transition);
+      user-select: none; -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+    .ppi-btn:hover { border-color: var(--accent); background: rgba(108,140,255,0.08); }
+    .ppi-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .ppi-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .ppi-ctrl-row.is-disabled { opacity: 0.45; }
+    .metric-card.is-ppi-empty { border-color: var(--border); }
+
+    .ppi-scale-arrow.is-scrubbing {
+      transition: none;
+    }
+
+    .ppi-live {
+      display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+      gap: 8px 12px;
+    }
+    .ppi-live-eq {
+      font-family: var(--mono); font-size: 0.78rem; color: var(--text-2);
+    }
+    .ppi-live-eq strong { color: var(--text); font-size: 0.95rem; }
+    .ppi-cap-note {
+      display: inline; margin-left: 6px; font-size: 0.68rem; font-weight: 500;
+      color: var(--text-3);
+    }
+    .ppi-cap-note[hidden] { display: none; }
+    .ppi-live-tier {
+      font-size: 0.68rem; font-family: var(--mono); font-weight: 600;
+      padding: 2px 9px; border-radius: 20px; border: 1px solid transparent;
+    }
+    .ppi-live-tier.is-poor { background: rgba(239,68,68,0.1); color: #ef4444; border-color: rgba(239,68,68,0.25); }
+    .ppi-live-tier.is-fair { background: rgba(251,191,36,0.1); color: var(--yellow); border-color: rgba(251,191,36,0.25); }
+    .ppi-live-tier.is-good { background: rgba(79,114,255,0.1); color: var(--accent); border-color: rgba(79,114,255,0.25); }
+    .ppi-live-tier.is-excellent { background: rgba(52,211,153,0.1); color: var(--green); border-color: rgba(52,211,153,0.25); }
+
+    .ppi-scale-track { position: relative; padding-top: 26px; }
+    .ppi-scale-arrow {
+      position: absolute; top: 0; left: 100%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center;
+      pointer-events: none; z-index: 2;
+      transition: left 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .ppi-scale-arrow-label {
+      font-size: 0.68rem; font-family: var(--mono); font-weight: 800;
+      color: var(--text); line-height: 1; margin-bottom: 2px;
+    }
+    .ppi-scale-arrow-head {
+      width: 0; height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 9px solid #111;
+    }
+    .ppi-sim .metric-scale { overflow: hidden; border-radius: 6px; border: 1px solid var(--border); gap: 0; }
+    .ppi-sim .metric-scale-item {
+      border-radius: 0; opacity: 0.45;
+      transition: opacity 0.25s ease, box-shadow 0.25s ease;
+    }
+    .ppi-sim .metric-scale-item.is-active {
+      opacity: 1;
+      box-shadow: inset 0 0 0 2px currentColor;
+    }
+    .ppi-tier-poor { flex: 50 1 0% !important; }
+    .ppi-tier-fair { flex: 25 1 0% !important; }
+    .ppi-tier-good { flex: 15 1 0% !important; }
+    .ppi-tier-excellent { flex: 10 1 0% !important; }
+
+    .metric-card.is-ppi-poor { border-color: rgba(239,68,68,0.45); }
+    .metric-card.is-ppi-fair { border-color: rgba(251,191,36,0.5); }
+    .metric-card.is-ppi-good { border-color: rgba(79,114,255,0.45); }
+    .metric-card.is-ppi-excellent { border-color: rgba(52,211,153,0.45); }
+
+    .ppi-hint {
+      font-size: 0.68rem; font-family: var(--mono); color: var(--text-3); line-height: 1.45;
+    }
+
+    .srm-sim { display: flex; flex-direction: column; gap: 12px; }
+    .srm-sim .metric-scale { overflow: hidden; border-radius: 6px; border: 1px solid var(--border); gap: 0; }
+    .srm-sim .metric-scale-item {
+      border-radius: 0; opacity: 0.45;
+      transition: opacity 0.25s ease, box-shadow 0.25s ease;
+    }
+    .srm-sim .metric-scale-item.is-active {
+      opacity: 1;
+      box-shadow: inset 0 0 0 2px currentColor;
+    }
+    .srm-tier-ideal { flex: 1 1 0% !important; }
+    .srm-tier-acceptable { flex: 2 1 0% !important; }
+    .srm-tier-warning { flex: 3 1 0% !important; }
+    .srm-tier-critical { flex: 4 1 0% !important; }
+    .metric-card.is-srm-ideal { border-color: rgba(52,211,153,0.45); }
+    .metric-card.is-srm-acceptable { border-color: rgba(79,114,255,0.45); }
+    .metric-card.is-srm-warning { border-color: rgba(251,191,36,0.5); }
+    .metric-card.is-srm-critical { border-color: rgba(239,68,68,0.45); }
+
+    .rbd-sim { display: flex; flex-direction: column; gap: 12px; }
+    .rbd-sim .metric-scale { overflow: hidden; border-radius: 6px; border: 1px solid var(--border); gap: 0; }
+    .rbd-sim .metric-scale-item {
+      border-radius: 0; opacity: 0.45;
+      transition: opacity 0.25s ease, box-shadow 0.25s ease;
+    }
+    .rbd-sim .metric-scale-item.is-active {
+      opacity: 1;
+      box-shadow: inset 0 0 0 2px currentColor;
+    }
+    .rbd-tier-poor { flex: 70 1 0% !important; }
+    .rbd-tier-fair { flex: 15 1 0% !important; }
+    .rbd-tier-good { flex: 10 1 0% !important; }
+    .rbd-tier-excellent { flex: 5 1 0% !important; }
+    .metric-card.is-rbd-poor { border-color: rgba(239,68,68,0.45); }
+    .metric-card.is-rbd-fair { border-color: rgba(251,191,36,0.5); }
+    .metric-card.is-rbd-good { border-color: rgba(79,114,255,0.45); }
+    .metric-card.is-rbd-excellent { border-color: rgba(52,211,153,0.45); }
+
+    .ppi-live-tier.is-ideal { background: rgba(52,211,153,0.1); color: var(--green); border-color: rgba(52,211,153,0.25); }
+    .ppi-live-tier.is-acceptable { background: rgba(79,114,255,0.1); color: var(--accent); border-color: rgba(79,114,255,0.25); }
+    .ppi-live-tier.is-warning { background: rgba(251,191,36,0.1); color: var(--yellow); border-color: rgba(251,191,36,0.25); }
+    .ppi-live-tier.is-critical { background: rgba(239,68,68,0.1); color: #ef4444; border-color: rgba(239,68,68,0.25); }
+
     .metric-problems { display: flex; flex-direction: column; gap: 6px; }
     .metric-problem { font-size: 0.79rem; color: var(--text-2); padding-left: 14px; position: relative; line-height: 1.5; }
     .metric-problem::before {
@@ -1960,6 +2226,116 @@
     [data-theme="dark"] .metric-trend-kpi span { color: #94a8c8; }
     .metrics-subtitle--spaced { margin-top: 28px; }
     .metrics-adv-intro--wide { max-width: none; }
+
+    #test-pyramid {
+      margin-top: 32px;
+    }
+    #test-pyramid.metrics-pyramid-section,
+    .metrics-pyramid-section {
+      margin-top: 28px; padding: 28px 24px 24px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    }
+    .metrics-pyramid-section .pyramid-card {
+      background: var(--surface2);
+    }
+
+    .metrics-catalog {
+      margin-top: 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .metrics-catalog-summary {
+      display: flex; align-items: center; gap: 12px;
+      padding: 18px 22px;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .metrics-catalog-summary::-webkit-details-marker { display: none; }
+    .metrics-catalog-summary::marker { content: ''; }
+    .metrics-catalog-summary:hover {
+      background: color-mix(in srgb, var(--glow) 55%, transparent);
+    }
+    .metrics-catalog-summary-title {
+      font-size: 0.78rem; font-family: var(--mono); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--text-2);
+      flex: 1; min-width: 0;
+    }
+    .metrics-catalog-draft-pill {
+      flex-shrink: 0;
+      font-size: 0.62rem; font-family: var(--mono); font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-3);
+      border: 1px solid var(--border2);
+      border-radius: 4px; padding: 3px 8px;
+    }
+    .metrics-catalog-chevron {
+      flex-shrink: 0; width: 18px; height: 18px; color: var(--text-3);
+      transition: transform 0.2s ease;
+    }
+    .metrics-catalog[open] .metrics-catalog-chevron {
+      transform: rotate(180deg);
+    }
+    .metrics-catalog-body {
+      padding: 0 24px 24px;
+      border-top: 1px solid var(--border);
+    }
+    .metrics-catalog-body > .metrics-adv-study {
+      margin-top: 18px;
+    }
+    .metrics-catalog-grid {
+
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .metric-study-card {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 18px 16px; display: flex; flex-direction: column; gap: 10px;
+      transition: border-color var(--transition);
+      width: 100%;
+    }
+    .metric-study-card:hover { border-color: var(--border2); }
+    .metric-study-top { display: flex; align-items: flex-start; gap: 12px; }
+    .metric-study-badge {
+      margin-left: auto; flex-shrink: 0;
+      font-size: 0.62rem; font-family: var(--mono); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      color: var(--accent); background: var(--glow);
+      border: 1px solid rgba(108,140,255,0.25); border-radius: 20px;
+      padding: 3px 8px; white-space: nowrap;
+    }
+    .metric-study-card .metric-acronym { padding: 6px 10px; font-size: 0.88rem; }
+    .metric-study-card h3 { font-size: 0.88rem; font-weight: 700; color: var(--text); margin: 0 0 4px; }
+    .metric-study-card .metric-desc { font-size: 0.76rem; color: var(--text-2); line-height: 1.5; margin: 0; }
+    .metric-study-formula {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+      padding: 8px 12px; font-family: var(--mono); font-size: 0.72rem; color: var(--text-2); line-height: 1.55;
+    }
+    .metric-study-formula .mf-key { color: var(--accent); font-weight: 600; }
+    .metric-study-formula .mf-note { display: block; margin-top: 3px; font-size: 0.64rem; color: var(--text-3); }
+    .metric-study-scale { display: flex; gap: 2px; }
+    .metric-study-scale .metric-scale-item {
+      flex: 1; text-align: center; padding: 5px 3px; border-radius: 4px;
+      font-size: 0.6rem; font-family: var(--mono); font-weight: 600;
+    }
+    .metric-study-scale .metric-scale-item span {
+      display: block; font-size: 0.54rem; font-weight: 400; opacity: 0.8; margin-top: 1px;
+    }
+    .metric-study-rel {
+      font-size: 0.66rem; font-family: var(--mono); color: var(--text-3); line-height: 1.45;
+    }
+    .metric-study-rel strong { color: var(--text-2); font-weight: 600; }
+    .metrics-catalog-group { margin-bottom: 22px; }
+    .metrics-catalog-group:last-child { margin-bottom: 8px; }
+    .metrics-catalog-group .metrics-adv-intro { max-width: none; }
+    [data-theme="dark"] .metric-study-card { background: var(--surface3); border-color: var(--border2); }
+    [data-theme="dark"] .metric-study-formula { background: var(--surface2); }
+
 
     .pyramid-card {
       margin-top: 0; padding: 22px 24px;
@@ -3385,44 +3761,66 @@
       <h3 class="metrics-subtitle" data-i18n="ts.subtitle">Task Score</h3>
       <p class="ts-intro" data-i18n="ts.intro">In Q4 2024 at Questrade I applied <strong>Task Score</strong> — a delivery quality metric that evaluates, per task, whether the team followed quality gates before reaching production. The premise: pass/fail rates alone don't show how consistently processes are followed sprint to sprint. Task Score makes the invisible visible — and turns retrospectives from feelings into data.</p>
 
-      <div class="ts-scale">
-        <div class="ts-scale-tier ts-tier-poor">Poor<span class="ts-range">0 – 15</span></div>
-        <div class="ts-scale-tier ts-tier-fair">Fair<span class="ts-range">16 – 20</span></div>
-        <div class="ts-scale-tier ts-tier-good">Good<span class="ts-range">21 – 25</span></div>
-        <div class="ts-scale-tier ts-tier-excellent">Excellent<span class="ts-range">26 – 30</span></div>
+      <div class="ts-scale-wrap" id="ts-simulator">
+        <div class="ts-scale-meta">
+          <span class="ts-sim-hint" data-i18n="ts.sim.hint">Click the criteria to simulate a task score</span>
+          <span class="ts-live-score">
+            <span id="ts-live-val">30</span><span class="ts-live-max">/30</span>
+            <span class="ts-live-tier is-excellent" id="ts-live-tier">Excellent</span>
+          </span>
+        </div>
+        <div class="ts-scale-track">
+          <div class="ts-scale-arrow" id="ts-scale-arrow" style="left: 100%" aria-hidden="true">
+            <span class="ts-scale-arrow-label" id="ts-arrow-label">30</span>
+            <span class="ts-scale-arrow-head"></span>
+          </div>
+          <div class="ts-scale" role="img" aria-label="Task Score scale 0 to 30">
+            <div class="ts-scale-tier ts-tier-poor" data-tier="poor" data-min="0" data-max="15">Poor<span class="ts-range">0 – 15</span></div>
+            <div class="ts-scale-tier ts-tier-fair" data-tier="fair" data-min="16" data-max="20">Fair<span class="ts-range">16 – 20</span></div>
+            <div class="ts-scale-tier ts-tier-good" data-tier="good" data-min="21" data-max="25">Good<span class="ts-range">21 – 25</span></div>
+            <div class="ts-scale-tier ts-tier-excellent is-active" data-tier="excellent" data-min="26" data-max="30">Excellent<span class="ts-range">26 – 30</span></div>
+          </div>
+        </div>
       </div>
 
-      <div class="ts-criteria">
-        <div class="ts-criterion">
+      <div class="ts-criteria" id="ts-criteria">
+        <button type="button" class="ts-criterion is-on" data-pts="5" data-key="sit" aria-pressed="true">
+          <span class="ts-criterion-check" aria-hidden="true">✓</span>
           <span class="ts-points">+5 pts</span>
           <h4 data-i18n="ts.c1.h">Deploy in SIT</h4>
           <p data-i18n="ts.c1.p">Task was deployed to the SIT environment before QA review begins</p>
-        </div>
-        <div class="ts-criterion">
+        </button>
+        <button type="button" class="ts-criterion is-on" data-pts="5" data-key="pipeline" aria-pressed="true">
+          <span class="ts-criterion-check" aria-hidden="true">✓</span>
           <span class="ts-points">+5 pts</span>
           <h4 data-i18n="ts.c2.h">Pipeline passed</h4>
           <p data-i18n="ts.c2.p">All automated pipeline checks passed before QA handoff</p>
-        </div>
-        <div class="ts-criterion">
+        </button>
+        <button type="button" class="ts-criterion is-on" data-pts="5" data-key="qa" aria-pressed="true">
+          <span class="ts-criterion-check" aria-hidden="true">✓</span>
           <span class="ts-points">+5 pts</span>
           <h4 data-i18n="ts.c3.h">QA review performed</h4>
           <p data-i18n="ts.c3.p">A formal QA review session was conducted on the task</p>
-        </div>
-        <div class="ts-criterion">
+        </button>
+        <button type="button" class="ts-criterion is-on" data-pts="5" data-key="major" aria-pressed="true">
+          <span class="ts-criterion-check" aria-hidden="true">✓</span>
           <span class="ts-points">+5 pts</span>
           <h4 data-i18n="ts.c4.h">No major bugs</h4>
-          <p data-i18n="ts.c4.p">Zero <a href="#severity">Blocker, Critical, or Major</a> severity bugs found</p>
-        </div>
-        <div class="ts-criterion">
+          <p data-i18n="ts.c4.p">Zero <span class="ts-inline-link" data-href="#severity" role="link" tabindex="0">Blocker, Critical, or Major</span> severity bugs found</p>
+        </button>
+        <button type="button" class="ts-criterion is-on" data-pts="5" data-key="srm" aria-pressed="true">
+          <span class="ts-criterion-check" aria-hidden="true">✓</span>
           <span class="ts-points">+5 pts</span>
           <h4 data-i18n="ts.c5.h">No Simple Rejection</h4>
           <p data-i18n="ts.c5.p">Task not immediately rejected for not being ready to test</p>
-        </div>
-        <div class="ts-criterion">
-          <span class="ts-points">+5 / +3 / 0</span>
+        </button>
+        <button type="button" class="ts-criterion is-on is-bugs-none" data-pts="5" data-key="bugs" data-bugs-phase="none" aria-pressed="true" title="Click to cycle: 0 bugs → ≤2 → ≥3">
+          <span class="ts-criterion-check" aria-hidden="true">✓</span>
+          <span class="ts-points" data-pts-label>+5 pts</span>
+          <span class="ts-bugs-phase" data-bugs-phase-label data-i18n="ts.c6.phase.none">Phase: 0 bugs</span>
           <h4 data-i18n="ts.c6.h">Bugs reported</h4>
           <p data-i18n="ts.c6.p">0 bugs = +5 · ≤2 bugs = +3 · ≥3 bugs = 0</p>
-        </div>
+        </button>
       </div>
 
       <div class="ts-results-label" data-i18n="ts.results.label">Questrade · Q4 2024 — real data</div>
@@ -3509,7 +3907,7 @@
       <div class="metrics-grid">
 
         <!-- PPI -->
-        <div class="metric-card">
+        <div class="metric-card is-ppi-excellent" id="ppi-card">
           <div class="metric-card-top">
             <div class="metric-acronym">PPI</div>
             <div>
@@ -3519,27 +3917,63 @@
           </div>
           <div class="metric-formula">
             <span class="mf-key">PPI</span> = ΣBug / ΣPingPong
-            <span class="mf-note">Each bug's PingPong starts at 1 · +1 on every failed fix returned to dev · 1.0 = perfect (one-time fix for all bugs)</span>
+            <span class="mf-note" data-i18n="ppi.formula.note">Each bug's PingPong starts at 1 · +1 on every failed fix returned to dev · 1.0 = perfect (one-time fix for all bugs)</span>
           </div>
-          <div class="metric-scale">
-            <div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Poor<span>&lt;0.50</span></div>
-            <div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Fair<span>0.50–0.74</span></div>
-            <div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Good<span>0.75–0.89</span></div>
-            <div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Excellent<span>0.90–1.00</span></div>
+
+          <div class="ppi-sim" id="ppi-sim">
+            <p class="ppi-hint" data-i18n="ppi.sim.hint">Each bug starts with PingPong = 1 · +1 per failed fix returned to dev. So ΣPingPong ≥ ΣBug, and PPI ≤ 1.00. With 0 bugs, PingPong is 0 (disabled) and PPI is 1.00 Excellent.</p>
+
+            <div class="ppi-live">
+              <span class="ppi-live-eq"><span id="ppi-eq-formula">PPI = <span id="ppi-eq-bugs">10</span> / <span id="ppi-eq-ping">10</span> = </span><span id="ppi-eq-short" hidden>PPI = </span><strong id="ppi-live-val">1.00</strong><span class="ppi-cap-note" id="ppi-cap-note" hidden></span></span>
+              <span class="ppi-live-tier is-excellent" id="ppi-live-tier">Excellent</span>
+            </div>
+
+            <div class="ppi-scale-track">
+              <div class="ppi-scale-arrow" id="ppi-scale-arrow" style="left: 100%" aria-hidden="true">
+                <span class="ppi-scale-arrow-label" id="ppi-arrow-label">1.00</span>
+                <span class="ppi-scale-arrow-head"></span>
+              </div>
+              <div class="metric-scale" role="img" aria-label="PPI scale 0 to 1">
+                <div class="metric-scale-item ppi-tier-poor" data-tier="poor" style="background:rgba(239,68,68,0.09);color:#ef4444;">Poor<span>&lt;0.50</span></div>
+                <div class="metric-scale-item ppi-tier-fair" data-tier="fair" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Fair<span>0.50–0.74</span></div>
+                <div class="metric-scale-item ppi-tier-good" data-tier="good" style="background:rgba(79,114,255,0.1);color:var(--accent);">Good<span>0.75–0.89</span></div>
+                <div class="metric-scale-item ppi-tier-excellent is-active" data-tier="excellent" style="background:rgba(52,211,153,0.1);color:var(--green);">Excellent<span>0.90–1.00</span></div>
+              </div>
+            </div>
+
+            <div class="ppi-sim-controls">
+              <div class="ppi-ctrl">
+                <span class="ppi-ctrl-label" data-i18n="ppi.sim.bugs">ΣBug</span>
+                <div class="ppi-ctrl-row">
+                  <button type="button" class="ppi-btn" data-ppi="bugs-dec" aria-label="Decrease bugs">−</button>
+                  <span class="ppi-ctrl-val" id="ppi-bugs-val">10</span>
+                  <button type="button" class="ppi-btn" data-ppi="bugs-inc" aria-label="Increase bugs">+</button>
+                </div>
+              </div>
+              <div class="ppi-ctrl">
+                <span class="ppi-ctrl-label" data-i18n="ppi.sim.ping">ΣPingPong</span>
+                <div class="ppi-ctrl-row">
+                  <button type="button" class="ppi-btn" data-ppi="ping-dec" aria-label="Decrease ping pong">−</button>
+                  <span class="ppi-ctrl-val" id="ppi-ping-val">10</span>
+                  <button type="button" class="ppi-btn" data-ppi="ping-inc" aria-label="Increase ping pong">+</button>
+                </div>
+              </div>
+            </div>
           </div>
+
           <div class="metric-problems">
             <div class="metric-problem" data-i18n="ppi.p1">Signals bug report clarity — low PPI often means ambiguous descriptions, not just dev errors</div>
             <div class="metric-problem" data-i18n="ppi.p2">A bug with PingPong = 1 is a clean, first-time fix — the ideal baseline for every ticket</div>
             <div class="metric-problem" data-i18n="ppi.p3">Trending toward 1.0 over sprints is concrete evidence that dev–QA alignment is improving</div>
           </div>
-          <div class="metric-formula" style="margin-top:12px;background:rgba(52,211,153,0.07);border-color:rgba(52,211,153,0.25);">
-            <span class="mf-key" style="color:var(--green);">Mean PPI · Excellent range</span>
-            <span class="mf-note">30+ sprints · near-ideal first-time fix rate</span>
+          <div class="metric-formula" id="ppi-result-box" style="margin-top:12px;background:rgba(52,211,153,0.07);border-color:rgba(52,211,153,0.25);">
+            <span class="mf-key" id="ppi-result-key" style="color:var(--green);">Simulated PPI · Excellent</span>
+            <span class="mf-note" data-i18n="ppi.result.note">Demo values — not a client sprint. Mean across 30+ sprints stayed in Excellent.</span>
           </div>
         </div>
 
         <!-- RBD -->
-        <div class="metric-card">
+        <div class="metric-card is-rbd-excellent" id="rbd-card">
           <div class="metric-card-top">
             <div class="metric-acronym">RBD</div>
             <div>
@@ -3549,23 +3983,63 @@
           </div>
           <div class="metric-formula">
             <span class="mf-key">RBD</span> = (ΣBug − NoRealBug) / ΣBug × 100%
-            <span class="mf-note">NoRealBug = issues closed as "Invalid" · 100% = every reported ticket was a real defect</span>
+            <span class="mf-note" data-i18n="rbd.formula.note">NoRealBug = issues closed as "Invalid" · 100% = every reported ticket was a real defect</span>
           </div>
-          <div class="metric-scale">
-            <div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Poor<span>&lt;70%</span></div>
-            <div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Fair<span>70–84%</span></div>
-            <div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Good<span>85–94%</span></div>
-            <div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Excellent<span>95–100%</span></div>
+
+          <div class="rbd-sim" id="rbd-sim">
+            <p class="ppi-hint" data-i18n="rbd.sim.hint">NoRealBug ≤ ΣBug. With 0 bugs, NoRealBug stays at 0 (disabled) and RBD is 100% Excellent.</p>
+
+            <div class="ppi-live">
+              <span class="ppi-live-eq"><span id="rbd-eq-formula">RBD = (<span id="rbd-eq-bugs">10</span> − <span id="rbd-eq-invalid">0</span>) / <span id="rbd-eq-den">10</span> = </span><span id="rbd-eq-short" hidden>RBD = </span><strong id="rbd-live-val">100%</strong></span>
+              <span class="ppi-live-tier is-excellent" id="rbd-live-tier">Excellent</span>
+            </div>
+
+            <div class="ppi-scale-track">
+              <div class="ppi-scale-arrow" id="rbd-scale-arrow" style="left: 100%" aria-hidden="true">
+                <span class="ppi-scale-arrow-label" id="rbd-arrow-label">100%</span>
+                <span class="ppi-scale-arrow-head"></span>
+              </div>
+              <div class="metric-scale" role="img" aria-label="RBD scale 0% to 100%">
+                <div class="metric-scale-item rbd-tier-poor" data-tier="poor" style="background:rgba(239,68,68,0.09);color:#ef4444;">Poor<span>&lt;70%</span></div>
+                <div class="metric-scale-item rbd-tier-fair" data-tier="fair" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Fair<span>70–84%</span></div>
+                <div class="metric-scale-item rbd-tier-good" data-tier="good" style="background:rgba(79,114,255,0.1);color:var(--accent);">Good<span>85-&lt;95%</span></div>
+                <div class="metric-scale-item rbd-tier-excellent is-active" data-tier="excellent" style="background:rgba(52,211,153,0.1);color:var(--green);">Excellent<span>95-100%</span></div>
+              </div>
+            </div>
+
+            <div class="ppi-sim-controls">
+              <div class="ppi-ctrl">
+                <span class="ppi-ctrl-label" data-i18n="rbd.sim.bugs">ΣBug</span>
+                <div class="ppi-ctrl-row">
+                  <button type="button" class="ppi-btn" data-rbd="bugs-dec" aria-label="Decrease bugs">−</button>
+                  <span class="ppi-ctrl-val" id="rbd-bugs-val">10</span>
+                  <button type="button" class="ppi-btn" data-rbd="bugs-inc" aria-label="Increase bugs">+</button>
+                </div>
+              </div>
+              <div class="ppi-ctrl">
+                <span class="ppi-ctrl-label" data-i18n="rbd.sim.invalid">NoRealBug</span>
+                <div class="ppi-ctrl-row">
+                  <button type="button" class="ppi-btn" data-rbd="inv-dec" aria-label="Decrease invalid">−</button>
+                  <span class="ppi-ctrl-val" id="rbd-inv-val">0</span>
+                  <button type="button" class="ppi-btn" data-rbd="inv-inc" aria-label="Increase invalid">+</button>
+                </div>
+              </div>
+            </div>
           </div>
+
           <div class="metric-problems">
             <div class="metric-problem" data-i18n="rbd.p1">Reflects QA's grasp of acceptance criteria — low RBD suggests requirements need more precision</div>
             <div class="metric-problem" data-i18n="rbd.p2">Quantifies wasted dev effort: each false positive consumes time to investigate and close</div>
             <div class="metric-problem" data-i18n="rbd.p3">Indicates whether QA has adequate time to test — rushed cycles produce more false positives</div>
           </div>
+          <div class="metric-formula" id="rbd-result-box" style="margin-top:12px;background:rgba(52,211,153,0.07);border-color:rgba(52,211,153,0.25);">
+            <span class="mf-key" id="rbd-result-key" style="color:var(--green);">Simulated RBD · Excellent</span>
+            <span class="mf-note" data-i18n="rbd.result.note">Demo values — not a client sprint. Higher % means fewer false positives.</span>
+          </div>
         </div>
 
         <!-- SRM -->
-        <div class="metric-card">
+        <div class="metric-card is-srm-ideal" id="srm-card">
           <div class="metric-card-top">
             <div class="metric-acronym">SRM</div>
             <div>
@@ -3575,18 +4049,53 @@
           </div>
           <div class="metric-formula">
             <span class="mf-key">SRM</span> = tasks rejected before testing begins (count per sprint)
-            <span class="mf-note">Rejection requires a formal comment listing missing ACs · tracked per developer and per sprint</span>
+            <span class="mf-note" data-i18n="srm.formula.note">Rejection requires a formal comment listing missing ACs · tracked per developer and per sprint</span>
           </div>
-          <div class="metric-scale">
-            <div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Ideal<span>0</span></div>
-            <div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Acceptable<span>1–2</span></div>
-            <div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Warning<span>3–5</span></div>
-            <div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Critical<span>&gt;5</span></div>
+
+          <div class="srm-sim" id="srm-sim">
+            <p class="ppi-hint" data-i18n="srm.sim.hint">Adjust rejected-task count for the sprint. 0 is Ideal · lower is better.</p>
+
+            <div class="ppi-live">
+              <span class="ppi-live-eq">
+                <span id="srm-eq-zero" hidden>SRM = <span data-i18n="srm.sim.zero">No rejected tasks</span></span>
+                <span id="srm-eq-count">SRM = <strong id="srm-live-val">0</strong> <span id="srm-live-unit" data-i18n="srm.sim.unit">rejected tasks</span></span>
+              </span>
+              <span class="ppi-live-tier is-ideal" id="srm-live-tier">Ideal</span>
+            </div>
+
+            <div class="ppi-scale-track">
+              <div class="ppi-scale-arrow" id="srm-scale-arrow" style="left: 0%" aria-hidden="true">
+                <span class="ppi-scale-arrow-label" id="srm-arrow-label">0</span>
+                <span class="ppi-scale-arrow-head"></span>
+              </div>
+              <div class="metric-scale" role="img" aria-label="SRM scale 0 to 10">
+                <div class="metric-scale-item srm-tier-ideal is-active" data-tier="ideal" style="background:rgba(52,211,153,0.1);color:var(--green);">Ideal<span>0</span></div>
+                <div class="metric-scale-item srm-tier-acceptable" data-tier="acceptable" style="background:rgba(79,114,255,0.1);color:var(--accent);">Acceptable<span>1–2</span></div>
+                <div class="metric-scale-item srm-tier-warning" data-tier="warning" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Warning<span>3–5</span></div>
+                <div class="metric-scale-item srm-tier-critical" data-tier="critical" style="background:rgba(239,68,68,0.09);color:#ef4444;">Critical<span>&gt;5</span></div>
+              </div>
+            </div>
+
+            <div class="ppi-sim-controls" style="grid-template-columns: 1fr;">
+              <div class="ppi-ctrl">
+                <span class="ppi-ctrl-label" data-i18n="srm.sim.count">Rejected tasks / sprint</span>
+                <div class="ppi-ctrl-row">
+                  <button type="button" class="ppi-btn" data-srm="dec" aria-label="Decrease rejections">−</button>
+                  <span class="ppi-ctrl-val" id="srm-count-val">0</span>
+                  <button type="button" class="ppi-btn" data-srm="inc" aria-label="Increase rejections">+</button>
+                </div>
+              </div>
+            </div>
           </div>
+
           <div class="metric-problems">
             <div class="metric-problem" data-i18n="srm.p1">Forces AC alignment before work reaches QA — eliminating wasted test cycles at the source</div>
             <div class="metric-problem" data-i18n="srm.p2">Per-developer tracking identifies who needs clearer requirements or stricter pre-QA checklists</div>
             <div class="metric-problem" data-i18n="srm.p3">Consistently hitting 0 for multiple sprints is the strongest signal of a mature dev–QA handoff</div>
+          </div>
+          <div class="metric-formula" id="srm-result-box" style="margin-top:12px;background:rgba(52,211,153,0.07);border-color:rgba(52,211,153,0.25);">
+            <span class="mf-key" id="srm-result-key" style="color:var(--green);">Simulated SRM · Ideal</span>
+            <span class="mf-note" data-i18n="srm.result.note">Demo count — not a client sprint. Goal is sustained 0.</span>
           </div>
         </div>
 
@@ -3679,8 +4188,13 @@
 
         </div>
         <p class="metrics-trends-note" data-i18n="metrics.adv.note">Study metrics · illustrative trends for portfolio exploration</p>
+      </div><!-- /metrics-extended -->
 
-        <h3 class="metrics-subtitle metrics-subtitle--spaced" data-i18n="metrics.pyramid.title">Test pyramid</h3>
+      <!-- Test pyramid · independent subsection -->
+      <div class="metrics-pyramid-section toc-subsection" id="test-pyramid">
+        <div class="metric-sep" style="margin-top:0">
+          <span data-i18n="metrics.pyramid.title">Test pyramid</span>
+        </div>
         <p class="metrics-adv-intro metrics-adv-intro--wide" data-i18n="metrics.pyramid.desc">The test pyramid shows how automated tests should be spread by <strong>granularity</strong>: many fast, isolated checks at the base (unit), broader contract and service checks in the middle (integration, component), and a small set of full user journeys at the top (E2E). A healthy pyramid catches most defects early — where feedback is cheapest — and keeps slow, brittle UI tests to a minimum.</p>
         <div class="pyramid-card" id="metrics-pyramid" data-unit="2161" data-api="974" data-component="276" data-e2e="87">
           <div class="pyramid-card-body">
@@ -3755,7 +4269,367 @@
             </div>
           </div>
         </div>
-      </div>
+      </div><!-- /test-pyramid -->
+
+      <!-- Candidate metrics catalog · below current study sparklines -->
+      <details class="metrics-catalog toc-subsection is-draft" id="metrics-catalog" data-toc-skip>
+        <summary class="metrics-catalog-summary">
+          <span class="metrics-catalog-summary-title" data-i18n="metrics.cat.label">Candidate metrics catalog · draft</span>
+          <span class="metrics-catalog-draft-pill" data-i18n="metrics.cat.draft">Draft</span>
+          <svg class="metrics-catalog-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <div class="metrics-catalog-body">
+          <div class="metrics-adv-study">
+          <span class="metrics-adv-study-icon" aria-hidden="true">🧪</span>
+          <p data-i18n="metrics.cat.study">Catalog of <strong>candidate metrics</strong> I want to define next (formula, bands, Jira/CI source). Not instrumented yet; each card is a design brief so the PPI · SRM · RBD pattern can expand without inventing vanity KPIs.</p>
+        </div>
+
+        <div class="metrics-catalog-group">
+          <h3 class="metrics-subtitle" data-i18n="metrics.cat.g1.title">Handoff & prevention</h3>
+          <p class="metrics-adv-intro" data-i18n="metrics.cat.g1.intro">Signals that explain SRM and Task Score: readiness before QA starts, not only defects after.</p>
+          <div class="metrics-catalog-grid">
+
+          <article class="metric-study-card" id="study-acr">
+            <div class="metric-study-top">
+              <div class="metric-acronym">ACR</div>
+              <div style="min-width:0;flex:1;">
+                <h3 data-i18n="metrics.cat.acr.title">AC Clarity Rate</h3>
+                <p class="metric-desc" data-i18n="metrics.cat.acr.desc">Share of stories whose acceptance criteria are testable before kickoff. Low ACR usually precedes Simple Rejects.</p>
+              </div>
+              <span class="metric-study-badge" data-i18n="metrics.cat.badge">In study</span>
+            </div>
+            <div class="metric-study-formula">
+              <span class="mf-key">ACR</span> = ΣStoriesWithTestableAC / ΣStoriesCommitted × 100%
+              <span class="mf-note" data-i18n="metrics.cat.acr.note">Testable AC = given/when/then or equivalent checkable outcomes · Source: Jira + refinement checklist</span>
+            </div>
+            <div class="metric-study-scale" role="img" aria-label="ACR scale"><div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Poor<span><70%</span></div><div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Fair<span>70-84%</span></div><div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Good<span>85-<95%</span></div><div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Excellent<span>95-100%</span></div></div>
+            <p class="metric-study-rel" data-i18n="metrics.cat.acr.rel"><strong>Related:</strong> Explains SRM; pair with Task Score refinement gates</p>
+          </article>
+
+          <article class="metric-study-card" id="study-dof">
+            <div class="metric-study-top">
+              <div class="metric-acronym">DOF</div>
+              <div style="min-width:0;flex:1;">
+                <h3 data-i18n="metrics.cat.dof.title">Definition of Done Failures</h3>
+                <p class="metric-desc" data-i18n="metrics.cat.dof.desc">Count of tasks that failed Definition of Done at QA intake in the sprint. Binary complement to Task Score.</p>
+              </div>
+              <span class="metric-study-badge" data-i18n="metrics.cat.badge">In study</span>
+            </div>
+            <div class="metric-study-formula">
+              <span class="mf-key">DOF</span> = ΣTasksFailedDoD (per sprint)
+              <span class="mf-note" data-i18n="metrics.cat.dof.note">Failed DoD = missing evidence, tests, or AC coverage at handoff · Source: Jira workflow + checklist</span>
+            </div>
+            <div class="metric-study-scale" role="img" aria-label="DOF scale"><div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Ideal<span>0</span></div><div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Acceptable<span>1-2</span></div><div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Warning<span>3-5</span></div><div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Critical<span>>5</span></div></div>
+            <p class="metric-study-rel" data-i18n="metrics.cat.dof.rel"><strong>Related:</strong> Sibling of SRM and Task Score criteria 1-5</p>
+          </article>
+
+          <article class="metric-study-card" id="study-bcr">
+            <div class="metric-study-top">
+              <div class="metric-acronym">BCR</div>
+              <div style="min-width:0;flex:1;">
+                <h3 data-i18n="metrics.cat.bcr.title">Blocked Cycle Ratio</h3>
+                <p class="metric-desc" data-i18n="metrics.cat.bcr.desc">Share of cycle time spent blocked waiting on AC, environment, or test data. Turns delay into a root-cause signal.</p>
+              </div>
+              <span class="metric-study-badge" data-i18n="metrics.cat.badge">In study</span>
+            </div>
+            <div class="metric-study-formula">
+              <span class="mf-key">BCR</span> = ΣBlockedDays / ΣCycleDays × 100%
+              <span class="mf-note" data-i18n="metrics.cat.bcr.note">Blocked = waiting AC, env, data, or dependency · Source: Jira time-in-status</span>
+            </div>
+            <div class="metric-study-scale" role="img" aria-label="BCR scale"><div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Ideal<span><10%</span></div><div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Acceptable<span>10-19%</span></div><div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Warning<span>20-34%</span></div><div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Critical<span>≥35%</span></div></div>
+            <p class="metric-study-rel" data-i18n="metrics.cat.bcr.rel"><strong>Related:</strong> Pairs with TTQR; explains slow handoffs without blaming QA capacity</p>
+          </article>
+          </div>
+        </div>
+        <div class="metrics-catalog-group">
+          <h3 class="metrics-subtitle" data-i18n="metrics.cat.g2.title">Defect cycle</h3>
+          <p class="metrics-adv-intro" data-i18n="metrics.cat.g2.intro">Complements PPI and RBD: reopen quality, resolve speed by severity, and ticket noise.</p>
+          <div class="metrics-catalog-grid">
+
+          <article class="metric-study-card" id="study-ttr">
+            <div class="metric-study-top">
+              <div class="metric-acronym">TTR</div>
+              <div style="min-width:0;flex:1;">
+                <h3 data-i18n="metrics.cat.ttr.title">Time to Resolve</h3>
+                <p class="metric-desc" data-i18n="metrics.cat.ttr.desc">Median time from bug opened to closed, sliced by severity. Links the severity taxonomy to delivery speed.</p>
+              </div>
+              <span class="metric-study-badge" data-i18n="metrics.cat.badge">In study</span>
+            </div>
+            <div class="metric-study-formula">
+              <span class="mf-key">TTR</span> = median(ClosedAt − OpenedAt) by severity
+              <span class="mf-note" data-i18n="metrics.cat.ttr.note">Track Blocker/Critical separately from Minor/Low · Source: Jira · Target bands are for Critical+</span>
+            </div>
+            <div class="metric-study-scale" role="img" aria-label="TTR scale"><div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Ideal<span><1d</span></div><div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Acceptable<span>1-2d</span></div><div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Warning<span>3-5d</span></div><div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Critical<span>>5d</span></div></div>
+            <p class="metric-study-rel" data-i18n="metrics.cat.ttr.rel"><strong>Related:</strong> Uses severity ladder; pairs with PPI when fixes bounce</p>
+          </article>
+
+          <article class="metric-study-card" id="study-ror">
+            <div class="metric-study-top">
+              <div class="metric-acronym">ROR</div>
+              <div style="min-width:0;flex:1;">
+                <h3 data-i18n="metrics.cat.ror.title">Reopen Rate</h3>
+                <p class="metric-desc" data-i18n="metrics.cat.ror.desc">Bugs reopened after close divided by bugs closed. PPI counts ping-pong while open; ROR catches premature closes.</p>
+              </div>
+              <span class="metric-study-badge" data-i18n="metrics.cat.badge">In study</span>
+            </div>
+            <div class="metric-study-formula">
+              <span class="mf-key">ROR</span> = ΣReopened / ΣClosed × 100%
+              <span class="mf-note" data-i18n="metrics.cat.ror.note">Reopened = status returns to open/reopened after Done · Source: Jira transitions</span>
+            </div>
+            <div class="metric-study-scale" role="img" aria-label="ROR scale"><div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Ideal<span><5%</span></div><div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Acceptable<span>5-9%</span></div><div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Warning<span>10-19%</span></div><div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Critical<span>≥20%</span></div></div>
+            <p class="metric-study-rel" data-i18n="metrics.cat.ror.rel"><strong>Related:</strong> Natural mirror of PPI; same Jira bug set</p>
+          </article>
+
+          <article class="metric-study-card" id="study-dir">
+            <div class="metric-study-top">
+              <div class="metric-acronym">DIR</div>
+              <div style="min-width:0;flex:1;">
+                <h3 data-i18n="metrics.cat.dir.title">Duplicate / Invalid Ratio</h3>
+                <p class="metric-desc" data-i18n="metrics.cat.dir.desc">Noise tickets (invalid + duplicate) over all reported bugs. RBD focuses on real defects; DIR isolates ticket waste.</p>
+              </div>
+              <span class="metric-study-badge" data-i18n="metrics.cat.badge">In study</span>
+            </div>
+            <div class="metric-study-formula">
+              <span class="mf-key">DIR</span> = (ΣInvalid + ΣDuplicate) / ΣBug × 100%
+              <span class="mf-note" data-i18n="metrics.cat.dir.note">Invalid + Duplicate resolutions only · Source: Jira resolution field</span>
+            </div>
+            <div class="metric-study-scale" role="img" aria-label="DIR scale"><div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Ideal<span><5%</span></div><div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Acceptable<span>5-9%</span></div><div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Warning<span>10-19%</span></div><div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Critical<span>≥20%</span></div></div>
+            <p class="metric-study-rel" data-i18n="metrics.cat.dir.rel"><strong>Related:</strong> Splits RBD noise into actionable ticket hygiene</p>
+          </article>
+          </div>
+        </div>
+        <div class="metrics-catalog-group">
+          <h3 class="metrics-subtitle" data-i18n="metrics.cat.g3.title">Automation & CI</h3>
+          <p class="metrics-adv-intro" data-i18n="metrics.cat.g3.intro">Raises Flakiness and TPI from sparklines to formulable signals: ROI, signal quality, recovery, and coverage lag.</p>
+          <div class="metrics-catalog-grid">
+
+          <article class="metric-study-card" id="study-arr">
+            <div class="metric-study-top">
+              <div class="metric-acronym">ARR</div>
+              <div style="min-width:0;flex:1;">
+                <h3 data-i18n="metrics.cat.arr.title">Automation ROI Ratio</h3>
+                <p class="metric-desc" data-i18n="metrics.cat.arr.desc">Hours saved by automation versus hours spent maintaining the suite. Makes the qametrics story measurable per sprint.</p>
+              </div>
+              <span class="metric-study-badge" data-i18n="metrics.cat.badge">In study</span>
+            </div>
+            <div class="metric-study-formula">
+              <span class="mf-key">ARR</span> = HoursSaved / HoursMaintained
+              <span class="mf-note" data-i18n="metrics.cat.arr.note">Saved = manual cycles avoided · Maintained = authoring + flake fixes · Source: Sheets + CI timing</span>
+            </div>
+            <div class="metric-study-scale" role="img" aria-label="ARR scale"><div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Poor<span><1.0</span></div><div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Fair<span>1.0-1.9</span></div><div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Good<span>2.0-3.9</span></div><div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Excellent<span>≥4.0</span></div></div>
+            <p class="metric-study-rel" data-i18n="metrics.cat.arr.rel"><strong>Related:</strong> Narrative link to qametrics (1-3h/sprint to minutes)</p>
+          </article>
+
+          <article class="metric-study-card" id="study-sfr">
+            <div class="metric-study-top">
+              <div class="metric-acronym">SFR</div>
+              <div style="min-width:0;flex:1;">
+                <h3 data-i18n="metrics.cat.sfr.title">Signal-to-Flake Ratio</h3>
+                <p class="metric-desc" data-i18n="metrics.cat.sfr.desc">Real failures divided by real failures plus flakes. More actionable than flake% alone when deciding to trust CI.</p>
+              </div>
+              <span class="metric-study-badge" data-i18n="metrics.cat.badge">In study</span>
+            </div>
+            <div class="metric-study-formula">
+              <span class="mf-key">SFR</span> = ΣRealFails / (ΣRealFails + ΣFlakes)
+              <span class="mf-note" data-i18n="metrics.cat.sfr.note">Flake = failed then passed on retry without code change · Source: Cypress Cloud / CI</span>
+            </div>
+            <div class="metric-study-scale" role="img" aria-label="SFR scale"><div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Poor<span><0.70</span></div><div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Fair<span>0.70-0.84</span></div><div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Good<span>0.85-0.94</span></div><div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Excellent<span>≥0.95</span></div></div>
+            <p class="metric-study-rel" data-i18n="metrics.cat.sfr.rel"><strong>Related:</strong> Upgrades the Flakiness study card into a decision metric</p>
+          </article>
+
+          <article class="metric-study-card" id="study-mttg">
+            <div class="metric-study-top">
+              <div class="metric-acronym">MTTG</div>
+              <div style="min-width:0;flex:1;">
+                <h3 data-i18n="metrics.cat.mttg.title">Mean Time to Green</h3>
+                <p class="metric-desc" data-i18n="metrics.cat.mttg.desc">Average wall time from a red CI run to the next green on the same pipeline. Cost of an unstable suite.</p>
+              </div>
+              <span class="metric-study-badge" data-i18n="metrics.cat.badge">In study</span>
+            </div>
+            <div class="metric-study-formula">
+              <span class="mf-key">MTTG</span> = mean(GreenAt − RedAt)
+              <span class="mf-note" data-i18n="metrics.cat.mttg.note">Per primary QA pipeline (E2E/API) · Source: GitHub Actions / Cypress Cloud</span>
+            </div>
+            <div class="metric-study-scale" role="img" aria-label="MTTG scale"><div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Ideal<span><30m</span></div><div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Acceptable<span>30-89m</span></div><div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Warning<span>1.5-4h</span></div><div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Critical<span>>4h</span></div></div>
+            <p class="metric-study-rel" data-i18n="metrics.cat.mttg.rel"><strong>Related:</strong> Pairs with SFR; shows operational cost of flake</p>
+          </article>
+
+          <article class="metric-study-card" id="study-clr">
+            <div class="metric-study-top">
+              <div class="metric-acronym">CLR</div>
+              <div style="min-width:0;flex:1;">
+                <h3 data-i18n="metrics.cat.clr.title">Coverage Lag Rate</h3>
+                <p class="metric-desc" data-i18n="metrics.cat.clr.desc">Share of stories that shipped code without a new automated test in the same sprint. Shift-left without vanity coverage%.</p>
+              </div>
+              <span class="metric-study-badge" data-i18n="metrics.cat.badge">In study</span>
+            </div>
+            <div class="metric-study-formula">
+              <span class="mf-key">CLR</span> = ΣStoriesWithoutNewTest / ΣStoriesWithCode × 100%
+              <span class="mf-note" data-i18n="metrics.cat.clr.note">Exclude pure docs/config · Source: Jira + PR test file diff</span>
+            </div>
+            <div class="metric-study-scale" role="img" aria-label="CLR scale"><div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Ideal<span><10%</span></div><div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Acceptable<span>10-24%</span></div><div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Warning<span>25-39%</span></div><div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Critical<span>≥40%</span></div></div>
+            <p class="metric-study-rel" data-i18n="metrics.cat.clr.rel"><strong>Related:</strong> Complements TPI; pressures same-sprint automation</p>
+          </article>
+          </div>
+        </div>
+        <div class="metrics-catalog-group">
+          <h3 class="metrics-subtitle" data-i18n="metrics.cat.g4.title">Release & risk</h3>
+          <p class="metrics-adv-intro" data-i18n="metrics.cat.g4.intro">Go/no-go and post-release cost: readiness composite, hotfix load, and change without test evidence.</p>
+          <div class="metrics-catalog-grid">
+
+          <article class="metric-study-card" id="study-rri">
+            <div class="metric-study-top">
+              <div class="metric-acronym">RRI</div>
+              <div style="min-width:0;flex:1;">
+                <h3 data-i18n="metrics.cat.rri.title">Release Readiness Index</h3>
+                <p class="metric-desc" data-i18n="metrics.cat.rri.desc">Composite 0-100 score from escapes, open Blocker/Critical, flake, and SRM. A numeric go/no-go aligned to senior QA ownership.</p>
+              </div>
+              <span class="metric-study-badge" data-i18n="metrics.cat.badge">In study</span>
+            </div>
+            <div class="metric-study-formula">
+              <span class="mf-key">RRI</span> = weighted(DER, OpenSev, SFR, SRM) → 0-100
+              <span class="mf-note" data-i18n="metrics.cat.rri.note">Weights tuned per product risk · Source: Jira + CI + DER sheet</span>
+            </div>
+            <div class="metric-study-scale" role="img" aria-label="RRI scale"><div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Poor<span><60</span></div><div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Fair<span>60-74</span></div><div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Good<span>75-89</span></div><div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Excellent<span>90-100</span></div></div>
+            <p class="metric-study-rel" data-i18n="metrics.cat.rri.rel"><strong>Related:</strong> Rolls up DER, Flakiness, SRM, severity into one gate</p>
+          </article>
+
+          <article class="metric-study-card" id="study-hfr">
+            <div class="metric-study-top">
+              <div class="metric-acronym">HFR</div>
+              <div style="min-width:0;flex:1;">
+                <h3 data-i18n="metrics.cat.hfr.title">Hotfix Frequency</h3>
+                <p class="metric-desc" data-i18n="metrics.cat.hfr.desc">Hotfixes divided by planned releases in the period. Complements DER with operational cost after escape.</p>
+              </div>
+              <span class="metric-study-badge" data-i18n="metrics.cat.badge">In study</span>
+            </div>
+            <div class="metric-study-formula">
+              <span class="mf-key">HFR</span> = ΣHotfixes / ΣPlannedReleases
+              <span class="mf-note" data-i18n="metrics.cat.hfr.note">Hotfix = unplanned prod fix train · Source: release calendar + Jira</span>
+            </div>
+            <div class="metric-study-scale" role="img" aria-label="HFR scale"><div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Ideal<span>0</span></div><div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Acceptable<span>≤0.25</span></div><div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Warning<span>0.26-0.50</span></div><div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Critical<span>>0.50</span></div></div>
+            <p class="metric-study-rel" data-i18n="metrics.cat.hfr.rel"><strong>Related:</strong> Pairs with DER; shows blast radius after escape</p>
+          </article>
+
+          <article class="metric-study-card" id="study-crv">
+            <div class="metric-study-top">
+              <div class="metric-acronym">CRV</div>
+              <div style="min-width:0;flex:1;">
+                <h3 data-i18n="metrics.cat.crv.title">Change Risk Violations</h3>
+                <p class="metric-desc" data-i18n="metrics.cat.crv.desc">Deploys (or CRs) that changed in-scope code without linked test evidence. Closes the loop on post-deploy verification.</p>
+              </div>
+              <span class="metric-study-badge" data-i18n="metrics.cat.badge">In study</span>
+            </div>
+            <div class="metric-study-formula">
+              <span class="mf-key">CRV</span> = ΣDeploysWithoutEvidence / ΣDeploys × 100%
+              <span class="mf-note" data-i18n="metrics.cat.crv.note">Evidence = automated run or signed manual pack on changed scope · Source: CR + CI artifacts</span>
+            </div>
+            <div class="metric-study-scale" role="img" aria-label="CRV scale"><div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Ideal<span>0%</span></div><div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Acceptable<span>1-5%</span></div><div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Warning<span>6-14%</span></div><div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Critical<span>≥15%</span></div></div>
+            <p class="metric-study-rel" data-i18n="metrics.cat.crv.rel"><strong>Related:</strong> Formalizes CR verification / go-no-go discipline</p>
+          </article>
+          </div>
+        </div>
+        <div class="metrics-catalog-group">
+          <h3 class="metrics-subtitle" data-i18n="metrics.cat.g5.title">Regulated domain</h3>
+          <p class="metrics-adv-intro" data-i18n="metrics.cat.g5.intro">KYC/CLP-specific signals that generic escape rate cannot tell: compliance escapes and IDV/MFA gate reliability.</p>
+          <div class="metrics-catalog-grid">
+
+          <article class="metric-study-card" id="study-cde">
+            <div class="metric-study-top">
+              <div class="metric-acronym">CDE</div>
+              <div style="min-width:0;flex:1;">
+                <h3 data-i18n="metrics.cat.cde.title">Compliance Defect Escape</h3>
+                <p class="metric-desc" data-i18n="metrics.cat.cde.desc">PROD escapes limited to regulated flows (KYC, tax, MFA, IDV). DER for the compliance slice only.</p>
+              </div>
+              <span class="metric-study-badge" data-i18n="metrics.cat.badge">In study</span>
+            </div>
+            <div class="metric-study-formula">
+              <span class="mf-key">CDE</span> = ΣComplianceEscapes / ΣComplianceChanges × 100%
+              <span class="mf-note" data-i18n="metrics.cat.cde.note">Tag bugs with compliance=true · Source: Jira labels + release notes</span>
+            </div>
+            <div class="metric-study-scale" role="img" aria-label="CDE scale"><div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Ideal<span>0%</span></div><div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Acceptable<span>≤2%</span></div><div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Warning<span>3-5%</span></div><div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Critical<span>>5%</span></div></div>
+            <p class="metric-study-rel" data-i18n="metrics.cat.cde.rel"><strong>Related:</strong> Domain-specific DER for KYC/CLP storytelling</p>
+          </article>
+
+          <article class="metric-study-card" id="study-igr">
+            <div class="metric-study-top">
+              <div class="metric-acronym">IGR</div>
+              <div style="min-width:0;flex:1;">
+                <h3 data-i18n="metrics.cat.igr.title">IDV / Gate Reliability</h3>
+                <p class="metric-desc" data-i18n="metrics.cat.igr.desc">Correct approve/reject outcomes for IDV and MFA gates in SIT versus expected fixtures (Mitek, TOTP, document paths).</p>
+              </div>
+              <span class="metric-study-badge" data-i18n="metrics.cat.badge">In study</span>
+            </div>
+            <div class="metric-study-formula">
+              <span class="mf-key">IGR</span> = ΣCorrectGateOutcomes / ΣGateAttempts × 100%
+              <span class="mf-note" data-i18n="metrics.cat.igr.note">Includes selfie/doc approve+reject and MFA success/fail paths · Source: SIT runs + device lab</span>
+            </div>
+            <div class="metric-study-scale" role="img" aria-label="IGR scale"><div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Poor<span><95%</span></div><div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Fair<span>95-<98%</span></div><div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Good<span>98-<99.5%</span></div><div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Excellent<span>≥99.5%</span></div></div>
+            <p class="metric-study-rel" data-i18n="metrics.cat.igr.rel"><strong>Related:</strong> Unique mobile+compliance metric from Mitek/MFA work</p>
+          </article>
+          </div>
+        </div>
+
+        <div class="metrics-catalog-group">
+          <h3 class="metrics-subtitle" data-i18n="metrics.cat.g6.title">Coverage KPIs</h3>
+          <p class="metrics-adv-intro" data-i18n="metrics.cat.g6.intro">Coverage with a target and a decision: change risk on the PR, critical paths in the domain, and AC-to-evidence linkage. Not raw line coverage %.</p>
+          <div class="metrics-catalog-grid">
+
+          <article class="metric-study-card" id="study-brc">
+            <div class="metric-study-top">
+              <div class="metric-acronym">BRC</div>
+              <div style="min-width:0;flex:1;">
+                <h3 data-i18n="metrics.cat.brc.title">Branch Risk Coverage</h3>
+                <p class="metric-desc" data-i18n="metrics.cat.brc.desc">Share of changed branches in a PR that gained a new or updated automated test. Shift-left coverage of the diff, not the whole repo.</p>
+              </div>
+              <span class="metric-study-badge" data-i18n="metrics.cat.badge.kpi">KPI</span>
+            </div>
+            <div class="metric-study-formula">
+              <span class="mf-key">BRC</span> = ΣChangedBranchesWithTest / ΣChangedBranches × 100%
+              <span class="mf-note" data-i18n="metrics.cat.brc.note">KPI target ≥ 90% · Fail action: block merge or require waiver · Source: PR diff + CI coverage on changed files</span>
+            </div>
+            <div class="metric-study-scale" role="img" aria-label="BRC scale"><div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Poor<span>&lt;70%</span></div><div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Fair<span>70-84%</span></div><div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Good<span>85-&lt;90%</span></div><div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Excellent<span>≥90%</span></div></div>
+            <p class="metric-study-rel" data-i18n="metrics.cat.brc.rel"><strong>Related:</strong> Complements CLR and CRV; merge gate for shift-left</p>
+          </article>
+
+          <article class="metric-study-card" id="study-crc">
+            <div class="metric-study-top">
+              <div class="metric-acronym">CRC</div>
+              <div style="min-width:0;flex:1;">
+                <h3 data-i18n="metrics.cat.crc.title">Critical Path Coverage</h3>
+                <p class="metric-desc" data-i18n="metrics.cat.crc.desc">Share of business-critical paths (KYC, tax, MFA, IDV) with current automated or signed evidence. Coverage that means go/no-go, not Sonar line %.</p>
+              </div>
+              <span class="metric-study-badge" data-i18n="metrics.cat.badge.kpi">KPI</span>
+            </div>
+            <div class="metric-study-formula">
+              <span class="mf-key">CRC</span> = ΣCriticalPathsCovered / ΣCriticalPaths × 100%
+              <span class="mf-note" data-i18n="metrics.cat.crc.note">KPI target = 100% on release train · Fail action: hold go/no-go · Source: path inventory + Zephyr/CI evidence</span>
+            </div>
+            <div class="metric-study-scale" role="img" aria-label="CRC scale"><div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Poor<span>&lt;90%</span></div><div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Fair<span>90-&lt;95%</span></div><div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Good<span>95-&lt;100%</span></div><div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Excellent<span>100%</span></div></div>
+            <p class="metric-study-rel" data-i18n="metrics.cat.crc.rel"><strong>Related:</strong> Pairs with CDE and RRI for regulated release readiness</p>
+          </article>
+
+          <article class="metric-study-card" id="study-scc">
+            <div class="metric-study-top">
+              <div class="metric-acronym">SCC</div>
+              <div style="min-width:0;flex:1;">
+                <h3 data-i18n="metrics.cat.scc.title">Spec-to-Case Coverage</h3>
+                <p class="metric-desc" data-i18n="metrics.cat.scc.desc">Share of sprint acceptance criteria with linked automated run or signed manual pack. Turns AC clarity into measurable DoD evidence.</p>
+              </div>
+              <span class="metric-study-badge" data-i18n="metrics.cat.badge.kpi">KPI</span>
+            </div>
+            <div class="metric-study-formula">
+              <span class="mf-key">SCC</span> = ΣACWithEvidence / ΣACCommitted × 100%
+              <span class="mf-note" data-i18n="metrics.cat.scc.note">KPI target ≥ 95% per sprint · Fail action: fail DoD / open ACR gap · Source: Jira AC + Zephyr / CI links</span>
+            </div>
+            <div class="metric-study-scale" role="img" aria-label="SCC scale"><div class="metric-scale-item" style="background:rgba(239,68,68,0.09);color:#ef4444;">Poor<span>&lt;80%</span></div><div class="metric-scale-item" style="background:rgba(251,191,36,0.09);color:var(--yellow);">Fair<span>80-89%</span></div><div class="metric-scale-item" style="background:rgba(79,114,255,0.1);color:var(--accent);">Good<span>90-&lt;95%</span></div><div class="metric-scale-item" style="background:rgba(52,211,153,0.1);color:var(--green);">Excellent<span>≥95%</span></div></div>
+            <p class="metric-study-rel" data-i18n="metrics.cat.scc.rel"><strong>Related:</strong> Closes the loop with ACR, DOF, and Looker test-case tracking</p>
+          </article>
+          </div>
+        </div>
+        <p class="metrics-trends-note" data-i18n="metrics.cat.note">Catalog only · bands are draft proposals until collected on real sprints</p>
+        </div>
+      </details><!-- /metrics-catalog -->
 
     </section>
 
@@ -4218,13 +5092,18 @@
         'looker.s4': 'Consecutive sprint reports',
         'looker.note': 'Same lineage as the observability platform: spreadsheet → Grafana/InfluxDB → Looker executive reports. A related <strong>Customer Lifecycle</strong> Looker dashboard sat alongside the sprint report.',
         'ts.subtitle': 'Task Score',
+        'ts.sim.hint': 'Click the criteria to simulate a task score',
+        'ts.tier.poor': 'Poor', 'ts.tier.fair': 'Fair', 'ts.tier.good': 'Good', 'ts.tier.excellent': 'Excellent',
         'ts.intro': 'In Q4 2024 at Questrade I applied <strong>Task Score</strong> — a delivery quality metric that evaluates, per task, whether the team followed quality gates before reaching production. The premise: pass/fail rates alone don\'t show how consistently processes are followed sprint to sprint. Task Score makes the invisible visible — and turns retrospectives from feelings into data.',
         'ts.c1.h': 'Deploy in SIT', 'ts.c1.p': 'Task was deployed to the SIT environment before QA review begins',
         'ts.c2.h': 'Pipeline passed', 'ts.c2.p': 'All automated pipeline checks passed before QA handoff',
         'ts.c3.h': 'QA review performed', 'ts.c3.p': 'A formal QA review session was conducted on the task',
-        'ts.c4.h': 'No major bugs', 'ts.c4.p': 'Zero <a href="#severity">Blocker, Critical, or Major</a> severity bugs found',
+        'ts.c4.h': 'No major bugs', 'ts.c4.p': 'Zero <span class="ts-inline-link" data-href="#severity" role="link" tabindex="0">Blocker, Critical, or Major</span> severity bugs found',
         'ts.c5.h': 'No Simple Rejection', 'ts.c5.p': 'Task not immediately rejected for not being ready to test',
         'ts.c6.h': 'Bugs reported', 'ts.c6.p': '0 bugs = +5 · ≤2 bugs = +3 · ≥3 bugs = 0',
+        'ts.c6.phase.none': 'Phase: 0 bugs',
+        'ts.c6.phase.few': 'Phase: ≤2 bugs',
+        'ts.c6.phase.many': 'Phase: ≥3 bugs',
         'ts.results.label': 'Questrade · Q4 2024 — real data',
         'ts.avg.label': 'Q4 Average',
         'ts.impact': 'Before Task Score, quality issues were caught reactively — after bugs reached staging or production. The metric surfaces <strong>process gaps per cadence</strong>, not just counts, enabling targeted retrospectives. The C2 dip to 23.43 (Good) was directly linked to two high-severity bugs in a complex integration — it prompted a mid-cadence adjustment that brought C3 back to 27.80. Task Score is now a <strong>leading quality indicator</strong> in sprint retrospectives at Questrade.',
@@ -4235,16 +5114,37 @@
         'metrics.trends.srm.dir': '↓ toward 0',
         'metrics.trends.note': 'Sanitized sample — illustrative trend, not client data',
         'ppi.title': 'Ping Pong Index',
+        'ppi.sim.hint': 'Each bug starts with PingPong = 1 · +1 per failed fix returned to dev. So ΣPingPong ≥ ΣBug, and PPI ≤ 1.00. With 0 bugs, PingPong is 0 (disabled) and PPI is 1.00 Excellent.',
+        'ppi.sim.bugs': 'ΣBug',
+        'ppi.sim.ping': 'ΣPingPong',
+        'ppi.formula.note': 'Each bug\'s PingPong starts at 1 · +1 on every failed fix returned to dev · 1.0 = perfect (one-time fix for all bugs)',
+        'ppi.result.note': 'Demo values — not a client sprint. Mean across 30+ sprints stayed in Excellent.',
+        'ppi.tier.poor': 'Poor', 'ppi.tier.fair': 'Fair', 'ppi.tier.good': 'Good', 'ppi.tier.excellent': 'Excellent',
+        'ppi.result.key': 'Simulated PPI · {tier}',
         'ppi.desc': 'Ratio of total bugs to total fix attempts. A value of 1.0 means every bug was fixed correctly on the first try — values below 1.0 reflect ping-pong cycles between dev and QA.',
         'ppi.p1': 'Signals bug report clarity — low PPI often means ambiguous descriptions, not just dev errors',
         'ppi.p2': 'A bug with PingPong = 1 is a clean, first-time fix — the ideal baseline for every ticket',
         'ppi.p3': 'Trending toward 1.0 over sprints is concrete evidence that dev–QA alignment is improving',
         'rbd.title': 'Real Bug Detection',
+        'rbd.sim.hint': 'NoRealBug ≤ ΣBug. With 0 bugs, NoRealBug stays at 0 (disabled) and RBD is 100% Excellent.',
+        'rbd.sim.bugs': 'ΣBug',
+        'rbd.sim.invalid': 'NoRealBug',
+        'rbd.formula.note': 'NoRealBug = issues closed as "Invalid" · 100% = every reported ticket was a real defect',
+        'rbd.result.note': 'Demo values — not a client sprint. Higher % means fewer false positives.',
+        'rbd.tier.poor': 'Poor', 'rbd.tier.fair': 'Fair', 'rbd.tier.good': 'Good', 'rbd.tier.excellent': 'Excellent',
         'rbd.desc': 'Percentage of reported issues that are genuine defects. Captures the cost of false positives — time spent opening, analyzing, and closing tickets that weren\'t real bugs.',
         'rbd.p1': 'Reflects QA\'s grasp of acceptance criteria — low RBD suggests requirements need more precision',
         'rbd.p2': 'Quantifies wasted dev effort: each false positive consumes time to investigate and close',
         'rbd.p3': 'Indicates whether QA has adequate time to test — rushed cycles produce more false positives',
         'srm.title': 'Simple Rejection Metric',
+        'srm.sim.hint': 'Adjust rejected-task count for the sprint. 0 is Ideal · lower is better.',
+        'srm.sim.count': 'Rejected tasks / sprint',
+        'srm.sim.unit': 'rejected tasks',
+        'srm.sim.unit.one': 'rejected task',
+        'srm.sim.zero': 'No rejected tasks',
+        'srm.formula.note': 'Rejection requires a formal comment listing missing ACs · tracked per developer and per sprint',
+        'srm.result.note': 'Demo count — not a client sprint. Goal is sustained 0.',
+        'srm.tier.ideal': 'Ideal', 'srm.tier.acceptable': 'Acceptable', 'srm.tier.warning': 'Warning', 'srm.tier.critical': 'Critical',
         'srm.desc': 'Count of tasks returned to dev before testing even begins — because too many acceptance criteria were unimplemented. A raw count per sprint; lower is better, 0 is the goal.',
         'srm.p1': 'Forces AC alignment before work reaches QA — eliminating wasted test cycles at the source',
         'srm.p2': 'Per-developer tracking identifies who needs clearer requirements or stricter pre-QA checklists',
@@ -4269,7 +5169,96 @@
         'metrics.adv.tpi.comp': 'Component',
         'metrics.adv.tpi.e2e': 'E2E',
         'metrics.adv.tpi.kpi': 'tests · repo scan',
-        'metrics.adv.note': 'Study metrics · illustrative trends for portfolio exploration',
+        'metrics.cat.label': 'Candidate metrics catalog · draft',
+        'metrics.cat.draft': 'Draft',
+        'metrics.cat.badge': 'In study',
+        'metrics.cat.badge.kpi': 'KPI',
+        'metrics.cat.study': 'Catalog of <strong>candidate metrics</strong> I want to define next (formula, bands, Jira/CI source). Not instrumented yet; each card is a design brief so the PPI · SRM · RBD pattern can expand without inventing vanity KPIs.',
+        'metrics.cat.note': 'Catalog only · bands are draft proposals until collected on real sprints',
+        'metrics.cat.g1.title': 'Handoff & prevention',
+        'metrics.cat.g1.intro': 'Signals that explain SRM and Task Score: readiness before QA starts, not only defects after.',
+        'metrics.cat.g2.title': 'Defect cycle',
+        'metrics.cat.g2.intro': 'Complements PPI and RBD: reopen quality, resolve speed by severity, and ticket noise.',
+        'metrics.cat.g3.title': 'Automation & CI',
+        'metrics.cat.g3.intro': 'Raises Flakiness and TPI from sparklines to formulable signals: ROI, signal quality, recovery, and coverage lag.',
+        'metrics.cat.g4.title': 'Release & risk',
+        'metrics.cat.g4.intro': 'Go/no-go and post-release cost: readiness composite, hotfix load, and change without test evidence.',
+        'metrics.cat.g5.title': 'Regulated domain',
+        'metrics.cat.g5.intro': 'KYC/CLP-specific signals that generic escape rate cannot tell: compliance escapes and IDV/MFA gate reliability.',
+        'metrics.cat.g6.title': 'Coverage KPIs',
+        'metrics.cat.g6.intro': 'Coverage with a target and a decision: change risk on the PR, critical paths in the domain, and AC-to-evidence linkage. Not raw line coverage %.',
+        'metrics.cat.acr.title': 'AC Clarity Rate',
+        'metrics.cat.acr.desc': 'Share of stories whose acceptance criteria are testable before kickoff. Low ACR usually precedes Simple Rejects.',
+        'metrics.cat.acr.note': 'Testable AC = given/when/then or equivalent checkable outcomes · Source: Jira + refinement checklist',
+        'metrics.cat.acr.rel': '<strong>Related:</strong> Explains SRM; pair with Task Score refinement gates',
+        'metrics.cat.dof.title': 'Definition of Done Failures',
+        'metrics.cat.dof.desc': 'Count of tasks that failed Definition of Done at QA intake in the sprint. Binary complement to Task Score.',
+        'metrics.cat.dof.note': 'Failed DoD = missing evidence, tests, or AC coverage at handoff · Source: Jira workflow + checklist',
+        'metrics.cat.dof.rel': '<strong>Related:</strong> Sibling of SRM and Task Score criteria 1-5',
+        'metrics.cat.bcr.title': 'Blocked Cycle Ratio',
+        'metrics.cat.bcr.desc': 'Share of cycle time spent blocked waiting on AC, environment, or test data. Turns delay into a root-cause signal.',
+        'metrics.cat.bcr.note': 'Blocked = waiting AC, env, data, or dependency · Source: Jira time-in-status',
+        'metrics.cat.bcr.rel': '<strong>Related:</strong> Pairs with TTQR; explains slow handoffs without blaming QA capacity',
+        'metrics.cat.ttr.title': 'Time to Resolve',
+        'metrics.cat.ttr.desc': 'Median time from bug opened to closed, sliced by severity. Links the severity taxonomy to delivery speed.',
+        'metrics.cat.ttr.note': 'Track Blocker/Critical separately from Minor/Low · Source: Jira · Target bands are for Critical+',
+        'metrics.cat.ttr.rel': '<strong>Related:</strong> Uses severity ladder; pairs with PPI when fixes bounce',
+        'metrics.cat.ror.title': 'Reopen Rate',
+        'metrics.cat.ror.desc': 'Bugs reopened after close divided by bugs closed. PPI counts ping-pong while open; ROR catches premature closes.',
+        'metrics.cat.ror.note': 'Reopened = status returns to open/reopened after Done · Source: Jira transitions',
+        'metrics.cat.ror.rel': '<strong>Related:</strong> Natural mirror of PPI; same Jira bug set',
+        'metrics.cat.dir.title': 'Duplicate / Invalid Ratio',
+        'metrics.cat.dir.desc': 'Noise tickets (invalid + duplicate) over all reported bugs. RBD focuses on real defects; DIR isolates ticket waste.',
+        'metrics.cat.dir.note': 'Invalid + Duplicate resolutions only · Source: Jira resolution field',
+        'metrics.cat.dir.rel': '<strong>Related:</strong> Splits RBD noise into actionable ticket hygiene',
+        'metrics.cat.arr.title': 'Automation ROI Ratio',
+        'metrics.cat.arr.desc': 'Hours saved by automation versus hours spent maintaining the suite. Makes the qametrics story measurable per sprint.',
+        'metrics.cat.arr.note': 'Saved = manual cycles avoided · Maintained = authoring + flake fixes · Source: Sheets + CI timing',
+        'metrics.cat.arr.rel': '<strong>Related:</strong> Narrative link to qametrics (1-3h/sprint to minutes)',
+        'metrics.cat.sfr.title': 'Signal-to-Flake Ratio',
+        'metrics.cat.sfr.desc': 'Real failures divided by real failures plus flakes. More actionable than flake% alone when deciding to trust CI.',
+        'metrics.cat.sfr.note': 'Flake = failed then passed on retry without code change · Source: Cypress Cloud / CI',
+        'metrics.cat.sfr.rel': '<strong>Related:</strong> Upgrades the Flakiness study card into a decision metric',
+        'metrics.cat.mttg.title': 'Mean Time to Green',
+        'metrics.cat.mttg.desc': 'Average wall time from a red CI run to the next green on the same pipeline. Cost of an unstable suite.',
+        'metrics.cat.mttg.note': 'Per primary QA pipeline (E2E/API) · Source: GitHub Actions / Cypress Cloud',
+        'metrics.cat.mttg.rel': '<strong>Related:</strong> Pairs with SFR; shows operational cost of flake',
+        'metrics.cat.clr.title': 'Coverage Lag Rate',
+        'metrics.cat.clr.desc': 'Share of stories that shipped code without a new automated test in the same sprint. Shift-left without vanity coverage%.',
+        'metrics.cat.clr.note': 'Exclude pure docs/config · Source: Jira + PR test file diff',
+        'metrics.cat.clr.rel': '<strong>Related:</strong> Complements TPI; pressures same-sprint automation',
+        'metrics.cat.rri.title': 'Release Readiness Index',
+        'metrics.cat.rri.desc': 'Composite 0-100 score from escapes, open Blocker/Critical, flake, and SRM. A numeric go/no-go aligned to senior QA ownership.',
+        'metrics.cat.rri.note': 'Weights tuned per product risk · Source: Jira + CI + DER sheet',
+        'metrics.cat.rri.rel': '<strong>Related:</strong> Rolls up DER, Flakiness, SRM, severity into one gate',
+        'metrics.cat.hfr.title': 'Hotfix Frequency',
+        'metrics.cat.hfr.desc': 'Hotfixes divided by planned releases in the period. Complements DER with operational cost after escape.',
+        'metrics.cat.hfr.note': 'Hotfix = unplanned prod fix train · Source: release calendar + Jira',
+        'metrics.cat.hfr.rel': '<strong>Related:</strong> Pairs with DER; shows blast radius after escape',
+        'metrics.cat.crv.title': 'Change Risk Violations',
+        'metrics.cat.crv.desc': 'Deploys (or CRs) that changed in-scope code without linked test evidence. Closes the loop on post-deploy verification.',
+        'metrics.cat.crv.note': 'Evidence = automated run or signed manual pack on changed scope · Source: CR + CI artifacts',
+        'metrics.cat.crv.rel': '<strong>Related:</strong> Formalizes CR verification / go-no-go discipline',
+        'metrics.cat.cde.title': 'Compliance Defect Escape',
+        'metrics.cat.cde.desc': 'PROD escapes limited to regulated flows (KYC, tax, MFA, IDV). DER for the compliance slice only.',
+        'metrics.cat.cde.note': 'Tag bugs with compliance=true · Source: Jira labels + release notes',
+        'metrics.cat.cde.rel': '<strong>Related:</strong> Domain-specific DER for KYC/CLP storytelling',
+        'metrics.cat.igr.title': 'IDV / Gate Reliability',
+        'metrics.cat.igr.desc': 'Correct approve/reject outcomes for IDV and MFA gates in SIT versus expected fixtures (Mitek, TOTP, document paths).',
+        'metrics.cat.igr.note': 'Includes selfie/doc approve+reject and MFA success/fail paths · Source: SIT runs + device lab',
+        'metrics.cat.igr.rel': '<strong>Related:</strong> Unique mobile+compliance metric from Mitek/MFA work',
+        'metrics.cat.brc.title': 'Branch Risk Coverage',
+        'metrics.cat.brc.desc': 'Share of changed branches in a PR that gained a new or updated automated test. Shift-left coverage of the diff, not the whole repo.',
+        'metrics.cat.brc.note': 'KPI target ≥ 90% · Fail action: block merge or require waiver · Source: PR diff + CI coverage on changed files',
+        'metrics.cat.brc.rel': '<strong>Related:</strong> Complements CLR and CRV; merge gate for shift-left',
+        'metrics.cat.crc.title': 'Critical Path Coverage',
+        'metrics.cat.crc.desc': 'Share of business-critical paths (KYC, tax, MFA, IDV) with current automated or signed evidence. Coverage that means go/no-go, not Sonar line %.',
+        'metrics.cat.crc.note': 'KPI target = 100% on release train · Fail action: hold go/no-go · Source: path inventory + Zephyr/CI evidence',
+        'metrics.cat.crc.rel': '<strong>Related:</strong> Pairs with CDE and RRI for regulated release readiness',
+        'metrics.cat.scc.title': 'Spec-to-Case Coverage',
+        'metrics.cat.scc.desc': 'Share of sprint acceptance criteria with linked automated run or signed manual pack. Turns AC clarity into measurable DoD evidence.',
+        'metrics.cat.scc.note': 'KPI target ≥ 95% per sprint · Fail action: fail DoD / open ACR gap · Source: Jira AC + Zephyr / CI links',
+        'metrics.cat.scc.rel': '<strong>Related:</strong> Closes the loop with ACR, DOF, and Looker test-case tracking',
         'metrics.pyramid.title': 'Test pyramid',
         'metrics.pyramid.desc': 'The test pyramid shows how automated tests should be spread by <strong>granularity</strong>: many fast, isolated checks at the base (unit), broader contract and service checks in the middle (integration, component), and a small set of full user journeys at the top (E2E). A healthy pyramid catches most defects early — where feedback is cheapest — and keeps slow, brittle UI tests to a minimum.',
         'metrics.pyramid.e2e.name': 'E2E',
@@ -4607,13 +5596,18 @@
         'looker.s4': 'Reports consecutivos',
         'looker.note': 'Mesma linhagem da plataforma de observabilidade: planilha → Grafana/InfluxDB → reports executivos no Looker. Havia também um dashboard Looker de <strong>Customer Lifecycle</strong> ao lado do report por sprint.',
         'ts.subtitle': 'Task Score',
+        'ts.sim.hint': 'Clique nos critérios para simular um Task Score',
+        'ts.tier.poor': 'Poor', 'ts.tier.fair': 'Fair', 'ts.tier.good': 'Good', 'ts.tier.excellent': 'Excellent',
         'ts.intro': 'No Q4 2024 na Questrade, apliquei o <strong>Task Score</strong> — uma métrica de qualidade de entrega que avalia, por tarefa, se o time seguiu os quality gates antes de chegar à produção. A premissa: taxas de aprovação/reprovação isoladas não mostram a consistência dos processos sprint a sprint. O Task Score torna o invisível visível — e transforma retrospectivas de sentimentos em dados.',
         'ts.c1.h': 'Deploy no SIT', 'ts.c1.p': 'A tarefa foi implantada no ambiente SIT antes do review de QA',
         'ts.c2.h': 'Pipeline aprovada', 'ts.c2.p': 'Todas as verificações automáticas da pipeline passaram antes da entrega ao QA',
         'ts.c3.h': 'Review de QA realizado', 'ts.c3.p': 'Uma sessão formal de review de QA foi conduzida na tarefa',
-        'ts.c4.h': 'Sem bugs graves', 'ts.c4.p': 'Zero bugs de severidade <a href="#severity">Blocker, Critical ou Major</a> encontrados',
+        'ts.c4.h': 'Sem bugs graves', 'ts.c4.p': 'Zero bugs de severidade <span class="ts-inline-link" data-href="#severity" role="link" tabindex="0">Blocker, Critical ou Major</span> encontrados',
         'ts.c5.h': 'Sem Simple Rejection', 'ts.c5.p': 'Tarefa não foi imediatamente rejeitada por não estar pronta para teste',
         'ts.c6.h': 'Bugs reportados', 'ts.c6.p': '0 bugs = +5 · ≤2 bugs = +3 · ≥3 bugs = 0',
+        'ts.c6.phase.none': 'Fase: 0 bugs',
+        'ts.c6.phase.few': 'Fase: ≤2 bugs',
+        'ts.c6.phase.many': 'Fase: ≥3 bugs',
         'ts.results.label': 'Questrade · Q4 2024 — dados reais',
         'ts.avg.label': 'Média Q4',
         'ts.impact': 'Antes do Task Score, problemas de qualidade eram identificados de forma reativa — após os bugs chegarem ao staging ou à produção. A métrica evidencia <strong>gaps de processo por cadência</strong>, não apenas contagens, viabilizando retrospectivas direcionadas. A queda no C2 para 23,43 (Good) foi diretamente ligada a dois bugs de alta severidade numa integração complexa — o que gerou um ajuste no meio da cadência que trouxe o C3 de volta para 27,80. O Task Score é hoje um <strong>indicador líder de qualidade</strong> nas retrospectivas de sprint na Questrade.',
@@ -4624,16 +5618,37 @@
         'metrics.trends.srm.dir': '↓ em direção a 0',
         'metrics.trends.note': 'Amostra sanitizada — tendência ilustrativa, não são dados reais do cliente',
         'ppi.title': 'Ping Pong Index',
+        'ppi.sim.hint': 'Cada bug começa com PingPong = 1 · +1 a cada falha devolvida ao dev. Assim ΣPingPong ≥ ΣBug e PPI ≤ 1,00. Com 0 bugs, PingPong fica em 0 (desabilitado) e o PPI é 1,00 Excellent.',
+        'ppi.sim.bugs': 'ΣBug',
+        'ppi.sim.ping': 'ΣPingPong',
+        'ppi.formula.note': 'O PingPong de cada bug começa em 1 · +1 a cada falha devolvida ao dev · 1.0 = perfeito (correção na primeira tentativa)',
+        'ppi.result.note': 'Valores de demo — não é um sprint de cliente. A média em 30+ sprints ficou em Excellent.',
+        'ppi.tier.poor': 'Poor', 'ppi.tier.fair': 'Fair', 'ppi.tier.good': 'Good', 'ppi.tier.excellent': 'Excellent',
+        'ppi.result.key': 'PPI simulado · {tier}',
         'ppi.desc': 'Razão entre o total de bugs e o total de tentativas de correção. Um valor de 1,0 significa que cada bug foi corrigido corretamente na primeira tentativa — valores abaixo de 1,0 refletem ciclos de ping-pong entre dev e QA.',
         'ppi.p1': 'Indica o quão claro é o reporte de bugs — PPI baixo frequentemente aponta para descrições ambíguas, não apenas erros do dev',
         'ppi.p2': 'Um bug com PingPong = 1 é uma correção limpa, na primeira tentativa — a base ideal para cada ticket',
         'ppi.p3': 'Tendência em direção a 1,0 ao longo das sprints é evidência concreta de que o alinhamento dev–QA está melhorando',
         'rbd.title': 'Real Bug Detection',
+        'rbd.sim.hint': 'NoRealBug ≤ ΣBug. Com 0 bugs, NoRealBug fica em 0 (desabilitado) e o RBD é 100% Excellent.',
+        'rbd.sim.bugs': 'ΣBug',
+        'rbd.sim.invalid': 'NoRealBug',
+        'rbd.formula.note': 'NoRealBug = issues fechadas como "Invalid" · 100% = todo ticket reportado era um defeito real',
+        'rbd.result.note': 'Valores de demo — não é um sprint de cliente. % maior = menos falsos positivos.',
+        'rbd.tier.poor': 'Poor', 'rbd.tier.fair': 'Fair', 'rbd.tier.good': 'Good', 'rbd.tier.excellent': 'Excellent',
         'rbd.desc': 'Percentual de issues reportadas que são defeitos genuínos. Captura o custo de falsos positivos — tempo gasto abrindo, analisando e fechando tickets que não eram bugs reais.',
         'rbd.p1': 'Reflete a compreensão do QA sobre os critérios de aceite — RBD baixo sugere que os requisitos precisam de mais precisão',
         'rbd.p2': 'Quantifica o esforço desperdiçado do dev: cada falso positivo consome tempo para investigar e fechar',
         'rbd.p3': 'Indica se o QA tem tempo adequado para testar — ciclos apressados produzem mais falsos positivos',
         'srm.title': 'Simple Rejection Metric',
+        'srm.sim.hint': 'Ajuste a contagem de tarefas rejeitadas no sprint. 0 é Ideal · quanto menor, melhor.',
+        'srm.sim.count': 'Tarefas rejeitadas / sprint',
+        'srm.sim.unit': 'tarefas rejeitadas',
+        'srm.sim.unit.one': 'tarefa rejeitada',
+        'srm.sim.zero': 'Nenhuma tarefa rejeitada',
+        'srm.formula.note': 'A rejeição exige comentário formal listando ACs faltantes · rastreado por desenvolvedor e por sprint',
+        'srm.result.note': 'Contagem de demo — não é um sprint de cliente. A meta é sustentar 0.',
+        'srm.tier.ideal': 'Ideal', 'srm.tier.acceptable': 'Acceptable', 'srm.tier.warning': 'Warning', 'srm.tier.critical': 'Critical',
         'srm.desc': 'Contagem de tarefas devolvidas ao dev antes mesmo dos testes começarem — por ausência de muitos critérios de aceite. Contagem bruta por sprint; menor é melhor, 0 é o objetivo.',
         'srm.p1': 'Força o alinhamento nos ACs antes que o trabalho chegue ao QA — eliminando ciclos de teste desperdiçados na origem',
         'srm.p2': 'Rastreamento por desenvolvedor identifica quem precisa de requisitos mais claros ou checklists pré-QA mais rigorosos',
@@ -4658,7 +5673,96 @@
         'metrics.adv.tpi.comp': 'Component',
         'metrics.adv.tpi.e2e': 'E2E',
         'metrics.adv.tpi.kpi': 'testes · scan repos',
-        'metrics.adv.note': 'Métricas em estudo · tendências ilustrativas para exploração no portfolio',
+        'metrics.cat.label': 'Catálogo de métricas candidatas · rascunho',
+        'metrics.cat.draft': 'Rascunho',
+        'metrics.cat.badge': 'Em estudo',
+        'metrics.cat.badge.kpi': 'KPI',
+        'metrics.cat.study': 'Catálogo de <strong>métricas candidatas</strong> que quero definir a seguir (fórmula, faixas, fonte Jira/CI). Ainda sem instrumentação; cada card é um brief de design para expandir o padrão PPI · SRM · RBD sem inventar KPI de vaidade.',
+        'metrics.cat.note': 'Somente catálogo · faixas são propostas até coletar em sprints reais',
+        'metrics.cat.g1.title': 'Handoff e prevenção',
+        'metrics.cat.g1.intro': 'Sinais que explicam SRM e Task Score: prontidão antes do QA começar, não só defeitos depois.',
+        'metrics.cat.g2.title': 'Ciclo de defeito',
+        'metrics.cat.g2.intro': 'Complementa PPI e RBD: qualidade de reopen, velocidade de resolução por severidade e ruído de ticket.',
+        'metrics.cat.g3.title': 'Automação e CI',
+        'metrics.cat.g3.intro': 'Eleva Flakiness e TPI de sparklines a sinais com fórmula: ROI, qualidade do sinal, recuperação e lag de cobertura.',
+        'metrics.cat.g4.title': 'Release e risco',
+        'metrics.cat.g4.intro': 'Go/no-go e custo pós-release: índice de readiness, carga de hotfix e mudança sem evidência de teste.',
+        'metrics.cat.g5.title': 'Domínio regulado',
+        'metrics.cat.g5.intro': 'Sinais KYC/CLP que escape genérico não conta: escapes de compliance e confiabilidade de gates IDV/MFA.',
+        'metrics.cat.g6.title': 'Coverage KPIs',
+        'metrics.cat.g6.intro': 'Cobertura com meta e decisão: risco da mudança no PR, caminhos críticos do domínio e vínculo AC↔evidência. Não é coverage% de linha bruto.',
+        'metrics.cat.acr.title': 'AC Clarity Rate',
+        'metrics.cat.acr.desc': 'Proporção de stories com critérios de aceite testáveis antes do kickoff. ACR baixo costuma anteceder Simple Rejects.',
+        'metrics.cat.acr.note': 'AC testável = given/when/then ou resultado verificável · Fonte: Jira + checklist de refinement',
+        'metrics.cat.acr.rel': '<strong>Relacionado:</strong> Explica SRM; combinar com gates de refinement do Task Score',
+        'metrics.cat.dof.title': 'Definition of Done Failures',
+        'metrics.cat.dof.desc': 'Contagem de tasks que falharam Definition of Done na entrada do QA no sprint. Complemento binário ao Task Score.',
+        'metrics.cat.dof.note': 'DoD falho = falta evidência, testes ou cobertura de AC no handoff · Fonte: workflow Jira + checklist',
+        'metrics.cat.dof.rel': '<strong>Relacionado:</strong> Irmão de SRM e critérios 1-5 do Task Score',
+        'metrics.cat.bcr.title': 'Blocked Cycle Ratio',
+        'metrics.cat.bcr.desc': 'Parcela do cycle time gasta bloqueada à espera de AC, ambiente ou massa de teste. Transforma atraso em causa-raiz.',
+        'metrics.cat.bcr.note': 'Blocked = esperando AC, env, dados ou dependência · Fonte: time-in-status no Jira',
+        'metrics.cat.bcr.rel': '<strong>Relacionado:</strong> Combina com TTQR; explica handoff lento sem culpar capacidade de QA',
+        'metrics.cat.ttr.title': 'Time to Resolve',
+        'metrics.cat.ttr.desc': 'Mediana de tempo entre abertura e fechamento do bug, fatiada por severidade. Liga a taxonomia de severidade à velocidade de entrega.',
+        'metrics.cat.ttr.note': 'Acompanhar Blocker/Critical separado de Minor/Low · Fonte: Jira · Faixas-alvo para Critical+',
+        'metrics.cat.ttr.rel': '<strong>Relacionado:</strong> Usa a escada de severidade; combina com PPI quando o fix volta',
+        'metrics.cat.ror.title': 'Reopen Rate',
+        'metrics.cat.ror.desc': 'Bugs reabertos após close divididos pelos bugs fechados. PPI conta ping-pong em aberto; ROR pega close prematuro.',
+        'metrics.cat.ror.note': 'Reopened = status volta a open/reopened após Done · Fonte: transições Jira',
+        'metrics.cat.ror.rel': '<strong>Relacionado:</strong> Espelho natural do PPI; mesmo conjunto de bugs no Jira',
+        'metrics.cat.dir.title': 'Duplicate / Invalid Ratio',
+        'metrics.cat.dir.desc': 'Tickets de ruído (invalid + duplicate) sobre todos os bugs reportados. RBD foca defeito real; DIR isola desperdício de ticket.',
+        'metrics.cat.dir.note': 'Somente resoluções Invalid + Duplicate · Fonte: campo resolution no Jira',
+        'metrics.cat.dir.rel': '<strong>Relacionado:</strong> Separa o ruído do RBD em higiene acionável de ticket',
+        'metrics.cat.arr.title': 'Automation ROI Ratio',
+        'metrics.cat.arr.desc': 'Horas economizadas pela automação versus horas gastas mantendo a suite. Torna a história do qametrics mensurável por sprint.',
+        'metrics.cat.arr.note': 'Saved = ciclos manuais evitados · Maintained = escrita + correção de flake · Fonte: Sheets + timing de CI',
+        'metrics.cat.arr.rel': '<strong>Relacionado:</strong> Elo narrativo com qametrics (1-3h/sprint para minutos)',
+        'metrics.cat.sfr.title': 'Signal-to-Flake Ratio',
+        'metrics.cat.sfr.desc': 'Falhas reais divididas por falhas reais mais flakes. Mais acionável que flake% sozinho na hora de confiar na CI.',
+        'metrics.cat.sfr.note': 'Flake = falhou e passou no retry sem mudança de código · Fonte: Cypress Cloud / CI',
+        'metrics.cat.sfr.rel': '<strong>Relacionado:</strong> Eleva o card de Flakiness a métrica de decisão',
+        'metrics.cat.mttg.title': 'Mean Time to Green',
+        'metrics.cat.mttg.desc': 'Tempo médio de parede de um run vermelho até o próximo verde na mesma pipeline. Custo de uma suite instável.',
+        'metrics.cat.mttg.note': 'Por pipeline principal de QA (E2E/API) · Fonte: GitHub Actions / Cypress Cloud',
+        'metrics.cat.mttg.rel': '<strong>Relacionado:</strong> Combina com SFR; mostra custo operacional do flake',
+        'metrics.cat.clr.title': 'Coverage Lag Rate',
+        'metrics.cat.clr.desc': 'Parcela de stories que subiram código sem teste automatizado novo na mesma sprint. Shift-left sem coverage% de vaidade.',
+        'metrics.cat.clr.note': 'Excluir docs/config puros · Fonte: Jira + diff de arquivos de teste no PR',
+        'metrics.cat.clr.rel': '<strong>Relacionado:</strong> Complementa TPI; pressiona automação na mesma sprint',
+        'metrics.cat.rri.title': 'Release Readiness Index',
+        'metrics.cat.rri.desc': 'Score composto 0-100 a partir de escapes, Blocker/Critical abertos, flake e SRM. Go/no-go numérico alinhado a ownership de QA sênior.',
+        'metrics.cat.rri.note': 'Pesos ajustados ao risco do produto · Fonte: Jira + CI + planilha DER',
+        'metrics.cat.rri.rel': '<strong>Relacionado:</strong> Consolida DER, Flakiness, SRM e severidade num gate',
+        'metrics.cat.hfr.title': 'Hotfix Frequency',
+        'metrics.cat.hfr.desc': 'Hotfixes divididos pelos releases planejados no período. Complementa DER com custo operacional após escape.',
+        'metrics.cat.hfr.note': 'Hotfix = trem de correção não planejado em prod · Fonte: calendário de release + Jira',
+        'metrics.cat.hfr.rel': '<strong>Relacionado:</strong> Combina com DER; mostra blast radius após escape',
+        'metrics.cat.crv.title': 'Change Risk Violations',
+        'metrics.cat.crv.desc': 'Deploys (ou CRs) que mudaram código no escopo sem evidência de teste ligada. Fecha o loop da verificação pós-deploy.',
+        'metrics.cat.crv.note': 'Evidência = run automatizado ou pacote manual assinado no escopo alterado · Fonte: CR + artefatos de CI',
+        'metrics.cat.crv.rel': '<strong>Relacionado:</strong> Formaliza disciplina de CR verification / go-no-go',
+        'metrics.cat.cde.title': 'Compliance Defect Escape',
+        'metrics.cat.cde.desc': 'Escapes de PROD limitados a fluxos regulados (KYC, tax, MFA, IDV). DER só da fatia de compliance.',
+        'metrics.cat.cde.note': 'Tagar bugs com compliance=true · Fonte: labels Jira + release notes',
+        'metrics.cat.cde.rel': '<strong>Relacionado:</strong> DER de domínio para storytelling KYC/CLP',
+        'metrics.cat.igr.title': 'IDV / Gate Reliability',
+        'metrics.cat.igr.desc': 'Taxa de approve/reject corretos em gates de IDV e MFA no SIT versus fixtures esperadas (Mitek, TOTP, documentos).',
+        'metrics.cat.igr.note': 'Inclui selfie/doc approve+reject e caminhos MFA sucesso/falha · Fonte: runs SIT + lab de devices',
+        'metrics.cat.igr.rel': '<strong>Relacionado:</strong> Métrica única mobile+compliance do trabalho Mitek/MFA',
+        'metrics.cat.brc.title': 'Branch Risk Coverage',
+        'metrics.cat.brc.desc': 'Parcela dos branches alterados no PR que ganharam teste automatizado novo ou atualizado. Cobertura shift-left do diff, não do repo inteiro.',
+        'metrics.cat.brc.note': 'Meta KPI ≥ 90% · Ação se falhar: bloquear merge ou exigir waiver · Fonte: diff do PR + coverage de CI nos arquivos alterados',
+        'metrics.cat.brc.rel': '<strong>Relacionado:</strong> Complementa CLR e CRV; gate de merge para shift-left',
+        'metrics.cat.crc.title': 'Critical Path Coverage',
+        'metrics.cat.crc.desc': 'Parcela dos caminhos críticos de negócio (KYC, tax, MFA, IDV) com evidência automatizada ou assinada atual. Cobertura que decide go/no-go, não line % do Sonar.',
+        'metrics.cat.crc.note': 'Meta KPI = 100% no release train · Ação se falhar: segurar go/no-go · Fonte: inventário de paths + evidência Zephyr/CI',
+        'metrics.cat.crc.rel': '<strong>Relacionado:</strong> Combina com CDE e RRI para readiness de release regulado',
+        'metrics.cat.scc.title': 'Spec-to-Case Coverage',
+        'metrics.cat.scc.desc': 'Parcela dos critérios de aceite do sprint com run automatizado ou pacote manual assinado. Transforma clareza de AC em evidência mensurável de DoD.',
+        'metrics.cat.scc.note': 'Meta KPI ≥ 95% por sprint · Ação se falhar: falhar DoD / abrir gap de ACR · Fonte: AC no Jira + links Zephyr/CI',
+        'metrics.cat.scc.rel': '<strong>Relacionado:</strong> Fecha o loop com ACR, DOF e tracking de casos no Looker',
         'metrics.pyramid.title': 'Pirâmide de testes',
         'metrics.pyramid.desc': 'A pirâmide de testes mostra como distribuir testes automatizados por <strong>granularidade</strong>: muitas verificações rápidas e isoladas na base (unit), checagens mais amplas de contrato e serviço no meio (integração, component) e um conjunto reduzido de jornadas completas no topo (E2E). Uma pirâmide saudável detecta a maior parte dos defeitos cedo — onde o feedback é mais barato — e mantém testes de UI lentos e frágeis ao mínimo.',
         'metrics.pyramid.e2e.name': 'E2E',
@@ -4809,6 +5913,7 @@
       html.setAttribute('data-lang', next);
       localStorage.setItem('lang', next);
       applyLang(next);
+      document.dispatchEvent(new CustomEvent('portfolio:i18n', { detail: { lang: next } }));
     }
 
     function toggleTheme() {
@@ -4952,6 +6057,8 @@
       ICONS['task-score'] = ICONS.metrics;
       ICONS['ppi-srm-rbd'] = ICONS.metrics;
       ICONS['metrics-extended'] = ICONS.metrics;
+      ICONS['metrics-catalog'] = ICONS.metrics;
+      ICONS['test-pyramid'] = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L3 20h18L12 3z"/><path d="M7.5 14h9"/><path d="M9.5 10h5"/></svg>';
 
       const sectionItems = [];
       root.querySelectorAll('section.section[id]').forEach((sec) => {
@@ -4959,7 +6066,8 @@
         const text = (label?.textContent || sec.id).trim().replace(/\s+/g, ' ');
         sectionItems.push({ id: sec.id, text, level: 2 });
         sec.querySelectorAll('.toc-subsection[id]').forEach((sub) => {
-          const subLabel = sub.querySelector('.metrics-subtitle, .metric-sep span, h3');
+          if (sub.hasAttribute('data-toc-skip') || sub.classList.contains('is-draft')) return;
+          const subLabel = sub.querySelector('.metrics-catalog-summary-title, .metrics-subtitle, .metric-sep span, h3');
           const subText = (subLabel?.textContent || sub.id).trim().replace(/\s+/g, ' ');
           sectionItems.push({ id: sub.id, text: subText, level: 3 });
         });
@@ -4972,6 +6080,16 @@
       }).join('');
 
       const links = [...tocList.querySelectorAll('a')];
+      function openCatalogIfTarget() {
+        const cat = document.getElementById('metrics-catalog');
+        if (!cat || cat.tagName !== 'DETAILS') return;
+        if (location.hash === '#metrics-catalog' || location.hash.startsWith('#study-')) {
+          cat.open = true;
+        }
+      }
+      openCatalogIfTarget();
+      window.addEventListener('hashchange', openCatalogIfTarget);
+
       const map = new Map(sectionItems.map((it) => [it.id, document.getElementById(it.id)]).filter(([, el]) => el));
 
       function setActive(id) {
@@ -5001,6 +6119,636 @@
       links.forEach((a) => a.addEventListener('click', () => {
         if (window.matchMedia('(max-width: 720px)').matches) applyOpen(false);
       }));
+    })();
+  </script>
+
+  <script>
+    (function initTaskScoreSim() {
+      const root = document.getElementById('ts-simulator');
+      const criteria = document.getElementById('ts-criteria');
+      if (!root || !criteria) return;
+
+      const arrow = document.getElementById('ts-scale-arrow');
+      const arrowLabel = document.getElementById('ts-arrow-label');
+      const liveVal = document.getElementById('ts-live-val');
+      const liveTier = document.getElementById('ts-live-tier');
+      const tiers = [...root.querySelectorAll('.ts-scale-tier')];
+      const cards = [...criteria.querySelectorAll('.ts-criterion')];
+      const MAX = 30;
+      const BUG_CYCLE = [5, 3, 0];
+      const BUG_PHASE = { 5: 'none', 3: 'few', 0: 'many' };
+      const BUG_PHASE_FALLBACK = {
+        en: { none: 'Phase: 0 bugs', few: 'Phase: ≤2 bugs', many: 'Phase: ≥3 bugs' },
+        pt: { none: 'Fase: 0 bugs', few: 'Fase: ≤2 bugs', many: 'Fase: ≥3 bugs' },
+      };
+      const BUG_CHECK = { none: '✓', few: '✓', many: '!' };
+
+      function lang() {
+        return document.documentElement.getAttribute('data-lang') || 'en';
+      }
+
+      function dict() {
+        return window.__i18nDict || {};
+      }
+
+      function tierName(key) {
+        return dict()['ts.tier.' + key] || ({ poor: 'Poor', fair: 'Fair', good: 'Good', excellent: 'Excellent' }[key]);
+      }
+
+      function tierFor(score) {
+        if (score <= 15) return 'poor';
+        if (score <= 20) return 'fair';
+        if (score <= 25) return 'good';
+        return 'excellent';
+      }
+
+      function ptsOf(card) {
+        if (card.dataset.key === 'bugs') return Number(card.dataset.pts) || 0;
+        return card.classList.contains('is-on') ? (Number(card.dataset.pts) || 0) : 0;
+      }
+
+      function bugsPhaseLabel(phase) {
+        const key = 'ts.c6.phase.' + phase;
+        const fromDict = dict()[key];
+        if (fromDict) return fromDict;
+        const L = BUG_PHASE_FALLBACK[lang()] || BUG_PHASE_FALLBACK.en;
+        return L[phase] || phase;
+      }
+
+      function syncBugsLabel(card) {
+        const pts = Number(card.dataset.pts) || 0;
+        const phase = BUG_PHASE[pts] || 'many';
+        const label = card.querySelector('[data-pts-label], .ts-points');
+        if (label) label.textContent = pts === 0 ? '0 pts' : ('+' + pts + ' pts');
+
+        const phaseEl = card.querySelector('[data-bugs-phase-label]');
+        if (phaseEl) {
+          phaseEl.setAttribute('data-i18n', 'ts.c6.phase.' + phase);
+          phaseEl.textContent = bugsPhaseLabel(phase);
+        }
+
+        const check = card.querySelector('.ts-criterion-check');
+        if (check) check.textContent = BUG_CHECK[phase] || '✓';
+
+        card.dataset.bugsPhase = phase;
+        card.classList.remove('is-bugs-none', 'is-bugs-few', 'is-bugs-many', 'is-off');
+        card.classList.add('is-bugs-' + phase);
+        card.classList.toggle('is-on', pts > 0);
+        card.setAttribute('aria-pressed', pts > 0 ? 'true' : 'false');
+        card.title = bugsPhaseLabel(phase) + ' · click to cycle';
+      }
+
+      function update() {
+        let score = 0;
+        cards.forEach((card) => { score += ptsOf(card); });
+        score = Math.max(0, Math.min(MAX, score));
+
+        arrow.style.left = ((score / MAX) * 100) + '%';
+        arrowLabel.textContent = String(score);
+        liveVal.textContent = String(score);
+
+        const key = tierFor(score);
+        liveTier.textContent = tierName(key);
+        liveTier.className = 'ts-live-tier is-' + key;
+        tiers.forEach((t) => t.classList.toggle('is-active', t.dataset.tier === key));
+      }
+
+      const bugsCard = criteria.querySelector('[data-key="bugs"]');
+      if (bugsCard) syncBugsLabel(bugsCard);
+
+      criteria.addEventListener('click', (e) => {
+        const link = e.target.closest('[data-href]');
+        if (link && criteria.contains(link)) {
+          e.preventDefault();
+          e.stopPropagation();
+          const href = link.getAttribute('data-href');
+          if (href) location.hash = href.replace(/^#/, '');
+          return;
+        }
+
+        const card = e.target.closest('.ts-criterion');
+        if (!card || !criteria.contains(card)) return;
+
+        if (card.dataset.key === 'bugs') {
+          const cur = Number(card.dataset.pts);
+          const idx = BUG_CYCLE.indexOf(cur);
+          const next = BUG_CYCLE[(idx + 1) % BUG_CYCLE.length];
+          card.dataset.pts = String(next);
+          syncBugsLabel(card);
+        } else {
+          const on = !card.classList.contains('is-on');
+          card.classList.toggle('is-on', on);
+          card.classList.toggle('is-off', !on);
+          card.setAttribute('aria-pressed', on ? 'true' : 'false');
+          const label = card.querySelector('.ts-points');
+          const base = Number(card.dataset.pts) || 5;
+          if (label) label.textContent = on ? ('+' + base + ' pts') : '0 pts';
+        }
+        update();
+      });
+
+      document.addEventListener('portfolio:i18n', () => {
+        if (bugsCard) syncBugsLabel(bugsCard);
+        update();
+      });
+      update();
+    })();
+  </script>
+
+
+  <script>
+    // Hold-to-repeat for +/- sim controls (shared by PPI / SRM / RBD).
+    window.__bindHoldRepeat = function bindHoldRepeat(root, btnSelector, onStep, opts) {
+      const delayMs = (opts && opts.delayMs) || 320;
+      const intervalMs = (opts && opts.intervalMs) || 45;
+      const arrow = opts && opts.arrow;
+      let delayTimer = null;
+      let repeatTimer = null;
+      let holding = false;
+
+      function stop() {
+        if (!holding && !delayTimer && !repeatTimer) return;
+        if (delayTimer) clearTimeout(delayTimer);
+        if (repeatTimer) clearInterval(repeatTimer);
+        delayTimer = null;
+        repeatTimer = null;
+        holding = false;
+        if (arrow) arrow.classList.remove('is-scrubbing');
+      }
+
+      function step(btn) {
+        if (!btn || btn.disabled) {
+          stop();
+          return;
+        }
+        onStep(btn);
+      }
+
+      function start(btn, pointerId) {
+        if (btn.disabled || holding) return;
+        holding = true;
+        if (arrow) arrow.classList.add('is-scrubbing');
+        try {
+          if (pointerId != null && btn.setPointerCapture) btn.setPointerCapture(pointerId);
+        } catch (_) { /* ignore */ }
+        step(btn);
+        delayTimer = setTimeout(() => {
+          repeatTimer = setInterval(() => step(btn), intervalMs);
+        }, delayMs);
+      }
+
+      root.addEventListener('pointerdown', (e) => {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        const btn = e.target.closest(btnSelector);
+        if (!btn || !root.contains(btn)) return;
+        e.preventDefault();
+        start(btn, e.pointerId);
+      });
+
+      document.addEventListener('pointerup', stop);
+      document.addEventListener('pointercancel', stop);
+      root.addEventListener('lostpointercapture', stop);
+    };
+  </script>
+
+
+  <script>
+    (function initPpiSim() {
+      const card = document.getElementById('ppi-card');
+      const root = document.getElementById('ppi-sim');
+      if (!card || !root) return;
+
+      let bugs = 10;
+      let ping = 10;
+      const MIN_BUGS = 0;
+      const MIN_PING = 0;
+      const MAX_BUGS = 40;
+      const MAX_PING = 120;
+
+      const bugsVal = document.getElementById('ppi-bugs-val');
+      const pingVal = document.getElementById('ppi-ping-val');
+      const eqBugs = document.getElementById('ppi-eq-bugs');
+      const eqPing = document.getElementById('ppi-eq-ping');
+      const eqFormula = document.getElementById('ppi-eq-formula');
+      const eqShort = document.getElementById('ppi-eq-short');
+      const liveVal = document.getElementById('ppi-live-val');
+      const liveTier = document.getElementById('ppi-live-tier');
+      const arrow = document.getElementById('ppi-scale-arrow');
+      const arrowLabel = document.getElementById('ppi-arrow-label');
+      const tiers = [...root.querySelectorAll('.metric-scale-item[data-tier]')];
+      const resultKey = document.getElementById('ppi-result-key');
+      const resultBox = document.getElementById('ppi-result-box');
+      const btnBugsDec = root.querySelector('[data-ppi="bugs-dec"]');
+      const btnBugsInc = root.querySelector('[data-ppi="bugs-inc"]');
+      const btnPingDec = root.querySelector('[data-ppi="ping-dec"]');
+      const btnPingInc = root.querySelector('[data-ppi="ping-inc"]');
+
+      const TIER_FALLBACK = { poor: 'Poor', fair: 'Fair', good: 'Good', excellent: 'Excellent' };
+      const TIER_COLORS = {
+        poor: { key: '#ef4444', bg: 'rgba(239,68,68,0.07)', border: 'rgba(239,68,68,0.25)' },
+        fair: { key: 'var(--yellow)', bg: 'rgba(251,191,36,0.07)', border: 'rgba(251,191,36,0.28)' },
+        good: { key: 'var(--accent)', bg: 'rgba(79,114,255,0.07)', border: 'rgba(79,114,255,0.25)' },
+        excellent: { key: 'var(--green)', bg: 'rgba(52,211,153,0.07)', border: 'rgba(52,211,153,0.25)' },
+      };
+
+      function lang() {
+        return document.documentElement.getAttribute('data-lang') || 'en';
+      }
+
+      function tierName(key) {
+        const translations = window.__ppiTranslations;
+        // read from DOM data-i18n applied strings via fallback map
+        const maps = {
+          en: TIER_FALLBACK,
+          pt: TIER_FALLBACK,
+        };
+        return (maps[lang()] || TIER_FALLBACK)[key] || key;
+      }
+
+      function resultLabel(tier) {
+        const templates = {
+          en: 'Simulated PPI · ' + tierName(tier),
+          pt: 'PPI simulado · ' + tierName(tier),
+        };
+        return templates[lang()] || templates.en;
+      }
+
+      function tierFor(ppi) {
+        if (ppi < 0.5) return 'poor';
+        if (ppi < 0.75) return 'fair';
+        if (ppi < 0.9) return 'good';
+        return 'excellent';
+      }
+
+      function fmt(n) {
+        return (Math.round(n * 100) / 100).toFixed(2);
+      }
+
+      function update() {
+        if (bugs === 0) {
+          ping = 0;
+        } else if (ping < bugs) {
+          ping = bugs;
+        }
+
+        const noBugs = bugs === 0;
+        // 0 bugs → ideal 1.00. Else ΣBug / ΣPingPong with PingPong ≥ Bugs (each bug starts at 1).
+        const ppi = noBugs ? 1 : bugs / ping;
+        const key = tierFor(ppi);
+        const colors = TIER_COLORS[key];
+        const capNote = document.getElementById('ppi-cap-note');
+
+        bugsVal.textContent = String(bugs);
+        pingVal.textContent = String(ping);
+        if (eqFormula) eqFormula.hidden = noBugs;
+        if (eqShort) eqShort.hidden = !noBugs;
+        if (!noBugs) {
+          eqBugs.textContent = String(bugs);
+          eqPing.textContent = String(ping);
+        }
+        liveVal.textContent = fmt(ppi);
+        liveTier.textContent = tierName(key);
+        liveTier.className = 'ppi-live-tier is-' + key;
+
+        if (capNote) {
+          capNote.hidden = true;
+          capNote.textContent = '';
+        }
+
+        // Flex 50/25/15/10 matches band spans on 0–1 → left% tracks the value.
+        arrow.style.left = (Math.max(0, Math.min(1, ppi)) * 100) + '%';
+        arrowLabel.textContent = fmt(ppi);
+        tiers.forEach((t) => t.classList.toggle('is-active', t.dataset.tier === key));
+
+        card.classList.remove('is-ppi-poor', 'is-ppi-fair', 'is-ppi-good', 'is-ppi-excellent', 'is-ppi-empty');
+        card.classList.add('is-ppi-' + key);
+
+        if (resultKey) {
+          resultKey.textContent = noBugs
+            ? (lang() === 'pt' ? 'PPI · 1,00 Excellent (0 bugs)' : 'PPI · 1.00 Excellent (0 bugs)')
+            : resultLabel(key);
+          resultKey.style.color = colors.key;
+        }
+        if (resultBox) {
+          resultBox.style.background = colors.bg;
+          resultBox.style.borderColor = colors.border;
+        }
+
+        btnBugsDec.disabled = bugs <= MIN_BUGS;
+        btnBugsInc.disabled = bugs >= MAX_BUGS;
+        btnPingDec.disabled = noBugs || ping <= bugs;
+        btnPingInc.disabled = noBugs || ping >= MAX_PING;
+        btnPingDec.setAttribute('aria-disabled', noBugs ? 'true' : 'false');
+        btnPingInc.setAttribute('aria-disabled', noBugs ? 'true' : 'false');
+        pingVal.parentElement?.classList.toggle('is-disabled', noBugs);
+      }
+
+      function applyAction(action) {
+        if (action === 'bugs-inc') {
+          const wasEmpty = bugs === 0;
+          bugs = Math.min(MAX_BUGS, bugs + 1);
+          if (wasEmpty) ping = 1;
+          else if (ping < bugs) ping = bugs;
+        } else if (action === 'bugs-dec') {
+          bugs = Math.max(MIN_BUGS, bugs - 1);
+          if (bugs === 0) ping = 0;
+          else if (ping < bugs) ping = bugs;
+        } else if (action === 'ping-inc') {
+          if (bugs === 0) return;
+          ping = Math.min(MAX_PING, ping + 1);
+        } else if (action === 'ping-dec') {
+          if (bugs === 0) return;
+          ping = Math.max(bugs, ping - 1);
+        } else {
+          return;
+        }
+        update();
+      }
+
+      window.__bindHoldRepeat(root, '[data-ppi]', (btn) => {
+        applyAction(btn.getAttribute('data-ppi'));
+      }, { arrow });
+
+      document.addEventListener('portfolio:i18n', update);
+      update();
+    })();
+  </script>
+
+
+  <script>
+    (function initSrmSim() {
+      const card = document.getElementById('srm-card');
+      const root = document.getElementById('srm-sim');
+      if (!card || !root) return;
+
+      let count = 0;
+      const MIN = 0;
+      const MAX = 10;
+
+      const countVal = document.getElementById('srm-count-val');
+      const liveVal = document.getElementById('srm-live-val');
+      const liveTier = document.getElementById('srm-live-tier');
+      const liveUnit = document.getElementById('srm-live-unit');
+      const eqZero = document.getElementById('srm-eq-zero');
+      const eqCount = document.getElementById('srm-eq-count');
+      const arrow = document.getElementById('srm-scale-arrow');
+      const arrowLabel = document.getElementById('srm-arrow-label');
+      const tiers = [...root.querySelectorAll('.metric-scale-item[data-tier]')];
+      const resultKey = document.getElementById('srm-result-key');
+      const resultBox = document.getElementById('srm-result-box');
+      const btnDec = root.querySelector('[data-srm="dec"]');
+      const btnInc = root.querySelector('[data-srm="inc"]');
+
+      const TIER_COLORS = {
+        ideal: { key: 'var(--green)', bg: 'rgba(52,211,153,0.07)', border: 'rgba(52,211,153,0.25)' },
+        acceptable: { key: 'var(--accent)', bg: 'rgba(79,114,255,0.07)', border: 'rgba(79,114,255,0.25)' },
+        warning: { key: 'var(--yellow)', bg: 'rgba(251,191,36,0.07)', border: 'rgba(251,191,36,0.28)' },
+        critical: { key: '#ef4444', bg: 'rgba(239,68,68,0.07)', border: 'rgba(239,68,68,0.25)' },
+      };
+      const TIER_NAME = {
+        en: { ideal: 'Ideal', acceptable: 'Acceptable', warning: 'Warning', critical: 'Critical' },
+        pt: { ideal: 'Ideal', acceptable: 'Acceptable', warning: 'Warning', critical: 'Critical' },
+      };
+      const UNIT = {
+        en: { zero: 'No rejected tasks', one: 'rejected task', many: 'rejected tasks' },
+        pt: { zero: 'Nenhuma tarefa rejeitada', one: 'tarefa rejeitada', many: 'tarefas rejeitadas' },
+      };
+
+      function lang() {
+        return document.documentElement.getAttribute('data-lang') || 'en';
+      }
+
+      function dict() {
+        return window.__i18nDict || {};
+      }
+
+      function tierFor(n) {
+        if (n <= 0) return 'ideal';
+        if (n <= 2) return 'acceptable';
+        if (n <= 5) return 'warning';
+        return 'critical';
+      }
+
+      function tierName(key) {
+        return (TIER_NAME[lang()] || TIER_NAME.en)[key] || key;
+      }
+
+      function resultLabel(tier) {
+        return lang() === 'pt'
+          ? ('SRM simulado · ' + tierName(tier))
+          : ('Simulated SRM · ' + tierName(tier));
+      }
+
+      function unitLabel(n) {
+        const d = dict();
+        const fallback = UNIT[lang()] || UNIT.en;
+        if (n === 1) return d['srm.sim.unit.one'] || fallback.one;
+        return d['srm.sim.unit'] || fallback.many;
+      }
+
+      function zeroLabel() {
+        return dict()['srm.sim.zero'] || (UNIT[lang()] || UNIT.en).zero;
+      }
+
+      function update() {
+        const key = tierFor(count);
+        const colors = TIER_COLORS[key];
+        // Flex 1/2/3/4 sums to 10 and maps count 0–10 → left%.
+        const arrowPct = (Math.min(count, MAX) / MAX) * 100;
+        const isZero = count === 0;
+
+        countVal.textContent = String(count);
+        liveVal.textContent = String(count);
+        if (liveUnit) liveUnit.textContent = unitLabel(count);
+        if (eqZero) {
+          eqZero.hidden = !isZero;
+          const zeroEl = eqZero.querySelector('[data-i18n="srm.sim.zero"]');
+          if (zeroEl) zeroEl.textContent = zeroLabel();
+        }
+        if (eqCount) eqCount.hidden = isZero;
+        liveTier.textContent = tierName(key);
+        liveTier.className = 'ppi-live-tier is-' + key;
+
+        arrow.style.left = arrowPct + '%';
+        arrowLabel.textContent = String(count);
+        tiers.forEach((t) => t.classList.toggle('is-active', t.dataset.tier === key));
+
+        card.classList.remove('is-srm-ideal', 'is-srm-acceptable', 'is-srm-warning', 'is-srm-critical');
+        card.classList.add('is-srm-' + key);
+
+        if (resultKey) {
+          resultKey.textContent = resultLabel(key);
+          resultKey.style.color = colors.key;
+        }
+        if (resultBox) {
+          resultBox.style.background = colors.bg;
+          resultBox.style.borderColor = colors.border;
+        }
+
+        btnDec.disabled = count <= MIN;
+        btnInc.disabled = count >= MAX;
+      }
+
+      function applyAction(action) {
+        if (action === 'inc') count = Math.min(MAX, count + 1);
+        else if (action === 'dec') count = Math.max(MIN, count - 1);
+        else return;
+        update();
+      }
+
+      window.__bindHoldRepeat(root, '[data-srm]', (btn) => {
+        applyAction(btn.getAttribute('data-srm'));
+      }, { arrow });
+
+      document.addEventListener('portfolio:i18n', update);
+      update();
+    })();
+  </script>
+
+
+  <script>
+    (function initRbdSim() {
+      const card = document.getElementById('rbd-card');
+      const root = document.getElementById('rbd-sim');
+      if (!card || !root) return;
+
+      let bugs = 10;
+      let invalid = 0;
+      const MIN_BUGS = 0;
+      const MAX_BUGS = 40;
+
+      const bugsVal = document.getElementById('rbd-bugs-val');
+      const invVal = document.getElementById('rbd-inv-val');
+      const eqBugs = document.getElementById('rbd-eq-bugs');
+      const eqInv = document.getElementById('rbd-eq-invalid');
+      const eqDen = document.getElementById('rbd-eq-den');
+      const eqFormula = document.getElementById('rbd-eq-formula');
+      const eqShort = document.getElementById('rbd-eq-short');
+      const liveVal = document.getElementById('rbd-live-val');
+      const liveTier = document.getElementById('rbd-live-tier');
+      const arrow = document.getElementById('rbd-scale-arrow');
+      const arrowLabel = document.getElementById('rbd-arrow-label');
+      const tiers = [...root.querySelectorAll('.metric-scale-item[data-tier]')];
+      const resultKey = document.getElementById('rbd-result-key');
+      const resultBox = document.getElementById('rbd-result-box');
+      const btnBugsDec = root.querySelector('[data-rbd="bugs-dec"]');
+      const btnBugsInc = root.querySelector('[data-rbd="bugs-inc"]');
+      const btnInvDec = root.querySelector('[data-rbd="inv-dec"]');
+      const btnInvInc = root.querySelector('[data-rbd="inv-inc"]');
+
+      const TIER_FALLBACK = { poor: 'Poor', fair: 'Fair', good: 'Good', excellent: 'Excellent' };
+      const TIER_COLORS = {
+        poor: { key: '#ef4444', bg: 'rgba(239,68,68,0.07)', border: 'rgba(239,68,68,0.25)' },
+        fair: { key: 'var(--yellow)', bg: 'rgba(251,191,36,0.07)', border: 'rgba(251,191,36,0.28)' },
+        good: { key: 'var(--accent)', bg: 'rgba(79,114,255,0.07)', border: 'rgba(79,114,255,0.25)' },
+        excellent: { key: 'var(--green)', bg: 'rgba(52,211,153,0.07)', border: 'rgba(52,211,153,0.25)' },
+      };
+
+      function lang() {
+        return document.documentElement.getAttribute('data-lang') || 'en';
+      }
+
+      function tierName(key) {
+        return TIER_FALLBACK[key] || key;
+      }
+
+      function tierFor(pct) {
+        if (pct < 70) return 'poor';
+        if (pct < 85) return 'fair';
+        if (pct < 95) return 'good';
+        return 'excellent';
+      }
+
+      function resultLabel(tier) {
+        return lang() === 'pt'
+          ? ('RBD simulado · ' + tierName(tier))
+          : ('Simulated RBD · ' + tierName(tier));
+      }
+
+      function fmtPct(n) {
+        const v = Math.round(n * 100) / 100;
+        if (v === 0 || v === 100) return v + '%';
+        return v.toFixed(2) + '%';
+      }
+
+      function update() {
+        if (bugs === 0) {
+          invalid = 0;
+        } else if (invalid > bugs) {
+          invalid = bugs;
+        }
+
+        const noBugs = bugs === 0;
+        const pct = noBugs ? 100 : ((bugs - invalid) / bugs) * 100;
+        const key = tierFor(pct);
+        const colors = TIER_COLORS[key];
+
+        bugsVal.textContent = String(bugs);
+        invVal.textContent = String(invalid);
+        if (eqFormula) eqFormula.hidden = noBugs;
+        if (eqShort) eqShort.hidden = !noBugs;
+        if (!noBugs) {
+          eqBugs.textContent = String(bugs);
+          eqInv.textContent = String(invalid);
+          eqDen.textContent = String(bugs);
+        }
+        liveVal.textContent = fmtPct(pct);
+        liveTier.textContent = tierName(key);
+        liveTier.className = 'ppi-live-tier is-' + key;
+
+        // Flex 70/15/10/5 matches band spans on 0–100% → left% tracks the value.
+        arrow.style.left = Math.max(0, Math.min(100, pct)) + '%';
+        arrowLabel.textContent = fmtPct(pct);
+        tiers.forEach((t) => t.classList.toggle('is-active', t.dataset.tier === key));
+
+        card.classList.remove('is-rbd-poor', 'is-rbd-fair', 'is-rbd-good', 'is-rbd-excellent');
+        card.classList.add('is-rbd-' + key);
+
+        if (resultKey) {
+          resultKey.textContent = noBugs
+            ? (lang() === 'pt' ? 'RBD · 100% Excellent (0 bugs)' : 'RBD · 100% Excellent (0 bugs)')
+            : resultLabel(key);
+          resultKey.style.color = colors.key;
+        }
+        if (resultBox) {
+          resultBox.style.background = colors.bg;
+          resultBox.style.borderColor = colors.border;
+        }
+
+        btnBugsDec.disabled = bugs <= MIN_BUGS;
+        btnBugsInc.disabled = bugs >= MAX_BUGS;
+        btnInvDec.disabled = noBugs || invalid <= 0;
+        btnInvInc.disabled = noBugs || invalid >= bugs;
+        invVal.parentElement?.classList.toggle('is-disabled', noBugs);
+      }
+
+      function applyAction(action) {
+        if (action === 'bugs-inc') {
+          const wasEmpty = bugs === 0;
+          bugs = Math.min(MAX_BUGS, bugs + 1);
+          if (wasEmpty) invalid = 0;
+        } else if (action === 'bugs-dec') {
+          bugs = Math.max(MIN_BUGS, bugs - 1);
+          if (bugs === 0) invalid = 0;
+          else if (invalid > bugs) invalid = bugs;
+        } else if (action === 'inv-inc') {
+          if (bugs === 0) return;
+          invalid = Math.min(bugs, invalid + 1);
+        } else if (action === 'inv-dec') {
+          if (bugs === 0) return;
+          invalid = Math.max(0, invalid - 1);
+        } else {
+          return;
+        }
+        update();
+      }
+
+      window.__bindHoldRepeat(root, '[data-rbd]', (btn) => {
+        applyAction(btn.getAttribute('data-rbd'));
+      }, { arrow });
+
+      document.addEventListener('portfolio:i18n', update);
+      update();
     })();
   </script>
 
