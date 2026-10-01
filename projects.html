@@ -1208,6 +1208,7 @@
     /* Logo icon (regular cards) */
     .oss-logo { width: 44px; height: 44px; background: var(--surface2); border-radius: 10px; border: 1px solid var(--border); padding: 7px; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
     .oss-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    [data-theme='dark'] img[src*="cypressio"] { background: #fff; border-radius: 50%; }
     .oss-logo .ra-logo { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; isolation: isolate; line-height: 0; }
     .oss-logo .ra-logo__img { width: 100%; height: 100%; object-fit: contain; position: relative; z-index: 1; }
     .oss-logo .ra-logo__img--dark { display: none; }
@@ -1217,13 +1218,13 @@
       box-shadow: -2px -2px 14px rgba(255,255,255,0.22), 0 0 20px rgba(180,220,180,0.15);
     }
     .oss-card-top { display: flex; align-items: flex-start; justify-content: space-between; }
+    .oss-card-name-group { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .oss-card-name { font-size: 1.05rem; font-weight: 700; color: var(--text); line-height: 1.3; }
     .oss-badges { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
     .oss-lang { font-size: 0.68rem; font-family: var(--mono); color: var(--text-3); padding: 3px 8px; border-radius: 20px; background: var(--surface2); border: 1px solid var(--border); }
     .oss-repo-name a { font-size: 0.82rem; font-family: var(--mono); font-weight: 600; color: var(--accent); text-decoration: none; }
     .oss-repo-name a:hover { text-decoration: underline; }
     .oss-desc { font-size: 0.83rem; color: var(--text-2); line-height: 1.6; flex: 1; }
-    .oss-commit-link { font-size: 0.75rem; font-family: var(--mono); color: var(--text-3); text-decoration: none; transition: color var(--transition); }
-    .oss-commit-link:hover { color: var(--accent); }
 
     /* Featured Docker card */
     .oss-card-featured {
@@ -1244,7 +1245,18 @@
       justify-content: center;
     }
     [data-theme="light"] .oss-featured-right { background: rgba(108,140,255,0.05); border-left-color: rgba(108,140,255,0.15); }
-    .oss-featured-hero { display: flex; align-items: center; gap: 16px; }
+
+    /* Planner → healer agent pipeline header image */
+    .oss-ai-flow {
+      position: relative; width: auto; box-sizing: border-box;
+      margin: -24px -24px 0; overflow: hidden;
+      border-radius: var(--radius) var(--radius) 0 0;
+      border-bottom: 1px solid rgba(108,140,255,0.2);
+      background: #0b1220;
+    }
+    [data-theme="light"] .oss-ai-flow { background: #e8eefc; }
+    .oss-ai-flow img { display: block; width: 100%; height: auto; aspect-ratio: 1280 / 450; object-fit: cover; object-position: center center; }
+
     .oss-logo-lg { width: 52px; height: 52px; background: var(--surface2); border-radius: 12px; border: 1px solid rgba(108,140,255,0.3); padding: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .oss-logo-lg img { width: 100%; height: 100%; object-fit: contain; display: block; }
     .oss-featured-title { font-size: 1.05rem; font-weight: 700; color: var(--text); line-height: 1.3; }
@@ -3780,7 +3792,7 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
     <section class="section" id="opensource">
       <div class="section-label" data-i18n="oss.label">Open Source</div>
       <h2 class="section-title" data-i18n="oss.title">GitHub Projects</h2>
-      <p class="about-text" data-i18n="oss.intro">Most public demo apps are too simple to test meaningfully. I built TestFlow to change that — a realistic web application with authentication, multi-role workflows, and API layers that mirror what you'd find in production. Six automation suites run against it: Cypress, Playwright, PyTest, Appium, k6 and Selenium. The app ships as a Docker image so anyone can spin it up in seconds.</p>
+      <p class="about-text" data-i18n="oss.intro">Most public demo apps are too simple to test meaningfully. I built TestFlow to change that — a realistic web application with authentication, multi-role workflows, and API layers that mirror what you'd find in production. Six automation suites run against it: Cypress, Playwright, PyTest, Appium, k6 and Selenium. On top of that, <strong>testflow-ai</strong> adds agentic QA strategy design (risk → layers → CI → Playwright). The app ships as a Docker image so anyone can spin it up in seconds.</p>
       <p class="oss-audience" data-i18n="oss.audience"><strong>Who it's for:</strong> QA engineers learning Cypress, Playwright, PyTest, Appium, k6 or Selenium, interview prep, workshops, and anyone who wants a production-like sandbox without building the app from scratch.</p>
 
       <div class="oss-subsection" id="oss-testflow">
@@ -3872,20 +3884,16 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
         <!-- TestFlow app — full-width featured card -->
         <div class="oss-card oss-card-featured">
           <div class="oss-featured-left">
-            <div class="oss-featured-hero">
-              <div class="oss-logo-lg">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker" />
-              </div>
-              <div>
-                <div class="oss-featured-title">
-                  <a href="https://github.com/qaschoolbr/testflow" target="_blank" rel="noopener">qaschoolbr / testflow</a>
+            <div class="oss-card-top">
+              <div class="oss-card-name-group">
+                <div class="oss-logo-lg">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker" />
                 </div>
-                <div class="oss-badges" style="margin-top: 6px;">
-                  <span class="badge badge-blue" data-i18n="oss.badge.app">app</span>
-                  <span class="oss-lang">Node.js</span>
-                  <span class="oss-lang">Express</span>
-                </div>
+                <span class="oss-card-name">TestFlow Docker Image</span>
               </div>
+            </div>
+            <div class="oss-repo-name">
+              <a href="https://github.com/qaschoolbr/testflow" target="_blank" rel="noopener">qaschoolbr / testflow</a>
             </div>
             <p class="oss-desc" data-i18n="oss.testflow.desc">Web sandbox built for QA automation practice — the target app for testflow-cypress, testflow-playwright, testflow-pytest, testflow-appium, testflow-k6 and testflow-selenium.</p>
             <div class="oss-shield-row">
@@ -3938,15 +3946,61 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
           </div>
         </div>
 
+        <!-- testflow-ai — QA strategy agents (featured) -->
+        <div class="oss-card oss-card--wide" id="oss-testflow-ai">
+          <div class="oss-ai-flow">
+            <img src="assets/testflow-ai-hero.jpg" alt="Planner → Generator → Reviewer → Healer" />
+          </div>
+          <div class="oss-card-top">
+            <div class="oss-card-name-group">
+              <div class="oss-logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:26px;height:26px;color:var(--accent);">
+                  <path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/>
+                </svg>
+              </div>
+              <span class="oss-card-name">TestFlow Agentic AI</span>
+            </div>
+            <div class="oss-badges">
+              <span class="badge badge-blue" data-i18n="oss.badge.ai">AI agents</span>
+              <span class="badge badge-green">TypeScript</span>
+            </div>
+          </div>
+          <div class="oss-repo-name">
+            <a href="https://github.com/lflucasferreira/testflow-ai" target="_blank" rel="noopener">lflucasferreira / testflow-ai</a>
+          </div>
+          <p class="oss-desc" data-i18n="oss.testflowai.desc">Agentic QA toolkit for <strong>test strategy system design</strong>: business-rules in → detect <code>SYS-*</code> → risk-first strategy (pyramid, data, CI, ownership, release, metrics) → scenario plan → Playwright generation for justified UI-E2E → review + heal. Cursor commands (<code>/testflow-plan</code>, <code>/testflow-coverage</code>, …) and Copilot agents/skills. Complements the TestFlow suites — it designs <em>what</em> to automate before the runners execute.</p>
+          <span class="oss-target-note" data-i18n="oss.testflowai.note">↗ strategy &amp; specs repo · not a runner against :5050</span>
+          <div class="oss-shield-row" style="margin-top:2px;">
+            <a href="https://github.com/lflucasferreira/testflow-ai/actions" target="_blank" rel="noopener">
+              <img src="https://github.com/lflucasferreira/testflow-ai/actions/workflows/testflow-ci.yml/badge.svg" alt="CI Status"
+                onerror="this.src='https://img.shields.io/badge/CI-passing-34d399?style=flat-square&logo=githubactions&logoColor=white'" />
+            </a>
+            <span class="oss-shield" data-gh-repo="lflucasferreira/testflow-ai">
+              <span class="oss-shield-label" data-i18n="oss.badge.updated">updated</span>
+              <span class="oss-shield-value is-loading">…</span>
+            </span>
+          </div>
+          <div class="oss-tags">
+            <span class="oss-tag oss-tag-accent" data-i18n="oss.testflowai.tag.strategy">QA system design</span>
+            <span class="oss-tag">AI Agents</span>
+            <span class="oss-tag">Playwright</span>
+            <span class="oss-tag">Cursor Skills</span>
+            <span class="oss-tag">GitHub Actions</span>
+            <span class="oss-tag oss-tag-green" data-i18n="oss.testflowai.tag.agents">planner · generator · healer</span>
+          </div>
+        </div>
+
         <!-- testflow-cypress -->
         <div class="oss-card">
           <div class="oss-card-top">
-            <div class="oss-logo">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cypressio/cypressio-original.svg" alt="Cypress" />
+            <div class="oss-card-name-group">
+              <div class="oss-logo">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cypressio/cypressio-original.svg" alt="Cypress" />
+              </div>
+              <span class="oss-card-name">Cypress</span>
             </div>
             <div class="oss-badges">
-              <span class="badge badge-green" data-i18n="oss.badge.active">active</span>
-              <span class="oss-lang">JavaScript</span>
+              <span class="badge badge-green">JavaScript</span>
             </div>
           </div>
           <div class="oss-repo-name">
@@ -3959,15 +4013,14 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
               <img src="https://github.com/lflucasferreira/testflow-cypress/actions/workflows/cypress.yml/badge.svg" alt="CI Status"
                 onerror="this.src='https://img.shields.io/badge/CI-passing-34d399?style=flat-square&logo=githubactions&logoColor=white'" />
             </a>
-            <a href="https://cloud.cypress.io/projects/jb6cfs/runs" target="_blank" rel="noopener">
-              <img src="https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/detailed/jb6cfs&style=flat&logo=cypress" alt="Cypress Cloud" />
-            </a>
             <span class="oss-shield" data-gh-repo="lflucasferreira/testflow-cypress">
               <span class="oss-shield-label" data-i18n="oss.badge.updated">updated</span>
               <span class="oss-shield-value is-loading">…</span>
             </span>
+            <a href="https://cloud.cypress.io/projects/jb6cfs/runs" target="_blank" rel="noopener">
+              <img src="https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/detailed/jb6cfs&style=flat&logo=cypress" alt="Cypress Cloud" />
+            </a>
           </div>
-          <a href="https://github.com/lflucasferreira/testflow-cypress/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.view.commits">↗ View commit history</a>
           <div class="oss-tags">
             <span class="oss-tag oss-tag-accent">Cypress 15</span>
             <span class="oss-tag">JavaScript</span>
@@ -3982,12 +4035,14 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
         <!-- testflow-playwright -->
         <div class="oss-card">
           <div class="oss-card-top">
-            <div class="oss-logo">
-              <img src="https://playwright.dev/img/playwright-logo.svg" alt="Playwright" />
+            <div class="oss-card-name-group">
+              <div class="oss-logo">
+                <img src="https://playwright.dev/img/playwright-logo.svg" alt="Playwright" />
+              </div>
+              <span class="oss-card-name">Playwright</span>
             </div>
             <div class="oss-badges">
-              <span class="badge badge-green" data-i18n="oss.badge.active">active</span>
-              <span class="oss-lang">TypeScript</span>
+              <span class="badge badge-green">TypeScript</span>
             </div>
           </div>
           <div class="oss-repo-name">
@@ -4005,7 +4060,6 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
               <span class="oss-shield-value is-loading">…</span>
             </span>
           </div>
-          <a href="https://github.com/lflucasferreira/testflow-playwright/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.view.commits">↗ View commit history</a>
           <div class="oss-tags">
             <span class="oss-tag oss-tag-accent">Playwright</span>
             <span class="oss-tag">TypeScript</span>
@@ -4018,13 +4072,15 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
         <!-- testflow-pytest -->
         <div class="oss-card">
           <div class="oss-card-top">
-            <div class="oss-logo">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg" alt="PyTest"
-                onerror="this.src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg'" />
+            <div class="oss-card-name-group">
+              <div class="oss-logo">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg" alt="PyTest"
+                  onerror="this.src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg'" />
+              </div>
+              <span class="oss-card-name">Pytest</span>
             </div>
             <div class="oss-badges">
-              <span class="badge badge-green" data-i18n="oss.badge.active">active</span>
-              <span class="oss-lang">Python</span>
+              <span class="badge badge-green">Python</span>
             </div>
           </div>
           <div class="oss-repo-name">
@@ -4042,7 +4098,6 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
               <span class="oss-shield-value is-loading">…</span>
             </span>
           </div>
-          <a href="https://github.com/lflucasferreira/testflow-pytest/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.view.commits">↗ View commit history</a>
           <div class="oss-tags">
             <span class="oss-tag oss-tag-accent">PyTest</span>
             <span class="oss-tag">Python 3.11+</span>
@@ -4057,12 +4112,14 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
         <!-- testflow-appium -->
         <div class="oss-card">
           <div class="oss-card-top">
-            <div class="oss-logo">
-              <img src="assets/appium-logo.png" alt="Appium" />
+            <div class="oss-card-name-group">
+              <div class="oss-logo">
+                <img src="assets/appium-logo.png" alt="Appium" />
+              </div>
+              <span class="oss-card-name">Appium</span>
             </div>
             <div class="oss-badges">
-              <span class="badge badge-green" data-i18n="oss.badge.active">active</span>
-              <span class="oss-lang">TypeScript</span>
+              <span class="badge badge-green">TypeScript</span>
             </div>
           </div>
           <div class="oss-repo-name">
@@ -4080,7 +4137,6 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
               <span class="oss-shield-value is-loading">…</span>
             </span>
           </div>
-          <a href="https://github.com/lflucasferreira/testflow-appium/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.view.commits">↗ View commit history</a>
           <div class="oss-tags">
             <span class="oss-tag oss-tag-accent">Appium 2</span>
             <span class="oss-tag">WebdriverIO</span>
@@ -4095,13 +4151,15 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
         <!-- testflow-k6 -->
         <div class="oss-card oss-card--wide">
           <div class="oss-card-top">
-            <div class="oss-logo">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/k6/k6-original.svg" alt="k6"
-                onerror="this.parentElement.innerHTML='<span style=\'font-size:1.1rem;font-weight:800;color:#7c3aed;font-family:monospace;\'>k6</span>'" />
+            <div class="oss-card-name-group">
+              <div class="oss-logo">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/k6/k6-original.svg" alt="k6"
+                  onerror="this.parentElement.innerHTML='<span style=\'font-size:1.1rem;font-weight:800;color:#7c3aed;font-family:monospace;\'>k6</span>'" />
+              </div>
+              <span class="oss-card-name">k6</span>
             </div>
             <div class="oss-badges">
-              <span class="badge badge-green" data-i18n="oss.badge.active">active</span>
-              <span class="oss-lang">JavaScript</span>
+              <span class="badge badge-green">JavaScript</span>
             </div>
           </div>
           <div class="oss-repo-name">
@@ -4119,7 +4177,6 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
               <span class="oss-shield-value is-loading">…</span>
             </span>
           </div>
-          <a href="https://github.com/lflucasferreira/testflow-k6/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.view.commits">↗ View commit history</a>
           <div class="oss-tags">
             <span class="oss-tag oss-tag-accent">k6</span>
             <span class="oss-tag">JavaScript</span>
@@ -4157,15 +4214,17 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
         <!-- rest-assured — Spring Petclinic REST API -->
         <div class="oss-card">
           <div class="oss-card-top">
-            <div class="oss-logo">
-              <span class="ra-logo">
-                <img class="ra-logo__img ra-logo__img--light" src="assets/rest-assured-logo-light.png" alt="REST Assured" />
-                <img class="ra-logo__img ra-logo__img--dark" src="assets/rest-assured-logo-dark.png" alt="" aria-hidden="true" />
-              </span>
+            <div class="oss-card-name-group">
+              <div class="oss-logo">
+                <span class="ra-logo">
+                  <img class="ra-logo__img ra-logo__img--light" src="assets/rest-assured-logo-light.png" alt="REST Assured" />
+                  <img class="ra-logo__img ra-logo__img--dark" src="assets/rest-assured-logo-dark.png" alt="" aria-hidden="true" />
+                </span>
+              </div>
+              <span class="oss-card-name">Rest Assured</span>
             </div>
             <div class="oss-badges">
-              <span class="badge badge-green" data-i18n="oss.badge.active">active</span>
-              <span class="oss-lang">Java 17</span>
+              <span class="badge badge-green">Java 17</span>
             </div>
           </div>
           <div class="oss-repo-name">
@@ -4183,7 +4242,6 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
               <span class="oss-shield-value is-loading">…</span>
             </span>
           </div>
-          <a href="https://github.com/lflucasferreira/rest-assured/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.view.commits">↗ View commit history</a>
           <div class="oss-tags">
             <span class="oss-tag oss-tag-accent">Rest Assured 5</span>
             <span class="oss-tag">JUnit 5</span>
@@ -4214,12 +4272,14 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
         <!-- testflow-selenium -->
         <div class="oss-card">
           <div class="oss-card-top">
-            <div class="oss-logo">
-              <img src="assets/selenium-logo.png" alt="Selenium" />
+            <div class="oss-card-name-group">
+              <div class="oss-logo">
+                <img src="assets/selenium-logo.png" alt="Selenium" />
+              </div>
+              <span class="oss-card-name">Selenium</span>
             </div>
             <div class="oss-badges">
-              <span class="badge badge-green" data-i18n="oss.badge.active">active</span>
-              <span class="oss-lang">JavaScript</span>
+              <span class="badge badge-green">JavaScript</span>
             </div>
           </div>
           <div class="oss-repo-name">
@@ -4237,7 +4297,6 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
               <span class="oss-shield-value is-loading">…</span>
             </span>
           </div>
-          <a href="https://github.com/lflucasferreira/testflow-selenium/commits/main/" target="_blank" rel="noopener" class="oss-commit-link" data-i18n="oss.view.commits">↗ View commit history</a>
           <div class="oss-tags">
             <span class="oss-tag oss-tag-accent">Selenium WebDriver 4</span>
             <span class="oss-tag">JavaScript</span>
@@ -4701,7 +4760,7 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
         'oss.label': 'Open Source', 'oss.title': 'GitHub Projects',
         'oss.testflow.section': 'TestFlow',
         'oss.qametrics.section': 'QA Metrics · TCC',
-        'oss.intro': 'Most public demo apps are too simple to test meaningfully. I built TestFlow to change that — a realistic web application with authentication, multi-role workflows, and API layers that mirror what you\'d find in production. Six automation suites run against it: Cypress, Playwright, PyTest, Appium, k6 and Selenium. The app ships as a Docker image so anyone can spin it up in seconds.',
+        'oss.intro': 'Most public demo apps are too simple to test meaningfully. I built TestFlow to change that — a realistic web application with authentication, multi-role workflows, and API layers that mirror what you\'d find in production. Six automation suites run against it: Cypress, Playwright, PyTest, Appium, k6 and Selenium. On top of that, <strong>testflow-ai</strong> adds agentic QA strategy design (risk → layers → CI → Playwright). The app ships as a Docker image so anyone can spin it up in seconds.',
         'oss.audience': '<strong>Who it\'s for:</strong> QA engineers learning Cypress, Playwright, PyTest, Appium, k6 or Selenium, interview prep, workshops, and anyone who wants a production-like sandbox without building the app from scratch.',
         'oss.ecosystem.label': 'TestFlow ecosystem',
         'oss.ecosystem.app': 'Target app · Docker image',
@@ -4712,6 +4771,11 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
         'oss.ecosystem.k6': 'k6 · SLO · load & performance',
         'oss.ecosystem.selenium': 'Selenium 4 · Mocha · POM',
         'oss.testflow.desc': 'Web sandbox built for QA automation practice — the target app for testflow-cypress, testflow-playwright, testflow-pytest, testflow-appium, testflow-k6 and testflow-selenium.',
+        'oss.testflowai.desc': 'Agentic QA toolkit for <strong>test strategy system design</strong>: business-rules in → detect <code>SYS-*</code> → risk-first strategy (pyramid, data, CI, ownership, release, metrics) → scenario plan → Playwright generation for justified UI-E2E → review + heal. Cursor commands (<code>/testflow-plan</code>, <code>/testflow-coverage</code>, …) and Copilot agents/skills. Complements the TestFlow suites — it designs <em>what</em> to automate before the runners execute.',
+        'oss.testflowai.note': '↗ strategy &amp; specs repo · not a runner against :5050',
+        'oss.testflowai.tag.strategy': 'QA system design',
+        'oss.testflowai.tag.agents': 'planner · generator · healer',
+        'oss.badge.ai': 'AI agents',
         'oss.cypress.desc': 'Cypress 15 E2E + component suite: smoke, auth, dashboard, team, wizard, API, a11y, visual regression via Percy. Parallel CI on GitHub Actions — results recorded to Cypress Cloud with Test Replay.',
         'oss.playwright.desc': 'Playwright TypeScript suite — mirror of the Cypress coverage with POM, axe-core a11y, visual regression and cross-browser projects (Chromium / Firefox / WebKit). 17 parallel CI matrix jobs across smoke, auth, API, wizard, a11y and visual.',
         'oss.pytest.desc': 'PyTest + Playwright for Python suite for TestFlow — mirror of the Cypress and Playwright coverage with Page Object Model, fixtures, factories and <code>data-testid</code> selectors. 12 suites: smoke, auth, dashboard, team, settings, components, wizard, activity, advanced, states, API and visual regression. axe-playwright a11y, pytest markers (<code>@smoke</code>, <code>@critical</code>, <code>@a11y</code>) and traceable <code>[TC-xxxx]</code> ids. GitHub Actions parallel matrix against <code>qaschool/testflow</code> @ :5050.',
@@ -4719,11 +4783,9 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
         'oss.k6.desc': 'k6 performance suite for TestFlow — smoke CI gate, load (auth/users/mixed), stress, spike and soak scenarios, multi-step journeys and k6 browser login. SLO thresholds for P95 latency and error rate; GitHub Actions smoke on push/PR plus manual load profiles. Mirrors functional API coverage on <code>/health</code>, <code>/api/auth/login</code> and <code>/api/users</code> @ :5050.',
         'oss.badge.app': 'app',
         'oss.badge.updated': 'updated',
-        'oss.badge.active': 'active',
         'oss.badge.scaffold': 'scaffold',
         'oss.badge.planned': 'planned',
         'oss.runs.against': '↗ runs against testflow @ :5050',
-        'oss.view.commits': '↗ View commit history',
         'oss.cypress.tag.specs': '22 spec files',
         'oss.playwright.tag.projects': '17 projects',
         'oss.pytest.tag.suites': '12 suites',
@@ -5093,7 +5155,7 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
         'oss.label': 'Open Source', 'oss.title': 'Projetos no GitHub',
         'oss.testflow.section': 'TestFlow',
         'oss.qametrics.section': 'QA Metrics · TCC',
-        'oss.intro': 'A maioria dos apps de demo públicos é simples demais para testar de forma significativa. Construí o TestFlow para mudar isso — uma aplicação web realista com autenticação, fluxos multi-role e camadas de API que espelham o que você encontra em produção. Seis suítes de automação rodam contra ela: Cypress, Playwright, PyTest, Appium, k6 e Selenium. O app é distribuído como imagem Docker — qualquer pessoa sobe em segundos.',
+        'oss.intro': 'A maioria dos apps de demo públicos é simples demais para testar de forma significativa. Construí o TestFlow para mudar isso — uma aplicação web realista com autenticação, fluxos multi-role e camadas de API que espelham o que você encontra em produção. Seis suítes de automação rodam contra ela: Cypress, Playwright, PyTest, Appium, k6 e Selenium. Por cima disso, o <strong>testflow-ai</strong> adiciona desenho agentic de estratégia de QA (risco → camadas → CI → Playwright). O app é distribuído como imagem Docker — qualquer pessoa sobe em segundos.',
         'oss.audience': '<strong>Para quem é:</strong> QAs aprendendo Cypress, Playwright, PyTest, Appium, k6 ou Selenium, preparação para entrevistas, workshops e quem quer um sandbox realista sem precisar construir o app do zero.',
         'oss.ecosystem.label': 'Ecossistema TestFlow',
         'oss.ecosystem.app': 'App-alvo · imagem Docker',
@@ -5104,6 +5166,11 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
         'oss.ecosystem.k6': 'k6 · SLO · carga & performance',
         'oss.ecosystem.selenium': 'Selenium 4 · Mocha · POM',
         'oss.testflow.desc': 'Sandbox web para prática de automação de QA — app-alvo das suítes testflow-cypress, testflow-playwright, testflow-pytest, testflow-appium, testflow-k6 e testflow-selenium.',
+        'oss.testflowai.desc': 'Toolkit agentic de QA para <strong>system design de estratégia de testes</strong>: regras de negócio → detecta <code>SYS-*</code> → strategy orientada a risco (pirâmide, dados, CI, ownership, release, métricas) → plano de cenários → geração Playwright para UI-E2E justificado → review + heal. Commands no Cursor (<code>/testflow-plan</code>, <code>/testflow-coverage</code>, …) e agents/skills no Copilot. Complementa as suítes TestFlow — desenha <em>o que</em> automatizar antes dos runners executarem.',
+        'oss.testflowai.note': '↗ repo de strategy &amp; specs · não é runner contra :5050',
+        'oss.testflowai.tag.strategy': 'QA system design',
+        'oss.testflowai.tag.agents': 'planner · generator · healer',
+        'oss.badge.ai': 'AI agents',
         'oss.cypress.desc': 'Suíte Cypress 15 E2E + component: smoke, auth, dashboard, team, wizard, API, a11y, regressão visual via Percy. CI paralelo no GitHub Actions — resultados gravados no Cypress Cloud com Test Replay.',
         'oss.playwright.desc': 'Suíte Playwright em TypeScript — espelho da cobertura Cypress com POM, a11y com axe-core, regressão visual e projetos cross-browser (Chromium / Firefox / WebKit). 17 jobs paralelos de CI em smoke, auth, API, wizard, a11y e visual.',
         'oss.pytest.desc': 'Suíte PyTest + Playwright for Python para o TestFlow — espelho das coberturas Cypress e Playwright com Page Object Model, fixtures, factories e seletores <code>data-testid</code>. 12 suítes: smoke, auth, dashboard, team, settings, components, wizard, activity, advanced, states, API e regressão visual. a11y com axe-playwright, markers pytest (<code>@smoke</code>, <code>@critical</code>, <code>@a11y</code>) e ids rastreáveis <code>[TC-xxxx]</code>. Matrix paralela no GitHub Actions contra <code>qaschool/testflow</code> @ :5050.',
@@ -5111,11 +5178,9 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
         'oss.k6.desc': 'Suíte k6 de performance para o TestFlow — smoke como gate de CI, load (auth/users/mixed), stress, spike e soak, jornadas multi-step e login com k6 browser. Thresholds SLO de P95 e taxa de erro; GitHub Actions com smoke em push/PR e profiles de carga manual. Espelha a cobertura funcional de API em <code>/health</code>, <code>/api/auth/login</code> e <code>/api/users</code> @ :5050.',
         'oss.badge.app': 'app',
         'oss.badge.updated': 'atualizado',
-        'oss.badge.active': 'ativo',
         'oss.badge.scaffold': 'scaffold',
         'oss.badge.planned': 'planejado',
         'oss.runs.against': '↗ roda contra testflow @ :5050',
-        'oss.view.commits': '↗ Ver histórico de commits',
         'oss.cypress.tag.specs': '22 spec files',
         'oss.playwright.tag.projects': '17 projetos',
         'oss.pytest.tag.suites': '12 suítes',
