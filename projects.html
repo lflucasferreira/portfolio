@@ -3219,7 +3219,8 @@
       display: grid;
       place-items: center;
     }
-    .toc-rail-icon svg { width: 18px; height: 18px; }
+    .toc-rail-icon svg,
+    .toc-rail-icon img { width: 18px; height: 18px; object-fit: contain; display: block; }
     .toc-rail-text {
       display: none;
       font-size: 0.78rem;
@@ -3227,6 +3228,18 @@
       white-space: nowrap;
     }
     .toc-rail.is-open .toc-rail-text { display: block; }
+
+    /* Closed rail: icon column only — no nested indent */
+    .toc-rail:not(.is-open) a {
+      justify-content: center;
+      padding: 0;
+      min-height: 36px;
+    }
+    .toc-rail:not(.is-open) a.toc-h3,
+    .toc-rail:not(.is-open) a.toc-h4 {
+      padding-left: 0;
+      min-height: 36px;
+    }
 
     .oss-subsection {
       margin-top: 36px;
@@ -3247,6 +3260,11 @@
       min-height: 34px;
     }
     .toc-rail a.toc-h3 .toc-rail-text { font-size: 0.72rem; }
+    .toc-rail a.toc-h4 {
+      padding-left: 28px;
+      min-height: 30px;
+    }
+    .toc-rail a.toc-h4 .toc-rail-text { font-size: 0.68rem; opacity: 0.92; }
 
     .page-banner {
       max-width: 960px;
@@ -3881,8 +3899,52 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
 
       <div class="oss-grid">
 
+        <!-- testflow-ai — QA strategy agents (featured) -->
+        <div class="oss-card oss-card--wide" id="oss-testflow-ai">
+          <div class="oss-ai-flow">
+            <img src="assets/testflow-ai-hero.jpg" alt="Planner → Generator → Reviewer → Healer" />
+          </div>
+          <div class="oss-card-top">
+            <div class="oss-card-name-group">
+              <div class="oss-logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:26px;height:26px;color:var(--accent);">
+                  <path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/>
+                </svg>
+              </div>
+              <span class="oss-card-name">TestFlow Agentic AI</span>
+            </div>
+            <div class="oss-badges">
+              <span class="badge badge-blue" data-i18n="oss.badge.ai">AI agents</span>
+              <span class="badge badge-green">TypeScript</span>
+            </div>
+          </div>
+          <div class="oss-repo-name">
+            <a href="https://github.com/lflucasferreira/testflow-ai" target="_blank" rel="noopener">lflucasferreira / testflow-ai</a>
+          </div>
+          <p class="oss-desc" data-i18n="oss.testflowai.desc">Agentic QA toolkit for <strong>test strategy system design</strong>: business-rules in → detect <code>SYS-*</code> → risk-first strategy (pyramid, data, CI, ownership, release, metrics) → scenario plan → Playwright generation for justified UI-E2E → review + heal. Cursor commands (<code>/testflow-plan</code>, <code>/testflow-coverage</code>, …) and Copilot agents/skills. Complements the TestFlow suites — it designs <em>what</em> to automate before the runners execute.</p>
+          <span class="oss-target-note" data-i18n="oss.testflowai.note">↗ strategy &amp; specs repo · not a runner against :5050</span>
+          <div class="oss-shield-row" style="margin-top:2px;">
+            <a href="https://github.com/lflucasferreira/testflow-ai/actions" target="_blank" rel="noopener">
+              <img src="https://github.com/lflucasferreira/testflow-ai/actions/workflows/testflow-ci.yml/badge.svg" alt="CI Status"
+                onerror="this.src='https://img.shields.io/badge/CI-passing-34d399?style=flat-square&logo=githubactions&logoColor=white'" />
+            </a>
+            <span class="oss-shield" data-gh-repo="lflucasferreira/testflow-ai">
+              <span class="oss-shield-label" data-i18n="oss.badge.updated">updated</span>
+              <span class="oss-shield-value is-loading">…</span>
+            </span>
+          </div>
+          <div class="oss-tags">
+            <span class="oss-tag oss-tag-accent" data-i18n="oss.testflowai.tag.strategy">QA system design</span>
+            <span class="oss-tag">AI Agents</span>
+            <span class="oss-tag">Playwright</span>
+            <span class="oss-tag">Cursor Skills</span>
+            <span class="oss-tag">GitHub Actions</span>
+            <span class="oss-tag oss-tag-green" data-i18n="oss.testflowai.tag.agents">planner · generator · healer</span>
+          </div>
+        </div>
+
         <!-- TestFlow app — full-width featured card -->
-        <div class="oss-card oss-card-featured">
+        <div class="oss-card oss-card-featured" id="oss-testflow-docker">
           <div class="oss-featured-left">
             <div class="oss-card-top">
               <div class="oss-card-name-group">
@@ -3946,52 +4008,8 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
           </div>
         </div>
 
-        <!-- testflow-ai — QA strategy agents (featured) -->
-        <div class="oss-card oss-card--wide" id="oss-testflow-ai">
-          <div class="oss-ai-flow">
-            <img src="assets/testflow-ai-hero.jpg" alt="Planner → Generator → Reviewer → Healer" />
-          </div>
-          <div class="oss-card-top">
-            <div class="oss-card-name-group">
-              <div class="oss-logo">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:26px;height:26px;color:var(--accent);">
-                  <path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/>
-                </svg>
-              </div>
-              <span class="oss-card-name">TestFlow Agentic AI</span>
-            </div>
-            <div class="oss-badges">
-              <span class="badge badge-blue" data-i18n="oss.badge.ai">AI agents</span>
-              <span class="badge badge-green">TypeScript</span>
-            </div>
-          </div>
-          <div class="oss-repo-name">
-            <a href="https://github.com/lflucasferreira/testflow-ai" target="_blank" rel="noopener">lflucasferreira / testflow-ai</a>
-          </div>
-          <p class="oss-desc" data-i18n="oss.testflowai.desc">Agentic QA toolkit for <strong>test strategy system design</strong>: business-rules in → detect <code>SYS-*</code> → risk-first strategy (pyramid, data, CI, ownership, release, metrics) → scenario plan → Playwright generation for justified UI-E2E → review + heal. Cursor commands (<code>/testflow-plan</code>, <code>/testflow-coverage</code>, …) and Copilot agents/skills. Complements the TestFlow suites — it designs <em>what</em> to automate before the runners execute.</p>
-          <span class="oss-target-note" data-i18n="oss.testflowai.note">↗ strategy &amp; specs repo · not a runner against :5050</span>
-          <div class="oss-shield-row" style="margin-top:2px;">
-            <a href="https://github.com/lflucasferreira/testflow-ai/actions" target="_blank" rel="noopener">
-              <img src="https://github.com/lflucasferreira/testflow-ai/actions/workflows/testflow-ci.yml/badge.svg" alt="CI Status"
-                onerror="this.src='https://img.shields.io/badge/CI-passing-34d399?style=flat-square&logo=githubactions&logoColor=white'" />
-            </a>
-            <span class="oss-shield" data-gh-repo="lflucasferreira/testflow-ai">
-              <span class="oss-shield-label" data-i18n="oss.badge.updated">updated</span>
-              <span class="oss-shield-value is-loading">…</span>
-            </span>
-          </div>
-          <div class="oss-tags">
-            <span class="oss-tag oss-tag-accent" data-i18n="oss.testflowai.tag.strategy">QA system design</span>
-            <span class="oss-tag">AI Agents</span>
-            <span class="oss-tag">Playwright</span>
-            <span class="oss-tag">Cursor Skills</span>
-            <span class="oss-tag">GitHub Actions</span>
-            <span class="oss-tag oss-tag-green" data-i18n="oss.testflowai.tag.agents">planner · generator · healer</span>
-          </div>
-        </div>
-
         <!-- testflow-cypress -->
-        <div class="oss-card">
+        <div class="oss-card" id="oss-testflow-cypress">
           <div class="oss-card-top">
             <div class="oss-card-name-group">
               <div class="oss-logo">
@@ -4033,7 +4051,7 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
         </div>
 
         <!-- testflow-playwright -->
-        <div class="oss-card">
+        <div class="oss-card" id="oss-testflow-playwright">
           <div class="oss-card-top">
             <div class="oss-card-name-group">
               <div class="oss-logo">
@@ -4070,7 +4088,7 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
         </div>
 
         <!-- testflow-pytest -->
-        <div class="oss-card">
+        <div class="oss-card" id="oss-testflow-pytest">
           <div class="oss-card-top">
             <div class="oss-card-name-group">
               <div class="oss-logo">
@@ -4110,7 +4128,7 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
         </div>
 
         <!-- testflow-appium -->
-        <div class="oss-card">
+        <div class="oss-card" id="oss-testflow-appium">
           <div class="oss-card-top">
             <div class="oss-card-name-group">
               <div class="oss-logo">
@@ -4149,7 +4167,7 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
         </div>
 
         <!-- testflow-k6 -->
-        <div class="oss-card oss-card--wide">
+        <div class="oss-card oss-card--wide" id="oss-testflow-k6">
           <div class="oss-card-top">
             <div class="oss-card-name-group">
               <div class="oss-logo">
@@ -4212,7 +4230,7 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
         </div>
 
         <!-- rest-assured — Spring Petclinic REST API -->
-        <div class="oss-card">
+        <div class="oss-card" id="oss-rest-assured">
           <div class="oss-card-top">
             <div class="oss-card-name-group">
               <div class="oss-logo">
@@ -4270,7 +4288,7 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
         </div>
 
         <!-- testflow-selenium -->
-        <div class="oss-card">
+        <div class="oss-card" id="oss-testflow-selenium">
           <div class="oss-card-top">
             <div class="oss-card-name-group">
               <div class="oss-logo">
@@ -5805,6 +5823,27 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
 
       ICONS['oss-testflow'] = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>';
       ICONS['oss-qametrics'] = ICONS.metrics;
+      ICONS['oss-testflow-ai'] = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>';
+      ICONS['oss-testflow-docker'] = '<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="">';
+      ICONS['oss-testflow-cypress'] = '<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cypressio/cypressio-original.svg" alt="">';
+      ICONS['oss-testflow-playwright'] = '<img src="https://playwright.dev/img/playwright-logo.svg" alt="">';
+      ICONS['oss-testflow-pytest'] = '<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg" alt="">';
+      ICONS['oss-testflow-appium'] = '<img src="assets/appium-logo.png" alt="">';
+      ICONS['oss-testflow-k6'] = '<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/k6/k6-original.svg" alt="">';
+      ICONS['oss-rest-assured'] = '<img src="assets/rest-assured-logo-light.png" alt="">';
+      ICONS['oss-testflow-selenium'] = '<img src="assets/selenium-logo.png" alt="">';
+
+      const TESTFLOW_TOC_ORDER = [
+        'oss-testflow-ai',
+        'oss-testflow-docker',
+        'oss-testflow-cypress',
+        'oss-testflow-playwright',
+        'oss-testflow-pytest',
+        'oss-testflow-appium',
+        'oss-testflow-k6',
+        'oss-rest-assured',
+        'oss-testflow-selenium',
+      ];
 
       const sectionItems = [];
       root.querySelectorAll('section.section[id]').forEach((sec) => {
@@ -5815,12 +5854,23 @@ docker run -p 8080:8080 -p 50000:50000 --restart=on-failure \
           const subLabel = sub.querySelector('.oss-subsection-title, h3');
           const subText = (subLabel?.textContent || sub.id).trim().replace(/\s+/g, ' ');
           sectionItems.push({ id: sub.id, text: subText, level: 3 });
+          if (sub.id === 'oss-testflow') {
+            const cards = [...sub.querySelectorAll('.oss-card[id]')].filter((c) =>
+              TESTFLOW_TOC_ORDER.includes(c.id)
+            );
+            cards.sort((a, b) => TESTFLOW_TOC_ORDER.indexOf(a.id) - TESTFLOW_TOC_ORDER.indexOf(b.id));
+            cards.forEach((card) => {
+              const name = card.querySelector('.oss-card-name');
+              const cardText = (name?.textContent || card.id).trim().replace(/\s+/g, ' ');
+              sectionItems.push({ id: card.id, text: cardText, level: 4 });
+            });
+          }
         });
       });
 
       tocList.innerHTML = sectionItems.map(({ id, text, level }) => {
         const icon = ICONS[id] || FALLBACK;
-        const cls = level === 3 ? ' class="toc-h3"' : '';
+        const cls = level === 3 ? ' class="toc-h3"' : level === 4 ? ' class="toc-h4"' : '';
         return `<li><a${cls} href="#${id}" title="${text.replace(/"/g, '&quot;')}"><span class="toc-rail-icon" aria-hidden="true">${icon}</span><span class="toc-rail-text">${text}</span></a></li>`;
       }).join('');
 
